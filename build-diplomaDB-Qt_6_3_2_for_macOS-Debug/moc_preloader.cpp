@@ -1,30 +1,26 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'preloader.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 68 (Qt 6.3.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
-#include "preloader.h"
+#include "../src/preloader.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'preloader.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#error "This file was generated using the moc from 6.3.2. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_preloader_t {
     uint offsetsAndSizes[10];
     char stringdata0[10];
@@ -35,7 +31,7 @@ struct qt_meta_stringdata_preloader_t {
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_preloader_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_preloader_t qt_meta_stringdata_preloader = {
+static const qt_meta_stringdata_preloader_t qt_meta_stringdata_preloader = {
     {
         QT_MOC_LITERAL(0, 9),  // "preloader"
         QT_MOC_LITERAL(10, 16),  // "closeVideoWidget"
@@ -50,9 +46,8 @@ Q_CONSTINIT static const qt_meta_stringdata_preloader_t qt_meta_stringdata_prelo
     "status"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_preloader[] = {
+static const uint qt_meta_data_preloader[] = {
 
  // content:
       10,       // revision
@@ -74,22 +69,6 @@ Q_CONSTINIT static const uint qt_meta_data_preloader[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject preloader::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_preloader.offsetsAndSizes,
-    qt_meta_data_preloader,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_preloader_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<preloader, std::true_type>,
-        // method 'closeVideoWidget'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QMediaPlayer::MediaStatus, std::false_type>
-    >,
-    nullptr
-} };
-
 void preloader::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -101,6 +80,22 @@ void preloader::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         }
     }
 }
+
+const QMetaObject preloader::staticMetaObject = { {
+    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    qt_meta_stringdata_preloader.offsetsAndSizes,
+    qt_meta_data_preloader,
+    qt_static_metacall,
+    nullptr,
+qt_incomplete_metaTypeArray<qt_meta_stringdata_preloader_t
+, QtPrivate::TypeAndForceComplete<preloader, std::true_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QMediaPlayer::MediaStatus, std::false_type>
+
+
+>,
+    nullptr
+} };
+
 
 const QMetaObject *preloader::metaObject() const
 {
