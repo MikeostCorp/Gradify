@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/img"/>
+    <qresource prefix="/">
+        <file>img/AppIcon.icns</file>
+        <file>img/preloader.mp4</file>
+        <file>img/1.png</file>
+        <file>img/2.png</file>
+        <file>img/3.png</file>
+        <file>img/pinkMenuicon/settinfIco.png</file>
+        <file>img/whiteMenuIcon/settinfIco.png</file>
+        <file>img/mainLogo/mainIcox128.png</file>
+        <file>img/mainLogo/mainIcox510.png</file>
+        <file>img/mainLogo/mainIcox64.png</file>
+    </qresource>
+</RCC>

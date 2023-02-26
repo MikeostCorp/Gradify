@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">MainWindow
+{
+background-color: rgb(29, 31, 32);
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QFrame" name="leftMenuFrame">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>210</width>
+        <height>570</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>210</width>
+        <height>9999</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(41,45,48);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="upMenuFrame">
+         <property name="styleSheet">
+          <string notr="true">border: 0px</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="mainLogoImg">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>45</width>
+            <height>45</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>262</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  По студентам             </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/1.png</normaloff>:/img/1.png</iconset>
+          </property>
+          <property name="autoRepeatDelay">
+           <number>300</number>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>320</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  По оцінкам                   </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/3.png</normaloff>:/img/3.png</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>291</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  По викладачам           </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="thirdTableButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>172</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  Оцінки                          </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>242</y>
+            <width>51</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Звіти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="mainMenuLebel">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>20</y>
+            <width>111</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Data Base&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Нужно фиксануть&lt;br/&gt;качество лого&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>94</y>
+            <width>51</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Таблиці&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="firstTableButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>114</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  Студенти                     </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/1.png</normaloff>:/img/1.png</iconset>
+          </property>
+          <property name="autoRepeatDelay">
+           <number>300</number>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="secondTableButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>143</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  Викладачі                     </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="fourthTableButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>201</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  Групи                             </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalMenuSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="settingButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+</string>
+         </property>
+         <property name="text">
+          <string>  Налаштування          </string>
+         </property>
+         <property name="icon">
+          <iconset resource="recources.qrc">
+           <normaloff>:/img/pinkMenuicon/settinfIco.png</normaloff>:/img/pinkMenuicon/settinfIco.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalMenuSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>20</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <property name="bottomMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="minimumSize">
+         <size>
+          <width>710</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(41,45,48);
+border-radius: 16px; </string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>1</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:  6px;
+background-color: rgb(61,65,68);</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Тут фильтры либо ещё какая-то инфа&lt;br/&gt;кнопка для открытия отдельной формы для редактированния отдельной записи&lt;br/&gt;цвет можно поставить как у фрейма &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;МЕНЯЕТСЯ РАЗМЕР МЕДЛЕНЕЕ ЧЕМ У ТАБЛИЦЫ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>5</horstretch>
+             <verstretch>5</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:  6px;
+background-color:  rgb(255,255,255);</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#111111;&quot;&gt;Сама таблица (было бы круто её задизайнить)&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#111111;&quot;&gt;МЕНЯЕТСЯ РАЗМЕР БЫСТРЕЕ ВЫШЕ&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#111111;&quot;&gt;background-color: rgb(61,65,68); на фон бы&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#111111;&quot;&gt;ds&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="recources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
