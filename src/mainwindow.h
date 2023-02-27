@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QString>
 #include <QEvent>
+#include <QFile>
+
+#include <appsetting.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,18 +28,28 @@ private slots:
 
     void on_thirdTableButton_clicked();
 
+    void on_fourthTableButton_clicked();
+
     void clearStyleButtonTable();
 
-    void on_fourthTableButton_clicked();
+    void on_settingButton_clicked();
+
+    void setBlackUI();
+
+    void setWhiteUI();
 
 private:
     Ui::MainWindow *ui;
+    appSetting *openSetting;
 
-    bool appThemeStyle; // if false - dark, true - white;
-
+    int appThemeStyle; // if 0 - dark, 1 - white;
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
+    QString defaultSettingButtonStyle;
 
+
+public slots:
+    void setThemeUI(int style);
 
 };
 #endif // MAINWINDOW_H

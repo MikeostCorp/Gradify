@@ -58,7 +58,8 @@ background-color: rgb(29, 31, 32);
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(41,45,48);</string>
+       <string notr="true">background-color: rgb(41,45,48);
+border: 0px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -103,7 +104,7 @@ background-color: rgb(29, 31, 32);
            <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="reportFirstButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -151,13 +152,19 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/1.png</normaloff>:/img/1.png</iconset>
+            <normaloff>:/img/reportsIcon/reportStudent.png</normaloff>:/img/reportsIcon/reportStudent.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
           </property>
           <property name="autoRepeatDelay">
            <number>300</number>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="reportThirdButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -205,10 +212,16 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/3.png</normaloff>:/img/3.png</iconset>
+            <normaloff>:/img/reportsIcon/reportRaiting.png</normaloff>:/img/reportsIcon/reportRaiting.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="reportSecondButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -256,7 +269,13 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+            <normaloff>:/img/reportsIcon/reportTeachers.png</normaloff>:/img/reportsIcon/reportTeachers.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
           </property>
          </widget>
          <widget class="QPushButton" name="thirdTableButton">
@@ -307,7 +326,13 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+            <normaloff>:/img/pinkMenuicon/raitingIco.png</normaloff>:/img/pinkMenuicon/raitingIco.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
           </property>
          </widget>
          <widget class="QLabel" name="label_2">
@@ -332,7 +357,7 @@ QPushButton:hover
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Звіти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
-         <widget class="QLabel" name="mainMenuLebel">
+         <widget class="QLabel" name="mainMenuLebel_temp">
           <property name="geometry">
            <rect>
             <x>80</x>
@@ -411,11 +436,17 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>  Студенти                     </string>
+           <string>  Студенти                      </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/1.png</normaloff>:/img/1.png</iconset>
+            <normaloff>:/img/pinkMenuicon/studentsIco.png</normaloff>:/img/pinkMenuicon/studentsIco.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
           </property>
           <property name="autoRepeatDelay">
            <number>300</number>
@@ -469,7 +500,13 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+            <normaloff>:/img/pinkMenuicon/teachersIco.png</normaloff>:/img/pinkMenuicon/teachersIco.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
           </property>
          </widget>
          <widget class="QPushButton" name="fourthTableButton">
@@ -516,11 +553,74 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>  Групи                             </string>
+           <string>  Групи                            </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/2.png</normaloff>:/img/2.png</iconset>
+            <normaloff>:/img/pinkMenuicon/groupIco.png</normaloff>:/img/pinkMenuicon/groupIco.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="reportFourthButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>349</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>  По групам                    </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
           </property>
          </widget>
         </widget>
@@ -535,8 +635,8 @@ QPushButton:hover
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>20</height>
+           <width>0</width>
+           <height>1</height>
           </size>
          </property>
         </spacer>
@@ -547,7 +647,7 @@ QPushButton:hover
           <bool>true</bool>
          </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -556,13 +656,12 @@ QPushButton:hover
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-</string>
+          <string notr="true">QPushButton 
+{ border-radius:  6px; 
+border: 0px;
+ background-color:  rgb(41, 45, 48); 
+color:  rgb(255, 255, 255); 
+}</string>
          </property>
          <property name="text">
           <string>  Налаштування          </string>
@@ -589,7 +688,7 @@ QPushButton:hover
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
+           <width>0</width>
            <height>20</height>
           </size>
          </property>
@@ -616,7 +715,7 @@ QPushButton:hover
        <number>20</number>
       </property>
       <item>
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="mainTableFrame">
         <property name="minimumSize">
          <size>
           <width>710</width>
@@ -625,6 +724,7 @@ QPushButton:hover
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(41,45,48);
+border: 0px;
 border-radius: 16px; </string>
         </property>
         <property name="frameShape">
@@ -635,7 +735,7 @@ border-radius: 16px; </string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="label_6_temp">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>1</horstretch>
@@ -652,7 +752,7 @@ background-color: rgb(61,65,68);</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="label_7_temp">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>5</horstretch>

@@ -9,17 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    appsetting.cpp \
     main.cpp \
     mainwindow.cpp \
-    preloader.cpp 
+    preloader.cpp
 
 HEADERS += \
+    appsetting.h \
     mainwindow.h \
-    preloader.h 
+    preloader.h
 
 FORMS += \
+    appsetting.ui \
     mainwindow.ui \
-    preloader.ui 
+    preloader.ui
 
 
 # Default rules for deployment.
