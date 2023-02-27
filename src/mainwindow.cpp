@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 #include <QApplication>
- #include <QDir>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +11,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    mainWindowInit();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::mainWindowInit()
+{
     openSetting = new appSetting();
 
     this->setWindowTitle("Gradify");
@@ -21,34 +31,37 @@ MainWindow::MainWindow(QWidget *parent)
     int h = ui->mainLogoImg->height();
     ui->mainLogoImg->setPixmap(pix.scaled(w, h, Qt::KeepAspectRatio));
 
+    configRead();
+    if(config["theme"] == "white"){
+        appThemeStyle = 1;
+        setWhiteUI();
+    }
+    else if(config["theme"] == "black"){
+        appThemeStyle = 0;
+        setBlackUI();
+    }
+    connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
+}
+
+void MainWindow::configRead()
+{
     cfgFile.setFileName(QDir::currentPath() + "/../../../../src/config/cfg");
     if (!cfgFile.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::critical(this,"Помилка", QDir::currentPath());
-    }
-    else
-    {
-        cfgData = cfgFile.readLine();
-        if (cfgData[cfgData.size() - 2] == '0')
-        {
-            appThemeStyle = 0;
-            setBlackUI();
-        }
-        else
-        {
-            appThemeStyle = 1;
-            setWhiteUI();
-        }
-    }
+        return;
 
-
-    connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
+    while (!cfgFile.atEnd())
+    {
+        QString cfgData = cfgFile.readLine();
+        QStringList list = cfgData.split("=");
+        config[list[0]] = list[1];
+    }
 
 }
 
-MainWindow::~MainWindow()
+void MainWindow::configWrite()
 {
-    delete ui;
+
+
 }
 
 void MainWindow::changeEvent(QEvent *event)

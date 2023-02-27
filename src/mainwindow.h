@@ -5,6 +5,7 @@
 #include <QString>
 #include <QEvent>
 #include <QFile>
+#include <QMap>
 
 #include <appsetting.h>
 
@@ -38,6 +39,12 @@ private slots:
 
     void setWhiteUI();
 
+    void mainWindowInit();
+
+    void configRead();
+
+    void configWrite();
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
@@ -47,9 +54,9 @@ private:
     QString selectButtonTableStyle;
     QString defaultSettingButtonStyle;
 
-    QFile cfgFile;
-    QString cfgData;
+    QMap<QString, QString> config;
 
+    QFile cfgFile;
 
 public slots:
     void setThemeUI(int style);
