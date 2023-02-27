@@ -19,9 +19,9 @@ public:
     void changeEvent(QEvent *event) override;
 
 private slots:
-    void on_setWhiteStyle_clicked();
+    void on_setWhiteStyleButton_clicked();
 
-    void on_setBlackStyle_clicked();
+    void on_setBlackStyleButton_clicked();
 
 private:
     Ui::appSetting *ui;

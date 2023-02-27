@@ -19,7 +19,7 @@
 background-color: rgb(29, 31, 32);
 }</string>
   </property>
-  <widget class="QPushButton" name="setWhiteStyle">
+  <widget class="QPushButton" name="setWhiteStyleButton">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -32,7 +32,7 @@ background-color: rgb(29, 31, 32);
     <string>setNormalStyle</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="setBlackStyle">
+  <widget class="QPushButton" name="setBlackStyleButton">
    <property name="geometry">
     <rect>
      <x>290</x>

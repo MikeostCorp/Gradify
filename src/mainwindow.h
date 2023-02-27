@@ -22,17 +22,17 @@ public:
     void changeEvent(QEvent *event) override;
 
 private slots:
-    void on_firstTableButton_clicked();
+    void on_studentsTableButton_clicked();
 
-    void on_secondTableButton_clicked();
+    void on_teachersTableButton_clicked();
 
-    void on_thirdTableButton_clicked();
+    void on_gradesTableButton_clicked();
 
-    void on_fourthTableButton_clicked();
+    void on_groupsTableButton_clicked();
 
     void clearStyleButtonTable();
 
-    void on_settingButton_clicked();
+    void on_settingsButton_clicked();
 
     void setBlackUI();
 
@@ -46,6 +46,9 @@ private:
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
     QString defaultSettingButtonStyle;
+
+    QFile cfgFile;
+    QString cfgData;
 
 
 public slots:
