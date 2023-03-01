@@ -27,6 +27,10 @@ private slots:
 
     void on_pushSelectBlackUIButton_clicked();
 
+    void on_setWhiteStyleRadioButton_clicked();
+
+    void on_setBlackStyleRadioButton_clicked();
+
 private:
     Ui::appSetting *ui;
 

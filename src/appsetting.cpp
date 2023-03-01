@@ -74,3 +74,19 @@ void appSetting::setThemeSettingUI(int style)
         setWhiteUI();
     }
 }
+
+void appSetting::on_setWhiteStyleRadioButton_clicked()
+{
+    emit changeThemeApp(1);
+    setWhiteUI();
+    ui->setWhiteStyleRadioButton->setChecked(true);
+}
+
+
+void appSetting::on_setBlackStyleRadioButton_clicked()
+{
+    emit changeThemeApp(0);
+    setBlackUI();
+    ui->setBlackStyleRadioButton->setChecked(true);
+}
+
