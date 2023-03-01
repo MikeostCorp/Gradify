@@ -19,15 +19,22 @@ public:
     void changeEvent(QEvent *event) override;
 
 private slots:
-    void on_setWhiteStyleButton_clicked();
+    void setBlackUI();
 
-    void on_setBlackStyleButton_clicked();
+    void setWhiteUI();
+
+    void on_pushSelectWhiteUIButton_clicked();
+
+    void on_pushSelectBlackUIButton_clicked();
 
 private:
     Ui::appSetting *ui;
 
 signals:
     void changeThemeApp(int);
+
+public slots:
+    void setThemeSettingUI(int style);
 };
 
 #endif // APPSETTING_H

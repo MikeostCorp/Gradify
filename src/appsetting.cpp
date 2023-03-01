@@ -9,7 +9,6 @@ appSetting::appSetting(QWidget *parent) :
     ui(new Ui::appSetting)
 {
     ui->setupUi(this);
-
     this->setWindowTitle("Налаштування");
 
 }
@@ -32,18 +31,46 @@ void appSetting::changeEvent(QEvent *event)
 }
 
 
-void appSetting::on_setBlackStyleButton_clicked()
+void appSetting::setBlackUI()
 {
-    emit changeThemeApp(0);
     this->setStyleSheet("appSetting { background-color: rgb(29, 31, 32); }");
+    ui->setBlackStyleRadioButton->setStyleSheet("color: rgb(255,255,255)");
+    ui->setWhiteStyleRadioButton->setStyleSheet("color: rgb(255,255,255)");
+    ui->setBlackStyleRadioButton->setChecked(true);
+}
+
+void appSetting::setWhiteUI()
+{
+    this->setStyleSheet("appSetting { background-color: rgb(255, 255, 255); }");
+    ui->setBlackStyleRadioButton->setStyleSheet("color: rgb(0,0,0)");
+    ui->setWhiteStyleRadioButton->setStyleSheet("color: rgb(0,0,0)");
+    ui->setWhiteStyleRadioButton->setChecked(true);
 }
 
 
-void appSetting::on_setWhiteStyleButton_clicked()
+void appSetting::on_pushSelectWhiteUIButton_clicked()
 {
     emit changeThemeApp(1);
-    this->setStyleSheet("appSetting { background-color: rgb(226, 224, 223); }");
+    setWhiteUI();
+    ui->setWhiteStyleRadioButton->setChecked(true);
 }
 
 
+void appSetting::on_pushSelectBlackUIButton_clicked()
+{
+    emit changeThemeApp(0);
+    setBlackUI();
+    ui->setBlackStyleRadioButton->setChecked(true);
+}
 
+void appSetting::setThemeSettingUI(int style)
+{
+    if(style == 0)
+    {
+        setBlackUI();
+    }
+    else
+    {
+        setWhiteUI();
+    }
+}

@@ -19,33 +19,132 @@
 background-color: rgb(29, 31, 32);
 }</string>
   </property>
-  <widget class="QPushButton" name="setWhiteStyleButton">
+  <widget class="QFrame" name="selectUIStyleFrame">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>40</y>
-     <width>221</width>
-     <height>141</height>
+     <x>25</x>
+     <y>20</y>
+     <width>432</width>
+     <height>170</height>
     </rect>
    </property>
-   <property name="text">
-    <string>setNormalStyle</string>
+   <property name="styleSheet">
+    <string notr="true">border: 0px;</string>
    </property>
-  </widget>
-  <widget class="QPushButton" name="setBlackStyleButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>40</y>
-     <width>221</width>
-     <height>141</height>
-    </rect>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-   <property name="text">
-    <string>setNiggaStyle</string>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QLabel" name="imageWhiteUI">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>200</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgb(231,224,223); 
+border-radius: 8px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="recources.qrc">:/img/settingIcon/settingWhiteUIIco.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imageBlackUI">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>0</y>
+      <width>200</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgb(41,45,48); 
+border-radius: 8px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="recources.qrc">:/img/settingIcon/settingBlackUIIco.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushSelectWhiteUIButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>211</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushSelectBlackUIButton">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>-10</y>
+      <width>211</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="setBlackStyleRadioButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>140</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Темна</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="setWhiteStyleRadioButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>140</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Світла</string>
+    </property>
+   </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="recources.qrc"/>
+ </resources>
  <connections/>
 </ui>
