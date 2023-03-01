@@ -41,7 +41,11 @@ private slots:
 
     void mainWindowInit();
 
+    void configDefault();
+
     void configRead();
+
+    void configInit();
 
     void configWrite();
 
@@ -49,7 +53,6 @@ private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
 
-    int appThemeStyle; // if 0 - dark, 1 - white;
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
     QString defaultSettingButtonStyle;

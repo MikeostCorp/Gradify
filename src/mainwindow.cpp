@@ -32,36 +32,64 @@ void MainWindow::mainWindowInit()
     ui->mainLogoImg->setPixmap(pix.scaled(w, h, Qt::KeepAspectRatio));
 
     configRead();
-    if(config["theme"] == "white"){
-        appThemeStyle = 1;
-        setWhiteUI();
-    }
-    else if(config["theme"] == "black"){
-        appThemeStyle = 0;
-        setBlackUI();
-    }
+    configInit();
+
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
+}
+
+void MainWindow::configDefault()
+{
+    config["theme"] = "black";
+    configWrite();
 }
 
 void MainWindow::configRead()
 {
-    cfgFile.setFileName(QDir::currentPath() + "/../../../../src/config/cfg");
+    cfgFile.setFileName(QDir::currentPath() + "/cfg");
     if (!cfgFile.open(QIODevice::ReadOnly))
+    {
+        configDefault();
         return;
+    }
 
     while (!cfgFile.atEnd())
     {
         QString cfgData = cfgFile.readLine();
+        if (cfgData.isEmpty()) continue;
         QStringList list = cfgData.split("=");
+        list[1].remove("\n");
         config[list[0]] = list[1];
     }
 
+    cfgFile.close();
+}
+
+void MainWindow::configInit()
+{
+    if (config["theme"] == "white")
+    {
+        setWhiteUI();
+    }
+    else if (config["theme"] == "black")
+    {
+        setBlackUI();
+    }
 }
 
 void MainWindow::configWrite()
 {
+    cfgFile.setFileName(QDir::currentPath() + "/cfg");
+    if (!cfgFile.open(QIODevice::WriteOnly))
+        return;
 
+    QTextStream stream(&cfgFile);
 
+    for (auto const& cfg : config.keys())
+    {
+        stream << cfg + "=" + config.value(cfg) + "\n";
+    }
+
+    cfgFile.close();
 }
 
 void MainWindow::changeEvent(QEvent *event)
@@ -91,11 +119,11 @@ void MainWindow::on_studentsTableButton_clicked()
     clearStyleButtonTable();
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
 
-    if (appThemeStyle == 0)
+    if (config["theme"] == "white")
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
     }
-    else
+    else if (config["theme"] == "black")
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
@@ -113,11 +141,11 @@ void MainWindow::on_teachersTableButton_clicked()
     clearStyleButtonTable();
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
 
-    if (appThemeStyle == 0)
+    if (config["theme"] == "white")
     {
         ui->teachersTableButton->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
     }
-    else
+    else if (config["theme"] == "black")
     {
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
@@ -135,11 +163,11 @@ void MainWindow::on_gradesTableButton_clicked()
     clearStyleButtonTable();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
 
-    if (appThemeStyle == 0)
+    if (config["theme"] == "white")
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
     }
-    else
+    else if (config["theme"] == "black")
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
@@ -150,16 +178,16 @@ void MainWindow::on_groupsTableButton_clicked()
 {
     /*
      *
-     * Код реализации открытия таблицы груп
+     * Код реализации открытия таблицы групп
      *
     */
     clearStyleButtonTable();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
-    if (appThemeStyle == 0)
+    if (config["theme"] == "white")
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
     }
-    else
+    else if (config["theme"] == "black")
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
@@ -246,10 +274,14 @@ void MainWindow::setThemeUI(int style)
     if(style == 0)
     {
         setBlackUI();
+        config["theme"] = "black";
+        configWrite();
     }
     else
     {
         setWhiteUI();
+        config["theme"] = "white";
+        configWrite();
     }
 }
 
