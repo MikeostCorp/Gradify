@@ -65,6 +65,6 @@ public slots:
     void setThemeUI(int style);
 
 signals:
-    void setThemeSettingUI(int);
+    void setThemeSettingsUI(int);
 };
 #endif // MAINWINDOW_H

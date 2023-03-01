@@ -30,11 +30,13 @@ void MainWindow::mainWindowInit()
     int h = ui->mainLogoImg->height();
     ui->mainLogoImg->setPixmap(pix.scaled(w, h, Qt::KeepAspectRatio));
 
+    connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
+
     configRead();
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
-    connect(this, &MainWindow::setThemeSettingUI, openSetting, &appSetting::setThemeSettingUI);
+
 }
 
 void MainWindow::configDefault()
@@ -69,12 +71,12 @@ void MainWindow::configInit()
     if (config["theme"] == "white")
     {
         setWhiteUI();
-        emit setThemeSettingUI(1);
+        emit setThemeSettingsUI(1);
     }
     else if (config["theme"] == "black")
     {
         setBlackUI();
-        emit setThemeSettingUI(0);
+        emit setThemeSettingsUI(0);
     }
 }
 

@@ -3,6 +3,7 @@
 
 #include <mainwindow.h>
 #include <QDir>
+#include <QMessageBox>
 
 appSetting::appSetting(QWidget *parent) :
     QWidget(parent),
@@ -65,9 +66,11 @@ void appSetting::on_pushSelectBlackUIButton_clicked()
 
 void appSetting::setThemeSettingUI(int style)
 {
+    QMessageBox::information(this, "test", "ThemeSettingUi");
     if(style == 0)
     {
         setBlackUI();
+
     }
     else
     {
@@ -79,7 +82,6 @@ void appSetting::on_setWhiteStyleRadioButton_clicked()
 {
     emit changeThemeApp(1);
     setWhiteUI();
-    ui->setWhiteStyleRadioButton->setChecked(true);
 }
 
 
@@ -87,6 +89,5 @@ void appSetting::on_setBlackStyleRadioButton_clicked()
 {
     emit changeThemeApp(0);
     setBlackUI();
-    ui->setBlackStyleRadioButton->setChecked(true);
 }
 
