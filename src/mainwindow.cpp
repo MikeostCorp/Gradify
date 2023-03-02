@@ -36,7 +36,6 @@ void MainWindow::mainWindowInit()
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
-
 }
 
 void MainWindow::configDefault()
@@ -71,13 +70,13 @@ void MainWindow::configInit()
     if (config["theme"] == "white")
     {
         setWhiteUI();
-        emit setThemeSettingsUI(1);
     }
     else if (config["theme"] == "black")
     {
         setBlackUI();
-        emit setThemeSettingsUI(0);
     }
+
+    emit setThemeSettingsUI(config["theme"]);
 }
 
 void MainWindow::configWrite()
@@ -215,7 +214,6 @@ void MainWindow::setBlackUI()
 {
     // код для задания черного интерфейса
 
-    this->setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(41,45,48); color: rgb(255, 255, 255); } "
@@ -248,7 +246,6 @@ void MainWindow::setWhiteUI()
 {
     // код для задания белого интерфейса
 
-    this->setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(231,224,223); color: rgb(61, 60, 59); } "
@@ -277,9 +274,9 @@ void MainWindow::setWhiteUI()
     this->setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
 }
 
-void MainWindow::setThemeUI(int style)
+void MainWindow::setThemeUI(QString style)
 {
-    if(style == 0)
+    if(style == "black")
     {
         setBlackUI();
         config["theme"] = "black";

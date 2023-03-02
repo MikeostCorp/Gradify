@@ -35,10 +35,10 @@ private:
     Ui::appSetting *ui;
 
 signals:
-    void changeThemeApp(int);
+    void changeThemeApp(QString);
 
 public slots:
-    void setThemeSettingUI(int style);
+    void setThemeSettingUI(QString style);
 };
 
 #endif // APPSETTING_H
