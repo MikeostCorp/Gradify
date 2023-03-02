@@ -1,3 +1,12 @@
+///============================================
+///
+/// Developed by the team: Mikeost Team
+/// list of developers: Michailo Ostachenko
+///                     Andriy Izbash
+///
+/// ============================================
+
+
 #include "preloader.h"
 
 #include <QApplication>
