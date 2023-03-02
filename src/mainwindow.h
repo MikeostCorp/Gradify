@@ -8,6 +8,7 @@
 #include <QMap>
 
 #include <appsetting.h>
+#include <authorization.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -49,9 +50,12 @@ private slots:
 
     void configWrite();
 
+    void on_authorizationButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
+    authorization *openAuthorization;
 
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
@@ -62,9 +66,9 @@ private:
     QFile cfgFile;
 
 public slots:
-    void setThemeUI(int style);
+    void setThemeUI(QString style);
 
 signals:
-    void setThemeSettingsUI(int);
+    void setThemeSettingsUI(QString);
 };
 #endif // MAINWINDOW_H

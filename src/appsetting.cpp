@@ -11,7 +11,8 @@ appSetting::appSetting(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Налаштування");
-
+    this->show();
+    this->close();
 }
 
 appSetting::~appSetting()
@@ -51,7 +52,7 @@ void appSetting::setWhiteUI()
 
 void appSetting::on_pushSelectWhiteUIButton_clicked()
 {
-    emit changeThemeApp(1);
+    emit changeThemeApp("white");
     setWhiteUI();
     ui->setWhiteStyleRadioButton->setChecked(true);
 }
@@ -59,18 +60,16 @@ void appSetting::on_pushSelectWhiteUIButton_clicked()
 
 void appSetting::on_pushSelectBlackUIButton_clicked()
 {
-    emit changeThemeApp(0);
+    emit changeThemeApp("black");
     setBlackUI();
     ui->setBlackStyleRadioButton->setChecked(true);
 }
 
-void appSetting::setThemeSettingUI(int style)
+void appSetting::setThemeSettingUI(QString style)
 {
-    QMessageBox::information(this, "test", "ThemeSettingUi");
-    if(style == 0)
+    if(style == "black")
     {
         setBlackUI();
-
     }
     else
     {
@@ -80,14 +79,14 @@ void appSetting::setThemeSettingUI(int style)
 
 void appSetting::on_setWhiteStyleRadioButton_clicked()
 {
-    emit changeThemeApp(1);
+    emit changeThemeApp("white");
     setWhiteUI();
 }
 
 
 void appSetting::on_setBlackStyleRadioButton_clicked()
 {
-    emit changeThemeApp(0);
+    emit changeThemeApp("black");
     setBlackUI();
 }
 

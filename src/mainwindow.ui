@@ -94,14 +94,20 @@ border: 0px;</string>
          <widget class="QLabel" name="mainLogoImg">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>10</x>
             <y>20</y>
-            <width>45</width>
-            <height>45</height>
+            <width>51</width>
+            <height>51</height>
            </rect>
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="recources.qrc">:/img/mainLogo/mainIcox64.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
           </property>
          </widget>
          <widget class="QPushButton" name="reportStudentsButton">
@@ -357,19 +363,6 @@ QPushButton:hover
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Звіти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
-         <widget class="QLabel" name="mainMenuLabel_temp">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>20</y>
-            <width>111</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Data Base&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Нужно фиксануть&lt;br/&gt;качество лого&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="tablesSectionLabel">
           <property name="geometry">
            <rect>
@@ -621,6 +614,32 @@ QPushButton:hover
             <width>20</width>
             <height>20</height>
            </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="authorizationButton">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>30</y>
+            <width>121</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+    border-radius:  6px;
+    background-color:  rgb(41,45,48);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
+          </property>
+          <property name="text">
+           <string>Авторизація</string>
           </property>
          </widget>
         </widget>

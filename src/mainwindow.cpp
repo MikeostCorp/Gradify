@@ -21,14 +21,10 @@ MainWindow::~MainWindow()
 void MainWindow::mainWindowInit()
 {
     openSetting = new appSetting();
+    openAuthorization = new authorization();
 
     this->setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
-
-    QPixmap pix(":/img/mainLogo/mainIcox512.png"); // need fix quality pic
-    int w = ui->mainLogoImg->width();
-    int h = ui->mainLogoImg->height();
-    ui->mainLogoImg->setPixmap(pix.scaled(w, h, Qt::KeepAspectRatio));
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
 
@@ -36,7 +32,6 @@ void MainWindow::mainWindowInit()
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
-
 }
 
 void MainWindow::configDefault()
@@ -71,13 +66,13 @@ void MainWindow::configInit()
     if (config["theme"] == "white")
     {
         setWhiteUI();
-        emit setThemeSettingsUI(1);
     }
     else if (config["theme"] == "black")
     {
         setBlackUI();
-        emit setThemeSettingsUI(0);
     }
+
+    emit setThemeSettingsUI(config["theme"]);
 }
 
 void MainWindow::configWrite()
@@ -238,6 +233,7 @@ void MainWindow::setBlackUI()
     ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
+    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
@@ -271,15 +267,16 @@ void MainWindow::setWhiteUI()
     ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
+    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     this->setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
 }
 
-void MainWindow::setThemeUI(int style)
+void MainWindow::setThemeUI(QString style)
 {
-    if(style == 0)
+    if(style == "black")
     {
         setBlackUI();
         config["theme"] = "black";
@@ -297,3 +294,9 @@ void MainWindow::on_settingsButton_clicked()
 {
     openSetting->show();
 }
+
+void MainWindow::on_authorizationButton_clicked()
+{
+    openAuthorization->show();
+}
+
