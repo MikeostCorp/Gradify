@@ -14,7 +14,6 @@ class authorization : public QWidget
 public:
     explicit authorization(QWidget *parent = nullptr);
     ~authorization();
-    void changeEvent(QEvent *event) override;
 
 private:
     Ui::authorization *ui;

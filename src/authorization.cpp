@@ -8,21 +8,10 @@ authorization::authorization(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Авторизація");
     this->setFixedSize(this->width(), this->height());
+    this->setWindowFlag(Qt::WindowStaysOnTopHint);
 }
 
 authorization::~authorization()
 {
     delete ui;
-}
-
-void authorization::changeEvent(QEvent *event)
-{
-    QWidget::changeEvent(event);
-    if (event->type() == QEvent::ActivationChange)
-    {
-        if (!isActiveWindow())
-        {
-            this->close();
-        }
-    }
 }

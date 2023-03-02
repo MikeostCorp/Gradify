@@ -1,7 +1,7 @@
 ///============================================
 ///
 /// Developed by the team: Mikeost Team
-/// list of developers: Michailo Ostachenko
+/// list of developers: Mikhail Ostashchenko
 ///                     Andriy Izbash
 ///
 /// ============================================
