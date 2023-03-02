@@ -210,6 +210,7 @@ void MainWindow::setBlackUI()
 {
     // код для задания черного интерфейса
 
+    this->setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(41,45,48); color: rgb(255, 255, 255); } "
@@ -243,6 +244,7 @@ void MainWindow::setWhiteUI()
 {
     // код для задания белого интерфейса
 
+    this->setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(231,224,223); color: rgb(61, 60, 59); } "
