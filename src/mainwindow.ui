@@ -641,6 +641,16 @@ QPushButton:hover
           <property name="text">
            <string>Авторизація</string>
           </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/pinkMenuIcon/inLog.png</normaloff>:/img/pinkMenuIcon/inLog.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
          </widget>
         </widget>
        </item>

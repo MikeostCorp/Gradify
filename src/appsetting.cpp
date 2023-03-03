@@ -77,6 +77,7 @@ void appSetting::setThemeSettingUI(QString style)
     }
 }
 
+
 void appSetting::on_setWhiteStyleRadioButton_clicked()
 {
     emit changeThemeApp("white");

@@ -27,11 +27,16 @@ void MainWindow::mainWindowInit()
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
+    connect(this, &MainWindow::setThemeSettingsUI, openAuthorization, &authorization::setThemeAuthorUI);
 
     configRead();
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
+    connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
+
+
+    ui->authorizationButton->setFocus();
 }
 
 void MainWindow::configDefault()
@@ -293,10 +298,12 @@ void MainWindow::setThemeUI(QString style)
 void MainWindow::on_settingsButton_clicked()
 {
     openSetting->show();
+    openAuthorization->close();
 }
 
 void MainWindow::on_authorizationButton_clicked()
 {
     openAuthorization->show();
+    openSetting->close();
 }
 

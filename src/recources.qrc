@@ -26,5 +26,17 @@
         <file>img/blackMenuIcon/teachersIco.png</file>
         <file>img/settingIcon/settingBlackUIIco.png</file>
         <file>img/settingIcon/settingWhiteUIIco.png</file>
+        <file>img/pinkMenuIcon/groupIco.png</file>
+        <file>img/pinkMenuIcon/inLog.png</file>
+        <file>img/pinkMenuIcon/raitingIco.png</file>
+        <file>img/pinkMenuIcon/settinfIco.png</file>
+        <file>img/pinkMenuIcon/studentsIco.png</file>
+        <file>img/pinkMenuIcon/teachersIco.png</file>
+        <file>img/whiteMenuIcon/cloud.png</file>
+        <file>img/whiteMenuIcon/noWatchPass.png</file>
+        <file>img/whiteMenuIcon/watchPass.png</file>
+        <file>img/blackMenuIcon/cloud.png</file>
+        <file>img/blackMenuIcon/noWatchPass.png</file>
+        <file>img/blackMenuIcon/watchPass.png</file>
     </qresource>
 </RCC>

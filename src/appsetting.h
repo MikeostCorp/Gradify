@@ -39,6 +39,7 @@ signals:
 
 public slots:
     void setThemeSettingUI(QString style);
+
 };
 
 #endif // APPSETTING_H
