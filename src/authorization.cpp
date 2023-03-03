@@ -159,7 +159,7 @@ void authorization::setWhiteUI()
                                        "background-color: rgb(241,234,233);"
                                        "color: rgb(61, 60, 59);} "
                                        "QPushButton:hover{background-color:  rgb(221, 214, 213);}");
-    ui->loginLabel->setStyleSheet("font: 34px;color: rgb(0,0,0);");
+    ui->loginLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
     ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->passwordLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->forgotPasswordButton->setStyleSheet("color: rgb(61, 60, 59);");

@@ -163,9 +163,9 @@ QPushButton:hover
   <widget class="QPushButton" name="passwordVisibilityButton">
    <property name="geometry">
     <rect>
-     <x>305</x>
+     <x>302</x>
      <y>130</y>
-     <width>21</width>
+     <width>31</width>
      <height>31</height>
     </rect>
    </property>
@@ -178,8 +178,8 @@ QPushButton:hover
    </property>
    <property name="iconSize">
     <size>
-     <width>15</width>
-     <height>15</height>
+     <width>18</width>
+     <height>18</height>
     </size>
    </property>
   </widget>
