@@ -20,27 +20,27 @@ private slots:
 
     void setWhiteUI();
 
-    void on_pushButtonForgetPassword_clicked();
+    void on_forgotPasswordButton_clicked();
 
-    void on_lineEditLogin_selectionChanged();
+    void on_loginLineEdit_selectionChanged();
 
-    void on_lineEditLogin_editingFinished();
+    void on_loginLineEdit_editingFinished();
 
-    void on_lineEditPassword_selectionChanged();
+    void on_passwordLineEdit_selectionChanged();
 
-    void on_lineEditPassword_editingFinished();
+    void on_passwordLineEdit_editingFinished();
 
     void clearLineLogin(bool status);
 
     void clearLinePassword(bool status);
 
-    void on_pushButtonWatchPassword_clicked();
+    void on_passwordVisibilityButton_clicked();
 
-    void on_pushButtonLogin_clicked();
+    void on_loginButton_clicked();
 
 private:
     Ui::authorization *ui;
-    bool noWatchPassword;
+    bool isPasswordHidden;
     QString styleType;
 
 public slots:
