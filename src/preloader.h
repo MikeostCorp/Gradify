@@ -26,7 +26,7 @@ private:
     QVideoWidget *videoWidget;
 
 private slots:
-    void closeVideoWidget(QMediaPlayer::MediaStatus status);
+    void closeVideoWidget(const QMediaPlayer::MediaStatus status);
 };
 
 #endif // PRELOADER_H

@@ -8,15 +8,15 @@ authorization::authorization(QWidget *parent) :
     ui(new Ui::authorization)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Авторизація");
-    this->setFixedSize(this->width(), this->height());
-    this->setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowTitle("Авторизація");
+    setFixedSize(width(), height());
+    setWindowFlag(Qt::WindowStaysOnTopHint);
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
     connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
 
-    this->show();
-    this->close();
+    show();
+    close();
 
     ui->authorizationErrorLabel->setVisible(false);
 }
@@ -67,7 +67,7 @@ void authorization::on_passwordLineEdit_editingFinished()
     }
 }
 
-void authorization::clearLineLogin(bool status)
+void authorization::clearLineLogin(const bool status)
 {
     if (!status and ui->loginLineEdit->text().isEmpty())
     {
@@ -75,7 +75,7 @@ void authorization::clearLineLogin(bool status)
     }
 }
 
-void authorization::clearLinePassword(bool status)
+void authorization::clearLinePassword(const bool status)
 {
     if (!status and ui->passwordLineEdit->text().isEmpty())
     {
@@ -114,7 +114,7 @@ void authorization::on_passwordVisibilityButton_clicked()
     }
 }
 
-void authorization::setThemeAuthorUI(QString style)
+void authorization::setThemeAuthorUI(const QString style)
 {
     if(style == "black")
     {
@@ -131,7 +131,7 @@ void authorization::setThemeAuthorUI(QString style)
 void authorization::setBlackUI()
 {
     styleType = "black";
-    this->setStyleSheet("authorization{background-color: rgb(41,45,48);}");
+    setStyleSheet("authorization{background-color: rgb(41,45,48);}");
     ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(41,45,48);border: 0px;");
     ui->loginButton->setStyleSheet("QPushButton{"
                                        "border-radius:  8px;"
@@ -152,7 +152,7 @@ void authorization::setBlackUI()
 void authorization::setWhiteUI()
 {
     styleType = "white";
-    this->setStyleSheet("authorization{background-color: rgb(231,224,223);}");
+    setStyleSheet("authorization{background-color: rgb(231,224,223);}");
     ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(231,224,223);border: 0px;");
     ui->loginButton->setStyleSheet("QPushButton{"
                                        "border-radius:  8px;"

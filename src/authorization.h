@@ -44,7 +44,7 @@ private:
     QString styleType;
 
 public slots:
-    void setThemeAuthorUI(QString style);
+    void setThemeAuthorUI(const QString style);
 };
 
 #endif // AUTHORIZATION_H

@@ -66,9 +66,9 @@ private:
     QFile cfgFile;
 
 public slots:
-    void setThemeUI(QString style);
+    void setThemeUI(const QString style);
 
 signals:
-    void setThemeSettingsUI(QString);
+    void setThemeSettingsUI(const QString);
 };
 #endif // MAINWINDOW_H

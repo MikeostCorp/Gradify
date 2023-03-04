@@ -23,7 +23,7 @@ void MainWindow::mainWindowInit()
     openSetting = new appSetting();
     openAuthorization = new authorization();
 
-    this->setWindowTitle("Gradify");
+    setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
@@ -103,11 +103,11 @@ void MainWindow::changeEvent(QEvent *event)
     {
         if (isActiveWindow())
         {
-            this->setWindowOpacity(1);
+            setWindowOpacity(1);
         }
         else
         {
-            this->setWindowOpacity(0.97);
+            setWindowOpacity(0.97);
         }
     }
 }
@@ -132,7 +132,7 @@ void MainWindow::on_studentsTableButton_clicked()
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
 
-    this->setWindowTitle("Gradify - (Студенти)");
+    setWindowTitle("Gradify - (Студенти)");
 }
 
 void MainWindow::on_teachersTableButton_clicked()
@@ -154,7 +154,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    this->setWindowTitle("Gradify - (Викладачі)");
+    setWindowTitle("Gradify - (Викладачі)");
 }
 
 void MainWindow::on_gradesTableButton_clicked()
@@ -175,7 +175,8 @@ void MainWindow::on_gradesTableButton_clicked()
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
-    this->setWindowTitle("Gradify - (Оцінки)");
+
+    setWindowTitle("Gradify - (Оцінки)");
 }
 
 void MainWindow::on_groupsTableButton_clicked()
@@ -195,7 +196,8 @@ void MainWindow::on_groupsTableButton_clicked()
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
-    this->setWindowTitle("Gradify - (Групи)");
+
+    setWindowTitle("Gradify - (Групи)");
 }
 
 void MainWindow::clearStyleButtonTable()
@@ -215,7 +217,7 @@ void MainWindow::setBlackUI()
 {
     // код для задания черного интерфейса
 
-    this->setWindowTitle("Gradify");
+    setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(41,45,48); color: rgb(255, 255, 255); } "
@@ -242,14 +244,14 @@ void MainWindow::setBlackUI()
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
-    this->setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
+    setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
 }
 
 void MainWindow::setWhiteUI()
 {
     // код для задания белого интерфейса
 
-    this->setWindowTitle("Gradify");
+    setWindowTitle("Gradify");
     clearStyleButtonTable();
     defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
                               "rgb(231,224,223); color: rgb(61, 60, 59); } "
@@ -276,10 +278,10 @@ void MainWindow::setWhiteUI()
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
-    this->setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+    setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
 }
 
-void MainWindow::setThemeUI(QString style)
+void MainWindow::setThemeUI(const QString style)
 {
     if(style == "black")
     {

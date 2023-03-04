@@ -10,13 +10,13 @@ preloader::preloader(QWidget *parent) :
     ui->setupUi(this);
 
     //this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint, true);
-    this->setWindowFlag(Qt::FramelessWindowHint, true);
-    this->setFixedSize(400,400);
-    this->setWindowTitle("Preloader");
+    setWindowFlag(Qt::FramelessWindowHint, true);
+    setFixedSize(400,400);
+    setWindowTitle("Preloader");
 
     QPainterPath painPath;
     painPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
-    this->setMask(painPath.toFillPolygon().toPolygon());
+    setMask(painPath.toFillPolygon().toPolygon());
 
     player = new QMediaPlayer(this);
     videoWidget = new QVideoWidget(this);
@@ -40,11 +40,11 @@ preloader::~preloader()
     delete ui;
 }
 
-void preloader::closeVideoWidget(QMediaPlayer::MediaStatus status)
+void preloader::closeVideoWidget(const QMediaPlayer::MediaStatus status)
 {
     if (status == QMediaPlayer::EndOfMedia)
     {
         MainMenu->show();
-        this->close();
+        close();
     }
 }
