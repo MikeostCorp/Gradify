@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDir>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,6 +23,37 @@ void MainWindow::mainWindowInit()
 {
     openSetting = new appSetting();
     openAuthorization = new authorization();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+
+
+    // после покупки хостинга фикстить
+    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db ");
+    QMessageBox::information(this,"",QDir::currentPath() + "dataBase.db");
+
+    if(db.open())
+    {
+        QMessageBox::information(this,"","peremoga");
+    }
+    else
+    {
+        QMessageBox::information(this,"","beda");
+    }
+
+    query = new QSqlQuery(db);
+    //query->exec("CREATE TABLE loginPassTable(teacherLogin TEXT, tecaherPass TEXT)");
+
+    model = new QSqlTableModel(this,db);
+    model->setTable("loginPassTable");
+    model->select();
+
+    ui->tableView->setModel(model);
+    //ui->tableView->setShowGrid(false);
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->tableView->resizeColumnsToContents();
+
+
+
+
 
     setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
@@ -34,7 +66,6 @@ void MainWindow::mainWindowInit()
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
-
 
     ui->authorizationButton->setFocus();
 }
@@ -241,10 +272,36 @@ void MainWindow::setBlackUI()
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
+    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
+    ui->tableView->setStyleSheet("QHeaderView::section{"
+                                 "size: 12px;"
+                                 "color: white;"
+                                 "background-color: rgb(61,65,68);"
+                                 "padding-bottom:5px;"
+                                 "padding-top:5px;}"
+                                 "QTableView{"
+                                 "background-color: rgb(61,65,68);"
+                                 "color: white;}"
+                                 "QTableView::item{"
+                                 "text-align: center;"
+                                 "border-style: 1px solid rgb(41,45,48);}"
+                                 "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
+                                 "QScrollBar:vertical{"
+                                 "border: none;"
+                                 "background: rgb(75, 75, 75);"
+                                 "width: 14px;"
+                                 "border-radius: 0px;}"
+                                 "QScrollBar:horizontal{"
+                                 "border: none;"
+                                 "background: rgb(75, 75, 75);"
+                                 "width: 14px;"
+                                 "border-radius: 0px;});");
 }
 
 void MainWindow::setWhiteUI()
@@ -275,10 +332,36 @@ void MainWindow::setWhiteUI()
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
+    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+    ui->tableView->setStyleSheet("QHeaderView::section{"
+                                 "size: 12px;"
+                                 "color: black;"
+                                 "background-color: white;"
+                                 "padding-bottom:5px;"
+                                 "padding-top:5px;}"
+                                 "QTableView{"
+                                 "background-color: white;"
+                                 "color: black;}"
+                                 "QTableView::item{"
+                                 "text-align: center;"
+                                 "border-style: 1px solid rgb(211,204,203);}"
+                                 "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
+                                 "QScrollBar:vertical{"
+                                 "border: none;"
+                                 "background: rgb(200, 200, 200);"
+                                 "width: 14px;"
+                                 "border-radius: 0px;}"
+                                 "QScrollBar:horizontal{"
+                                 "border: none;"
+                                 "background: rgb(200, 200, 200);"
+                                 "width: 14px;"
+                                 "border-radius: 0px;};");
 }
 
 void MainWindow::setThemeUI(const QString style)
@@ -307,5 +390,32 @@ void MainWindow::on_authorizationButton_clicked()
 {
     openAuthorization->show();
     openSetting->close();
+}
+
+void MainWindow::on_addRowButton_clicked()
+{
+    model->insertRow(model->rowCount());
+}
+
+
+void MainWindow::on_deleteRowButton_clicked()
+{
+    bool ok;
+    int inputNum = QInputDialog::getInt(this, tr("Видалення запису по ключовому полю"),
+                                              tr("Введіть номер ключового поля:"), row+1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
+                                              // случае максимальный выбор заканчивается на общем количестве записей)
+                                              // первая 1 означает текущий выбор за умолчанием
+                                              // вторая 1 означает минимальное значение выбор
+                                              // третья 1 означает шаг с которым выбирается индекс
+    if(ok)
+    {
+        model->removeRow(inputNum - 1);
+    }
+}
+
+
+void MainWindow::on_tableView_clicked(const QModelIndex &index)
+{
+    row = index.row();
 }
 

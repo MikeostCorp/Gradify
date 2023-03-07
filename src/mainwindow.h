@@ -6,6 +6,9 @@
 #include <QEvent>
 #include <QFile>
 #include <QMap>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlTableModel>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -52,6 +55,12 @@ private slots:
 
     void on_authorizationButton_clicked();
 
+    void on_addRowButton_clicked();
+
+    void on_deleteRowButton_clicked();
+
+    void on_tableView_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
@@ -64,6 +73,11 @@ private:
     QMap<QString, QString> config;
 
     QFile cfgFile;
+
+    QSqlDatabase db;
+    QSqlQuery *query;
+    QSqlTableModel *model;
+    int row;
 
 public slots:
     void setThemeUI(const QString style);
