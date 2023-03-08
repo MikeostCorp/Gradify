@@ -456,6 +456,8 @@ void MainWindow::on_authorizationButton_clicked()
 void MainWindow::on_addRowButton_clicked()
 {
     model->insertRow(model->rowCount());
+    ui->tableView->scrollToBottom();
+    ui->tableView->selectRow(model->rowCount() - 1);
 }
 
 

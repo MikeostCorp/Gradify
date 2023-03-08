@@ -38,5 +38,8 @@
         <file>img/blackMenuIcon/cloud.png</file>
         <file>img/blackMenuIcon/noWatchPass.png</file>
         <file>img/blackMenuIcon/watchPass.png</file>
+        <file>img/pinkMenuIcon/deleteRecord.png</file>
+        <file>img/pinkMenuIcon/editRecord.png</file>
+        <file>img/pinkMenuIcon/newRecord.png</file>
     </qresource>
 </RCC>

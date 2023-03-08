@@ -718,11 +718,11 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>  Додати запис             </string>
+           <string>  Додати запис              </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/newRecord.png</normaloff>:/img/pinkMenuIcon/newRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -775,16 +775,16 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>  Видалити запис         </string>
+           <string>  Видалити запис          </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/deleteRecord.png</normaloff>:/img/pinkMenuIcon/deleteRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>20</width>
-            <height>20</height>
+            <width>18</width>
+            <height>18</height>
            </size>
           </property>
          </widget>
@@ -832,16 +832,16 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>  Редагувати запис      </string>
+           <string>  Редагувати запис        </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/editRecord.png</normaloff>:/img/pinkMenuIcon/editRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>20</width>
-            <height>20</height>
+            <width>18</width>
+            <height>18</height>
            </size>
           </property>
          </widget>
