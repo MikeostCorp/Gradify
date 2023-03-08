@@ -30,17 +30,14 @@ void MainWindow::mainWindowInit()
     db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db ");
     QMessageBox::information(this,"",QDir::currentPath() + "dataBase.db");
 
-    if(db.open())
+    if(!db.open())
     {
-        QMessageBox::information(this,"","peremoga");
-    }
-    else
-    {
-        QMessageBox::information(this,"","beda");
+        QMessageBox::information(this,"","База даних не відкрилась");
     }
 
+
     query = new QSqlQuery(db);
-    //query->exec("CREATE TABLE loginPassTable(teacherLogin TEXT, tecaherPass TEXT)");
+    query->exec("TRUNCATE TABLE");
 
     model = new QSqlTableModel(this,db);
     model->setTable("loginPassTable");
@@ -292,16 +289,48 @@ void MainWindow::setBlackUI()
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(41,45,48);}"
                                  "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar:vertical{"
-                                 "border: none;"
-                                 "background: rgb(75, 75, 75);"
-                                 "width: 14px;"
-                                 "border-radius: 0px;}"
-                                 "QScrollBar:horizontal{"
-                                 "border: none;"
-                                 "background: rgb(75, 75, 75);"
-                                 "width: 14px;"
-                                 "border-radius: 0px;});");
+                                 "QScrollBar:vertical {\n"
+                                 "border: none;\n"
+                                 "background: rgb(61,65,68);;\n"
+                                 "width: 14px;\n"
+                                 "margin: 15px 0 15px 0;\n"
+                                 "border-radius: 0px;\n}\n"
+                                 "QScrollBar::handle:vertical {\n"
+                                 "background-color: rgb(132,132,132);\n"
+                                 "min-height: 20px;\n"
+                                 "border-radius: 7px;\n}\n"
+                                 "QScrollBar::handle:vertical:hover { \n"
+                                 "background-color: rgb(152,152,152);\n}\n"
+                                 "QScrollBar::handle:vertical:pressed {\n"
+                                 "background-color: rgb(91,95,98);\n}\n"
+                                 "QScrollBar::sub-line:vertical {\n"
+                                 "border: none;\n"
+                                 "background-color: rgb(91,95,98);\n"
+                                 "height: 15px;\n"
+                                 "border-top-left-radius: 7px;\n"
+                                 "border-top-right-radius: 7px;\n"
+                                 "subcontrol-position: top;\n"
+                                 "subcontrol-origin: margin;\n}\n"
+                                 "QScrollBar::sub-line:vertical:hover {\n"
+                                 "background-color: rgb(111,115,118);\n}\n"
+                                 "QScrollBar::sub-line:vertical:pressed { \n"
+                                 "background-color: rgb(111,115,118);\n}\n"
+                                 "QScrollBar::add-line:vertical {\n"
+                                 "border: none;\n"
+                                 "background-color: rgb(91,95,98);\n"
+                                 "height: 15px;\n"
+                                 "border-bottom-left-radius: 7px;\n"
+                                 "border-bottom-right-radius: 7px;\n"
+                                 "subcontrol-position: bottom;\n"
+                                 "subcontrol-origin: margin;\n}\n"
+                                 "QScrollBar::add-line:vertical:hover {\n"
+                                 "background-color: rgb(111,115,118);\n}\n"
+                                 "QScrollBar::add-line:vertical:pressed { \n"
+                                 "background-color: rgb(111,115,118);\n}\n\n"
+                                 "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
+                                 "background: none;\n\n}\n"
+                                 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+                                 "background: none;\n");
 }
 
 void MainWindow::setWhiteUI()
@@ -352,16 +381,48 @@ void MainWindow::setWhiteUI()
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(211,204,203);}"
                                  "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar:vertical{"
-                                 "border: none;"
-                                 "background: rgb(200, 200, 200);"
-                                 "width: 14px;"
-                                 "border-radius: 0px;}"
-                                 "QScrollBar:horizontal{"
-                                 "border: none;"
-                                 "background: rgb(200, 200, 200);"
-                                 "width: 14px;"
-                                 "border-radius: 0px;};");
+                                 "QScrollBar:vertical {\n"
+                                 "border: none;\n"
+                                 "background: rgb(245,245,245);\n"
+                                 "width: 14px;\n"
+                                 "margin: 15px 0 15px 0;\n"
+                                 "border-radius: 0px;\n}\n"
+                                 "QScrollBar::handle:vertical {\n"
+                                 "background-color: rgb(212,212,212);\n"
+                                 "min-height: 20px;\n"
+                                 "border-radius: 7px;\n}\n"
+                                 "QScrollBar::handle:vertical:hover { \n"
+                                 "background-color: rgb(182,182,182);\n}\n"
+                                 "QScrollBar::handle:vertical:pressed {\n"
+                                 "background-color: rgb(182,182,182);\n}\n"
+                                 "QScrollBar::sub-line:vertical {\n"
+                                 "border: none;\n"
+                                 "background-color: rgb(201,205,208);\n"
+                                 "height: 15px;\n"
+                                 "border-top-left-radius: 7px;\n"
+                                 "border-top-right-radius: 7px;\n"
+                                 "subcontrol-position: top;\n"
+                                 "subcontrol-origin: margin;\n}\n"
+                                 "QScrollBar::sub-line:vertical:hover {\n"
+                                 "background-color: rgb(171,175,178);\n}\n"
+                                 "QScrollBar::sub-line:vertical:pressed { \n"
+                                 "background-color: rgb(171,175,178);\n}\n"
+                                 "QScrollBar::add-line:vertical {\n"
+                                 "border: none;\n"
+                                 "background-color: rgb(201,205,208);\n"
+                                 "height: 15px;\n"
+                                 "border-bottom-left-radius: 7px;\n"
+                                 "border-bottom-right-radius: 7px;\n"
+                                 "subcontrol-position: bottom;\n"
+                                 "subcontrol-origin: margin;\n}\n"
+                                 "QScrollBar::add-line:vertical:hover {\n"
+                                 "background-color: rgb(171,175,178);\n}\n"
+                                 "QScrollBar::add-line:vertical:pressed { \n"
+                                 "background-color: rgb(171,175,178);\n}\n\n"
+                                 "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
+                                 "background: none;\n\n}\n"
+                                 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+                                 "background: none;\n");
 }
 
 void MainWindow::setThemeUI(const QString style)

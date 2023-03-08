@@ -1024,6 +1024,9 @@ QScrollBar:horizontal
 	border-radius: 0px;
 }</string>
            </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">
             <bool>false</bool>
            </attribute>
