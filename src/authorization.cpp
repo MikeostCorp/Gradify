@@ -38,6 +38,15 @@ void authorization::on_loginLineEdit_selectionChanged()
     if (ui->loginLineEdit->text() == "Логін")
     {
         ui->loginLineEdit->clear();
+
+        if (styleType == "white")
+        {
+            ui->loginLineEdit->setStyleSheet("color: rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
+        }
+        else
+        {
+            ui->loginLineEdit->setStyleSheet("color: white;background-color: rgb(29, 31, 32);border-radius: 8px;");
+        }
     }
 }
 
@@ -46,6 +55,15 @@ void authorization::on_loginLineEdit_editingFinished()
     if (ui->loginLineEdit->text().isEmpty())
     {
         ui->loginLineEdit->setText("Логін");
+
+        if (styleType == "white")
+        {
+            ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
+        }
+        else
+        {
+            ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(29, 31, 32);border-radius: 8px;");
+        }
     }
 }
 
@@ -55,6 +73,18 @@ void authorization::on_passwordLineEdit_selectionChanged()
     {
         ui->passwordLineEdit->clear();
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
+        isPasswordHidden = false;
+
+        if (styleType == "white")
+        {
+            ui->passwordLineEdit->setStyleSheet("color: rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+        }
+        else
+        {
+            ui->passwordLineEdit->setStyleSheet("color: white;background-color: rgb(29, 31, 32);border-radius: 8px;");
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+        }
     }
 }
 
@@ -64,6 +94,19 @@ void authorization::on_passwordLineEdit_editingFinished()
     {
         ui->passwordLineEdit->setText("Пароль");
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
+        isPasswordHidden = false;
+
+        if (styleType == "white")
+        {
+            ui->passwordLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+
+        }
+        else
+        {
+            ui->passwordLineEdit->setStyleSheet("color:#989898;background-color: rgb(29, 31, 32);border-radius: 8px;");
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+        }
     }
 }
 
@@ -72,6 +115,15 @@ void authorization::clearLineLogin(const bool status)
     if (!status and ui->loginLineEdit->text().isEmpty())
     {
         ui->loginLineEdit->setText("Логін");
+
+        if (styleType == "white")
+        {
+            ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
+        }
+        else
+        {
+            ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(29, 31, 32);border-radius: 8px;");
+        }
     }
 }
 
@@ -105,7 +157,7 @@ void authorization::on_passwordVisibilityButton_clicked()
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
         if (styleType == "white")
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));            
         }
         else
         {
@@ -151,6 +203,7 @@ void authorization::setBlackUI()
     ui->loginLineEdit->setText("Логін");
     ui->passwordLineEdit->setText("Пароль");
     ui->authorizationErrorLabel->setVisible(false);
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
 }
 
 void authorization::setWhiteUI()
@@ -176,6 +229,7 @@ void authorization::setWhiteUI()
     ui->loginLineEdit->setText("Логін");
     ui->passwordLineEdit->setText("Пароль");
     ui->authorizationErrorLabel->setVisible(false);
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
 }
 
 void authorization::on_loginButton_clicked()

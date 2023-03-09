@@ -37,7 +37,6 @@ void MainWindow::mainWindowInit()
 
 
     query = new QSqlQuery(db);
-    query->exec("TRUNCATE TABLE");
 
     model = new QSqlTableModel(this,db);
     model->setTable("loginPassTable");
