@@ -92,11 +92,11 @@ void authorization::on_passwordVisibilityButton_clicked()
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
         if (styleType == "white")
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/noWatchPass.png"));
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/noWatchPass.png"));
         }
         else
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/noWatchPass.png"));
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/noWatchPass.png"));
         }
     }
     else if (ui->passwordLineEdit->text() != "Пароль")
@@ -105,11 +105,11 @@ void authorization::on_passwordVisibilityButton_clicked()
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
         if (styleType == "white")
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
         }
         else
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
         }
     }
 }
@@ -138,12 +138,16 @@ void authorization::setBlackUI()
                                        "background-color: rgb(61,65,68);"
                                        "color:  rgb(255, 255, 255);} "
                                        "QPushButton:hover{background-color:  rgb(88, 88, 88);}");
+    ui->forgotPasswordButton->setStyleSheet("QPushButton{"
+                                            "border-radius:  8px;"
+                                            "background-color: rgb(61,65,68);"
+                                            "color:  rgb(255, 255, 255);} "
+                                            "QPushButton:hover{background-color:  rgb(88, 88, 88);}");
     ui->loginLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
     ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(29, 31, 32);border-radius: 8px;");
     ui->passwordLineEdit->setStyleSheet("color:#989898;background-color: rgb(29, 31, 32);border-radius: 8px;");
-    ui->forgotPasswordButton->setStyleSheet("color: rgb(255,255,255);");
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
-    ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+    ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
     ui->loginLineEdit->setText("Логін");
     ui->passwordLineEdit->setText("Пароль");
     ui->authorizationErrorLabel->setVisible(false);
@@ -156,15 +160,19 @@ void authorization::setWhiteUI()
     ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(231,224,223);border: 0px;");
     ui->loginButton->setStyleSheet("QPushButton{"
                                        "border-radius:  8px;"
-                                       "background-color: rgb(241,234,233);"
+                                       "background-color: rgb(251,244,243);"
                                        "color: rgb(61, 60, 59);} "
                                        "QPushButton:hover{background-color:  rgb(221, 214, 213);}");
+    ui->forgotPasswordButton->setStyleSheet("QPushButton{"
+                                            "border-radius:  8px;"
+                                            "background-color: rgb(251,244,243);"
+                                            "color: rgb(61, 60, 59);} "
+                                            "QPushButton:hover{background-color:  rgb(221, 214, 213);}");
     ui->loginLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
     ui->loginLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->passwordLineEdit->setStyleSheet("color:#989898;background-color: rgb(255, 255, 255);border-radius: 8px;");
-    ui->forgotPasswordButton->setStyleSheet("color: rgb(61, 60, 59);");
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
-    ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+    ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
     ui->loginLineEdit->setText("Логін");
     ui->passwordLineEdit->setText("Пароль");
     ui->authorizationErrorLabel->setVisible(false);

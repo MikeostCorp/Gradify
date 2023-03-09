@@ -48,10 +48,6 @@ void MainWindow::mainWindowInit()
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
     ui->tableView->resizeColumnsToContents();
 
-
-
-
-
     setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
 
@@ -272,9 +268,10 @@ void MainWindow::setBlackUI()
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
+    ui->mainTableFrame->setStyleSheet("color: white;background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
     ui->tableView->setStyleSheet("QHeaderView::section{"
                                  "size: 12px;"
@@ -286,9 +283,10 @@ void MainWindow::setBlackUI()
                                  "background-color: rgb(61,65,68);"
                                  "color: white;}"
                                  "QTableView::item{"
+                                 "color: white;"
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(41,45,48);}"
-                                 "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
+                                 "QTableView::item:selected{color: white;background-color: rgb(232, 118, 123);}"
                                  "QScrollBar:vertical {\n"
                                  "border: none;\n"
                                  "background: rgb(61,65,68);;\n"
@@ -364,9 +362,10 @@ void MainWindow::setWhiteUI()
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
+    ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
     ui->tableView->setStyleSheet("QHeaderView::section{"
                                  "size: 12px;"
@@ -378,9 +377,10 @@ void MainWindow::setWhiteUI()
                                  "background-color: white;"
                                  "color: black;}"
                                  "QTableView::item{"
+                                 "color: black;"
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(211,204,203);}"
-                                 "QTableView::item:selected{background-color: rgb(232, 118, 123);}"
+                                 "QTableView::item:selected{color: black; background-color: rgb(232, 118, 123);}"
                                  "QScrollBar:vertical {\n"
                                  "border: none;\n"
                                  "background: rgb(245,245,245);\n"
@@ -473,6 +473,7 @@ void MainWindow::on_deleteRowButton_clicked()
     if(ok)
     {
         model->removeRow(inputNum - 1);
+        model->select();
     }
 }
 

@@ -129,8 +129,21 @@ QPushButton:hover
      <x>40</x>
      <y>240</y>
      <width>271</width>
-     <height>32</height>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton
+{
+    border-radius:  8px;
+    background-color: rgb(29, 31, 32);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(98, 98, 98);
+}</string>
    </property>
    <property name="text">
     <string>Забули пароль?</string>
