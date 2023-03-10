@@ -223,17 +223,40 @@ void MainWindow::on_groupsTableButton_clicked()
     setWindowTitle("Gradify - (Групи)");
 }
 
+void MainWindow::on_itemTableButton_clicked()
+{
+    /*
+     *
+     * Код реализации открытия таблицы предметы
+     *
+    */
+    clearStyleButtonTable();
+    ui->itemTableButton->setStyleSheet(selectButtonTableStyle);
+    if (config["theme"] == "white")
+    {
+        ui->itemTableButton->setIcon(QIcon(":/img/whiteMenuIcon/itemIco.png"));
+    }
+    else if (config["theme"] == "black")
+    {
+        ui->itemTableButton->setIcon(QIcon(":/img/blackMenuIcon/itemIco.png"));
+    }
+
+    setWindowTitle("Gradify - (Предмети)");
+}
+
 void MainWindow::clearStyleButtonTable()
 {
     ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
 
-    ui->studentsTableButton->setIcon(QIcon(":/img/pinkMenuicon/studentsIco.png"));
-    ui->teachersTableButton->setIcon(QIcon(":/img/pinkMenuicon/teachersIco.png"));
-    ui->gradesTableButton->setIcon(QIcon(":/img/pinkMenuicon/raitingIco.png"));
-    ui->groupsTableButton->setIcon(QIcon(":/img/pinkMenuicon/groupIco.png"));
+    ui->studentsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/studentsIco.png"));
+    ui->teachersTableButton->setIcon(QIcon(":/img/pinkMenuIcon/teachersIco.png"));
+    ui->gradesTableButton->setIcon(QIcon(":/img/pinkMenuIcon/raitingIco.png"));
+    ui->groupsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/groupIco.png"));
+    ui->itemTableButton->setIcon(QIcon(":/img/pinkMenuIcon/itemIco.png"));
 }
 
 void MainWindow::setBlackUI()
@@ -258,10 +281,12 @@ void MainWindow::setBlackUI()
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
@@ -352,10 +377,12 @@ void MainWindow::setWhiteUI()
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
     ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
@@ -481,4 +508,10 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
 }
+
+
+
+
+
+
 

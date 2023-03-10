@@ -41,5 +41,9 @@
         <file>img/pinkMenuIcon/deleteRecord.png</file>
         <file>img/pinkMenuIcon/editRecord.png</file>
         <file>img/pinkMenuIcon/newRecord.png</file>
+        <file>img/blackMenuIcon/itemIco.png</file>
+        <file>img/pinkMenuIcon/itemIco.png</file>
+        <file>img/whiteMenuIcon/itemIco.png</file>
+        <file>img/reportsIcon/reportItem.png</file>
     </qresource>
 </RCC>
