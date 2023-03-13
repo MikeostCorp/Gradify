@@ -44,23 +44,93 @@ void MainWindow::mainWindowInit()
     //
     //query->exec("CREATE TABLE Групи ("
     //            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Назва TEXT NOT NULL,"
-    //            "Спеціальність TEXT NOT NULL," // можно условие закинуть на проверку групп
-    //            "Рік_початку_навчання INTEGER,"
-    //            "Рік_закінчення_навчання INTEGER,"
-    //            "Куратор TEXT NOT NULL,"
-    //            "Староста TEXT NOT NULL,"
-    //            "CONSTRAINT check_yearStart CHECK(Рік_початку_навчання >= 2000 AND Рік_закінчення_навчання > Рік_початку_навчання AND id >= 0)"
+    //            "Назва TEXT,"
+    //            "Спеціальність TEXT," // можно условие закинуть на проверку групп
+    //            "\"Рік початку навчання\" INTEGER,"
+    //            "\"Рік закінчення навчання\" INTEGER,"
+    //            "Куратор TEXT,"
+    //            "Староста TEXT,"
+    //            "CONSTRAINT check_yearStart CHECK(\"Рік початку навчання\" >= 2000 AND \"Рік закінчення навчання\" > \"Рік початку навчання\" AND id >= 0)"
+    //            ");");
+
+
+    //=================================================
+    //               Креатим таблицу студенти
+    //=================================================
+    //
+    //query->exec("CREATE TABLE Студенти ("
+    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    //            "Прізвище TEXT,"
+    //            "\"Ім'я\" TEXT,"
+    //            "\"По батькові\" TEXT,"
+    //            "Стать TEXT,"
+    //            "\"Номер телефона\" INTEGER,"
+    //            "\"Дата народження\" DATE,"
+    //            "\"Адреса проживання\" TEXT,"
+    //            "\"Номер паспорту\" INTEGER,"
+    //            "Група TEXT,"
+    //            "IHH INTEGER"
+    //            ");");
+
+
+    //=================================================
+    //               Креатим таблицу Викладачі
+    //=================================================
+    //
+    //query->exec("CREATE TABLE Викладачі ("
+    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    //            "Прізвище TEXT,"
+    //            "\"Ім'я\" TEXT,"
+    //            "\"По батькові\" TEXT,"
+    //            "\"Номер телефона\" INTEGER,"
+    //            "\"Дата народження\" DATE,"
+    //            "\"Адреса проживання\" TEXT,"
+    //            "\"Категорія\" INTEGER,"
+    //            "Спецілізація TEXT"
+    //            ");");
+
+
+    //=================================================
+    //               Креатим таблицу Оцінки
+    //=================================================
+    //
+    //query->exec("CREATE TABLE Оцінки ("
+    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    //            "Предмет TEXT,"
+    //            "Отримувач TEXT,"
+    //            "Викладач TEXT,"
+    //            "Оцінка INTEGER,"
+    //            "Дата оцінки DATE"
+    //            ");");
+
+
+    //=================================================
+    //               Креатим таблицу Предмет
+    //=================================================
+    //
+    //query->exec("CREATE TABLE Предмет ("
+    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    //            "Назва TEXT,"
+    //            "Тип TEXT,"
+    //            "\"Всього годин\" INTEGER,"
+    //            "\"Кількість лабораторних годин\" INTEGER,"
+    //            "\"Кількість лекційніх годин\" INTEGER,"
+    //            "\"Кількість семінарних годин годин\" INTEGER,"
+    //            "\"Кількість годин на самостійну роботу\" INTEGER,"
+    //            "\"Семестр в якому вивчається\" INTEGER,"
+    //            "\"Семестровий контроль\" TEXT," // (іспит, залік)
+    //            "CONSTRAINT check_hours CHECK(\"Кількість лабораторних годин\"  > 0 AND \"Кількість лекційніх годин\" > 0 AND \"Кількість семінарних годин годин\" > 0 AND \"Кількість годин на самостійну роботу\" > 0 AND \"Семестр в якому вивчається\" > 0)"
     //            ");");
 
 
 
-    //query->exec("DROP TABLE Групи");
+    //query->exec("DROP TABLE Викладачі");
+
 
 
 
     model = new QSqlTableModel(this,db);
-    model->setTable("loginPassTable");
+    model->setTable("Предмет");
     model->select();
 
     //QMessageBox::information(this,"",db.tables().at(0));
@@ -329,6 +399,8 @@ void MainWindow::setBlackUI()
                                  "QTableView{"
                                  "background-color: rgb(61,65,68);"
                                  "color: white;}"
+                                 "QTableView::item {"
+                                 "border-radius: 8px;}"
                                  "QTableView::item{"
                                  "color: white;"
                                  "text-align: center;"
@@ -462,6 +534,8 @@ void MainWindow::setWhiteUI()
                                  "color: black;"
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(211,204,203);}"
+                                 "QTableView::item {"
+                                 "border-radius: 8px;}"
                                  "QTableView::item:selected{color: black; background-color: rgb(232, 118, 123);}"
                                  "QScrollBar:vertical {\n"
                                  "border: none;\n"
@@ -578,7 +652,7 @@ void MainWindow::on_addRowButton_clicked()
 void MainWindow::on_deleteRowButton_clicked()
 {
     bool ok;
-    int inputNum = QInputDialog::getInt(this, tr("Видалення запису по ключовому полю"),
+    int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
                                               tr("Введіть номер ключового поля:"), row+1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
                                               // случае максимальный выбор заканчивается на общем количестве записей)
                                               // первая 1 означает текущий выбор за умолчанием
