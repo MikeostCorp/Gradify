@@ -1146,21 +1146,9 @@ QTableView::item:selected
     background-color: rgb(232, 118, 123);
 }
 
-QScrollBar:vertical
-{
-	border: none;
-	background: rgb(75, 75, 75);
-	width: 14px;
-	border-radius: 0px;
-}
 
-QScrollBar:horizontal
-{
-	border: none;
-	background: rgb(75, 75, 75);
-	width: 14px;
-	border-radius: 0px;
-}</string>
+
+</string>
            </property>
            <property name="sortingEnabled">
             <bool>true</bool>

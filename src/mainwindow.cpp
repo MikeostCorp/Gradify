@@ -37,22 +37,33 @@ void MainWindow::mainWindowInit()
 
 
     query = new QSqlQuery(db);
+
+    //=================================================
+    //               Креатим таблицу группы
+    //=================================================
+    //
     //query->exec("CREATE TABLE Групи ("
-    //            "ID INT PRIMARY KEY,"
-    //            "Назва VARCHAR(50),"
-    //            "Спеціальність VARCHAR(50),"
-    //            "Рік_початку_навчання INT,"
-    //            "Рік_закінчення_навчання INT,"
-    //            "Куратор VARCHAR(50),"
-    //            "Староста VARCHAR(50)"
+    //            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    //            "Назва TEXT NOT NULL,"
+    //            "Спеціальність TEXT NOT NULL," // можно условие закинуть на проверку групп
+    //            "Рік_початку_навчання INTEGER,"
+    //            "Рік_закінчення_навчання INTEGER,"
+    //            "Куратор TEXT NOT NULL,"
+    //            "Староста TEXT NOT NULL,"
+    //            "CONSTRAINT check_yearStart CHECK(Рік_початку_навчання >= 2000 AND Рік_закінчення_навчання > Рік_початку_навчання AND id >= 0)"
     //            ");");
 
 
+
+    //query->exec("DROP TABLE Групи");
+
+
+
     model = new QSqlTableModel(this,db);
-    model->setTable("Групи");
+    model->setTable("loginPassTable");
     model->select();
 
-    //QMessageBox::information(this,"",db.tables().at(2));
+    //QMessageBox::information(this,"",db.tables().at(0));
 
     ui->tableView->setModel(model);
     //ui->tableView->setShowGrid(false);
@@ -72,7 +83,7 @@ void MainWindow::mainWindowInit()
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
 
     ui->authorizationButton->setFocus();
-}
+    }
 
 void MainWindow::configDefault()
 {
@@ -323,21 +334,21 @@ void MainWindow::setBlackUI()
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(41,45,48);}"
                                  "QTableView::item:selected{color: white;background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar {\n"
+                                 "QScrollBar:vertical {\n"
                                  "border: none;\n"
-                                 "background: rgb(61,65,68);;\n"
+                                 "background: rgb(61,65,68);\n"
                                  "width: 14px;\n"
                                  "margin: 15px 0 15px 0;\n"
                                  "border-radius: 0px;\n}\n"
-                                 "QScrollBar::handle {\n"
+                                 "QScrollBar::handle:vertical {\n"
                                  "background-color: rgb(132,132,132);\n"
                                  "min-height: 20px;\n"
                                  "border-radius: 7px;\n}\n"
-                                 "QScrollBar::handle:hover { \n"
+                                 "QScrollBar::handle:vertical:hover { \n"
                                  "background-color: rgb(152,152,152);\n}\n"
-                                 "QScrollBar::handle:pressed {\n"
-                                 "background-color: rgb(91,95,98);\n}\n"
-                                 "QScrollBar::sub-line {\n"
+                                 "QScrollBar::handle:vertical:pressed {\n"
+                                 "background-color: rgb(152,152,152);\n}\n"
+                                 "QScrollBar::sub-line:vertical {\n"
                                  "border: none;\n"
                                  "background-color: rgb(91,95,98);\n"
                                  "height: 15px;\n"
@@ -345,11 +356,11 @@ void MainWindow::setBlackUI()
                                  "border-top-right-radius: 7px;\n"
                                  "subcontrol-position: top;\n"
                                  "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::sub-line:hover {\n"
+                                 "QScrollBar::sub-line:vertical:hover {\n"
                                  "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::sub-line:pressed { \n"
+                                 "QScrollBar::sub-line:vertical:pressed { \n"
                                  "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::add-line {\n"
+                                 "QScrollBar::add-line:vertical {\n"
                                  "border: none;\n"
                                  "background-color: rgb(91,95,98);\n"
                                  "height: 15px;\n"
@@ -357,14 +368,47 @@ void MainWindow::setBlackUI()
                                  "border-bottom-right-radius: 7px;\n"
                                  "subcontrol-position: bottom;\n"
                                  "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::add-line:hover {\n"
+                                 "QScrollBar::add-line:vertical:hover {\n"
                                  "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::add-line:pressed { \n"
+                                 "QScrollBar::add-line:vertical:pressed { \n"
                                  "background-color: rgb(111,115,118);\n}\n\n"
-                                 "QScrollBar::up-arrow, QScrollBar::down-arrow {\n"
-                                 "background: none;\n\n}\n"
-                                 "QScrollBar::add-page, QScrollBar::sub-page {\n"
-                                 "background: none;\n");
+                                 "QScrollBar:horizontal {"
+                                 "border: none;"
+                                 "border-radius: 0px;"
+                                 "background: rgb(61,65,68);"
+                                 "height: 14px;"
+                                 "margin: 0px 15px 0 15px;}"
+                                 "QScrollBar::handle:horizontal{"
+                                 "background: rgb(132,132,132);"
+                                 "min-width: 20px;"
+                                 "border-radius: 7px;}"
+                                 "QScrollBar::handle:horizontal:hover {"
+                                 "background-color: rgb(152,152,152);}"
+                                 "QScrollBar::handle:horizontal:pressed {"
+                                 "background-color: rgb(152,152,152);}"
+                                 "QScrollBar::add-line:horizontal {"
+                                 "border: none;"
+                                 "background: rgb(91,95,98);"
+                                 "width: 15px;"
+                                 "border-top-right-radius: 7px;"
+                                 "border-bottom-right-radius: 7px;"
+                                 "subcontrol-position: right;"
+                                 "subcontrol-origin: margin;}"
+                                 "QScrollBar::add-line:horizontal:hover {"
+                                 "background-color: rgb(111,115,118);}"
+                                 "QScrollBar::sub-line:horizontal {"
+                                 "border: none;"
+                                 "background: rgb(91,95,98);"
+                                 "width: 15px;"
+                                 "border-top-left-radius: 7px;"
+                                 "border-bottom-left-radius: 7px;"
+                                 "subcontrol-position: left;"
+                                 "subcontrol-origin: margin;}"
+                                 "QScrollBar::sub-line:horizontal:hover {"
+                                 "background-color: rgb(111,115,118);}"
+                                 "QScrollBar::sub-line:horizontal:pressed {"
+                                 "background-color: rgb(111,115,118);}");
+
 }
 
 void MainWindow::setWhiteUI()
@@ -419,48 +463,80 @@ void MainWindow::setWhiteUI()
                                  "text-align: center;"
                                  "border-style: 1px solid rgb(211,204,203);}"
                                  "QTableView::item:selected{color: black; background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar {\n"
+                                 "QScrollBar:vertical {\n"
                                  "border: none;\n"
                                  "background: rgb(245,245,245);\n"
                                  "width: 14px;\n"
                                  "margin: 15px 0 15px 0;\n"
                                  "border-radius: 0px;\n}\n"
-                                 "QScrollBar::handle {\n"
+                                 "QScrollBar::handle:vertical {\n"
                                  "background-color: rgb(212,212,212);\n"
                                  "min-height: 20px;\n"
                                  "border-radius: 7px;\n}\n"
-                                 "QScrollBar::handle:hover { \n"
-                                 "background-color: rgb(182,182,182);\n}\n"
-                                 "QScrollBar::handle:pressed {\n"
-                                 "background-color: rgb(182,182,182);\n}\n"
-                                 "QScrollBar::sub-line {\n"
+                                 "QScrollBar::handle:vertical:hover { \n"
+                                 "background-color: rgb(202,202,202);\n}\n"
+                                 "QScrollBar::handle:vertical:pressed {\n"
+                                 "background-color: rgb(202,202,202);\n}\n"
+                                 "QScrollBar::sub-line:vertical {\n"
                                  "border: none;\n"
-                                 "background-color: rgb(201,205,208);\n"
+                                 "background-color: rgb(181,185,188);\n"
                                  "height: 15px;\n"
                                  "border-top-left-radius: 7px;\n"
                                  "border-top-right-radius: 7px;\n"
                                  "subcontrol-position: top;\n"
                                  "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::sub-line:hover {\n"
-                                 "background-color: rgb(171,175,178);\n}\n"
+                                 "QScrollBar::sub-line:vertical:hover {\n"
+                                 "background-color: rgb(161,165,168);\n}\n"
                                  "QScrollBar::sub-line:pressed { \n"
-                                 "background-color: rgb(171,175,178);\n}\n"
-                                 "QScrollBar::add-line {\n"
+                                 "background-color: rgb(161,165,168);\n}\n"
+                                 "QScrollBar::add-line:vertical {\n"
                                  "border: none;\n"
-                                 "background-color: rgb(201,205,208);\n"
+                                 "background-color: rgb(181,185,188);\n"
                                  "height: 15px;\n"
                                  "border-bottom-left-radius: 7px;\n"
                                  "border-bottom-right-radius: 7px;\n"
                                  "subcontrol-position: bottom;\n"
                                  "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::add-line:hover {\n"
-                                 "background-color: rgb(171,175,178);\n}\n"
-                                 "QScrollBar::add-line:pressed { \n"
-                                 "background-color: rgb(171,175,178);\n}\n\n"
-                                 "QScrollBar::up-arrow, QScrollBar::down-arrow {\n"
-                                 "background: none;\n\n}\n"
-                                 "QScrollBar::add-page, QScrollBar::sub-page {\n"
-                                 "background: none;\n");
+                                 "QScrollBar::add-line:vertical:hover {\n"
+                                 "background-color: rgb(161,165,168);\n}\n"
+                                 "QScrollBar::add-line:vertical:pressed { \n"
+                                 "background-color: rgb(161,165,168);\n}\n\n"
+                                 "QScrollBar:horizontal {"
+                                 "border: none;"
+                                 "border-radius: 0px;"
+                                 "background: rgb(245,245,245);"
+                                 "height: 14px;"
+                                 "margin: 0px 15px 0 15px;}"
+                                 "QScrollBar::handle:horizontal{"
+                                 "background: rgb(212,212,212);"
+                                 "min-width: 20px;"
+                                 "border-radius: 7px;}"
+                                 "QScrollBar::handle:horizontal:hover {"
+                                 "background-color: rgb(202,202,202);}"
+                                 "QScrollBar::handle:horizontal:pressed {"
+                                 "background-color: rgb(202,202,202);}"
+                                 "QScrollBar::add-line:horizontal {"
+                                 "border: none;"
+                                 "background: rgb(181,185,188);"
+                                 "width: 15px;"
+                                 "border-top-right-radius: 7px;"
+                                 "border-bottom-right-radius: 7px;"
+                                 "subcontrol-position: right;"
+                                 "subcontrol-origin: margin;}"
+                                 "QScrollBar::add-line:horizontal:hover {"
+                                 "background-color: rgb(161,165,168);}"
+                                 "QScrollBar::sub-line:horizontal {"
+                                 "border: none;"
+                                 "background: rgb(181,185,188);"
+                                 "width: 15px;"
+                                 "border-top-left-radius: 7px;"
+                                 "border-bottom-left-radius: 7px;"
+                                 "subcontrol-position: left;"
+                                 "subcontrol-origin: margin;}"
+                                 "QScrollBar::sub-line:horizontal:hover {"
+                                 "background-color: rgb(161,165,168);}"
+                                 "QScrollBar::sub-line:horizontal:pressed {"
+                                 "background-color: rgb(161,165,168);}");
 }
 
 void MainWindow::setThemeUI(const QString style)
