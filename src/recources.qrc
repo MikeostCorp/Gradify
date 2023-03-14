@@ -45,5 +45,15 @@
         <file>img/pinkMenuIcon/itemIco.png</file>
         <file>img/whiteMenuIcon/itemIco.png</file>
         <file>img/reportsIcon/reportItem.png</file>
+        <file>styles/black/appSetting.qss</file>
+        <file>styles/black/authorization.qss</file>
+        <file>styles/black/mainWindow.qss</file>
+        <file>styles/black/pressPushButton.qss</file>
+        <file>styles/black/pushButton.qss</file>
+        <file>styles/white/appSetting.qss</file>
+        <file>styles/white/authorization.qss</file>
+        <file>styles/white/mainWindow.qss</file>
+        <file>styles/white/pressPushButton.qss</file>
+        <file>styles/white/pushButton.qss</file>
     </qresource>
 </RCC>
