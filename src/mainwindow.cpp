@@ -376,24 +376,23 @@ void MainWindow::setBlackUI()
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
 
-    //ui->reportStudentsButton->setObjectName("defaultButton");
-    ui->reportTeachersButton->setObjectName("defaultButton");
-    ui->reportGradesButton->setObjectName("defaultButton");
-    ui->reportGroupsButton->setObjectName("defaultButton");
-    ui->reportItemsButton->setObjectName("defaultButton");
-    ui->settingsButton->setObjectName("defaultButton");
-    ui->authorizationButton->setObjectName("defaultButton");
-    ui->deleteRowButton->setObjectName("defaultButton");
-    ui->addRowButton->setObjectName("defaultButton");
-    ui->editRowButton->setObjectName("defaultButton");
-
-
     QFile styleF;
     styleF.setFileName(":/styles/black/mainWindow.qss");
     styleF.open(QFile::ReadOnly);
     QString qssStr = styleF.readAll();
     QMessageBox::information(this,"",qssStr);
-    this->setStyleSheet(qssStr);
+
+    ui->reportTeachersButton->setStyleSheet(qssStr);
+    ui->reportGradesButton->setStyleSheet(qssStr);
+    ui->reportGroupsButton->setStyleSheet(qssStr);
+    ui->reportItemsButton->setStyleSheet(qssStr);
+    ui->settingsButton->setStyleSheet(qssStr);
+    ui->authorizationButton->setStyleSheet(qssStr);
+    ui->deleteRowButton->setStyleSheet(qssStr);
+    ui->addRowButton->setStyleSheet(qssStr);
+    ui->editRowButton->setStyleSheet(qssStr);
+    ui->reportStudentsButton->setStyleSheet(qssStr);
+
 
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
