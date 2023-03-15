@@ -53,5 +53,7 @@
         <file>styles/white/defaultButtonTableStyle.qss</file>
         <file>styles/white/defaultSettingButtonStyle.qss</file>
         <file>styles/white/selectButtonTableStyle.qss</file>
+        <file>styles/black/authorizationButton.qss</file>
+        <file>styles/white/authorizationButton.qss</file>
     </qresource>
 </RCC>

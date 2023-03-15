@@ -145,8 +145,8 @@ void MainWindow::mainWindowInit()
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
 
-    ui->authorizationButton->setFocus();
-    }
+    //ui->authorizationButton->setFocus();
+}
 
 void MainWindow::configDefault()
 {
@@ -448,11 +448,14 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 //
 //=========================================================
 
+//====================
+//
+// set black style
+//
+//====================
 
 void MainWindow::setBlackUI()
 {
-    // код для задания черного интерфейса
-
     setWindowTitle("Gradify");
     clearStyleButtonTable();
     clearSelectTable();
@@ -496,11 +499,14 @@ void MainWindow::setBlackUI()
     setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
 }
 
+//====================
+//
+// set white style
+//
+//====================
 
 void MainWindow::setWhiteUI()
 {
-    // код для задания белого интерфейса
-
     setWindowTitle("Gradify");
     clearStyleButtonTable();
     clearSelectTable();

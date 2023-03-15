@@ -2,6 +2,7 @@
 #define AUTHORIZATION_H
 
 #include <QWidget>
+#include <QFile>
 
 namespace Ui {
 class authorization;
@@ -22,18 +23,6 @@ private slots:
 
     void on_forgotPasswordButton_clicked();
 
-    void on_loginLineEdit_selectionChanged();
-
-    void on_loginLineEdit_editingFinished();
-
-    void on_passwordLineEdit_selectionChanged();
-
-    void on_passwordLineEdit_editingFinished();
-
-    void clearLineLogin(bool status);
-
-    void clearLinePassword(bool status);
-
     void on_passwordVisibilityButton_clicked();
 
     void on_loginButton_clicked();
@@ -41,7 +30,10 @@ private slots:
 private:
     Ui::authorization *ui;
     bool isPasswordHidden;
+
     QString styleType;
+
+    QFile styleF;
 
 public slots:
     void setThemeAuthorUI(const QString style);
