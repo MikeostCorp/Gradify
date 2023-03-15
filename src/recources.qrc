@@ -45,15 +45,13 @@
         <file>img/pinkMenuIcon/itemIco.png</file>
         <file>img/whiteMenuIcon/itemIco.png</file>
         <file>img/reportsIcon/reportItem.png</file>
-        <file>styles/black/appSetting.qss</file>
-        <file>styles/black/authorization.qss</file>
-        <file>styles/black/mainWindow.qss</file>
-        <file>styles/black/pressPushButton.qss</file>
-        <file>styles/black/pushButton.qss</file>
-        <file>styles/white/appSetting.qss</file>
-        <file>styles/white/authorization.qss</file>
-        <file>styles/white/mainWindow.qss</file>
-        <file>styles/white/pressPushButton.qss</file>
-        <file>styles/white/pushButton.qss</file>
+        <file>styles/white/tableView.qss</file>
+        <file>styles/black/tableView.qss</file>
+        <file>styles/black/defaultButtonTableStyle.qss</file>
+        <file>styles/black/defaultSettingButtonStyle.qss</file>
+        <file>styles/black/selectButtonTableStyle.qss</file>
+        <file>styles/white/defaultButtonTableStyle.qss</file>
+        <file>styles/white/defaultSettingButtonStyle.qss</file>
+        <file>styles/white/selectButtonTableStyle.qss</file>
     </qresource>
 </RCC>

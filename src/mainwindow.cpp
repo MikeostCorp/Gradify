@@ -130,15 +130,8 @@ void MainWindow::mainWindowInit()
 
 
     model = new QSqlTableModel(this,db);
-    model->setTable("Предмет");
-    model->select();
-
     //QMessageBox::information(this,"",db.tables().at(0));
-
-    ui->tableView->setModel(model);
-    //ui->tableView->setShowGrid(false);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
-    ui->tableView->resizeColumnsToContents();
 
     setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
@@ -235,6 +228,10 @@ void MainWindow::on_studentsTableButton_clicked()
      * Код реализации открытия таблицы студентов
      *
     */
+    model->setTable("Студенти");
+    model->select();
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -258,6 +255,12 @@ void MainWindow::on_teachersTableButton_clicked()
      * Код реализации открытия таблицы преподавателей
      *
     */
+
+    model->setTable("Викладачі");
+    model->select();
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
+
     clearStyleButtonTable();
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
 
@@ -279,7 +282,15 @@ void MainWindow::on_gradesTableButton_clicked()
      *
      * Код реализации открытия таблицы оценок
      *
+     *    ui->tableView->resizeColumnsToContents(); не юзаем ибо баг
+     *                                              с длиной колонк (последняя колонка не до
+     *                                              конца растянута)
     */
+    model->setTable("Оцінки");
+    model->select();
+    ui->tableView->setModel(model);
+
+
     clearStyleButtonTable();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
 
@@ -302,6 +313,11 @@ void MainWindow::on_groupsTableButton_clicked()
      * Код реализации открытия таблицы групп
      *
     */
+    model->setTable("Групи");
+    model->select();
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
+
     clearStyleButtonTable();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
     if (config["theme"] == "white")
@@ -323,6 +339,11 @@ void MainWindow::on_itemTableButton_clicked()
      * Код реализации открытия таблицы предметы
      *
     */
+    model->setTable("Предмет");
+    model->select();
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
+
     clearStyleButtonTable();
     ui->itemTableButton->setStyleSheet(selectButtonTableStyle);
     if (config["theme"] == "white")
@@ -335,6 +356,13 @@ void MainWindow::on_itemTableButton_clicked()
     }
 
     setWindowTitle("Gradify - (Предмети)");
+}
+
+void MainWindow::clearSelectTable()
+{
+    model->setTable("NULL");
+    model->select();
+    ui->tableView->setModel(model);
 }
 
 void MainWindow::clearStyleButtonTable()
@@ -350,276 +378,6 @@ void MainWindow::clearStyleButtonTable()
     ui->gradesTableButton->setIcon(QIcon(":/img/pinkMenuIcon/raitingIco.png"));
     ui->groupsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/groupIco.png"));
     ui->itemTableButton->setIcon(QIcon(":/img/pinkMenuIcon/itemIco.png"));
-}
-
-void MainWindow::setBlackUI()
-{
-    // код для задания черного интерфейса
-
-    setWindowTitle("Gradify");
-    clearStyleButtonTable();
-    defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
-                              "rgb(41,45,48); color: rgb(255, 255, 255); } "
-                              "QPushButton:hover { background-color:  rgb(98, 98, 98); }";
-
-    selectButtonTableStyle = "QPushButton{border-radius:  6px;background-color:  rgb(172, 72, 70);"
-                             "color:  rgb(255, 255, 255);} "
-                             "QPushButton:hover{background-color: rgb(172, 72, 70);color:  "
-                             "rgb(255, 255, 255);}";
-
-    defaultSettingButtonStyle = "QPushButton { border-radius:  6px; "
-                                "background-color:  rgb(41, 45, 48); color:  rgb(255, 255, 255); }";
-
-    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
-
-    QFile styleF;
-    styleF.setFileName(":/styles/black/mainWindow.qss");
-    styleF.open(QFile::ReadOnly);
-    QString qssStr = styleF.readAll();
-    QMessageBox::information(this,"",qssStr);
-
-    ui->reportTeachersButton->setStyleSheet(qssStr);
-    ui->reportGradesButton->setStyleSheet(qssStr);
-    ui->reportGroupsButton->setStyleSheet(qssStr);
-    ui->reportItemsButton->setStyleSheet(qssStr);
-    ui->settingsButton->setStyleSheet(qssStr);
-    ui->authorizationButton->setStyleSheet(qssStr);
-    ui->deleteRowButton->setStyleSheet(qssStr);
-    ui->addRowButton->setStyleSheet(qssStr);
-    ui->editRowButton->setStyleSheet(qssStr);
-    ui->reportStudentsButton->setStyleSheet(qssStr);
-
-
-    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
-    ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
-    ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("color: white;background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
-    setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
-    ui->tableView->setStyleSheet("QHeaderView::section{"
-                                 "size: 12px;"
-                                 "color: white;"
-                                 "background-color: rgb(61,65,68);"
-                                 "padding-bottom:5px;"
-                                 "padding-top:5px;}"
-                                 "QTableView{"
-                                 "background-color: rgb(61,65,68);"
-                                 "color: white;}"
-                                 "QTableView::item {"
-                                 "border-radius: 8px;}"
-                                 "QTableView::item{"
-                                 "color: white;"
-                                 "text-align: center;"
-                                 "border-style: 1px solid rgb(41,45,48);}"
-                                 "QTableView::item:selected{color: white;background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar:vertical {\n"
-                                 "border: none;\n"
-                                 "background: rgb(61,65,68);\n"
-                                 "width: 14px;\n"
-                                 "margin: 15px 0 15px 0;\n"
-                                 "border-radius: 0px;\n}\n"
-                                 "QScrollBar::handle:vertical {\n"
-                                 "background-color: rgb(132,132,132);\n"
-                                 "min-height: 20px;\n"
-                                 "border-radius: 7px;\n}\n"
-                                 "QScrollBar::handle:vertical:hover { \n"
-                                 "background-color: rgb(152,152,152);\n}\n"
-                                 "QScrollBar::handle:vertical:pressed {\n"
-                                 "background-color: rgb(152,152,152);\n}\n"
-                                 "QScrollBar::sub-line:vertical {\n"
-                                 "border: none;\n"
-                                 "background-color: rgb(91,95,98);\n"
-                                 "height: 15px;\n"
-                                 "border-top-left-radius: 7px;\n"
-                                 "border-top-right-radius: 7px;\n"
-                                 "subcontrol-position: top;\n"
-                                 "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::sub-line:vertical:hover {\n"
-                                 "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::sub-line:vertical:pressed { \n"
-                                 "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::add-line:vertical {\n"
-                                 "border: none;\n"
-                                 "background-color: rgb(91,95,98);\n"
-                                 "height: 15px;\n"
-                                 "border-bottom-left-radius: 7px;\n"
-                                 "border-bottom-right-radius: 7px;\n"
-                                 "subcontrol-position: bottom;\n"
-                                 "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::add-line:vertical:hover {\n"
-                                 "background-color: rgb(111,115,118);\n}\n"
-                                 "QScrollBar::add-line:vertical:pressed { \n"
-                                 "background-color: rgb(111,115,118);\n}\n\n"
-                                 "QScrollBar:horizontal {"
-                                 "border: none;"
-                                 "border-radius: 0px;"
-                                 "background: rgb(61,65,68);"
-                                 "height: 14px;"
-                                 "margin: 0px 15px 0 15px;}"
-                                 "QScrollBar::handle:horizontal{"
-                                 "background: rgb(132,132,132);"
-                                 "min-width: 20px;"
-                                 "border-radius: 7px;}"
-                                 "QScrollBar::handle:horizontal:hover {"
-                                 "background-color: rgb(152,152,152);}"
-                                 "QScrollBar::handle:horizontal:pressed {"
-                                 "background-color: rgb(152,152,152);}"
-                                 "QScrollBar::add-line:horizontal {"
-                                 "border: none;"
-                                 "background: rgb(91,95,98);"
-                                 "width: 15px;"
-                                 "border-top-right-radius: 7px;"
-                                 "border-bottom-right-radius: 7px;"
-                                 "subcontrol-position: right;"
-                                 "subcontrol-origin: margin;}"
-                                 "QScrollBar::add-line:horizontal:hover {"
-                                 "background-color: rgb(111,115,118);}"
-                                 "QScrollBar::sub-line:horizontal {"
-                                 "border: none;"
-                                 "background: rgb(91,95,98);"
-                                 "width: 15px;"
-                                 "border-top-left-radius: 7px;"
-                                 "border-bottom-left-radius: 7px;"
-                                 "subcontrol-position: left;"
-                                 "subcontrol-origin: margin;}"
-                                 "QScrollBar::sub-line:horizontal:hover {"
-                                 "background-color: rgb(111,115,118);}"
-                                 "QScrollBar::sub-line:horizontal:pressed {"
-                                 "background-color: rgb(111,115,118);}");
-
-}
-
-void MainWindow::setWhiteUI()
-{
-    // код для задания белого интерфейса
-
-    setWindowTitle("Gradify");
-    clearStyleButtonTable();
-    defaultButtonTableStyle = "QPushButton { border-radius:  6px; background-color:  "
-                              "rgb(231,224,223); color: rgb(61, 60, 59); } "
-                              "QPushButton:hover { background-color:  rgb(207, 201, 199); }";
-
-    selectButtonTableStyle = "QPushButton{border-radius:  6px;background-color:  rgb(212, 112, 110);"
-                             "color:  rgb(61, 60, 59);} "
-                             "QPushButton:hover{background-color: rgb(232, 132, 130);color:  "
-                             "rgb(61, 60, 59);}";
-
-    defaultSettingButtonStyle = "QPushButton { border-radius:  6px; "
-                                "background-color:  rgb(231, 224, 223); color:  rgb(61, 60, 59); }";
-
-    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
-    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
-    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
-    ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
-    ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
-    setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
-    ui->tableView->setStyleSheet("QHeaderView::section{"
-                                 "size: 12px;"
-                                 "color: black;"
-                                 "background-color: white;"
-                                 "padding-bottom:5px;"
-                                 "padding-top:5px;}"
-                                 "QTableView{"
-                                 "background-color: white;"
-                                 "color: black;}"
-                                 "QTableView::item{"
-                                 "color: black;"
-                                 "text-align: center;"
-                                 "border-style: 1px solid rgb(211,204,203);}"
-                                 "QTableView::item {"
-                                 "border-radius: 8px;}"
-                                 "QTableView::item:selected{color: black; background-color: rgb(232, 118, 123);}"
-                                 "QScrollBar:vertical {\n"
-                                 "border: none;\n"
-                                 "background: rgb(245,245,245);\n"
-                                 "width: 14px;\n"
-                                 "margin: 15px 0 15px 0;\n"
-                                 "border-radius: 0px;\n}\n"
-                                 "QScrollBar::handle:vertical {\n"
-                                 "background-color: rgb(212,212,212);\n"
-                                 "min-height: 20px;\n"
-                                 "border-radius: 7px;\n}\n"
-                                 "QScrollBar::handle:vertical:hover { \n"
-                                 "background-color: rgb(202,202,202);\n}\n"
-                                 "QScrollBar::handle:vertical:pressed {\n"
-                                 "background-color: rgb(202,202,202);\n}\n"
-                                 "QScrollBar::sub-line:vertical {\n"
-                                 "border: none;\n"
-                                 "background-color: rgb(181,185,188);\n"
-                                 "height: 15px;\n"
-                                 "border-top-left-radius: 7px;\n"
-                                 "border-top-right-radius: 7px;\n"
-                                 "subcontrol-position: top;\n"
-                                 "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::sub-line:vertical:hover {\n"
-                                 "background-color: rgb(161,165,168);\n}\n"
-                                 "QScrollBar::sub-line:pressed { \n"
-                                 "background-color: rgb(161,165,168);\n}\n"
-                                 "QScrollBar::add-line:vertical {\n"
-                                 "border: none;\n"
-                                 "background-color: rgb(181,185,188);\n"
-                                 "height: 15px;\n"
-                                 "border-bottom-left-radius: 7px;\n"
-                                 "border-bottom-right-radius: 7px;\n"
-                                 "subcontrol-position: bottom;\n"
-                                 "subcontrol-origin: margin;\n}\n"
-                                 "QScrollBar::add-line:vertical:hover {\n"
-                                 "background-color: rgb(161,165,168);\n}\n"
-                                 "QScrollBar::add-line:vertical:pressed { \n"
-                                 "background-color: rgb(161,165,168);\n}\n\n"
-                                 "QScrollBar:horizontal {"
-                                 "border: none;"
-                                 "border-radius: 0px;"
-                                 "background: rgb(245,245,245);"
-                                 "height: 14px;"
-                                 "margin: 0px 15px 0 15px;}"
-                                 "QScrollBar::handle:horizontal{"
-                                 "background: rgb(212,212,212);"
-                                 "min-width: 20px;"
-                                 "border-radius: 7px;}"
-                                 "QScrollBar::handle:horizontal:hover {"
-                                 "background-color: rgb(202,202,202);}"
-                                 "QScrollBar::handle:horizontal:pressed {"
-                                 "background-color: rgb(202,202,202);}"
-                                 "QScrollBar::add-line:horizontal {"
-                                 "border: none;"
-                                 "background: rgb(181,185,188);"
-                                 "width: 15px;"
-                                 "border-top-right-radius: 7px;"
-                                 "border-bottom-right-radius: 7px;"
-                                 "subcontrol-position: right;"
-                                 "subcontrol-origin: margin;}"
-                                 "QScrollBar::add-line:horizontal:hover {"
-                                 "background-color: rgb(161,165,168);}"
-                                 "QScrollBar::sub-line:horizontal {"
-                                 "border: none;"
-                                 "background: rgb(181,185,188);"
-                                 "width: 15px;"
-                                 "border-top-left-radius: 7px;"
-                                 "border-bottom-left-radius: 7px;"
-                                 "subcontrol-position: left;"
-                                 "subcontrol-origin: margin;}"
-                                 "QScrollBar::sub-line:horizontal:hover {"
-                                 "background-color: rgb(161,165,168);}"
-                                 "QScrollBar::sub-line:horizontal:pressed {"
-                                 "background-color: rgb(161,165,168);}");
 }
 
 void MainWindow::setThemeUI(const QString style)
@@ -678,4 +436,115 @@ void MainWindow::on_deleteRowButton_clicked()
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
+}
+
+
+//=========================================================
+//
+//
+//          This code for styling theme application
+//          Warning! Many line code.
+//
+//
+//=========================================================
+
+
+void MainWindow::setBlackUI()
+{
+    // код для задания черного интерфейса
+
+    setWindowTitle("Gradify");
+    clearStyleButtonTable();
+    clearSelectTable();
+
+    styleF.setFileName(":/styles/black/defaultButtonTableStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    defaultButtonTableStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/black/selectButtonTableStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    selectButtonTableStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/black/defaultSettingButtonStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    defaultSettingButtonStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/black/tableView.qss");
+    styleF.open(QFile::ReadOnly);
+    ui->tableView->setStyleSheet(styleF.readAll());
+
+    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
+    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
+    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
+
+    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
+    ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
+    ui->upMenuFrame->setStyleSheet("border: 0px");
+    ui->mainTableFrame->setStyleSheet("color: white;background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
+    setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
+}
+
+
+void MainWindow::setWhiteUI()
+{
+    // код для задания белого интерфейса
+
+    setWindowTitle("Gradify");
+    clearStyleButtonTable();
+    clearSelectTable();
+
+    styleF.setFileName(":/styles/white/defaultButtonTableStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    defaultButtonTableStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/white/selectButtonTableStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    selectButtonTableStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/white/defaultSettingButtonStyle.qss");
+    styleF.open(QFile::ReadOnly);
+    defaultSettingButtonStyle = styleF.readAll();
+
+    styleF.setFileName(":/styles/white/tableView.qss");
+    styleF.open(QFile::ReadOnly);
+    ui->tableView->setStyleSheet(styleF.readAll());
+
+    styleF.setFileName(":/styles/white/tableView.qss");
+    styleF.open(QFile::ReadOnly);
+    ui->tableView->setStyleSheet(styleF.readAll());
+
+    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
+    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
+    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
+
+    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
+    ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
+    ui->upMenuFrame->setStyleSheet("border: 0px");
+    ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
+    setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+
 }

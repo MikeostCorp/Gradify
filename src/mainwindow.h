@@ -63,6 +63,8 @@ private slots:
 
     void on_itemTableButton_clicked();
 
+    void clearSelectTable();
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
@@ -75,6 +77,7 @@ private:
     QMap<QString, QString> config;
 
     QFile cfgFile;
+    QFile styleF;
 
     QSqlDatabase db;
     QSqlQuery *query;
