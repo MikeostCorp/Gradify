@@ -158,7 +158,7 @@ void MainWindow::mainWindowInit()
     ui->authorizationButton->setFocus();
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
-    setEnabledTables(false);
+    setEnabledButtons(false);
 }
 
 
@@ -475,7 +475,7 @@ void MainWindow::checkAuthorization(const QString login, const QString password)
         {
             ui->authorizationButton->setText("Привіт, " + login + "!");
             statusLogin = true;
-            setEnabledTables(true);
+            setEnabledButtons(true);
             emit statusAuthorization(true);
         }
     }
@@ -516,7 +516,7 @@ void MainWindow::on_authorizationButton_clicked()
         if (reply == QMessageBox::Yes)
         {
             statusLogin = false;
-            setEnabledTables(false);
+            setEnabledButtons(false);
             clearSelectTable();
             clearStyleButtonTable();
             ui->authorizationButton->setText("Авторизація");
