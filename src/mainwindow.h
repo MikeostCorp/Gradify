@@ -65,7 +65,7 @@ private slots:
 
     void clearSelectTable();
 
-    void setEnabledTables(bool status);
+    void setEnabledButtons(bool status);
 
 private:
     Ui::MainWindow *ui;

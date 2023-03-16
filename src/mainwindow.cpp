@@ -390,7 +390,7 @@ void MainWindow::clearSelectTable()
 }
 
 
-void MainWindow::setEnabledTables(bool status)
+void MainWindow::setEnabledButtons(bool status)
 {
     ui->subjectsReportButton->setEnabled(status);
     ui->gradesReportButton->setEnabled(status);
