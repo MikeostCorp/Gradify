@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>352</width>
     <height>320</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@ background-color: rgb(41,45,48);
 }
 </string>
   </property>
-  <widget class="QLabel" name="loginLabel">
+  <widget class="QLabel" name="headTitleLabel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -176,7 +176,7 @@ QPushButton:hover
   <widget class="QPushButton" name="passwordVisibilityButton">
    <property name="geometry">
     <rect>
-     <x>302</x>
+     <x>310</x>
      <y>170</y>
      <width>31</width>
      <height>31</height>

@@ -19,14 +19,14 @@ authorization::authorization(QWidget *parent) :
     close();
 
     ui->authorizationErrorLabel->setVisible(false);
-
-
 }
+
 
 authorization::~authorization()
 {
     delete ui;
 }
+
 
 void authorization::on_forgotPasswordButton_clicked()
 {
@@ -34,6 +34,7 @@ void authorization::on_forgotPasswordButton_clicked()
                                           "\nandreyizbash228@gmail.com"
                                           "\nmikeostashenko@gmail.com");
 }
+
 
 void authorization::on_passwordVisibilityButton_clicked()
 {
@@ -65,6 +66,7 @@ void authorization::on_passwordVisibilityButton_clicked()
     }
 }
 
+
 void authorization::setThemeAuthorUI(const QString style)
 {
     if(style == "black")
@@ -79,6 +81,7 @@ void authorization::setThemeAuthorUI(const QString style)
     }
 }
 
+
 void authorization::setStatusAuthorization(const bool status)
 {
     if(status)
@@ -92,6 +95,7 @@ void authorization::setStatusAuthorization(const bool status)
     }
 }
 
+
 void authorization::setBlackUI()
 {
     styleType = "black";
@@ -103,14 +107,16 @@ void authorization::setBlackUI()
     ui->loginButton->setStyleSheet(styleF.readAll());
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
 
-    ui->loginLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
+    ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
     ui->loginLineEdit->setStyleSheet("color: white;background-color: rgb(29, 31, 32);border-radius: 8px;");
     ui->passwordLineEdit->setStyleSheet("color:white;background-color: rgb(29, 31, 32);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
 
     isPasswordHidden = false;
-    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);}
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
+}
+
 
 void authorization::setWhiteUI()
 {
@@ -123,7 +129,7 @@ void authorization::setWhiteUI()
     ui->loginButton->setStyleSheet(styleF.readAll());
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
 
-    ui->loginLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
+    ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
     ui->loginLineEdit->setStyleSheet("color:rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->passwordLineEdit->setStyleSheet("color:rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
@@ -132,6 +138,7 @@ void authorization::setWhiteUI()
     isPasswordHidden = false;
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
+
 
 void authorization::on_loginButton_clicked()
 {

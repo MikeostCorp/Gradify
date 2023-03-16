@@ -14,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
     mainWindowInit();
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::mainWindowInit()
 {
@@ -27,12 +29,12 @@ void MainWindow::mainWindowInit()
 
 
     // после покупки хостинга фикстить
-    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db ");
-    QMessageBox::information(this,"",QDir::currentPath() + "dataBase.db");
+    db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
+    QMessageBox::information(this, "", QDir::currentPath() + "dataBase.db");
 
     if(!db.open())
     {
-        QMessageBox::information(this,"","База даних не відкрилась");
+        QMessageBox::information(this, "", "База даних не відкрилась");
     }
 
 
@@ -129,7 +131,7 @@ void MainWindow::mainWindowInit()
 
 
 
-    model = new QSqlTableModel(this,db);
+    model = new QSqlTableModel(this, db);
 
     //QMessageBox::information(this,"",db.tables().at(0));
 
@@ -156,7 +158,7 @@ void MainWindow::mainWindowInit()
     ui->authorizationButton->setFocus();
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
-    setBlockTables(false);
+    setEnabledTables(false);
 }
 
 
@@ -353,7 +355,7 @@ void MainWindow::on_groupsTableButton_clicked()
 }
 
 
-void MainWindow::on_itemTableButton_clicked()
+void MainWindow::on_subjectsTableButton_clicked()
 {
     /*
      *
@@ -366,14 +368,14 @@ void MainWindow::on_itemTableButton_clicked()
     ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
-    ui->itemTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
     if (config["theme"] == "white")
     {
-        ui->itemTableButton->setIcon(QIcon(":/img/whiteMenuIcon/itemIco.png"));
+        ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
     }
     else if (config["theme"] == "black")
     {
-        ui->itemTableButton->setIcon(QIcon(":/img/blackMenuIcon/itemIco.png"));
+        ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
     setWindowTitle("Gradify - (Предмети)");
@@ -388,17 +390,17 @@ void MainWindow::clearSelectTable()
 }
 
 
-void MainWindow::setBlockTables(bool status)
+void MainWindow::setEnabledTables(bool status)
 {
-    ui->reportItemsButton->setEnabled(status);
-    ui->reportGradesButton->setEnabled(status);
-    ui->reportGroupsButton->setEnabled(status);
-    ui->reportTeachersButton->setEnabled(status);
-    ui->reportStudentsButton->setEnabled(status);
+    ui->subjectsReportButton->setEnabled(status);
+    ui->gradesReportButton->setEnabled(status);
+    ui->groupsReportButton->setEnabled(status);
+    ui->teachersReportButton->setEnabled(status);
+    ui->studentsReportButton->setEnabled(status);
 
     ui->gradesTableButton->setEnabled(status);
     ui->studentsTableButton->setEnabled(status);
-    ui->itemTableButton->setEnabled(status);
+    ui->subjectsTableButton->setEnabled(status);
     ui->teachersTableButton->setEnabled(status);
     ui->groupsTableButton->setEnabled(status);
 
@@ -414,18 +416,18 @@ void MainWindow::clearStyleButtonTable()
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
 
     ui->studentsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/studentsIco.png"));
     ui->teachersTableButton->setIcon(QIcon(":/img/pinkMenuIcon/teachersIco.png"));
     ui->gradesTableButton->setIcon(QIcon(":/img/pinkMenuIcon/raitingIco.png"));
     ui->groupsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/groupIco.png"));
-    ui->itemTableButton->setIcon(QIcon(":/img/pinkMenuIcon/itemIco.png"));
+    ui->subjectsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/subjectIco.png"));
 }
 
 void MainWindow::setThemeUI(const QString style)
 {
-    if(style == "black")
+    if (style == "black")
     {
         setBlackUI();
         config["theme"] = "black";
@@ -444,19 +446,41 @@ void MainWindow::checkAuthorization(const QString login, const QString password)
 {
     model->setTable("loginPassTable");
     model->select();
+    emit statusAuthorization(true);
 
-    for(int i = 0; i < model->rowCount(); i++)
+    /*
+     * Как это должно быть
+     *
+    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+    QTableView *tableView = new QTableView(this);
+    queryModel->setQuery("SELECT * "
+                         "FROM `users`"
+                         "WHERE `login` = '" + login + "'"
+                         " AND `pass` = '" + password + "'");
+
+    tableView->setModel(queryModel);
+
+    if(tableView->model()->rowCount() > 0){
+        // есть запись
+    }
+    else{
+        // нет записи
+    }
+
+    */
+
+    for (int i = 0; i < model->rowCount(); i++)
     {
-        if(login == model->data(model->index(i,0)).toString() and password == model->data(model->index(i,1)).toString())
+        if (login == model->data(model->index(i, 0)).toString() and password == model->data(model->index(i, 1)).toString())
         {
             ui->authorizationButton->setText("Привіт, " + login + "!");
             statusLogin = true;
-            setBlockTables(true);
+            setEnabledTables(true);
             emit statusAuthorization(true);
         }
     }
 
-    if(!statusLogin)
+    if (!statusLogin)
     {
         statusAuthorization(false);
         statusLogin = false;
@@ -466,7 +490,7 @@ void MainWindow::checkAuthorization(const QString login, const QString password)
     clearSelectTable();
 
     // debug
-    QMessageBox::information(this,"",login + " - log\n" + password + " - pass");
+    QMessageBox::information(this, "", login + " - log\n" + password + " - pass");
 }
 
 
@@ -479,7 +503,7 @@ void MainWindow::on_settingsButton_clicked()
 
 void MainWindow::on_authorizationButton_clicked()
 {
-    if(!statusLogin)
+    if (!statusLogin)
     {
         openAuthorization->show();
         openSetting->close();
@@ -492,7 +516,7 @@ void MainWindow::on_authorizationButton_clicked()
         if (reply == QMessageBox::Yes)
         {
             statusLogin = false;
-            setBlockTables(false);
+            setEnabledTables(false);
             clearSelectTable();
             clearStyleButtonTable();
             ui->authorizationButton->setText("Авторизація");
@@ -513,12 +537,12 @@ void MainWindow::on_deleteRowButton_clicked()
 {
     bool ok;
     int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
-                                              tr("Введіть номер ключового поля:"), row+1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
+                                              tr("Введіть номер ключового поля:"), row + 1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
                                               // случае максимальный выбор заканчивается на общем количестве записей)
                                               // первая 1 означает текущий выбор за умолчанием
                                               // вторая 1 означает минимальное значение выбор
                                               // третья 1 означает шаг с которым выбирается индекс
-    if(ok)
+    if (ok)
     {
         model->removeRow(inputNum - 1);
         model->select();                      // Для мгновенного обновления таблицы
@@ -574,17 +598,17 @@ void MainWindow::setBlackUI()
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->teachersReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
 
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
@@ -630,12 +654,12 @@ void MainWindow::setWhiteUI()
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->itemTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportStudentsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportTeachersButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGradesButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportGroupsButton->setStyleSheet(defaultButtonTableStyle);
-    ui->reportItemsButton->setStyleSheet(defaultButtonTableStyle);
+    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->teachersReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
+    ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);

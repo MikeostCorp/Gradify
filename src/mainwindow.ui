@@ -110,7 +110,7 @@ border: 0px;</string>
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QPushButton" name="reportStudentsButton">
+         <widget class="QPushButton" name="studentsReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -170,7 +170,7 @@ QPushButton:hover
            <number>300</number>
           </property>
          </widget>
-         <widget class="QPushButton" name="reportGradesButton">
+         <widget class="QPushButton" name="gradesReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -227,7 +227,7 @@ QPushButton:hover
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="reportTeachersButton">
+         <widget class="QPushButton" name="teachersReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -559,7 +559,7 @@ QPushButton:hover
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="reportGroupsButton">
+         <widget class="QPushButton" name="groupsReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -652,7 +652,7 @@ QPushButton:hover
            </size>
           </property>
          </widget>
-         <widget class="QLabel" name="reportSectionLabel_2">
+         <widget class="QLabel" name="actionsSectionLabel">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -845,7 +845,7 @@ QPushButton:hover
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="itemTableButton">
+         <widget class="QPushButton" name="subjectsTableButton">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -893,7 +893,7 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/itemIco.png</normaloff>:/img/pinkMenuIcon/itemIco.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/subjectIco.png</normaloff>:/img/pinkMenuIcon/subjectIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -902,7 +902,7 @@ QPushButton:hover
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="reportItemsButton">
+         <widget class="QPushButton" name="subjectsReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>

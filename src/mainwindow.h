@@ -61,11 +61,11 @@ private slots:
 
     void on_tableView_clicked(const QModelIndex &index);
 
-    void on_itemTableButton_clicked();
+    void on_subjectsTableButton_clicked();
 
     void clearSelectTable();
 
-    void setBlockTables(bool status);
+    void setEnabledTables(bool status);
 
 private:
     Ui::MainWindow *ui;
