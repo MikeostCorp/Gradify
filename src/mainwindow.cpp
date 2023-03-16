@@ -130,29 +130,42 @@ void MainWindow::mainWindowInit()
 
 
     model = new QSqlTableModel(this,db);
+
     //QMessageBox::information(this,"",db.tables().at(0));
+
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
+
+    //ui->tableView->setModel(model);
 
     setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, openAuthorization, &authorization::setThemeAuthorUI);
+    connect(this, &MainWindow::statusAuthorization, openAuthorization, &authorization::setStatusAuthorization);
 
     configRead();
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
+    connect(openAuthorization, &authorization::signalPasswordLogin, this, &MainWindow::checkAuthorization);
 
-    //ui->authorizationButton->setFocus();
+
+    ui->authorizationButton->setFocus();
+
+    // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
+    setBlockTables(false);
 }
+
 
 void MainWindow::configDefault()
 {
     config["theme"] = "black";
     configWrite();
 }
+
 
 void MainWindow::configRead()
 {
@@ -175,6 +188,7 @@ void MainWindow::configRead()
     cfgFile.close();
 }
 
+
 void MainWindow::configInit()
 {
     if (config["theme"] == "white")
@@ -188,6 +202,7 @@ void MainWindow::configInit()
 
     emit setThemeSettingsUI(config["theme"]);
 }
+
 
 void MainWindow::configWrite()
 {
@@ -205,6 +220,7 @@ void MainWindow::configWrite()
     cfgFile.close();
 }
 
+
 void MainWindow::changeEvent(QEvent *event)
 {
     QWidget::changeEvent(event);
@@ -220,6 +236,7 @@ void MainWindow::changeEvent(QEvent *event)
         }
     }
 }
+
 
 void MainWindow::on_studentsTableButton_clicked()
 {
@@ -248,6 +265,7 @@ void MainWindow::on_studentsTableButton_clicked()
     setWindowTitle("Gradify - (Студенти)");
 }
 
+
 void MainWindow::on_teachersTableButton_clicked()
 {
     /*
@@ -275,6 +293,7 @@ void MainWindow::on_teachersTableButton_clicked()
 
     setWindowTitle("Gradify - (Викладачі)");
 }
+
 
 void MainWindow::on_gradesTableButton_clicked()
 {
@@ -306,6 +325,7 @@ void MainWindow::on_gradesTableButton_clicked()
     setWindowTitle("Gradify - (Оцінки)");
 }
 
+
 void MainWindow::on_groupsTableButton_clicked()
 {
     /*
@@ -331,6 +351,7 @@ void MainWindow::on_groupsTableButton_clicked()
 
     setWindowTitle("Gradify - (Групи)");
 }
+
 
 void MainWindow::on_itemTableButton_clicked()
 {
@@ -358,12 +379,34 @@ void MainWindow::on_itemTableButton_clicked()
     setWindowTitle("Gradify - (Предмети)");
 }
 
+
 void MainWindow::clearSelectTable()
 {
     model->setTable("NULL");
     model->select();
     ui->tableView->setModel(model);
 }
+
+
+void MainWindow::setBlockTables(bool status)
+{
+    ui->reportItemsButton->setEnabled(status);
+    ui->reportGradesButton->setEnabled(status);
+    ui->reportGroupsButton->setEnabled(status);
+    ui->reportTeachersButton->setEnabled(status);
+    ui->reportStudentsButton->setEnabled(status);
+
+    ui->gradesTableButton->setEnabled(status);
+    ui->studentsTableButton->setEnabled(status);
+    ui->itemTableButton->setEnabled(status);
+    ui->teachersTableButton->setEnabled(status);
+    ui->groupsTableButton->setEnabled(status);
+
+    ui->addRowButton->setEnabled(status);
+    ui->deleteRowButton->setEnabled(status);
+    ui->editRowButton->setEnabled(status);
+}
+
 
 void MainWindow::clearStyleButtonTable()
 {
@@ -396,17 +439,67 @@ void MainWindow::setThemeUI(const QString style)
     }
 }
 
+
+void MainWindow::checkAuthorization(const QString login, const QString password)
+{
+    model->setTable("loginPassTable");
+    model->select();
+
+    for(int i = 0; i < model->rowCount(); i++)
+    {
+        if(login == model->data(model->index(i,0)).toString() and password == model->data(model->index(i,1)).toString())
+        {
+            ui->authorizationButton->setText("Привіт, " + login + "!");
+            statusLogin = true;
+            setBlockTables(true);
+            emit statusAuthorization(true);
+        }
+    }
+
+    if(!statusLogin)
+    {
+        statusAuthorization(false);
+        statusLogin = false;
+        emit statusAuthorization(false);
+    }
+
+    clearSelectTable();
+
+    // debug
+    QMessageBox::information(this,"",login + " - log\n" + password + " - pass");
+}
+
+
 void MainWindow::on_settingsButton_clicked()
 {
     openSetting->show();
     openAuthorization->close();
 }
 
+
 void MainWindow::on_authorizationButton_clicked()
 {
-    openAuthorization->show();
-    openSetting->close();
+    if(!statusLogin)
+    {
+        openAuthorization->show();
+        openSetting->close();
+    }
+    else
+    {
+        QMessageBox::StandardButton reply;
+          reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
+                                        QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::Yes)
+        {
+            statusLogin = false;
+            setBlockTables(false);
+            clearSelectTable();
+            clearStyleButtonTable();
+            ui->authorizationButton->setText("Авторизація");
+        }
+    }
 }
+
 
 void MainWindow::on_addRowButton_clicked()
 {
@@ -428,7 +521,7 @@ void MainWindow::on_deleteRowButton_clicked()
     if(ok)
     {
         model->removeRow(inputNum - 1);
-        model->select();
+        model->select();                      // Для мгновенного обновления таблицы
     }
 }
 
@@ -454,11 +547,12 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 //
 //====================
 
+
 void MainWindow::setBlackUI()
 {
     setWindowTitle("Gradify");
     clearStyleButtonTable();
-    clearSelectTable();
+    //clearSelectTable();
 
     styleF.setFileName(":/styles/black/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
@@ -499,6 +593,7 @@ void MainWindow::setBlackUI()
     setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
 }
 
+
 //====================
 //
 // set white style
@@ -509,7 +604,7 @@ void MainWindow::setWhiteUI()
 {
     setWindowTitle("Gradify");
     clearStyleButtonTable();
-    clearSelectTable();
+    //clearSelectTable();
 
     styleF.setFileName(":/styles/white/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
@@ -552,5 +647,4 @@ void MainWindow::setWhiteUI()
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
-
 }

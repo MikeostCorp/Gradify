@@ -19,6 +19,8 @@ authorization::authorization(QWidget *parent) :
     close();
 
     ui->authorizationErrorLabel->setVisible(false);
+
+
 }
 
 authorization::~authorization()
@@ -77,6 +79,19 @@ void authorization::setThemeAuthorUI(const QString style)
     }
 }
 
+void authorization::setStatusAuthorization(const bool status)
+{
+    if(status)
+    {
+        ui->authorizationErrorLabel->setVisible(false);
+        close();
+    }
+    else
+    {
+        ui->authorizationErrorLabel->setVisible(true);
+    }
+}
+
 void authorization::setBlackUI()
 {
     styleType = "black";
@@ -93,9 +108,9 @@ void authorization::setBlackUI()
     ui->passwordLineEdit->setStyleSheet("color:white;background-color: rgb(29, 31, 32);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
-    ui->authorizationErrorLabel->setVisible(false);
-    ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
-}
+
+    isPasswordHidden = false;
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);}
 
 void authorization::setWhiteUI()
 {
@@ -113,8 +128,9 @@ void authorization::setWhiteUI()
     ui->passwordLineEdit->setStyleSheet("color:rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
-    ui->authorizationErrorLabel->setVisible(false);
-    ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
+
+    isPasswordHidden = false;
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
 void authorization::on_loginButton_clicked()
@@ -124,8 +140,13 @@ void authorization::on_loginButton_clicked()
     // про ошибку ввода пароля
     //
 
-
-
-    ui->authorizationErrorLabel->setVisible(true);
+    if(!ui->passwordLineEdit->text().isEmpty() and !ui->loginLineEdit->text().isEmpty())
+    {
+        emit signalPasswordLogin(ui->loginLineEdit->text(), ui->passwordLineEdit->text());
+    }
+    else
+    {
+        ui->authorizationErrorLabel->setVisible(true);
+    }
 }
 

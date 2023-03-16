@@ -37,6 +37,10 @@ private:
 
 public slots:
     void setThemeAuthorUI(const QString style);
+    void setStatusAuthorization(const bool status);
+
+signals:
+    void signalPasswordLogin(const QString, const QString);
 };
 
 #endif // AUTHORIZATION_H

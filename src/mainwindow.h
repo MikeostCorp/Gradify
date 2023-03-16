@@ -65,6 +65,8 @@ private slots:
 
     void clearSelectTable();
 
+    void setBlockTables(bool status);
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
@@ -84,10 +86,14 @@ private:
     QSqlTableModel *model;
     int row;
 
+    bool statusLogin;
+
 public slots:
     void setThemeUI(const QString style);
+    void checkAuthorization(const QString login, const QString password);
 
 signals:
     void setThemeSettingsUI(const QString);
+    void statusAuthorization(const bool);
 };
 #endif // MAINWINDOW_H
