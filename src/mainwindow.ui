@@ -1241,6 +1241,10 @@ QTableView::item:selected
    </property>
   </action>
   <action name="openStudTabAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/img/whiteMenuIcon/studentsIco.png</normaloff>:/img/whiteMenuIcon/studentsIco.png</iconset>
+   </property>
    <property name="text">
     <string>Відкрити таблицю &quot;Студенти&quot;</string>
    </property>
@@ -1249,6 +1253,10 @@ QTableView::item:selected
    </property>
   </action>
   <action name="openTeachTabAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/img/whiteMenuIcon/teachersIco.png</normaloff>:/img/whiteMenuIcon/teachersIco.png</iconset>
+   </property>
    <property name="text">
     <string>Відкрити таблицю &quot;Викладачі&quot;</string>
    </property>
@@ -1257,6 +1265,10 @@ QTableView::item:selected
    </property>
   </action>
   <action name="openGradesTabAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/img/whiteMenuIcon/raitingIco.png</normaloff>:/img/whiteMenuIcon/raitingIco.png</iconset>
+   </property>
    <property name="text">
     <string>Відкрити таблицю &quot;Оцінки&quot;</string>
    </property>
@@ -1265,6 +1277,10 @@ QTableView::item:selected
    </property>
   </action>
   <action name="openGroupTabAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/img/whiteMenuIcon/groupIco.png</normaloff>:/img/whiteMenuIcon/groupIco.png</iconset>
+   </property>
    <property name="text">
     <string>Відкрити таблицю &quot;Групи&quot;</string>
    </property>
@@ -1276,6 +1292,10 @@ QTableView::item:selected
    </property>
   </action>
   <action name="openSubjTabAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/img/whiteMenuIcon/subjectIco.png</normaloff>:/img/whiteMenuIcon/subjectIco.png</iconset>
+   </property>
    <property name="text">
     <string>Відкрити таблицю &quot;Предмети&quot;</string>
    </property>

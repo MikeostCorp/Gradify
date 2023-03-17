@@ -188,6 +188,10 @@ void MainWindow::configInit()
     {
         setBlackUI();
     }
+    else if (config["theme"] == "system")
+    {
+        setSystemUI();
+    }
 
     emit setThemeSettingsUI(config["theme"]);
 }
@@ -439,10 +443,16 @@ void MainWindow::setThemeUI(const QString style)
         config["theme"] = "black";
         configWrite();
     }
-    else
+    else if(style == "white")
     {
         setWhiteUI();
         config["theme"] = "white";
+        configWrite();
+    }
+    else
+    {
+        setSystemUI();
+        config["theme"] = "system";
         configWrite();
     }
 }
@@ -454,8 +464,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
-    //db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
+    //db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
+    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
@@ -614,7 +624,6 @@ void MainWindow::setBlackUI()
     ui->tableView->setStyleSheet(styleF.readAll());
     styleF.close();
 
-
     ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
@@ -631,6 +640,11 @@ void MainWindow::setBlackUI()
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
 
+    ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
+    ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
 
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
@@ -693,11 +707,34 @@ void MainWindow::setWhiteUI()
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
 
+    ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
+    ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+
+
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+}
+
+void MainWindow::setSystemUI()
+{
+    QPalette basePalette;
+    QColor baseColor =  basePalette.base().color();
+    QColor newBase= QColor::fromRgbF( 1-baseColor.redF(), 1-baseColor.greenF(), 1-baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        setWhiteUI();
+    }
+    else
+    {
+        setBlackUI();
+    }
 }
 
 

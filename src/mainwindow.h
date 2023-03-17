@@ -43,6 +43,8 @@ private slots:
 
     void setWhiteUI();
 
+    void setSystemUI();
+
     void mainWindowInit();
 
     void configDefault();

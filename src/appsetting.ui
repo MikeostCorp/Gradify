@@ -24,7 +24,7 @@ background-color: rgb(29, 31, 32);
     <rect>
      <x>25</x>
      <y>20</y>
-     <width>432</width>
+     <width>661</width>
      <height>170</height>
     </rect>
    </property>
@@ -71,7 +71,9 @@ border-radius: 8px;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border: 2px solid rgb(41,45,48); 
-border-radius: 8px;</string>
+border-radius: 8px;
+
+</string>
     </property>
     <property name="text">
      <string/>
@@ -139,6 +141,60 @@ border-radius: 8px;</string>
     </property>
     <property name="text">
      <string>Світла</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imageSystemUI">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>0</y>
+      <width>200</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgb(41,45,48); 
+border-radius: 8px;
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="recources.qrc">:/img/settingIcon/settingSystemUIICo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="selectSystemUIRadioButton">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>140</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Системна</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="selectSystemUIButton">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>0</y>
+      <width>211</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

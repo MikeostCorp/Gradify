@@ -22,6 +22,8 @@ private slots:
 
     void setWhiteUI();
 
+    void setSystemUI();
+
     void on_forgotPasswordButton_clicked();
 
     void on_passwordVisibilityButton_clicked();

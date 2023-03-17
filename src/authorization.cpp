@@ -77,10 +77,14 @@ void authorization::setThemeAuthorUI(const QString style)
         styleType = "black";
         setBlackUI();
     }
-    else
+    else if(style == "white")
     {
         styleType = "white";
         setWhiteUI();
+    }
+    else
+    {
+        setSystemUI();
     }
 }
 
@@ -130,6 +134,25 @@ void authorization::setWhiteUI()
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
+void authorization::setSystemUI()
+{
+    QPalette basePalette;
+    QColor baseColor =  basePalette.base().color();
+    QColor newBase= QColor::fromRgbF( 1-baseColor.redF(), 1-baseColor.greenF(), 1-baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        styleType = "white";
+        setWhiteUI();
+    }
+    else
+    {
+        styleType = "black";
+        setBlackUI();
+    }
+
+}
+
 
 void authorization::on_loginButton_clicked()
 {
@@ -138,8 +161,8 @@ void authorization::on_loginButton_clicked()
     // про ошибку ввода пароля
     //
     authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
-    authorizationDB.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/passLog.db");
-    //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+    //authorizationDB.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/passLog.db");
+    authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
 
 
     QString login = ui->loginLineEdit->text();
