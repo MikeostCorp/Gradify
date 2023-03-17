@@ -1168,6 +1168,169 @@ QTableView::item:selected
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTables">
+    <property name="title">
+     <string>Таблиці</string>
+    </property>
+    <addaction name="openStudTabAction"/>
+    <addaction name="openTeachTabAction"/>
+    <addaction name="openGradesTabAction"/>
+    <addaction name="openGroupTabAction"/>
+    <addaction name="openSubjTabAction"/>
+   </widget>
+   <widget class="QMenu" name="menuReport">
+    <property name="title">
+     <string>Звіти</string>
+    </property>
+    <addaction name="reportStudentAction"/>
+    <addaction name="reportTeacherAction"/>
+    <addaction name="reportGradesAction"/>
+    <addaction name="reportGroupAction"/>
+    <addaction name="reportSubjectsAction"/>
+   </widget>
+   <widget class="QMenu" name="menuWork">
+    <property name="title">
+     <string>Дії</string>
+    </property>
+    <addaction name="addRowAction"/>
+    <addaction name="deleteRowAction"/>
+    <addaction name="editRowAction"/>
+   </widget>
+   <widget class="QMenu" name="menuManual">
+    <property name="title">
+     <string>Довідка</string>
+    </property>
+    <addaction name="openManual"/>
+   </widget>
+   <addaction name="menuWork"/>
+   <addaction name="menuTables"/>
+   <addaction name="menuReport"/>
+   <addaction name="menuManual"/>
+  </widget>
+  <action name="addRowAction">
+   <property name="text">
+    <string>Додати запис</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="deleteRowAction">
+   <property name="text">
+    <string>Видалити запис</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="editRowAction">
+   <property name="text">
+    <string>Редагувати запис</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="openStudTabAction">
+   <property name="text">
+    <string>Відкрити таблицю &quot;Студенти&quot;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+1</string>
+   </property>
+  </action>
+  <action name="openTeachTabAction">
+   <property name="text">
+    <string>Відкрити таблицю &quot;Викладачі&quot;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+2</string>
+   </property>
+  </action>
+  <action name="openGradesTabAction">
+   <property name="text">
+    <string>Відкрити таблицю &quot;Оцінки&quot;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+3</string>
+   </property>
+  </action>
+  <action name="openGroupTabAction">
+   <property name="text">
+    <string>Відкрити таблицю &quot;Групи&quot;</string>
+   </property>
+   <property name="toolTip">
+    <string>Відкрити таблицю &quot;Групи&quot;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+4</string>
+   </property>
+  </action>
+  <action name="openSubjTabAction">
+   <property name="text">
+    <string>Відкрити таблицю &quot;Предмети&quot;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+5</string>
+   </property>
+  </action>
+  <action name="openManual">
+   <property name="text">
+    <string>Відчинити довідку</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="reportStudentAction">
+   <property name="text">
+    <string>Звіт по студентам</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+1</string>
+   </property>
+  </action>
+  <action name="reportTeacherAction">
+   <property name="text">
+    <string>Звіт по викладачам</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+2</string>
+   </property>
+  </action>
+  <action name="reportGradesAction">
+   <property name="text">
+    <string>Звіт по оцінкам</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+3</string>
+   </property>
+  </action>
+  <action name="reportGroupAction">
+   <property name="text">
+    <string>Звіт по групам</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+4</string>
+   </property>
+  </action>
+  <action name="reportSubjectsAction">
+   <property name="text">
+    <string>Звіт по предметам</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+5</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="recources.qrc"/>

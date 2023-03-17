@@ -25,11 +25,12 @@ void MainWindow::mainWindowInit()
 {
     openSetting = new appSetting();
     openAuthorization = new authorization();
+
     db = QSqlDatabase::addDatabase("QSQLITE");
 
-
     // после покупки хостинга фикстить
-    db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
+    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
+
     QMessageBox::information(this, "", QDir::currentPath() + "dataBase.db");
 
     if(!db.open())
@@ -37,8 +38,18 @@ void MainWindow::mainWindowInit()
         QMessageBox::information(this, "", "База даних не відкрилась");
     }
 
-
     query = new QSqlQuery(db);
+    model = new QSqlTableModel(this, db);
+
+    //=================================================
+    //               Креатим таблицу акаунти
+    //=================================================
+    //
+    //passLogQuery->exec("CREATE TABLE Акаунти ("
+    //                               "Логін TEXT,"
+    //                               "Пароль TEXT,"
+    //                               "Роль TEXT"
+    //                               ");");
 
     //=================================================
     //               Креатим таблицу группы
@@ -126,22 +137,34 @@ void MainWindow::mainWindowInit()
 
 
 
-    //query->exec("DROP TABLE Викладачі");
+    //query->exec("DROP TABLE loginPassTable");
 
 
 
 
-    model = new QSqlTableModel(this, db);
+    // UVAGA!!!
+    //passLogDB = QSqlDatabase::addDatabase("QSQLITE"); // бд с логинам и пасвордами
 
-    //QMessageBox::information(this,"",db.tables().at(0));
+    passLogDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+
+    if(!passLogDB.open())
+    {
+        QMessageBox::information(this, "", "Не вдалося під'єднатись до бази даних акаунтів");
+    }
+
+
+
+    passLogQuery = new QSqlQuery(passLogDB);
+    passLogModel = new QSqlTableModel(this, passLogDB);
+
+    passLogModel->setTable("Акаунти");
+    passLogModel->select();
 
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
 
-
-    //ui->tableView->setModel(model);
-
     setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
+    ui->authorizationButton->setFocus();
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, openAuthorization, &authorization::setThemeAuthorUI);
@@ -154,11 +177,10 @@ void MainWindow::mainWindowInit()
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
     connect(openAuthorization, &authorization::signalPasswordLogin, this, &MainWindow::checkAuthorization);
 
-
-    ui->authorizationButton->setFocus();
-
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
-    setEnabledButtons(false);
+
+    setEnabledButtons(false);  // <- для абьюзинга системы ставь true
+    setEnabledActions(false);  // <- и это тоже))
 }
 
 
@@ -409,6 +431,25 @@ void MainWindow::setEnabledButtons(bool status)
     ui->editRowButton->setEnabled(status);
 }
 
+void MainWindow::setEnabledActions(bool status)
+{
+    ui->addRowAction->setEnabled(status);
+    ui->deleteRowAction->setEnabled(status);
+    ui->editRowAction->setEnabled(status);
+
+    ui->openGradesTabAction->setEnabled(status);
+    ui->openGroupTabAction->setEnabled(status);
+    ui->openStudTabAction->setEnabled(status);
+    ui->openSubjTabAction->setEnabled(status);
+    ui->openTeachTabAction->setEnabled(status);
+
+    ui->reportGradesAction->setEnabled(status);
+    ui->reportGroupAction->setEnabled(status);
+    ui->reportStudentAction->setEnabled(status);
+    ui->reportTeacherAction->setEnabled(status);
+    ui->reportSubjectsAction->setEnabled(status);
+}
+
 
 void MainWindow::clearStyleButtonTable()
 {
@@ -444,10 +485,6 @@ void MainWindow::setThemeUI(const QString style)
 
 void MainWindow::checkAuthorization(const QString login, const QString password)
 {
-    model->setTable("loginPassTable");
-    model->select();
-    emit statusAuthorization(true);
-
     /*
      * Как это должно быть
      *
@@ -469,13 +506,17 @@ void MainWindow::checkAuthorization(const QString login, const QString password)
 
     */
 
-    for (int i = 0; i < model->rowCount(); i++)
+    passLogModel->setTable("Акаунти");
+    passLogModel->select();
+
+    for (int i = 0; i < passLogModel->rowCount(); i++)
     {
-        if (login == model->data(model->index(i, 0)).toString() and password == model->data(model->index(i, 1)).toString())
+        if (login == passLogModel->data(passLogModel->index(i, 0)).toString() and password == passLogModel->data(passLogModel->index(i, 1)).toString())
         {
             ui->authorizationButton->setText("Привіт, " + login + "!");
             statusLogin = true;
             setEnabledButtons(true);
+            setEnabledActions(true);
             emit statusAuthorization(true);
         }
     }
@@ -484,6 +525,7 @@ void MainWindow::checkAuthorization(const QString login, const QString password)
     {
         statusAuthorization(false);
         statusLogin = false;
+        setEnabledActions(false);
         emit statusAuthorization(false);
     }
 
@@ -550,9 +592,51 @@ void MainWindow::on_deleteRowButton_clicked()
 }
 
 
+void MainWindow::on_editRowButton_clicked()
+{
+    // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
+}
+
+
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
+}
+
+
+//=========================================================
+//
+//                 КОД ДЛЯ ЗВИТОВ ПО ТАБЛИЦАМ!!!
+//
+//=========================================================
+
+void MainWindow::on_studentsReportButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_teachersReportButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_gradesReportButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_groupsReportButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_subjectsReportButton_clicked()
+{
+
 }
 
 
@@ -671,4 +755,100 @@ void MainWindow::setWhiteUI()
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+}
+
+
+//=========================================================
+//
+//                  Realisation menuBar code
+//
+//=========================================================
+
+void MainWindow::on_addRowAction_triggered()
+{
+    on_addRowButton_clicked();
+}
+
+
+void MainWindow::on_deleteRowAction_triggered()
+{
+    on_deleteRowButton_clicked();
+}
+
+
+void MainWindow::on_editRowAction_triggered()
+{
+    on_editRowButton_clicked();
+}
+
+
+void MainWindow::on_openStudTabAction_triggered()
+{
+    on_studentsTableButton_clicked();
+}
+
+
+void MainWindow::on_openTeachTabAction_triggered()
+{
+    on_teachersTableButton_clicked();
+}
+
+
+void MainWindow::on_openGradesTabAction_triggered()
+{
+    on_gradesTableButton_clicked();
+}
+
+
+void MainWindow::on_openGroupTabAction_triggered()
+{
+    on_groupsTableButton_clicked();
+}
+
+
+void MainWindow::on_openSubjTabAction_triggered()
+{
+    on_subjectsTableButton_clicked();
+}
+
+
+void MainWindow::on_openManual_triggered()
+{
+    // КОД РЕАЛИЗАЦИИ ОТКРЫТИЯ ДОВИДКИ
+}
+
+
+void MainWindow::on_reportStudentAction_triggered()
+{
+    on_studentsReportButton_clicked();
+}
+
+
+void MainWindow::on_reportTeacherAction_triggered()
+{
+    on_teachersReportButton_clicked();
+}
+
+
+void MainWindow::on_reportScoreAction_triggered()
+{
+    on_subjectsReportButton_clicked();
+}
+
+
+void MainWindow::on_reportGroupAction_triggered()
+{
+    on_groupsReportButton_clicked();
+}
+
+
+void MainWindow::on_reportGradesAction_triggered()
+{
+    on_gradesReportButton_clicked();
+}
+
+
+void MainWindow::on_reportSubjectsAction_triggered()
+{
+    on_subjectsReportButton_clicked();
 }

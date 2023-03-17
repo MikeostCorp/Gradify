@@ -67,6 +67,50 @@ private slots:
 
     void setEnabledButtons(bool status);
 
+    void setEnabledActions(bool status);
+
+    void on_addRowAction_triggered();
+
+    void on_deleteRowAction_triggered();
+
+    void on_editRowAction_triggered();
+
+    void on_editRowButton_clicked();
+
+    void on_openStudTabAction_triggered();
+
+    void on_openTeachTabAction_triggered();
+
+    void on_openGradesTabAction_triggered();
+
+    void on_openGroupTabAction_triggered();
+
+    void on_openSubjTabAction_triggered();
+
+    void on_studentsReportButton_clicked();
+
+    void on_teachersReportButton_clicked();
+
+    void on_gradesReportButton_clicked();
+
+    void on_groupsReportButton_clicked();
+
+    void on_subjectsReportButton_clicked();
+
+    void on_openManual_triggered();
+
+    void on_reportStudentAction_triggered();
+
+    void on_reportTeacherAction_triggered();
+
+    void on_reportScoreAction_triggered();
+
+    void on_reportGroupAction_triggered();
+
+    void on_reportGradesAction_triggered();
+
+    void on_reportSubjectsAction_triggered();
+
 private:
     Ui::MainWindow *ui;
     appSetting *openSetting;
@@ -84,9 +128,16 @@ private:
     QSqlDatabase db;
     QSqlQuery *query;
     QSqlTableModel *model;
+
+    QSqlDatabase passLogDB;
+    QSqlQuery *passLogQuery;
+    QSqlTableModel *passLogModel;
+
     int row;
 
     bool statusLogin;
+
+    QMenuBar *macMenuBar;
 
 public slots:
     void setThemeUI(const QString style);
