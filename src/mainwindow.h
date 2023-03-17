@@ -99,17 +99,15 @@ private slots:
 
     void on_openManual_triggered();
 
-    void on_reportStudentAction_triggered();
+    void on_studentsReportAction_triggered();
 
-    void on_reportTeacherAction_triggered();
+    void on_teachersReportAction_triggered();
 
-    void on_reportScoreAction_triggered();
+    void on_groupsReportAction_triggered();
 
-    void on_reportGroupAction_triggered();
+    void on_gradesReportAction_triggered();
 
-    void on_reportGradesAction_triggered();
-
-    void on_reportSubjectsAction_triggered();
+    void on_subjectsReportAction_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -129,10 +127,6 @@ private:
     QSqlQuery *query;
     QSqlTableModel *model;
 
-    QSqlDatabase passLogDB;
-    QSqlQuery *passLogQuery;
-    QSqlTableModel *passLogModel;
-
     int row;
 
     bool statusLogin;
@@ -141,7 +135,7 @@ private:
 
 public slots:
     void setThemeUI(const QString style);
-    void checkAuthorization(const QString login, const QString password);
+    void succesfullyAuthorization(const QString login);
 
 signals:
     void setThemeSettingsUI(const QString);

@@ -23,23 +23,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::mainWindowInit()
 {
+    setWindowTitle("Gradify");
+
     openSetting = new appSetting();
     openAuthorization = new authorization();
 
-    db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // после покупки хостинга фикстить
-    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
-
-    QMessageBox::information(this, "", QDir::currentPath() + "dataBase.db");
-
-    if(!db.open())
-    {
-        QMessageBox::information(this, "", "База даних не відкрилась");
-    }
-
-    query = new QSqlQuery(db);
-    model = new QSqlTableModel(this, db);
 
     //=================================================
     //               Креатим таблицу акаунти
@@ -139,43 +127,20 @@ void MainWindow::mainWindowInit()
 
     //query->exec("DROP TABLE loginPassTable");
 
-
-
-
-    // UVAGA!!!
-    //passLogDB = QSqlDatabase::addDatabase("QSQLITE"); // бд с логинам и пасвордами
-
-    passLogDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
-
-    if(!passLogDB.open())
-    {
-        QMessageBox::information(this, "", "Не вдалося під'єднатись до бази даних акаунтів");
-    }
-
-
-
-    passLogQuery = new QSqlQuery(passLogDB);
-    passLogModel = new QSqlTableModel(this, passLogDB);
-
-    passLogModel->setTable("Акаунти");
-    passLogModel->select();
-
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
 
-    setWindowTitle("Gradify");
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
     ui->authorizationButton->setFocus();
 
     connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, openAuthorization, &authorization::setThemeAuthorUI);
-    connect(this, &MainWindow::statusAuthorization, openAuthorization, &authorization::setStatusAuthorization);
 
     configRead();
     configInit();
 
     connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
-    connect(openAuthorization, &authorization::signalPasswordLogin, this, &MainWindow::checkAuthorization);
+    connect(openAuthorization, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
@@ -443,11 +408,11 @@ void MainWindow::setEnabledActions(bool status)
     ui->openSubjTabAction->setEnabled(status);
     ui->openTeachTabAction->setEnabled(status);
 
-    ui->reportGradesAction->setEnabled(status);
-    ui->reportGroupAction->setEnabled(status);
-    ui->reportStudentAction->setEnabled(status);
-    ui->reportTeacherAction->setEnabled(status);
-    ui->reportSubjectsAction->setEnabled(status);
+    ui->gradesReportAction->setEnabled(status);
+    ui->groupsReportAction->setEnabled(status);
+    ui->studentsReportAction->setEnabled(status);
+    ui->teachersReportAction->setEnabled(status);
+    ui->subjectsReportAction->setEnabled(status);
 }
 
 
@@ -483,56 +448,23 @@ void MainWindow::setThemeUI(const QString style)
 }
 
 
-void MainWindow::checkAuthorization(const QString login, const QString password)
+void MainWindow::succesfullyAuthorization(const QString login)
 {
-    /*
-     * Как это должно быть
-     *
-    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-    QTableView *tableView = new QTableView(this);
-    queryModel->setQuery("SELECT * "
-                         "FROM `users`"
-                         "WHERE `login` = '" + login + "'"
-                         " AND `pass` = '" + password + "'");
+    ui->authorizationButton->setText("Привіт, " + login + "!");
 
-    tableView->setModel(queryModel);
+    // Может быть стоит перенести в отдельный метод
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
+    //db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
+    query = new QSqlQuery(db);
+    model = new QSqlTableModel(this, db);
+    db.open();
 
-    if(tableView->model()->rowCount() > 0){
-        // есть запись
-    }
-    else{
-        // нет записи
-    }
-
-    */
-
-    passLogModel->setTable("Акаунти");
-    passLogModel->select();
-
-    for (int i = 0; i < passLogModel->rowCount(); i++)
-    {
-        if (login == passLogModel->data(passLogModel->index(i, 0)).toString() and password == passLogModel->data(passLogModel->index(i, 1)).toString())
-        {
-            ui->authorizationButton->setText("Привіт, " + login + "!");
-            statusLogin = true;
-            setEnabledButtons(true);
-            setEnabledActions(true);
-            emit statusAuthorization(true);
-        }
-    }
-
-    if (!statusLogin)
-    {
-        statusAuthorization(false);
-        statusLogin = false;
-        setEnabledActions(false);
-        emit statusAuthorization(false);
-    }
+    statusLogin = true;
+    setEnabledButtons(true);
+    setEnabledActions(true);
 
     clearSelectTable();
-
-    // debug
-    QMessageBox::information(this, "", login + " - log\n" + password + " - pass");
 }
 
 
@@ -553,8 +485,8 @@ void MainWindow::on_authorizationButton_clicked()
     else
     {
         QMessageBox::StandardButton reply;
-          reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
-                                        QMessageBox::Yes|QMessageBox::No);
+        reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
+                                      QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes)
         {
             statusLogin = false;
@@ -665,18 +597,23 @@ void MainWindow::setBlackUI()
     styleF.setFileName(":/styles/black/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultButtonTableStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/black/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/black/defaultSettingButtonStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultSettingButtonStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/black/tableView.qss");
     styleF.open(QFile::ReadOnly);
     ui->tableView->setStyleSheet(styleF.readAll());
+    styleF.close();
+
 
     ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
@@ -693,6 +630,7 @@ void MainWindow::setBlackUI()
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
+
 
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
@@ -717,22 +655,27 @@ void MainWindow::setWhiteUI()
     styleF.setFileName(":/styles/white/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultButtonTableStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/white/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/white/defaultSettingButtonStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultSettingButtonStyle = styleF.readAll();
+    styleF.close();
 
     styleF.setFileName(":/styles/white/tableView.qss");
     styleF.open(QFile::ReadOnly);
     ui->tableView->setStyleSheet(styleF.readAll());
+    styleF.close();
 
     styleF.setFileName(":/styles/white/tableView.qss");
     styleF.open(QFile::ReadOnly);
     ui->tableView->setStyleSheet(styleF.readAll());
+    styleF.close();
 
     ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
@@ -818,37 +761,31 @@ void MainWindow::on_openManual_triggered()
 }
 
 
-void MainWindow::on_reportStudentAction_triggered()
+void MainWindow::on_studentsReportAction_triggered()
 {
     on_studentsReportButton_clicked();
 }
 
 
-void MainWindow::on_reportTeacherAction_triggered()
+void MainWindow::on_teachersReportAction_triggered()
 {
     on_teachersReportButton_clicked();
 }
 
 
-void MainWindow::on_reportScoreAction_triggered()
-{
-    on_subjectsReportButton_clicked();
-}
-
-
-void MainWindow::on_reportGroupAction_triggered()
+void MainWindow::on_groupsReportAction_triggered()
 {
     on_groupsReportButton_clicked();
 }
 
 
-void MainWindow::on_reportGradesAction_triggered()
+void MainWindow::on_gradesReportAction_triggered()
 {
     on_gradesReportButton_clicked();
 }
 
 
-void MainWindow::on_reportSubjectsAction_triggered()
+void MainWindow::on_subjectsReportAction_triggered()
 {
     on_subjectsReportButton_clicked();
 }

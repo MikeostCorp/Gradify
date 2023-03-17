@@ -36,34 +36,49 @@ void appSetting::changeEvent(QEvent *event)
 void appSetting::setBlackUI()
 {
     setStyleSheet("appSetting { background-color: rgb(29, 31, 32); }");
-    ui->setBlackStyleRadioButton->setStyleSheet("color: rgb(255,255,255)");
-    ui->setWhiteStyleRadioButton->setStyleSheet("color: rgb(255,255,255)");
-    ui->setBlackStyleRadioButton->setChecked(true);
+    ui->selectBlackUIRadioButton->setStyleSheet("color: rgb(255,255,255)");
+    ui->selectWhiteUIRadioButton->setStyleSheet("color: rgb(255,255,255)");
+    ui->selectBlackUIRadioButton->setChecked(true);
 }
 
 void appSetting::setWhiteUI()
 {
     setStyleSheet("appSetting { background-color: rgb(255, 255, 255); }");
-    ui->setBlackStyleRadioButton->setStyleSheet("color: rgb(0,0,0)");
-    ui->setWhiteStyleRadioButton->setStyleSheet("color: rgb(0,0,0)");
-    ui->setWhiteStyleRadioButton->setChecked(true);
+    ui->selectBlackUIRadioButton->setStyleSheet("color: rgb(0,0,0)");
+    ui->selectWhiteUIRadioButton->setStyleSheet("color: rgb(0,0,0)");
+    ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
 
-void appSetting::on_pushSelectWhiteUIButton_clicked()
+void appSetting::on_selectWhiteUIButton_clicked()
 {
     emit changeThemeApp("white");
     setWhiteUI();
-    ui->setWhiteStyleRadioButton->setChecked(true);
+    ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
 
-void appSetting::on_pushSelectBlackUIButton_clicked()
+void appSetting::on_selectBlackUIButton_clicked()
 {
     emit changeThemeApp("black");
     setBlackUI();
-    ui->setBlackStyleRadioButton->setChecked(true);
+    ui->selectBlackUIRadioButton->setChecked(true);
 }
+
+
+void appSetting::on_selectWhiteUIRadioButton_clicked()
+{
+    emit changeThemeApp("white");
+    setWhiteUI();
+}
+
+
+void appSetting::on_selectBlackUIRadioButton_clicked()
+{
+    emit changeThemeApp("black");
+    setBlackUI();
+}
+
 
 void appSetting::setThemeSettingUI(const QString style)
 {
@@ -76,18 +91,3 @@ void appSetting::setThemeSettingUI(const QString style)
         setWhiteUI();
     }
 }
-
-
-void appSetting::on_setWhiteStyleRadioButton_clicked()
-{
-    emit changeThemeApp("white");
-    setWhiteUI();
-}
-
-
-void appSetting::on_setBlackStyleRadioButton_clicked()
-{
-    emit changeThemeApp("black");
-    setBlackUI();
-}
-

@@ -2,6 +2,8 @@
 #include "ui_authorization.h"
 
 #include <QMessageBox>
+#include <QSqlQueryModel>
+#include <QTableView>
 
 authorization::authorization(QWidget *parent) :
     QWidget(parent),
@@ -19,6 +21,7 @@ authorization::authorization(QWidget *parent) :
     close();
 
     ui->authorizationErrorLabel->setVisible(false);
+
 }
 
 
@@ -82,20 +85,6 @@ void authorization::setThemeAuthorUI(const QString style)
 }
 
 
-void authorization::setStatusAuthorization(const bool status)
-{
-    if(status)
-    {
-        ui->authorizationErrorLabel->setVisible(false);
-        close();
-    }
-    else
-    {
-        ui->authorizationErrorLabel->setVisible(true);
-    }
-}
-
-
 void authorization::setBlackUI()
 {
     styleType = "black";
@@ -105,6 +94,7 @@ void authorization::setBlackUI()
     styleF.setFileName(":/styles/black/authorizationButton.qss");
     styleF.open(QFile::ReadOnly);
     ui->loginButton->setStyleSheet(styleF.readAll());
+    styleF.close();
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
 
     ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
@@ -127,6 +117,7 @@ void authorization::setWhiteUI()
     styleF.setFileName(":/styles/white/authorizationButton.qss");
     styleF.open(QFile::ReadOnly);
     ui->loginButton->setStyleSheet(styleF.readAll());
+    styleF.close();
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
 
     ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
@@ -146,14 +137,35 @@ void authorization::on_loginButton_clicked()
     // Код для проверки правильности введения и в случае чего высвечивать надпись
     // про ошибку ввода пароля
     //
+    authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
+    authorizationDB.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/passLog.db");
+    //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
 
-    if(!ui->passwordLineEdit->text().isEmpty() and !ui->loginLineEdit->text().isEmpty())
+
+    QString login = ui->loginLineEdit->text();
+    QString password = ui->passwordLineEdit->text();
+
+    authorizationDB.open();
+    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+    QTableView *tableView = new QTableView(this);
+    queryModel->setQuery("SELECT * "
+                         "FROM Акаунти "
+                         "WHERE Логін = '" + login + "'"
+                         " AND Пароль = '" + password + "'");
+    tableView->setModel(queryModel);
+
+    if (tableView->model()->rowCount() > 0)
     {
-        emit signalPasswordLogin(ui->loginLineEdit->text(), ui->passwordLineEdit->text());
+        emit signalLogin(login);
+        ui->loginLineEdit->clear();
+        ui->passwordLineEdit->clear();
+        authorizationDB.close();
+        close();
     }
     else
     {
         ui->authorizationErrorLabel->setVisible(true);
     }
+
 }
 

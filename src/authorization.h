@@ -2,6 +2,7 @@
 #define AUTHORIZATION_H
 
 #include <QWidget>
+#include <QSqlDatabase>
 #include <QFile>
 
 namespace Ui {
@@ -29,6 +30,9 @@ private slots:
 
 private:
     Ui::authorization *ui;
+
+    QSqlDatabase authorizationDB;
+
     bool isPasswordHidden;
 
     QString styleType;
@@ -37,10 +41,9 @@ private:
 
 public slots:
     void setThemeAuthorUI(const QString style);
-    void setStatusAuthorization(const bool status);
 
 signals:
-    void signalPasswordLogin(const QString, const QString);
+    void signalLogin(const QString);
 };
 
 #endif // AUTHORIZATION_H

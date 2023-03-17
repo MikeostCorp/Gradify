@@ -83,7 +83,7 @@ border-radius: 8px;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushSelectWhiteUIButton">
+   <widget class="QPushButton" name="selectWhiteUIButton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -99,7 +99,7 @@ border-radius: 8px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushSelectBlackUIButton">
+   <widget class="QPushButton" name="selectBlackUIButton">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -115,7 +115,7 @@ border-radius: 8px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QRadioButton" name="setBlackStyleRadioButton">
+   <widget class="QRadioButton" name="selectBlackUIRadioButton">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -128,7 +128,7 @@ border-radius: 8px;</string>
      <string>Темна</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="setWhiteStyleRadioButton">
+   <widget class="QRadioButton" name="selectWhiteUIRadioButton">
     <property name="geometry">
      <rect>
       <x>70</x>

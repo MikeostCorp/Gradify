@@ -332,7 +332,7 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuicon/raitingIco.png</normaloff>:/img/pinkMenuicon/raitingIco.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/raitingIco.png</normaloff>:/img/pinkMenuIcon/raitingIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -433,7 +433,7 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuicon/studentsIco.png</normaloff>:/img/pinkMenuicon/studentsIco.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/studentsIco.png</normaloff>:/img/pinkMenuIcon/studentsIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -493,7 +493,7 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuicon/teachersIco.png</normaloff>:/img/pinkMenuicon/teachersIco.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/teachersIco.png</normaloff>:/img/pinkMenuIcon/teachersIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -550,7 +550,7 @@ QPushButton:hover
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuicon/groupIco.png</normaloff>:/img/pinkMenuicon/groupIco.png</iconset>
+            <normaloff>:/img/pinkMenuIcon/groupIco.png</normaloff>:/img/pinkMenuIcon/groupIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1004,7 +1004,7 @@ color:  rgb(255, 255, 255);
          </property>
          <property name="icon">
           <iconset resource="recources.qrc">
-           <normaloff>:/img/pinkMenuicon/settinfIco.png</normaloff>:/img/pinkMenuicon/settinfIco.png</iconset>
+           <normaloff>:/img/pinkMenuIcon/settingIco.png</normaloff>:/img/pinkMenuIcon/settingIco.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1191,11 +1191,11 @@ QTableView::item:selected
     <property name="title">
      <string>Звіти</string>
     </property>
-    <addaction name="reportStudentAction"/>
-    <addaction name="reportTeacherAction"/>
-    <addaction name="reportGradesAction"/>
-    <addaction name="reportGroupAction"/>
-    <addaction name="reportSubjectsAction"/>
+    <addaction name="studentsReportAction"/>
+    <addaction name="teachersReportAction"/>
+    <addaction name="gradesReportAction"/>
+    <addaction name="groupsReportAction"/>
+    <addaction name="subjectsReportAction"/>
    </widget>
    <widget class="QMenu" name="menuWork">
     <property name="title">
@@ -1285,13 +1285,16 @@ QTableView::item:selected
   </action>
   <action name="openManual">
    <property name="text">
-    <string>Відчинити довідку</string>
+    <string>Відкрити довідку</string>
+   </property>
+   <property name="toolTip">
+    <string>Відкрити довідку</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
    </property>
   </action>
-  <action name="reportStudentAction">
+  <action name="studentsReportAction">
    <property name="text">
     <string>Звіт по студентам</string>
    </property>
@@ -1299,7 +1302,7 @@ QTableView::item:selected
     <string>Meta+Ctrl+1</string>
    </property>
   </action>
-  <action name="reportTeacherAction">
+  <action name="teachersReportAction">
    <property name="text">
     <string>Звіт по викладачам</string>
    </property>
@@ -1307,7 +1310,7 @@ QTableView::item:selected
     <string>Meta+Ctrl+2</string>
    </property>
   </action>
-  <action name="reportGradesAction">
+  <action name="gradesReportAction">
    <property name="text">
     <string>Звіт по оцінкам</string>
    </property>
@@ -1315,7 +1318,7 @@ QTableView::item:selected
     <string>Meta+Ctrl+3</string>
    </property>
   </action>
-  <action name="reportGroupAction">
+  <action name="groupsReportAction">
    <property name="text">
     <string>Звіт по групам</string>
    </property>
@@ -1323,7 +1326,7 @@ QTableView::item:selected
     <string>Meta+Ctrl+4</string>
    </property>
   </action>
-  <action name="reportSubjectsAction">
+  <action name="subjectsReportAction">
    <property name="text">
     <string>Звіт по предметам</string>
    </property>

@@ -3,15 +3,10 @@
     <qresource prefix="/">
         <file>img/AppIcon.icns</file>
         <file>img/preloader.mp4</file>
-        <file>img/pinkMenuicon/settinfIco.png</file>
-        <file>img/whiteMenuIcon/settinfIco.png</file>
+        <file>img/whiteMenuIcon/settingIco.png</file>
         <file>img/mainLogo/mainIcox128.png</file>
         <file>img/mainLogo/mainIcox64.png</file>
         <file>img/mainLogo/mainIcox512.png</file>
-        <file>img/pinkMenuicon/groupIco.png</file>
-        <file>img/pinkMenuicon/raitingIco.png</file>
-        <file>img/pinkMenuicon/studentsIco.png</file>
-        <file>img/pinkMenuicon/teachersIco.png</file>
         <file>img/whiteMenuIcon/groupIco.png</file>
         <file>img/whiteMenuIcon/raitingIco.png</file>
         <file>img/whiteMenuIcon/studentsIco.png</file>
@@ -26,12 +21,7 @@
         <file>img/blackMenuIcon/teachersIco.png</file>
         <file>img/settingIcon/settingBlackUIIco.png</file>
         <file>img/settingIcon/settingWhiteUIIco.png</file>
-        <file>img/pinkMenuIcon/groupIco.png</file>
         <file>img/pinkMenuIcon/inLog.png</file>
-        <file>img/pinkMenuIcon/raitingIco.png</file>
-        <file>img/pinkMenuIcon/settinfIco.png</file>
-        <file>img/pinkMenuIcon/studentsIco.png</file>
-        <file>img/pinkMenuIcon/teachersIco.png</file>
         <file>img/whiteMenuIcon/cloud.png</file>
         <file>img/whiteMenuIcon/noWatchPass.png</file>
         <file>img/whiteMenuIcon/watchPass.png</file>
@@ -55,5 +45,10 @@
         <file>styles/white/selectButtonTableStyle.qss</file>
         <file>styles/black/authorizationButton.qss</file>
         <file>styles/white/authorizationButton.qss</file>
+        <file>img/pinkMenuIcon/groupIco.png</file>
+        <file>img/pinkMenuIcon/raitingIco.png</file>
+        <file>img/pinkMenuIcon/settingIco.png</file>
+        <file>img/pinkMenuIcon/studentsIco.png</file>
+        <file>img/pinkMenuIcon/teachersIco.png</file>
     </qresource>
 </RCC>

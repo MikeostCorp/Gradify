@@ -14,9 +14,9 @@ preloader::preloader(QWidget *parent) :
     setFixedSize(400,400);
     setWindowTitle("Preloader");
 
-    QPainterPath painPath;
-    painPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
-    setMask(painPath.toFillPolygon().toPolygon());
+    QPainterPath paintPath;
+    paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
+    setMask(paintPath.toFillPolygon().toPolygon());
 
     player = new QMediaPlayer(this);
     videoWidget = new QVideoWidget(this);
@@ -35,10 +35,12 @@ preloader::preloader(QWidget *parent) :
     connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(closeVideoWidget(QMediaPlayer::MediaStatus)));
 }
 
+
 preloader::~preloader()
 {
     delete ui;
 }
+
 
 void preloader::closeVideoWidget(const QMediaPlayer::MediaStatus status)
 {
