@@ -43,6 +43,7 @@ private:
 
 public slots:
     void setThemeAuthorUI(const QString style);
+    void startAuthozation();
 
 signals:
     void signalLogin(const QString);

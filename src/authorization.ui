@@ -32,6 +32,9 @@ background-color: rgb(41,45,48);
      <height>41</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">font: 34px;
 color: rgb(255,255,255);</string>
@@ -106,6 +109,9 @@ border-radius: 8px;
      <height>41</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton
 {
@@ -131,6 +137,9 @@ QPushButton:hover
      <width>271</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton
@@ -181,6 +190,9 @@ QPushButton:hover
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string/>

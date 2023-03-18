@@ -17,6 +17,8 @@ authorization::authorization(QWidget *parent) :
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
     connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
+    connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
+    connect(ui->passwordLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
 
     show();
     close();
@@ -29,6 +31,11 @@ authorization::authorization(QWidget *parent) :
 authorization::~authorization()
 {
     delete ui;
+}
+
+void authorization::startAuthozation()
+{
+    on_loginButton_clicked();
 }
 
 
@@ -90,21 +97,81 @@ void authorization::setThemeAuthorUI(const QString style)
 }
 
 
+void authorization::on_loginButton_clicked()
+{
+    if(ui->loginLineEdit->text().isEmpty())
+    {
+        ui->loginLineEdit->setFocus();
+        //
+        // ДОБАВИТЬ КРАСНЫЙ ФОКУС НА ЛЕЙБЛЫ
+        //
+        //ui->loginLabel_2->setStyleSheet("color: red;");
+    }
+    else if(ui->passwordLineEdit->text().isEmpty())
+    {
+        ui->passwordLineEdit->setFocus();
+        //ui->passwordLabel->setStyleSheet("color: red;");
+    }
+    else
+    {
+        //
+        // Код для проверки правильности введения и в случае чего высвечивать надпись
+        // про ошибку ввода пароля
+        //
+        authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
+        authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
+        //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+
+
+
+        QString login = ui->loginLineEdit->text();
+        QString password = ui->passwordLineEdit->text();
+
+        authorizationDB.open();
+        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+        QTableView *tableView = new QTableView(this);
+        queryModel->setQuery("SELECT * "
+                             "FROM Акаунти "
+                             "WHERE Логін = '" + login + "'"
+                             " AND Пароль = '" + password + "'");
+        tableView->setModel(queryModel);
+
+        if (tableView->model()->rowCount() > 0)
+        {
+            emit signalLogin(login);
+            ui->loginLineEdit->clear();
+            ui->passwordLineEdit->clear();
+            ui->loginLineEdit->setFocus();
+            authorizationDB.close();
+            close();
+        }
+        else
+        {
+            ui->authorizationErrorLabel->setVisible(true);
+        }
+    }
+}
+
+
 void authorization::setBlackUI()
 {
     styleType = "black";
     setStyleSheet("authorization{background-color: rgb(41,45,48);}");
     ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(41,45,48);border: 0px;");
 
-    styleF.setFileName(":/styles/black/authorizationButton.qss");
+    styleF.setFileName(":/styles/black/authorization/authorizationButton.qss");
     styleF.open(QFile::ReadOnly);
     ui->loginButton->setStyleSheet(styleF.readAll());
-    styleF.close();
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
+    styleF.close();
+
+    styleF.setFileName(":/styles/black/authorization/LineEdit.qss");
+    styleF.open(QFile::ReadOnly);
+    ui->loginLineEdit->setStyleSheet(styleF.readAll());
+    ui->passwordLineEdit->setStyleSheet(ui->loginLineEdit->styleSheet());
+    styleF.close();
 
     ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
-    ui->loginLineEdit->setStyleSheet("color: white;background-color: rgb(29, 31, 32);border-radius: 8px;");
-    ui->passwordLineEdit->setStyleSheet("color:white;background-color: rgb(29, 31, 32);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
 
@@ -119,21 +186,26 @@ void authorization::setWhiteUI()
     setStyleSheet("authorization{background-color: rgb(231,224,223);}");
     ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(231,224,223);border: 0px;");
 
-    styleF.setFileName(":/styles/white/authorizationButton.qss");
+    styleF.setFileName(":/styles/white/authorization/authorizationButton.qss");
     styleF.open(QFile::ReadOnly);
     ui->loginButton->setStyleSheet(styleF.readAll());
     styleF.close();
     ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
 
+    styleF.setFileName(":/styles/white/authorization/LineEdit.qss");
+    styleF.open(QFile::ReadOnly);
+    ui->loginLineEdit->setStyleSheet(styleF.readAll());
+    ui->passwordLineEdit->setStyleSheet(ui->loginLineEdit->styleSheet());
+    styleF.close();
+
     ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
-    ui->loginLineEdit->setStyleSheet("color:rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
-    ui->passwordLineEdit->setStyleSheet("color:rgb(61, 60, 59);background-color: rgb(255, 255, 255);border-radius: 8px;");
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
 
     isPasswordHidden = false;
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
+
 
 void authorization::setSystemUI()
 {
@@ -152,44 +224,3 @@ void authorization::setSystemUI()
         setBlackUI();
     }
 }
-
-
-void authorization::on_loginButton_clicked()
-{
-    //
-    // Код для проверки правильности введения и в случае чего высвечивать надпись
-    // про ошибку ввода пароля
-    //
-    authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
-    authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
-    //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
-
-
-
-    QString login = ui->loginLineEdit->text();
-    QString password = ui->passwordLineEdit->text();
-
-    authorizationDB.open();
-    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-    QTableView *tableView = new QTableView(this);
-    queryModel->setQuery("SELECT * "
-                         "FROM Акаунти "
-                         "WHERE Логін = '" + login + "'"
-                         " AND Пароль = '" + password + "'");
-    tableView->setModel(queryModel);
-
-    if (tableView->model()->rowCount() > 0)
-    {
-        emit signalLogin(login);
-        ui->loginLineEdit->clear();
-        ui->passwordLineEdit->clear();
-        ui->loginLineEdit->setFocus();
-        authorizationDB.close();
-        close();
-    }
-    else
-    {
-        ui->authorizationErrorLabel->setVisible(true);
-    }
-}
-

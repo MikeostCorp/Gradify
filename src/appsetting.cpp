@@ -13,6 +13,8 @@ appSetting::appSetting(QWidget *parent) :
     setWindowTitle("Налаштування");
     show();
     close();
+
+    setMinimumSize(width(), height());
 }
 
 appSetting::~appSetting()
@@ -37,19 +39,15 @@ void appSetting::changeEvent(QEvent *event)
 void appSetting::setBlackUI()
 {
     setStyleSheet("appSetting { background-color: rgb(29, 31, 32); }");
-    ui->selectBlackUIRadioButton->setStyleSheet("color: rgb(255,255,255)");
-    ui->selectWhiteUIRadioButton->setStyleSheet("color: rgb(255,255,255)");
-    ui->selectSystemUIRadioButton->setStyleSheet("color: rgb(255,255,255)");
+    ui->mainUIStyleFrame->setStyleSheet("border-radius:  12px; background-color: rgb(61,65,68); color: white;");
     ui->selectBlackUIRadioButton->setChecked(true);
 }
 
 
 void appSetting::setWhiteUI()
 {
-    setStyleSheet("appSetting { background-color: rgb(255, 255, 255); }");
-    ui->selectBlackUIRadioButton->setStyleSheet("color: rgb(0,0,0)");
-    ui->selectWhiteUIRadioButton->setStyleSheet("color: rgb(0,0,0)");
-    ui->selectSystemUIRadioButton->setStyleSheet("color: rgb(0,0,0)");
+    setStyleSheet("appSetting { background-color: rgb(231,224,223); }");
+    ui->mainUIStyleFrame->setStyleSheet("border-radius:  12px; background-color: white; color: rgb(61, 60, 59);");
     ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
@@ -133,3 +131,6 @@ void appSetting::setThemeSettingUI(const QString style)
         setSystemUI();
     }
 }
+
+
+//ЕЛАЙ QSS MAINWINDOW И APPSETING НОВИХ ЄЕМЕНТОВ

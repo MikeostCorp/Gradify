@@ -1,0 +1,16 @@
+QPushButton
+{
+    border-radius:  6px;
+    background-color: rgb(225, 225, 225);
+    color:  rgb(61, 60, 59);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(205, 205, 205);
+}
+
+QPushButton:disabled
+{
+    color: #989898;
+}

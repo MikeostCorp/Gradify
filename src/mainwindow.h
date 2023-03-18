@@ -121,6 +121,7 @@ private:
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
     QString defaultSettingButtonStyle;
+    QString defaultFilterButtonStyle;
 
     QMap<QString, QString> config;
 

@@ -1,0 +1,12 @@
+QLineEdit
+{   
+    color:rgb(61, 60, 59);
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+}
+
+QLineEdit:focus
+{
+    border: 2px solid rgb(0, 106, 188);
+    border-radius: 8px;
+}

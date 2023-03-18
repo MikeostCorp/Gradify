@@ -625,6 +625,9 @@ QPushButton:hover
             <height>32</height>
            </rect>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="styleSheet">
            <string notr="true">QPushButton
 {
@@ -1075,7 +1078,7 @@ border-radius: 16px; </string>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>1</horstretch>
-             <verstretch>2</verstretch>
+             <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="mouseTracking">
@@ -1093,22 +1096,236 @@ background-color: rgb(61,65,68);
            <property name="frameShadow">
             <enum>QFrame::Plain</enum>
            </property>
-           <widget class="QLabel" name="deleteThis">
-            <property name="geometry">
-             <rect>
-              <x>80</x>
-              <y>40</y>
-              <width>571</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: red;</string>
-            </property>
-            <property name="text">
-             <string>Пока тут пусто) Но когда будет не пусто мы будем уже крутыми) Это уже фрейм кстати</string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QFrame" name="firstControlFrame">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QPushButton" name="tempButton_2">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>20</y>
+                 <width>161</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"> QPushButton
+{
+    border-radius:  6px;
+    background-color: rgb(81,85,88);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(108, 108, 108);
+}</string>
+               </property>
+               <property name="text">
+                <string>ДЕФОЛТ ФИЛЬТЕР</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="tempLabel">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>60</y>
+                 <width>201</width>
+                 <height>61</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: pink;</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пример неактивной кнопки&lt;br/&gt;метод по вырублению &lt;br/&gt;можно добавить к кнопкам&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="borderSection_1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>2</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:  rgb(108, 108, 108);
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="secondControlFrame">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QPushButton" name="tempButton">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>20</y>
+                 <width>161</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"> QPushButton
+{
+    border-radius:  6px;
+    background-color: rgb(81,85,88);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(108, 108, 108);
+}</string>
+               </property>
+               <property name="text">
+                <string>КАСТОМНЫЙ ФИЛЬТР</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="tempLabel_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>60</y>
+                 <width>201</width>
+                 <height>61</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: pink;</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;сами кнопки будут внизу &lt;br/&gt;фреймов а выше параметры &lt;br/&gt;вводить&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="borderSecton_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>2</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>2</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:  rgb(108, 108, 108);
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="thirdControlFrame">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>120</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <widget class="QPushButton" name="tempButton_3">
+               <property name="geometry">
+                <rect>
+                 <x>30</x>
+                 <y>20</y>
+                 <width>161</width>
+                 <height>32</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"> QPushButton
+{
+    border-radius:  6px;
+    background-color: rgb(81,85,88);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton:hover
+{
+    background-color:  rgb(108, 108, 108);
+}</string>
+               </property>
+               <property name="text">
+                <string>СВОЙ ЗАПРОС</string>
+               </property>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>

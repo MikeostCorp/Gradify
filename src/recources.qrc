@@ -35,16 +35,6 @@
         <file>img/pinkMenuIcon/subjectIco.png</file>
         <file>img/whiteMenuIcon/subjectIco.png</file>
         <file>img/reportsIcon/reportItem.png</file>
-        <file>styles/white/tableView.qss</file>
-        <file>styles/black/tableView.qss</file>
-        <file>styles/black/defaultButtonTableStyle.qss</file>
-        <file>styles/black/defaultSettingButtonStyle.qss</file>
-        <file>styles/black/selectButtonTableStyle.qss</file>
-        <file>styles/white/defaultButtonTableStyle.qss</file>
-        <file>styles/white/defaultSettingButtonStyle.qss</file>
-        <file>styles/white/selectButtonTableStyle.qss</file>
-        <file>styles/black/authorizationButton.qss</file>
-        <file>styles/white/authorizationButton.qss</file>
         <file>img/pinkMenuIcon/groupIco.png</file>
         <file>img/pinkMenuIcon/raitingIco.png</file>
         <file>img/pinkMenuIcon/settingIco.png</file>
@@ -52,5 +42,19 @@
         <file>img/pinkMenuIcon/teachersIco.png</file>
         <file>img/settingIcon/settingSystemUIICo.png</file>
         <file>img/pinkMenuIcon/outLog.png</file>
+        <file>styles/white/mainWindow/defaultButtonTableStyle.qss</file>
+        <file>styles/white/mainWindow/defaultSettingButtonStyle.qss</file>
+        <file>styles/white/mainWindow/filterButton.qss</file>
+        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/white/mainWindow/tableView.qss</file>
+        <file>styles/white/authorization/authorizationButton.qss</file>
+        <file>styles/black/authorization/authorizationButton.qss</file>
+        <file>styles/black/mainWindow/defaultButtonTableStyle.qss</file>
+        <file>styles/black/mainWindow/defaultSettingButtonStyle.qss</file>
+        <file>styles/black/mainWindow/filterButton.qss</file>
+        <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/black/mainWindow/tableView.qss</file>
+        <file>styles/black/authorization/LineEdit.qss</file>
+        <file>styles/white/authorization/LineEdit.qss</file>
     </qresource>
 </RCC>

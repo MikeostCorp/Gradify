@@ -146,6 +146,8 @@ void MainWindow::mainWindowInit()
 
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
+
+    ui->tempButton_2->setEnabled(false);
 }
 
 
@@ -608,26 +610,29 @@ void MainWindow::on_subjectsReportButton_clicked()
 
 void MainWindow::setBlackUI()
 {
-    setWindowTitle("Gradify");
     clearStyleButtonTable();
-    //clearSelectTable();
 
-    styleF.setFileName(":/styles/black/defaultButtonTableStyle.qss");
+    styleF.setFileName(":/styles/black/mainWindow/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/black/selectButtonTableStyle.qss");
+    styleF.setFileName(":/styles/black/mainWindow/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/black/defaultSettingButtonStyle.qss");
+    styleF.setFileName(":/styles/black/mainWindow/defaultSettingButtonStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultSettingButtonStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/black/tableView.qss");
+    styleF.setFileName(":/styles/black/mainWindow/filterButton.qss");
+    styleF.open(QFile::ReadOnly);
+    defaultFilterButtonStyle = styleF.readAll();
+    styleF.close();
+
+    styleF.setFileName(":/styles/black/mainWindow/tableView.qss");
     styleF.open(QFile::ReadOnly);
     ui->tableView->setStyleSheet(styleF.readAll());
     styleF.close();
@@ -659,6 +664,12 @@ void MainWindow::setBlackUI()
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("color: white;background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
+
+    ui->tempButton->setStyleSheet(defaultFilterButtonStyle);
+    ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
+    ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
+    ui->borderSection_1->setStyleSheet("background-color:  rgb(108, 108, 108);");
+    ui->borderSecton_2->setStyleSheet("background-color:  rgb(108, 108, 108);");
 }
 
 
@@ -670,31 +681,29 @@ void MainWindow::setBlackUI()
 
 void MainWindow::setWhiteUI()
 {
-    setWindowTitle("Gradify");
     clearStyleButtonTable();
-    //clearSelectTable();
 
-    styleF.setFileName(":/styles/white/defaultButtonTableStyle.qss");
+    styleF.setFileName(":/styles/white/mainWindow/defaultButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/white/selectButtonTableStyle.qss");
+    styleF.setFileName(":/styles/white/mainWindow/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/white/defaultSettingButtonStyle.qss");
+    styleF.setFileName(":/styles/white/mainWindow/defaultSettingButtonStyle.qss");
     styleF.open(QFile::ReadOnly);
     defaultSettingButtonStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/white/tableView.qss");
+    styleF.setFileName(":/styles/white/mainWindow/filterButton.qss");
     styleF.open(QFile::ReadOnly);
-    ui->tableView->setStyleSheet(styleF.readAll());
+    defaultFilterButtonStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/white/tableView.qss");
+    styleF.setFileName(":/styles/white/mainWindow/tableView.qss");
     styleF.open(QFile::ReadOnly);
     ui->tableView->setStyleSheet(styleF.readAll());
     styleF.close();
@@ -721,12 +730,17 @@ void MainWindow::setWhiteUI()
     ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
 
-
     ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
     ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
     ui->upMenuFrame->setStyleSheet("border: 0px");
     ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
     setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
+
+    ui->tempButton->setStyleSheet(defaultFilterButtonStyle);
+    ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
+    ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
+    ui->borderSection_1->setStyleSheet("background-color:  rgb(228, 228, 228);");
+    ui->borderSecton_2->setStyleSheet("background-color:  rgb(228, 228, 228);");
 }
 
 void MainWindow::setSystemUI()
