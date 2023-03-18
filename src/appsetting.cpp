@@ -57,20 +57,19 @@ void appSetting::setWhiteUI()
 void appSetting::setSystemUI()
 {
     QPalette basePalette;
-    QColor baseColor =  basePalette.base().color();
-    QColor newBase= QColor::fromRgbF( 1-baseColor.redF(), 1-baseColor.greenF(), 1-baseColor.blueF());
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
 
     if (newBase.name() == "#000000")
     {
-        emit changeThemeApp("system");
         setWhiteUI();
     }
     else
     {
-        emit changeThemeApp("system");
         setBlackUI();
     }
 
+    emit changeThemeApp("system");
     ui->selectSystemUIRadioButton->setChecked(true);
 }
 

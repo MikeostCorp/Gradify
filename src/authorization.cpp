@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
+#include <QDir>
 
 authorization::authorization(QWidget *parent) :
     QWidget(parent),
@@ -72,12 +73,12 @@ void authorization::on_passwordVisibilityButton_clicked()
 
 void authorization::setThemeAuthorUI(const QString style)
 {
-    if(style == "black")
+    if (style == "black")
     {
         styleType = "black";
         setBlackUI();
     }
-    else if(style == "white")
+    else if (style == "white")
     {
         styleType = "white";
         setWhiteUI();
@@ -137,8 +138,8 @@ void authorization::setWhiteUI()
 void authorization::setSystemUI()
 {
     QPalette basePalette;
-    QColor baseColor =  basePalette.base().color();
-    QColor newBase= QColor::fromRgbF( 1-baseColor.redF(), 1-baseColor.greenF(), 1-baseColor.blueF());
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
 
     if (newBase.name() == "#000000")
     {
@@ -150,7 +151,6 @@ void authorization::setSystemUI()
         styleType = "black";
         setBlackUI();
     }
-
 }
 
 
@@ -161,8 +161,9 @@ void authorization::on_loginButton_clicked()
     // про ошибку ввода пароля
     //
     authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
-    //authorizationDB.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/passLog.db");
-    authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+    authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
+    //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+
 
 
     QString login = ui->loginLineEdit->text();
@@ -182,6 +183,7 @@ void authorization::on_loginButton_clicked()
         emit signalLogin(login);
         ui->loginLineEdit->clear();
         ui->passwordLineEdit->clear();
+        ui->loginLineEdit->setFocus();
         authorizationDB.close();
         close();
     }
@@ -189,6 +191,5 @@ void authorization::on_loginButton_clicked()
     {
         ui->authorizationErrorLabel->setVisible(true);
     }
-
 }
 

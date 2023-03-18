@@ -131,7 +131,7 @@ private:
 
     int row;
 
-    bool statusLogin;
+    bool isLogin;
 
     QMenuBar *macMenuBar;
 

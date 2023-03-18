@@ -151,7 +151,7 @@ void MainWindow::mainWindowInit()
 
 void MainWindow::configDefault()
 {
-    config["theme"] = "black";
+    config["theme"] = "system";
     configWrite();
 }
 
@@ -464,13 +464,13 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName("/Volumes/WD1TB/homework/course4/Gradify/src/dataBase.db");
-    db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
+    db.setDatabaseName(QDir::currentPath() + "/../../../../src/dataBase.db");
+    //db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
 
-    statusLogin = true;
+    isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
 
@@ -487,7 +487,7 @@ void MainWindow::on_settingsButton_clicked()
 
 void MainWindow::on_authorizationButton_clicked()
 {
-    if (!statusLogin)
+    if (!isLogin)
     {
         openAuthorization->show();
         openSetting->close();
@@ -499,7 +499,7 @@ void MainWindow::on_authorizationButton_clicked()
                                       QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes)
         {
-            statusLogin = false;
+            isLogin = false;
             setEnabledButtons(false);
             clearSelectTable();
             clearStyleButtonTable();
@@ -724,8 +724,8 @@ void MainWindow::setWhiteUI()
 void MainWindow::setSystemUI()
 {
     QPalette basePalette;
-    QColor baseColor =  basePalette.base().color();
-    QColor newBase= QColor::fromRgbF( 1-baseColor.redF(), 1-baseColor.greenF(), 1-baseColor.blueF());
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
 
     if (newBase.name() == "#000000")
     {
