@@ -230,6 +230,12 @@ void MainWindow::changeEvent(QEvent *event)
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(event->Close)
+        QApplication::closeAllWindows();
+}
+
 
 void MainWindow::on_studentsTableButton_clicked()
 {
@@ -460,7 +466,8 @@ void MainWindow::setThemeUI(const QString style)
 
 void MainWindow::succesfullyAuthorization(const QString login)
 {
-    ui->authorizationButton->setText("Привіт, " + login + "!");
+    ui->authorizationButton->setText(" Привіт, " + login + "!");
+    ui->authorizationButton->setIcon(QIcon(":/img/pinkMenuIcon/outLog.png"));
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -503,7 +510,8 @@ void MainWindow::on_authorizationButton_clicked()
             setEnabledButtons(false);
             clearSelectTable();
             clearStyleButtonTable();
-            ui->authorizationButton->setText("Авторизація");
+            ui->authorizationButton->setText(" Авторизація");
+            ui->authorizationButton->setIcon(QIcon(":/img/pinkMenuIcon/inLog.png"));
         }
     }
 }

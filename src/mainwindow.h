@@ -9,6 +9,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QCloseEvent>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -25,6 +26,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void changeEvent(QEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void on_studentsTableButton_clicked();
@@ -133,7 +135,6 @@ private:
 
     bool isLogin;
 
-    QMenuBar *macMenuBar;
 
 public slots:
     void setThemeUI(const QString style);

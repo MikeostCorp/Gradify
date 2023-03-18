@@ -639,7 +639,7 @@ QPushButton:hover
 }</string>
           </property>
           <property name="text">
-           <string>Авторизація</string>
+           <string> Авторизація</string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">

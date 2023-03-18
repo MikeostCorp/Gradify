@@ -51,5 +51,6 @@
         <file>img/pinkMenuIcon/studentsIco.png</file>
         <file>img/pinkMenuIcon/teachersIco.png</file>
         <file>img/settingIcon/settingSystemUIICo.png</file>
+        <file>img/pinkMenuIcon/outLog.png</file>
     </qresource>
 </RCC>
