@@ -209,9 +209,11 @@ void MainWindow::configWrite()
 
     QTextStream stream(&cfgFile);
 
-    for (auto const& cfg : config.keys())
+    QMapIterator<QString, QString> it(config);
+    while (it.hasNext())
     {
-        stream << cfg + "=" + config.value(cfg) + "\n";
+        it.next();
+        stream << it.key() << "=" << it.value() << Qt::endl;
     }
 
     cfgFile.close();
