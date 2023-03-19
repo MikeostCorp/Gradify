@@ -118,9 +118,17 @@ void authorization::on_loginButton_clicked()
         // Код для проверки правильности введения и в случае чего высвечивать надпись
         // про ошибку ввода пароля
         //
-        authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
-        authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
+        //authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
+        //authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
         //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
+
+
+        authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
+        authorizationDB.setPort(3306);
+        authorizationDB.setHostName("45.84.207.102");
+        authorizationDB.setUserName("u838940490_admin");
+        authorizationDB.setPassword("Password1");
+        authorizationDB.setDatabaseName("u838940490_accounts");
 
 
 
