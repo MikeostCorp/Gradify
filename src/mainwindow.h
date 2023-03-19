@@ -133,6 +133,7 @@ private:
     QSqlTableModel *model;
 
     int row;
+    int selectTable;
 
     bool isLogin;
 

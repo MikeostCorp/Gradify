@@ -27,6 +27,7 @@ void MainWindow::mainWindowInit()
 
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
+    selectTable = -1;
 
 
     //=================================================
@@ -248,6 +249,7 @@ void MainWindow::on_studentsTableButton_clicked()
     */
     model->setTable("Студенти");
     model->select();
+    selectTable = 0;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
@@ -277,6 +279,7 @@ void MainWindow::on_teachersTableButton_clicked()
 
     model->setTable("Викладачі");
     model->select();
+    selectTable = 1;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
@@ -308,6 +311,7 @@ void MainWindow::on_gradesTableButton_clicked()
     */
     model->setTable("Оцінки");
     model->select();
+    selectTable = 2;
     ui->tableView->setModel(model);
 
 
@@ -336,6 +340,7 @@ void MainWindow::on_groupsTableButton_clicked()
     */
     model->setTable("Групи");
     model->select();
+    selectTable = 3;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
@@ -363,6 +368,7 @@ void MainWindow::on_subjectsTableButton_clicked()
     */
     model->setTable("Предмет");
     model->select();
+    selectTable = 4;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
@@ -385,6 +391,7 @@ void MainWindow::clearSelectTable()
 {
     model->setTable("NULL");
     model->select();
+    selectTable = -1;
     ui->tableView->setModel(model);
 }
 
@@ -450,7 +457,7 @@ void MainWindow::setThemeUI(const QString style)
         setBlackUI();
         config["theme"] = "black";
     }
-    else if(style == "white")
+    else if (style == "white")
     {
         setWhiteUI();
         config["theme"] = "white";
@@ -645,12 +652,13 @@ void MainWindow::setBlackUI()
     ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
+
+    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
 
     ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
@@ -669,6 +677,65 @@ void MainWindow::setBlackUI()
     ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
     ui->borderSection_1->setStyleSheet("background-color:  rgb(108, 108, 108);");
     ui->borderSecton_2->setStyleSheet("background-color:  rgb(108, 108, 108);");
+
+    switch(selectTable)
+    {
+    case 0:
+        ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
+        break;
+    case 1:
+        ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
+        break;
+    case 2:
+        ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
+        break;
+    case 3:
+        ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
+        break;
+    case 4:
+        ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+        break;
+    }
+
+    /* Не работает подгрузка стилей для отдельной кнопки с файла
+     * хотя в тестовом проекте всё на ура работало
+     * и с разными именами объектов и если объект на нескольких фреймах
+     * с файла всё читает правильно
+     *
+     * Пример того как я стилизовал, в тест проекте работало!
+
+
+    QPushButton#deleteRowButton
+    {
+        border-radius:  6px;
+        background-color: rgb(41,45,48);
+        color: rgb(255, 255, 255);
+    }
+
+    QPushButton#deleteRowButton:hover
+
+    {
+        background-color:  rgb(98, 98, 98);
+    }
+
+    QPushButton#deleteRowButton:disabled
+    {
+        color: #989898;
+    }
+
+    Метод присваивания:
+    QFile file(":/defaultButtonTableStyle.qss");   <- путь свой указывать, вырезано с тест проекта
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    setStyleSheet(styleSheet);
+
+    */
+
 }
 
 
@@ -712,16 +779,17 @@ void MainWindow::setWhiteUI()
     ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
     ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->teachersReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
     ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
     ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
     ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
     ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
+    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
+
+    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
 
     ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
@@ -740,6 +808,30 @@ void MainWindow::setWhiteUI()
     ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
     ui->borderSection_1->setStyleSheet("background-color:  rgb(228, 228, 228);");
     ui->borderSecton_2->setStyleSheet("background-color:  rgb(228, 228, 228);");
+
+    switch(selectTable)
+    {
+    case 0:
+        ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->studentsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
+        break;
+    case 1:
+        ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->teachersTableButton->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
+        break;
+    case 2:
+        ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->gradesTableButton->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
+        break;
+    case 3:
+        ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
+        break;
+    case 4:
+        ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+        ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+        break;
+    }
 }
 
 void MainWindow::setSystemUI()

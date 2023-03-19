@@ -6,6 +6,6 @@ QPushButton
 
 QPushButton:hover
 {
-    background-color: rgb(172, 72, 70);
+    background-color: rgb(152, 52, 50);
     color:  rgb(255, 255, 255);
 }
