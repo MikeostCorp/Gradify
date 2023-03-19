@@ -204,8 +204,8 @@ void MainWindow::configInit()
 void MainWindow::configWrite()
 {
     cfgFile.setFileName(QDir::currentPath() + "/cfg");
-    if (!cfgFile.open(QIODevice::WriteOnly))
-        return;
+      if (!cfgFile.open(QIODevice::WriteOnly))
+          return;
 
     QTextStream stream(&cfgFile);
 
