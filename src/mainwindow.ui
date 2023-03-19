@@ -1249,7 +1249,7 @@ QPushButton:hover
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="borderSecton_2">
+             <widget class="QLabel" name="borderSection_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>

@@ -129,6 +129,7 @@ void MainWindow::mainWindowInit()
     //query->exec("DROP TABLE loginPassTable");
 
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->tableView->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
 
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
     ui->authorizationButton->setFocus();
@@ -676,9 +677,9 @@ void MainWindow::setBlackUI()
     ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
     ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
     ui->borderSection_1->setStyleSheet("background-color:  rgb(108, 108, 108);");
-    ui->borderSecton_2->setStyleSheet("background-color:  rgb(108, 108, 108);");
+    ui->borderSection_2->setStyleSheet("background-color:  rgb(108, 108, 108);");
 
-    switch(selectTable)
+    switch (selectTable)
     {
     case 0:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -807,9 +808,9 @@ void MainWindow::setWhiteUI()
     ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
     ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
     ui->borderSection_1->setStyleSheet("background-color:  rgb(228, 228, 228);");
-    ui->borderSecton_2->setStyleSheet("background-color:  rgb(228, 228, 228);");
+    ui->borderSection_2->setStyleSheet("background-color:  rgb(228, 228, 228);");
 
-    switch(selectTable)
+    switch (selectTable)
     {
     case 0:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
