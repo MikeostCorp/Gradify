@@ -208,7 +208,7 @@ QPushButton:hover
     </size>
    </property>
   </widget>
-  <widget class="QLabel" name="loginLabel_2">
+  <widget class="QLabel" name="loginLabel">
    <property name="geometry">
     <rect>
      <x>40</x>

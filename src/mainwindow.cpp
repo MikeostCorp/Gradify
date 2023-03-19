@@ -25,8 +25,8 @@ void MainWindow::mainWindowInit()
 {
     setWindowTitle("Gradify");
 
-    openSetting = new appSetting();
-    openAuthorization = new authorization();
+    settingWindow = new appSetting();
+    authorizationWindow = new authorization();
 
 
     //=================================================
@@ -132,15 +132,15 @@ void MainWindow::mainWindowInit()
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
     ui->authorizationButton->setFocus();
 
-    connect(this, &MainWindow::setThemeSettingsUI, openSetting, &appSetting::setThemeSettingUI);
-    connect(this, &MainWindow::setThemeSettingsUI, openAuthorization, &authorization::setThemeAuthorUI);
+    connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
+    connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
 
     configRead();
     configInit();
 
-    connect(openSetting, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
-    connect(openSetting, &appSetting::changeThemeApp, openAuthorization, &authorization::setThemeAuthorUI);
-    connect(openAuthorization, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
+    connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
+    connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
+    connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
@@ -234,7 +234,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if(event->Close)
+    if (event->Close)
         QApplication::closeAllWindows();
 }
 
@@ -449,20 +449,19 @@ void MainWindow::setThemeUI(const QString style)
     {
         setBlackUI();
         config["theme"] = "black";
-        configWrite();
     }
     else if(style == "white")
     {
         setWhiteUI();
         config["theme"] = "white";
-        configWrite();
     }
     else
     {
         setSystemUI();
         config["theme"] = "system";
-        configWrite();
     }
+
+    configWrite();
 }
 
 
@@ -489,8 +488,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
 void MainWindow::on_settingsButton_clicked()
 {
-    openSetting->show();
-    openAuthorization->close();
+    settingWindow->show();
+    authorizationWindow->close();
 }
 
 
@@ -498,8 +497,8 @@ void MainWindow::on_authorizationButton_clicked()
 {
     if (!isLogin)
     {
-        openAuthorization->show();
-        openSetting->close();
+        authorizationWindow->show();
+        settingWindow->close();
     }
     else
     {

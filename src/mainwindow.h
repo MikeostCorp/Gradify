@@ -115,8 +115,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    appSetting *openSetting;
-    authorization *openAuthorization;
+    appSetting *settingWindow;
+    authorization *authorizationWindow;
 
     QString defaultButtonTableStyle;
     QString selectButtonTableStyle;

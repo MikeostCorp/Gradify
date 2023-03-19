@@ -99,15 +99,15 @@ void authorization::setThemeAuthorUI(const QString style)
 
 void authorization::on_loginButton_clicked()
 {
-    if(ui->loginLineEdit->text().isEmpty())
+    if (ui->loginLineEdit->text().isEmpty())
     {
         ui->loginLineEdit->setFocus();
         //
         // ДОБАВИТЬ КРАСНЫЙ ФОКУС НА ЛЕЙБЛЫ
         //
-        //ui->loginLabel_2->setStyleSheet("color: red;");
+        //ui->loginLabel->setStyleSheet("color: red;");
     }
-    else if(ui->passwordLineEdit->text().isEmpty())
+    else if (ui->passwordLineEdit->text().isEmpty())
     {
         ui->passwordLineEdit->setFocus();
         //ui->passwordLabel->setStyleSheet("color: red;");
