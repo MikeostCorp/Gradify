@@ -1,0 +1,28 @@
+appSetting
+{
+    background-color: rgb(231,224,223);
+}
+
+QFrame#mainUIStyleFrame
+{
+    border-radius:  12px;
+    background-color: white;
+    color: rgb(61, 60, 59);
+}
+
+QFrame#rightUIStyleFrame, QFrame#leftUIStyleFrame
+{
+    border: 0px;
+}
+
+QRadioButton#selectBlackUIRadioButton,
+QRadioButton#selectWhiteUIRadioButton,
+QRadioButton#selectSystemUIRadioButton
+{
+    color: black;
+}
+
+QLabel#labelSeeUI
+{
+    color: rgb(92, 92, 92);
+}

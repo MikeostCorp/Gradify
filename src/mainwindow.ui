@@ -20,11 +20,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">MainWindow
-{
-background-color: rgb(29, 31, 32);
-}
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="layoutDirection">
@@ -58,8 +54,7 @@ background-color: rgb(29, 31, 32);
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(41,45,48);
-border: 0px;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -83,7 +78,7 @@ border: 0px;</string>
        <item>
         <widget class="QFrame" name="upMenuFrame">
          <property name="styleSheet">
-          <string notr="true">border: 0px</string>
+          <string notr="true"/>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -141,17 +136,7 @@ border: 0px;</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  По студентам             </string>
@@ -201,17 +186,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  По оцінкам                   </string>
@@ -258,17 +233,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  По викладачам           </string>
@@ -315,17 +280,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Оцінки                          </string>
@@ -416,17 +371,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Студенти                      </string>
@@ -476,17 +421,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Викладачі                     </string>
@@ -533,17 +468,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Групи                            </string>
@@ -590,17 +515,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  По групам                    </string>
@@ -629,17 +544,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string> Авторизація</string>
@@ -708,17 +613,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Додати запис              </string>
@@ -765,17 +660,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Видалити запис          </string>
@@ -822,17 +707,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Редагувати запис        </string>
@@ -879,17 +754,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  Предмети                    </string>
@@ -936,17 +801,7 @@ QPushButton:hover
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-    border-radius:  6px;
-    background-color:  rgb(41,45,48);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>  По предметам             </string>
@@ -995,12 +850,7 @@ QPushButton:hover
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton 
-{ border-radius:  6px; 
-border: 0px;
- background-color:  rgb(41, 45, 48); 
-color:  rgb(255, 255, 255); 
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>  Налаштування          </string>
@@ -1062,9 +912,7 @@ color:  rgb(255, 255, 255);
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(41,45,48);
-border: 0px;
-border-radius: 16px; </string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -1085,10 +933,7 @@ border-radius: 16px; </string>
             <bool>true</bool>
            </property>
            <property name="styleSheet">
-            <string notr="true">border-radius:  6px;
-color: white;
-background-color: rgb(61,65,68);
-</string>
+            <string notr="true"/>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1111,6 +956,9 @@ background-color: rgb(61,65,68);
                 <height>120</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
@@ -1127,17 +975,7 @@ background-color: rgb(61,65,68);
                 </rect>
                </property>
                <property name="styleSheet">
-                <string notr="true"> QPushButton
-{
-    border-radius:  6px;
-    background-color: rgb(81,85,88);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(108, 108, 108);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>ДЕФОЛТ ФИЛЬТЕР</string>
@@ -1176,8 +1014,7 @@ QPushButton:hover
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:  rgb(108, 108, 108);
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -1198,6 +1035,9 @@ QPushButton:hover
                 <height>120</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
@@ -1214,17 +1054,7 @@ QPushButton:hover
                 </rect>
                </property>
                <property name="styleSheet">
-                <string notr="true"> QPushButton
-{
-    border-radius:  6px;
-    background-color: rgb(81,85,88);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(108, 108, 108);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>КАСТОМНЫЙ ФИЛЬТР</string>
@@ -1269,8 +1099,7 @@ QPushButton:hover
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:  rgb(108, 108, 108);
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -1291,6 +1120,9 @@ QPushButton:hover
                 <height>120</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
@@ -1307,17 +1139,7 @@ QPushButton:hover
                 </rect>
                </property>
                <property name="styleSheet">
-                <string notr="true"> QPushButton
-{
-    border-radius:  6px;
-    background-color: rgb(81,85,88);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(108, 108, 108);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>СВОЙ ЗАПРОС</string>
@@ -1337,37 +1159,18 @@ QPushButton:hover
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">QHeaderView::section
-{
-size: 12px;
-color: white;
-background-color: rgb(61,65,68);
-padding-bottom:5px;
-padding-top:5px;
-}
-
-QTableView 
-{
-background-color: rgb(61,65,68);
-color: white;
-}
-
-QTableView::item
-{
-    text-align: center;
-    border-style: 1px solid rgb(41,45,48);
-}
-
-QTableView::item:selected 
-{
-    background-color: rgb(232, 118, 123);
-}
-
-
-
-</string>
+            <string notr="true"/>
+           </property>
+           <property name="tabKeyNavigation">
+            <bool>true</bool>
            </property>
            <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+           <property name="cornerButtonEnabled">
             <bool>true</bool>
            </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">

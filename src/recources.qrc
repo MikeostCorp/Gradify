@@ -42,19 +42,13 @@
         <file>img/pinkMenuIcon/teachersIco.png</file>
         <file>img/settingIcon/settingSystemUIICo.png</file>
         <file>img/pinkMenuIcon/outLog.png</file>
-        <file>styles/white/mainWindow/defaultButtonTableStyle.qss</file>
-        <file>styles/white/mainWindow/defaultSettingButtonStyle.qss</file>
-        <file>styles/white/mainWindow/filterButton.qss</file>
-        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
-        <file>styles/white/mainWindow/tableView.qss</file>
-        <file>styles/white/authorization/authorizationButton.qss</file>
-        <file>styles/black/authorization/authorizationButton.qss</file>
-        <file>styles/black/mainWindow/defaultButtonTableStyle.qss</file>
-        <file>styles/black/mainWindow/defaultSettingButtonStyle.qss</file>
-        <file>styles/black/mainWindow/filterButton.qss</file>
         <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
-        <file>styles/black/mainWindow/tableView.qss</file>
-        <file>styles/black/authorization/LineEdit.qss</file>
-        <file>styles/white/authorization/LineEdit.qss</file>
+        <file>styles/white/mainWindow/mainWindow.qss</file>
+        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/white/authorization/authorization.qss</file>
+        <file>styles/white/appSetting/appSetting.qss</file>
+        <file>styles/black/mainWindow/mainWindow.qss</file>
+        <file>styles/black/authorization/authorization.qss</file>
+        <file>styles/black/appSetting/appSetting.qss</file>
     </qresource>
 </RCC>

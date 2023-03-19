@@ -155,54 +155,28 @@ void authorization::on_loginButton_clicked()
 
 void authorization::setBlackUI()
 {
+    QFile file(":/styles/black/authorization/authorization.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
+
     styleType = "black";
-    setStyleSheet("authorization{background-color: rgb(41,45,48);}");
-    ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(41,45,48);border: 0px;");
-
-    styleF.setFileName(":/styles/black/authorization/authorizationButton.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->loginButton->setStyleSheet(styleF.readAll());
-    ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
-    styleF.close();
-
-    styleF.setFileName(":/styles/black/authorization/LineEdit.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->loginLineEdit->setStyleSheet(styleF.readAll());
-    ui->passwordLineEdit->setStyleSheet(ui->loginLineEdit->styleSheet());
-    styleF.close();
-
-    ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(255,255,255);");
+    isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
-
-    isPasswordHidden = false;
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
 
 void authorization::setWhiteUI()
 {
+    QFile file(":/styles/white/authorization/authorization.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
+
     styleType = "white";
-    setStyleSheet("authorization{background-color: rgb(231,224,223);}");
-    ui->passwordVisibilityButton->setStyleSheet("background-color: rgb(231,224,223);border: 0px;");
-
-    styleF.setFileName(":/styles/white/authorization/authorizationButton.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->loginButton->setStyleSheet(styleF.readAll());
-    styleF.close();
-    ui->forgotPasswordButton->setStyleSheet(ui->loginButton->styleSheet());
-
-    styleF.setFileName(":/styles/white/authorization/LineEdit.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->loginLineEdit->setStyleSheet(styleF.readAll());
-    ui->passwordLineEdit->setStyleSheet(ui->loginLineEdit->styleSheet());
-    styleF.close();
-
-    ui->headTitleLabel->setStyleSheet("font: 34px;color: rgb(61, 60, 59);");
+    isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
-
-    isPasswordHidden = false;
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 

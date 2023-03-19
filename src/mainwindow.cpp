@@ -204,17 +204,19 @@ void MainWindow::configInit()
 void MainWindow::configWrite()
 {
     cfgFile.setFileName(QDir::currentPath() + "/cfg");
-    if (!cfgFile.open(QIODevice::WriteOnly))
-        return;
+        if (!cfgFile.open(QIODevice::WriteOnly))
+            return;
 
-    QTextStream stream(&cfgFile);
+        QTextStream stream(&cfgFile);
 
-    for (auto const& cfg : config.keys())
-    {
-        stream << cfg + "=" + config.value(cfg) + "\n";
-    }
+        QMapIterator<QString, QString> it(config);
+        while (it.hasNext())
+        {
+            it.next();
+            stream << it.key() << "=" << it.value() << Qt::endl;
+        }
 
-    cfgFile.close();
+        cfgFile.close();
 }
 
 
@@ -438,11 +440,11 @@ void MainWindow::setEnabledActions(bool status)
 
 void MainWindow::clearStyleButtonTable()
 {
-    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
+    ui->studentsTableButton->setStyleSheet("");
+    ui->teachersTableButton->setStyleSheet("");
+    ui->gradesTableButton->setStyleSheet("");
+    ui->groupsTableButton->setStyleSheet("");
+    ui->subjectsTableButton->setStyleSheet("");
 
     ui->studentsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/studentsIco.png"));
     ui->teachersTableButton->setIcon(QIcon(":/img/pinkMenuIcon/teachersIco.png"));
@@ -617,67 +619,20 @@ void MainWindow::on_subjectsReportButton_clicked()
 
 void MainWindow::setBlackUI()
 {
-    clearStyleButtonTable();
-
-    styleF.setFileName(":/styles/black/mainWindow/defaultButtonTableStyle.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultButtonTableStyle = styleF.readAll();
-    styleF.close();
+    QFile file(":/styles/black/mainWindow/mainWindow.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
 
     styleF.setFileName(":/styles/black/mainWindow/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    styleF.setFileName(":/styles/black/mainWindow/defaultSettingButtonStyle.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultSettingButtonStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/black/mainWindow/filterButton.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultFilterButtonStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/black/mainWindow/tableView.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->tableView->setStyleSheet(styleF.readAll());
-    styleF.close();
-
-    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
-    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
-
-    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
-
     ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
     ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
     ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
     ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
-
-    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: rgb(61,65,68);");
-    ui->leftMenuFrame->setStyleSheet("background-color: rgb(41,45,48);");
-    ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("color: white;background-color: rgb(41,45,48); border: 0px; border-radius: 16px;");
-    setStyleSheet("MainWindow{background-color: rgb(29, 31, 32);}border: 0px;");
-
-    ui->tempButton->setStyleSheet(defaultFilterButtonStyle);
-    ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
-    ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
-    ui->borderSection_1->setStyleSheet("background-color:  rgb(108, 108, 108);");
-    ui->borderSection_2->setStyleSheet("background-color:  rgb(108, 108, 108);");
 
     switch (selectTable)
     {
@@ -703,39 +658,6 @@ void MainWindow::setBlackUI()
         break;
     }
 
-    /* Не работает подгрузка стилей для отдельной кнопки с файла
-     * хотя в тестовом проекте всё на ура работало
-     * и с разными именами объектов и если объект на нескольких фреймах
-     * с файла всё читает правильно
-     *
-     * Пример того как я стилизовал, в тест проекте работало!
-
-
-    QPushButton#deleteRowButton
-    {
-        border-radius:  6px;
-        background-color: rgb(41,45,48);
-        color: rgb(255, 255, 255);
-    }
-
-    QPushButton#deleteRowButton:hover
-
-    {
-        background-color:  rgb(98, 98, 98);
-    }
-
-    QPushButton#deleteRowButton:disabled
-    {
-        color: #989898;
-    }
-
-    Метод присваивания:
-    QFile file(":/defaultButtonTableStyle.qss");   <- путь свой указывать, вырезано с тест проекта
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(file.readAll());
-    setStyleSheet(styleSheet);
-
-    */
 
 }
 
@@ -748,67 +670,19 @@ void MainWindow::setBlackUI()
 
 void MainWindow::setWhiteUI()
 {
-    clearStyleButtonTable();
+    QFile file(":/styles/white/mainWindow/mainWindow.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
 
-    styleF.setFileName(":/styles/white/mainWindow/defaultButtonTableStyle.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultButtonTableStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/white/mainWindow/selectButtonTableStyle.qss");
-    styleF.open(QFile::ReadOnly);
-    selectButtonTableStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/white/mainWindow/defaultSettingButtonStyle.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultSettingButtonStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/white/mainWindow/filterButton.qss");
-    styleF.open(QFile::ReadOnly);
-    defaultFilterButtonStyle = styleF.readAll();
-    styleF.close();
-
-    styleF.setFileName(":/styles/white/mainWindow/tableView.qss");
-    styleF.open(QFile::ReadOnly);
-    ui->tableView->setStyleSheet(styleF.readAll());
-    styleF.close();
-
-    ui->studentsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->subjectsTableButton->setStyleSheet(defaultButtonTableStyle);
-    ui->teachersReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->gradesReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->groupsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->subjectsReportButton->setStyleSheet(defaultButtonTableStyle);
-    ui->authorizationButton->setStyleSheet(defaultButtonTableStyle);
-    ui->deleteRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->addRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->editRowButton->setStyleSheet(defaultButtonTableStyle);
-    ui->studentsReportButton->setStyleSheet(defaultButtonTableStyle);
-
-    ui->settingsButton->setStyleSheet(defaultSettingButtonStyle);
+    file.setFileName(":/styles/white/mainWindow/selectButtonTableStyle.qss");
+    file.open(QFile::ReadOnly);
+    selectButtonTableStyle = QLatin1String(file.readAll());
 
     ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
-
-    ui->controlTableFrame->setStyleSheet("border-radius:  6px;color: white;background-color: white;");
-    ui->leftMenuFrame->setStyleSheet("background-color: rgb(231,224,223);");
-    ui->upMenuFrame->setStyleSheet("border: 0px");
-    ui->mainTableFrame->setStyleSheet("color: black;background-color: rgb(231,224,223); border: 0px; border-radius: 16px;");
-    setStyleSheet("MainWindow{background-color: rgb(255, 255, 255);}border: 0px;");
-
-    ui->tempButton->setStyleSheet(defaultFilterButtonStyle);
-    ui->tempButton_2->setStyleSheet(defaultFilterButtonStyle);
-    ui->tempButton_3->setStyleSheet(defaultFilterButtonStyle);
-    ui->borderSection_1->setStyleSheet("background-color:  rgb(228, 228, 228);");
-    ui->borderSection_2->setStyleSheet("background-color:  rgb(228, 228, 228);");
 
     switch (selectTable)
     {
@@ -834,6 +708,7 @@ void MainWindow::setWhiteUI()
         break;
     }
 }
+
 
 void MainWindow::setSystemUI()
 {

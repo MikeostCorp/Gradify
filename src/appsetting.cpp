@@ -38,16 +38,18 @@ void appSetting::changeEvent(QEvent *event)
 
 void appSetting::setBlackUI()
 {
-    setStyleSheet("appSetting { background-color: rgb(29, 31, 32); }");
-    ui->mainUIStyleFrame->setStyleSheet("border-radius:  12px; background-color: rgb(61,65,68); color: white;");
+    QFile file(":/styles/black/appSetting/appSetting.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
     ui->selectBlackUIRadioButton->setChecked(true);
 }
 
 
 void appSetting::setWhiteUI()
 {
-    setStyleSheet("appSetting { background-color: rgb(231,224,223); }");
-    ui->mainUIStyleFrame->setStyleSheet("border-radius:  12px; background-color: white; color: rgb(61, 60, 59);");
+    QFile file(":/styles/white/appSetting/appSetting.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
     ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
@@ -131,6 +133,3 @@ void appSetting::setThemeSettingUI(const QString style)
         setSystemUI();
     }
 }
-
-
-//ЕЛАЙ QSS MAINWINDOW И APPSETING НОВИХ ЄЕМЕНТОВ

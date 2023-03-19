@@ -41,9 +41,7 @@ background-color: rgb(29, 31, 32);
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-radius:  12px;
-background-color: rgb(61,65,68);
-</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -72,7 +70,7 @@ background-color: rgb(61,65,68);
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="labelSeeUI">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -86,6 +84,9 @@ background-color: rgb(61,65,68);
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Вигляд&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

@@ -17,11 +17,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">authorization
-{
-background-color: rgb(41,45,48);
-}
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QLabel" name="headTitleLabel">
    <property name="geometry">
@@ -36,8 +32,7 @@ background-color: rgb(41,45,48);
     <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 34px;
-color: rgb(255,255,255);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Login</string>
@@ -72,10 +67,7 @@ color: rgb(255,255,255);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color:#989898;
-background-color: rgb(29, 31, 32);
-border-radius: 8px;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -91,10 +83,7 @@ border-radius: 8px;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color:#989898;
-background-color: rgb(29, 31, 32);
-border-radius: 8px;
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -113,17 +102,7 @@ border-radius: 8px;
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton
-{
-    border-radius:  8px;
-    background-color: rgb(29, 31, 32);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Увійти</string>
@@ -142,17 +121,7 @@ QPushButton:hover
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton
-{
-    border-radius:  8px;
-    background-color: rgb(29, 31, 32);
-    color:  rgb(255, 255, 255);
-}
-
-QPushButton:hover
-{
-    background-color:  rgb(98, 98, 98);
-}</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Забули пароль?</string>
@@ -176,7 +145,7 @@ QPushButton:hover
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color:rgb(255, 0, 0);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Введено неправильний логін або пароль!</string>

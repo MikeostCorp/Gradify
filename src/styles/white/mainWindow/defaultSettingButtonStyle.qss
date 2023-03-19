@@ -1,6 +1,0 @@
-QPushButton
-{
-    border-radius:  6px; 
-    background-color:  rgb(231, 224, 223); 
-    color:  rgb(61, 60, 59);
-}

@@ -1,0 +1,304 @@
+MainWindow
+{
+    background-color: rgb(29, 31, 32);
+    color: black;
+}
+
+QFrame#leftMenuFrame, QFrame#upMenuFrame
+{
+    background-color: rgb(41,45,48);
+    border: 0px;
+}
+
+QFrame#controlTableFrame
+{
+    border-radius: 6px;
+    color: white;
+    background-color: rgb(61,65,68);
+}
+
+QFrame#mainTableFrame
+{
+    color: white;
+    background-color: rgb(41,45,48);
+    border: 0px;
+    border-radius: 16px;
+}
+
+QLabel#borderSection_1, QLabel#borderSection_2
+{
+    background-color:  rgb(108, 108, 108);
+}
+
+QPushButton#tempButton,
+QPushButton#tempButton_2,
+QPushButton#tempButton_3
+{
+    border-radius:  6px;
+    background-color: rgb(81,85,88);
+    color:  rgb(255, 255, 255);
+}
+
+QPushButton#tempButton:hover,
+QPushButton#tempButton_2:hover,
+QPushButton#tempButton_3:hover
+{
+    background-color: rgb(108, 108, 108);
+}
+
+QPushButton#tempButton:disabled,
+QPushButton#tempButton_2:disabled,
+QPushButton#tempButton_3:disabled
+{
+    color: #989898;
+}
+
+QPushButton#studentsTableButton,
+QPushButton#teachersTableButton,
+QPushButton#gradesTableButton,
+QPushButton#groupsTableButton,
+QPushButton#subjectsTableButton,
+QPushButton#studentsReportButton,
+QPushButton#teachersReportButton,
+QPushButton#gradesReportButton,
+QPushButton#groupsReportButton,
+QPushButton#subjectsReportButton,
+QPushButton#authorizationButton,
+QPushButton#deleteRowButton,
+QPushButton#addRowButton,
+QPushButton#editRowButton,
+QPushButton#settingsButton
+{
+    border-radius: 6px;
+    background-color: rgb(41,45,48);
+    color: rgb(255, 255, 255);
+}
+
+QPushButton#studentsTableButton:hover,
+QPushButton#teachersTableButton:hover,
+QPushButton#gradesTableButton:hover,
+QPushButton#groupsTableButton:hover,
+QPushButton#subjectsTableButton:hover,
+QPushButton#studentsReportButton:hover,
+QPushButton#teachersReportButton:hover,
+QPushButton#gradesReportButton:hover,
+QPushButton#groupsReportButton:hover,
+QPushButton#subjectsReportButton:hover,
+QPushButton#authorizationButton:hover,
+QPushButton#deleteRowButton:hover,
+QPushButton#addRowButton:hover,
+QPushButton#editRowButton:hover,
+QPushButton#settingsButton:hover
+{
+    background-color: rgb(98, 98, 98);
+}
+
+QPushButton#studentsTableButton:disabled,
+QPushButton#teachersTableButton:disabled,
+QPushButton#gradesTableButton:disabled,
+QPushButton#groupsTableButton:disabled,
+QPushButton#subjectsTableButton:disabled,
+QPushButton#studentsReportButton:disabled,
+QPushButton#teachersReportButton:disabled,
+QPushButton#gradesReportButton:disabled,
+QPushButton#groupsReportButton:disabled,
+QPushButton#subjectsReportButton:disabled,
+QPushButton#authorizationButton:disabled,
+QPushButton#deleteRowButton:disabled,
+QPushButton#addRowButton:disabled,
+QPushButton#editRowButton:disabled,
+QPushButton#settingsButton:disabled
+{
+    color: #989898;
+}
+
+
+
+
+
+QHeaderView
+{
+    background-color: rgb(61,65,68);
+    color: black;
+    size: 12px;
+}
+
+QHeaderView::section
+{
+    size: 12px;
+    color: white;
+    background-color: rgb(61,65,68);
+    padding-bottom:5px;
+    padding-top:5px;
+}
+
+QHeaderView::section:checked
+{
+    background-color: rgb(81,85,88);
+    border: 0px;
+}
+
+QTableView
+{
+   background-color: rgb(61,65,68);
+   color: white;
+   border: 0px;
+   border-radius: 12px;
+}
+
+QTableView QLineEdit
+{
+    background-color: rgb(61,65,68);
+    color: white;
+}
+
+QTableView::item
+{
+    color: white;
+    text-align: center;
+    border-style: 1px solid rgb(41,45,48);
+    border-radius: 8px;
+}
+
+QTableView::item:selected
+{
+    color: white;
+    background-color: rgb(232, 118, 123);
+}
+
+QTableView QTableCornerButton::section
+{
+    border-top-left-radius: 8px;
+    background-color: rgb(101,105,108);
+}
+
+QScrollBar:vertical
+{
+    border: none;
+    background: rgb(61,65,68);
+    width: 14px;
+    margin: 15px 0 15px 0;
+    border-radius: 0px;
+}
+
+QScrollBar::handle:vertical
+{
+    background-color: rgb(132,132,132);
+    min-height: 20px;
+    border-radius: 7px;
+}
+
+QScrollBar::handle:vertical:hover
+{
+    background-color: rgb(152,152,152);
+}
+
+QScrollBar::handle:vertical:pressed
+{
+    background-color: rgb(152,152,152);
+}
+
+QScrollBar::sub-line:vertical
+{
+    border: none;
+    background-color: rgb(91,95,98);
+    height: 15px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical:hover
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar::sub-line:vertical:pressed
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar::add-line:vertical
+{
+    border: none;
+    background-color: rgb(91,95,98);
+    height: 15px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical:hover
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar::add-line:vertical:pressed
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar:horizontal
+{
+    border: none;
+    border-radius: 0px;
+    background: rgb(61,65,68);
+    height: 14px;
+    margin: 0px 15px 0 15px;
+}
+
+QScrollBar::handle:horizontal
+{
+    background: rgb(132,132,132);
+    min-width: 20px;
+    border-radius: 7px;
+}
+
+QScrollBar::handle:horizontal:hover
+{
+    background-color: rgb(152,152,152);
+}
+
+QScrollBar::handle:horizontal:pressed
+{
+    background-color: rgb(152,152,152);
+}
+
+QScrollBar::add-line:horizontal
+{
+    border: none;
+    background: rgb(91,95,98);
+    width: 15px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:horizontal:hover
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar::sub-line:horizontal
+{
+    border: none;
+    background: rgb(91,95,98);
+    width: 15px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal:hover
+{
+    background-color: rgb(111,115,118);
+}
+
+QScrollBar::sub-line:horizontal:pressed
+{
+    background-color: rgb(111,115,118);
+}

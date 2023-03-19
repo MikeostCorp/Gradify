@@ -1,0 +1,45 @@
+authorization
+{
+    background-color: rgb(231,224,223);
+}
+
+QLabel#headTitleLabel
+{
+    font: 34px;
+    color: rgb(61, 60, 59);
+}
+
+QPushButton#loginButton,
+QPushButton#forgotPasswordButton
+{
+    border-radius:  8px;
+    background-color: rgb(251,244,243);
+    color: rgb(61, 60, 59);
+}
+
+QPushButton#loginButton:hover,
+QPushButton#forgotPasswordButton:hover
+{
+    background-color: rgb(221, 214, 213);
+}
+
+QPushButton#passwordVisibilityButton
+{
+    background-color: rgb(231,224,223);
+    border: 0px;
+}
+
+QLineEdit#loginLineEdit,
+QLineEdit#passwordLineEdit
+{
+    color:rgb(61, 60, 59);
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+}
+
+QLineEdit#loginLineEdit:focus,
+QLineEdit#passwordLineEdit:focus
+{
+    border: 2px solid rgb(0, 106, 188);
+    border-radius: 8px;
+}

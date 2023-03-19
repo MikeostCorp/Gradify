@@ -118,10 +118,7 @@ private:
     appSetting *settingWindow;
     authorization *authorizationWindow;
 
-    QString defaultButtonTableStyle;
     QString selectButtonTableStyle;
-    QString defaultSettingButtonStyle;
-    QString defaultFilterButtonStyle;
 
     QMap<QString, QString> config;
 
