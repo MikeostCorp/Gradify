@@ -122,10 +122,12 @@ void authorization::on_loginButton_clicked()
         //authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
         //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
 
+        // QMessageBox::information(this, "test", );
 
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
-        authorizationDB.setPort(3306);
-        authorizationDB.setHostName("45.84.207.102");
+        // https://gradify.online/
+        // maybe fix & put normal hostname
+        authorizationDB.setHostName("45.84.207.102"); // 45.84.207.129
         authorizationDB.setUserName("u838940490_admin");
         authorizationDB.setPassword("Password1");
         authorizationDB.setDatabaseName("u838940490_accounts");
