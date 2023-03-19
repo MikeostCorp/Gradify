@@ -204,19 +204,19 @@ void MainWindow::configInit()
 void MainWindow::configWrite()
 {
     cfgFile.setFileName(QDir::currentPath() + "/cfg");
-        if (!cfgFile.open(QIODevice::WriteOnly))
-            return;
+    if (!cfgFile.open(QIODevice::WriteOnly))
+        return;
 
-        QTextStream stream(&cfgFile);
+    QTextStream stream(&cfgFile);
 
-        QMapIterator<QString, QString> it(config);
-        while (it.hasNext())
-        {
-            it.next();
-            stream << it.key() << "=" << it.value() << Qt::endl;
-        }
+    QMapIterator<QString, QString> it(config);
+    while (it.hasNext())
+    {
+        it.next();
+        stream << it.key() << "=" << it.value() << Qt::endl;
+    }
 
-        cfgFile.close();
+    cfgFile.close();
 }
 
 
