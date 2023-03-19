@@ -41,9 +41,9 @@ void authorization::startAuthozation()
 
 void authorization::on_forgotPasswordButton_clicked()
 {
-    QMessageBox::information(this,"Увага","У випадку якщо ви забулі пароль або логін зверніться по пошті:"
-                                          "\nandreyizbash228@gmail.com"
-                                          "\nmikeostashenko@gmail.com");
+    QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
+                                            "\nandreyizbash228@gmail.com"
+                                            "\nmikeostashenko@gmail.com");
 }
 
 
@@ -158,6 +158,7 @@ void authorization::setBlackUI()
     QFile file(":/styles/black/authorization/authorization.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
 
     styleType = "black";
     isPasswordHidden = false;
@@ -172,6 +173,7 @@ void authorization::setWhiteUI()
     QFile file(":/styles/white/authorization/authorization.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
 
     styleType = "white";
     isPasswordHidden = false;

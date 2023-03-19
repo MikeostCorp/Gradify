@@ -204,8 +204,8 @@ void MainWindow::configInit()
 void MainWindow::configWrite()
 {
     cfgFile.setFileName(QDir::currentPath() + "/cfg");
-      if (!cfgFile.open(QIODevice::WriteOnly))
-          return;
+    if (!cfgFile.open(QIODevice::WriteOnly))
+        return;
 
     QTextStream stream(&cfgFile);
 
@@ -673,10 +673,12 @@ void MainWindow::setWhiteUI()
     QFile file(":/styles/white/mainWindow/mainWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
 
     file.setFileName(":/styles/white/mainWindow/selectButtonTableStyle.qss");
     file.open(QFile::ReadOnly);
     selectButtonTableStyle = QLatin1String(file.readAll());
+    file.close();
 
     ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));

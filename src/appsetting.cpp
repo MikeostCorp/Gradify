@@ -41,6 +41,7 @@ void appSetting::setBlackUI()
     QFile file(":/styles/black/appSetting/appSetting.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
     ui->selectBlackUIRadioButton->setChecked(true);
 }
 
@@ -50,6 +51,7 @@ void appSetting::setWhiteUI()
     QFile file(":/styles/white/appSetting/appSetting.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
     ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
