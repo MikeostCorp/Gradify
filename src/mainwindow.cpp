@@ -146,10 +146,10 @@ void MainWindow::mainWindowInit()
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
-    setEnabledButtons(false);  // <- для абьюзинга системы ставь true
-    setEnabledActions(false);  // <- и это тоже))
+    setEnabledButtons(true);  // <- для абьюзинга системы ставь true
+    setEnabledActions(true);  // <- и это тоже))
 
-    //succesfullyAuthorization("xui"); <- абьюз для девелоперов
+    succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
     //Чекни кста как на светлом синий, на темном прям имба, а на светлом внешне хз
 
@@ -161,6 +161,12 @@ void MainWindow::mainWindowInit()
     // на счёт миджорней, я хз, по-моему уже не плохая иконка, показывает что база данных и что связанная с студентами,
     // и главное минималистик
     // за фруитлуп не шарю вообще, только ФЛ студио находит xD
+
+    // Ок, значит такую оставим. Да, я про фл студио, там прикольно перец появляется. Можно что-то в этом роде сделать.
+    // Просто появление лого, как вариант. Надо потестить, заодно проверим насколько мой мак плох с прозрачностью.
+
+    // Окей, постараюсь найти пример загрузки ФЛ студио, анимацию конечно хотелось бы по прикольнее чем
+    //в канце, и ещё нужно фиксануть углы прелоадера, а то они круглые но не очень
 
     // TEST!!
     ui->tempButton_2->setEnabled(false);
@@ -264,6 +270,7 @@ void MainWindow::on_studentsTableButton_clicked()
      * Код реализации открытия таблицы студентов
      *
     */
+    setWindowTitle("Gradify - (Студенти)");
     model->setTable("Студенти");
     model->select();
     selectTable = 0;
@@ -281,8 +288,6 @@ void MainWindow::on_studentsTableButton_clicked()
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
-
-    setWindowTitle("Gradify - (Студенти)");
 }
 
 
@@ -293,7 +298,7 @@ void MainWindow::on_teachersTableButton_clicked()
      * Код реализации открытия таблицы преподавателей
      *
     */
-
+    setWindowTitle("Gradify - (Викладачі)");
     model->setTable("Викладачі");
     model->select();
     selectTable = 1;
@@ -311,8 +316,6 @@ void MainWindow::on_teachersTableButton_clicked()
     {
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
-
-    setWindowTitle("Gradify - (Викладачі)");
 }
 
 
@@ -326,11 +329,11 @@ void MainWindow::on_gradesTableButton_clicked()
      *                                              с длиной колонк (последняя колонка не до
      *                                              конца растянута)
     */
+    setWindowTitle("Gradify - (Оцінки)");
     model->setTable("Оцінки");
     model->select();
     selectTable = 2;
     ui->tableView->setModel(model);
-
 
     clearStyleButtonTable();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
@@ -343,8 +346,6 @@ void MainWindow::on_gradesTableButton_clicked()
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
-
-    setWindowTitle("Gradify - (Оцінки)");
 }
 
 
@@ -355,6 +356,7 @@ void MainWindow::on_groupsTableButton_clicked()
      * Код реализации открытия таблицы групп
      *
     */
+    setWindowTitle("Gradify - (Групи)");
     model->setTable("Групи");
     model->select();
     selectTable = 3;
@@ -363,6 +365,7 @@ void MainWindow::on_groupsTableButton_clicked()
 
     clearStyleButtonTable();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+
     if (config["theme"] == "white")
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
@@ -371,8 +374,6 @@ void MainWindow::on_groupsTableButton_clicked()
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
-
-    setWindowTitle("Gradify - (Групи)");
 }
 
 
@@ -383,6 +384,7 @@ void MainWindow::on_subjectsTableButton_clicked()
      * Код реализации открытия таблицы предметы
      *
     */
+    setWindowTitle("Gradify - (Предмети)");
     model->setTable("Предмет");
     model->select();
     selectTable = 4;
@@ -399,8 +401,6 @@ void MainWindow::on_subjectsTableButton_clicked()
     {
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
-
-    setWindowTitle("Gradify - (Предмети)");
 }
 
 
@@ -642,18 +642,7 @@ void MainWindow::setBlackUI()
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    QPalette basePalette;
-    QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
-
-    if (newBase.name() == "#000000")
-    {
-        setBlackIconAction();
-    }
-    else
-    {
-        setWhiteIconAction();
-    }
+    setCurrentIconAction();
 
     switch (selectTable)
     {
@@ -699,18 +688,7 @@ void MainWindow::setWhiteUI()
     selectButtonTableStyle = QLatin1String(file.readAll());
     file.close();
 
-    QPalette basePalette;
-    QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
-
-    if (newBase.name() == "#000000")
-    {
-        setBlackIconAction();
-    }
-    else
-    {
-        setWhiteIconAction();
-    }
+    setCurrentIconAction();
 
     switch (selectTable)
     {
@@ -747,31 +725,36 @@ void MainWindow::setSystemUI()
     if (newBase.name() == "#000000")
     {
         setWhiteUI();
-        setBlackIconAction();
     }
     else
     {
         setBlackUI();
-        setWhiteIconAction();
     }
 }
 
-void MainWindow::setBlackIconAction()
-{
-    ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
-    ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
-}
 
-void MainWindow::setWhiteIconAction()
+void MainWindow::setCurrentIconAction()
 {
-    ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
-    ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+    QPalette basePalette;
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+    }
+    else
+    {
+        ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+    }
 }
 
 

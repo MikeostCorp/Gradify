@@ -25,6 +25,8 @@ authorization::authorization(QWidget *parent) :
 
     ui->authorizationErrorLabel->setVisible(false);
 
+    ui->loginLineEdit->setPlaceholderText("Логін");
+    ui->passwordLineEdit->setPlaceholderText("Пароль");
 }
 
 
