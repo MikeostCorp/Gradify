@@ -115,7 +115,7 @@ QPushButton#settingsButton:disabled
 QHeaderView
 {
     background-color: rgb(61,65,68);
-    color: black;
+    color: white;
     size: 12px;
 }
 
