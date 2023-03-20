@@ -12,7 +12,7 @@ QFrame#leftMenuFrame, QFrame#upMenuFrame
 
 QFrame#controlTableFrame
 {
-    border-radius:  6px;
+    border-radius: 6px;
     color: white;
     background-color: white;
 }
@@ -27,23 +27,23 @@ QFrame#mainTableFrame
 
 QLabel#borderSection_1, QLabel#borderSection_2
 {
-    background-color:  rgb(228, 228, 228);
+    background-color: rgb(228, 228, 228);
 }
 
 QPushButton#tempButton,
 QPushButton#tempButton_2,
 QPushButton#tempButton_3
 {
-    border-radius:  6px;
+    border-radius: 6px;
     background-color: rgb(225, 225, 225);
-    color:  rgb(61, 60, 59);
+    color: rgb(61, 60, 59);
 }
 
 QPushButton#tempButton:hover,
 QPushButton#tempButton_2:hover,
 QPushButton#tempButton_3:hover
 {
-    background-color:  rgb(205, 205, 205);
+    background-color: rgb(205, 205, 205);
 }
 
 QPushButton#tempButton:disabled,
@@ -160,7 +160,7 @@ QTableView::item
 QTableView::item:selected
 {
    color: black;
-   background-color: rgb(232, 118, 123);
+   background-color: rgb(55, 95, 215);
 }
 
 QTableView QTableCornerButton::section

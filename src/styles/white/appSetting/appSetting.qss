@@ -5,7 +5,7 @@ appSetting
 
 QFrame#mainUIStyleFrame
 {
-    border-radius:  12px;
+    border-radius: 12px;
     background-color: white;
     color: rgb(61, 60, 59);
 }

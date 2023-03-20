@@ -149,6 +149,10 @@ void MainWindow::mainWindowInit()
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
 
+    //succesfullyAuthorization("xui"); <- абьюз для девелоперов
+
+    //Чекни кста как на светлом синий, на темном прям имба, а на светлом внешне хз
+
     // TEST!!
     ui->tempButton_2->setEnabled(false);
 }
@@ -447,11 +451,11 @@ void MainWindow::clearStyleButtonTable()
     ui->groupsTableButton->setStyleSheet("");
     ui->subjectsTableButton->setStyleSheet("");
 
-    ui->studentsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/studentsIco.png"));
-    ui->teachersTableButton->setIcon(QIcon(":/img/pinkMenuIcon/teachersIco.png"));
-    ui->gradesTableButton->setIcon(QIcon(":/img/pinkMenuIcon/raitingIco.png"));
-    ui->groupsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/groupIco.png"));
-    ui->subjectsTableButton->setIcon(QIcon(":/img/pinkMenuIcon/subjectIco.png"));
+    ui->studentsTableButton->setIcon(QIcon(":/img/blueMenuIcon/studentsIco.png"));
+    ui->teachersTableButton->setIcon(QIcon(":/img/blueMenuIcon/teachersIco.png"));
+    ui->gradesTableButton->setIcon(QIcon(":/img/blueMenuIcon/raitingIco.png"));
+    ui->groupsTableButton->setIcon(QIcon(":/img/blueMenuIcon/groupIco.png"));
+    ui->subjectsTableButton->setIcon(QIcon(":/img/blueMenuIcon/subjectIco.png"));
 }
 
 void MainWindow::setThemeUI(const QString style)
@@ -479,7 +483,7 @@ void MainWindow::setThemeUI(const QString style)
 void MainWindow::succesfullyAuthorization(const QString login)
 {
     ui->authorizationButton->setText(" Привіт, " + login + "!");
-    ui->authorizationButton->setIcon(QIcon(":/img/pinkMenuIcon/outLog.png"));
+    ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -523,7 +527,7 @@ void MainWindow::on_authorizationButton_clicked()
             clearSelectTable();
             clearStyleButtonTable();
             ui->authorizationButton->setText(" Авторизація");
-            ui->authorizationButton->setIcon(QIcon(":/img/pinkMenuIcon/inLog.png"));
+            ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/inLog.png"));
         }
     }
 }

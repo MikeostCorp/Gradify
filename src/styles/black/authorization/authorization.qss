@@ -12,7 +12,7 @@ QLabel#headTitleLabel
 QPushButton#loginButton,
 QPushButton#forgotPasswordButton
 {
-    border-radius:  8px;
+    border-radius: 8px;
     background-color: rgb(61,65,68);
     color: rgb(255, 255, 255);
 }
@@ -20,7 +20,7 @@ QPushButton#forgotPasswordButton
 QPushButton#loginButton:hover,
 QPushButton#forgotPasswordButton:hover
 {
-    background-color:  rgb(88, 88, 88);
+    background-color: rgb(88, 88, 88);
 }
 
 QPushButton#passwordVisibilityButton

@@ -89,7 +89,7 @@
          <widget class="QLabel" name="mainLogoImg">
           <property name="geometry">
            <rect>
-            <x>10</x>
+            <x>15</x>
             <y>20</y>
             <width>51</width>
             <height>51</height>
@@ -99,7 +99,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="recources.qrc">:/img/mainLogo/mainIcox64.png</pixmap>
+           <pixmap resource="recources.qrc">:/img/mainLogo/mainIcox128.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -287,7 +287,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/raitingIco.png</normaloff>:/img/pinkMenuIcon/raitingIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/raitingIco.png</normaloff>:/img/blueMenuIcon/raitingIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -378,7 +378,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/studentsIco.png</normaloff>:/img/pinkMenuIcon/studentsIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/studentsIco.png</normaloff>:/img/blueMenuIcon/studentsIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -428,7 +428,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/teachersIco.png</normaloff>:/img/pinkMenuIcon/teachersIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/teachersIco.png</normaloff>:/img/blueMenuIcon/teachersIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -475,7 +475,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/groupIco.png</normaloff>:/img/pinkMenuIcon/groupIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/groupIco.png</normaloff>:/img/blueMenuIcon/groupIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -551,7 +551,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/inLog.png</normaloff>:/img/pinkMenuIcon/inLog.png</iconset>
+            <normaloff>:/img/blueMenuIcon/inLog.png</normaloff>:/img/blueMenuIcon/inLog.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -620,7 +620,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/newRecord.png</normaloff>:/img/pinkMenuIcon/newRecord.png</iconset>
+            <normaloff>:/img/blueMenuIcon/newRecord.png</normaloff>:/img/blueMenuIcon/newRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -667,7 +667,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/deleteRecord.png</normaloff>:/img/pinkMenuIcon/deleteRecord.png</iconset>
+            <normaloff>:/img/blueMenuIcon/deleteRecord.png</normaloff>:/img/blueMenuIcon/deleteRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -714,7 +714,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/editRecord.png</normaloff>:/img/pinkMenuIcon/editRecord.png</iconset>
+            <normaloff>:/img/blueMenuIcon/editRecord.png</normaloff>:/img/blueMenuIcon/editRecord.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -761,7 +761,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/pinkMenuIcon/subjectIco.png</normaloff>:/img/pinkMenuIcon/subjectIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/subjectIco.png</normaloff>:/img/blueMenuIcon/subjectIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -857,7 +857,7 @@
          </property>
          <property name="icon">
           <iconset resource="recources.qrc">
-           <normaloff>:/img/pinkMenuIcon/settingIco.png</normaloff>:/img/pinkMenuIcon/settingIco.png</iconset>
+           <normaloff>:/img/blueMenuIcon/settingIco.png</normaloff>:/img/blueMenuIcon/settingIco.png</iconset>
          </property>
          <property name="iconSize">
           <size>
