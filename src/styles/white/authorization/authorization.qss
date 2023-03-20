@@ -20,7 +20,7 @@ QPushButton#forgotPasswordButton
 QPushButton#loginButton:hover,
 QPushButton#forgotPasswordButton:hover
 {
-    background-color: rgb(221, 214, 213);
+    background-color: rgb(217, 211, 209);
 }
 
 QPushButton#passwordVisibilityButton
@@ -42,4 +42,9 @@ QLineEdit#passwordLineEdit:focus
 {
     border: 2px solid rgb(0, 106, 188);
     border-radius: 8px;
+}
+
+QLabel#authorizationErrorLabel
+{
+    color: red;
 }

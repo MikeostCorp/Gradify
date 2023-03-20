@@ -149,6 +149,7 @@ void MainWindow::mainWindowInit()
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
 
+    // TEST!!
     ui->tempButton_2->setEnabled(false);
 }
 
@@ -628,11 +629,18 @@ void MainWindow::setBlackUI()
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
-    ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+    QPalette basePalette;
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        setBlackIconAction();
+    }
+    else
+    {
+        setWhiteIconAction();
+    }
 
     switch (selectTable)
     {
@@ -657,8 +665,6 @@ void MainWindow::setBlackUI()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
         break;
     }
-
-
 }
 
 
@@ -680,11 +686,18 @@ void MainWindow::setWhiteUI()
     selectButtonTableStyle = QLatin1String(file.readAll());
     file.close();
 
-    ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
-    ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+    QPalette basePalette;
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        setBlackIconAction();
+    }
+    else
+    {
+        setWhiteIconAction();
+    }
 
     switch (selectTable)
     {
@@ -721,11 +734,31 @@ void MainWindow::setSystemUI()
     if (newBase.name() == "#000000")
     {
         setWhiteUI();
+        setBlackIconAction();
     }
     else
     {
         setBlackUI();
+        setWhiteIconAction();
     }
+}
+
+void MainWindow::setBlackIconAction()
+{
+    ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
+    ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+}
+
+void MainWindow::setWhiteIconAction()
+{
+    ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
+    ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
 }
 
 

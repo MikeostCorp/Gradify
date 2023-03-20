@@ -44,3 +44,8 @@ QLineEdit#passwordLineEdit:focus
     border: 2px solid #006080;
     border-radius: 8px;
 }
+
+QLabel#authorizationErrorLabel
+{
+    color: red;
+}

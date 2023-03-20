@@ -47,6 +47,10 @@ private slots:
 
     void setSystemUI();
 
+    void setBlackIconAction();
+
+    void setWhiteIconAction();
+
     void mainWindowInit();
 
     void configDefault();
