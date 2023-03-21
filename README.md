@@ -9,6 +9,7 @@ Software for processing the database of the educational process
 - [ ] New app icon.
 - [ ] New preloader.
 - [X] User Authorization.
+- [ ] Authorization on server(input fields for any ip, db names e.t.c.)
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
