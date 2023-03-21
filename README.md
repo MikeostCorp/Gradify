@@ -14,3 +14,5 @@ Software for processing the database of the educational process
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
 - [ ] BUG!!! tables stop loading after a minute of inactivity :/
+- [ ] Add user remembering during authorization
+- [ ] Add separate forms for editing posts
