@@ -116,7 +116,6 @@ void appSetting::on_selectSystemUIButton_clicked()
 void appSetting::on_selectSystemUIRadioButton_clicked()
 {
     setSystemUI();
-    ui->selectSystemUIRadioButton->setChecked(true);
 }
 
 

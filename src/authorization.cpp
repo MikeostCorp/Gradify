@@ -120,11 +120,6 @@ void authorization::on_loginButton_clicked()
         // Код для проверки правильности введения и в случае чего высвечивать надпись
         // про ошибку ввода пароля
         //
-        //authorizationDB = QSqlDatabase::addDatabase("QSQLITE");
-        //authorizationDB.setDatabaseName(QDir::currentPath() + "/../../../../src/passLog.db");
-        //authorizationDB.setDatabaseName("/Users/andrii/Desktop/Gradify/src/passLog.db");
-
-        // QMessageBox::information(this, "test", );
 
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
@@ -134,15 +129,14 @@ void authorization::on_loginButton_clicked()
         authorizationDB.setPassword("Password1");
         authorizationDB.setDatabaseName("u838940490_accounts");
 
-
-
-        QString login = ui->loginLineEdit->text();
-        QString password = ui->passwordLineEdit->text();
-
         if (!authorizationDB.open())
         {
             QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
+            return;
         }
+
+        QString login = ui->loginLineEdit->text();
+        QString password = ui->passwordLineEdit->text();
 
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
         QTableView *tableView = new QTableView(this);

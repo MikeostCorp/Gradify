@@ -124,6 +124,7 @@ void MainWindow::mainWindowInit()
     //            "CONSTRAINT check_hours CHECK(\"Кількість лабораторних годин\"  > 0 AND \"Кількість лекційніх годин\" > 0 AND \"Кількість семінарних годин годин\" > 0 AND \"Кількість годин на самостійну роботу\" > 0 AND \"Семестр в якому вивчається\" > 0)"
     //            ");");
 
+    // Нужно пофиксить CONSTRAINT CHECK, phpMyAdmin говорит что есть синтаксическая ошибка, пока базы данных без этих проверок
 
 
     //query->exec("DROP TABLE loginPassTable");
@@ -480,6 +481,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
+    // долго открываются таблицы, наверное плохой интернет или сервак слоупок
+    // может надо использовать tab widget с предварительным подключением к таблицам
     db.setHostName("45.84.207.102"); // 45.84.207.129
     db.setUserName("u838940490_gradify_admin");
     db.setPassword("Password1");
