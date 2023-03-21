@@ -147,6 +147,7 @@ QTableView QLineEdit
 {
     background-color: white;
     color: black;
+    padding: 5px 5px 5px 4px;
 }
 
 QTableView::item
