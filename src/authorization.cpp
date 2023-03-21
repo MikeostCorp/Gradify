@@ -139,7 +139,11 @@ void authorization::on_loginButton_clicked()
         QString login = ui->loginLineEdit->text();
         QString password = ui->passwordLineEdit->text();
 
-        authorizationDB.open();
+        if (!authorizationDB.open())
+        {
+            QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
+        }
+
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
         QTableView *tableView = new QTableView(this);
         queryModel->setQuery("SELECT * "

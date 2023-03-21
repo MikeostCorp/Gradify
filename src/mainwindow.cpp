@@ -151,23 +151,6 @@ void MainWindow::mainWindowInit()
 
     succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
-    //Чекни кста как на светлом синий, на темном прям имба, а на светлом внешне хз
-
-    // Мне и так, и так нравится, сочно выглядит. Иконка прикольная. Можно попробовать
-    // погенерить похожие варианты в midjourney в таком же синем оттенке и сделать
-    // прелоадер типа как фруитлуп. Че думаешь?
-
-    // Иконка рисовалась вручную, в фотошопе с ней возился, цвет если что юзался королевский синий (светлый)
-    // на счёт миджорней, я хз, по-моему уже не плохая иконка, показывает что база данных и что связанная с студентами,
-    // и главное минималистик
-    // за фруитлуп не шарю вообще, только ФЛ студио находит xD
-
-    // Ок, значит такую оставим. Да, я про фл студио, там прикольно перец появляется. Можно что-то в этом роде сделать.
-    // Просто появление лого, как вариант. Надо потестить, заодно проверим насколько мой мак плох с прозрачностью.
-
-    // Окей, постараюсь найти пример загрузки ФЛ студио, анимацию конечно хотелось бы по прикольнее чем
-    //в канце, и ещё нужно фиксануть углы прелоадера, а то они круглые но не очень
-
     // TEST!!
     ui->tempButton_2->setEnabled(false);
 }
@@ -495,9 +478,12 @@ void MainWindow::succesfullyAuthorization(const QString login)
     ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
 
     // Может быть стоит перенести в отдельный метод
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(QDir::currentPath() + "/../../../../src/dataBase.db");
-    //db.setDatabaseName("/Users/andrii/Desktop/Gradify/src/dataBase.db");
+    db = QSqlDatabase::addDatabase("QMYSQL");
+    // https://gradify.online/
+    db.setHostName("45.84.207.102"); // 45.84.207.129
+    db.setUserName("u838940490_gradify_admin");
+    db.setPassword("Password1");
+    db.setDatabaseName("u838940490_Gradify");
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
