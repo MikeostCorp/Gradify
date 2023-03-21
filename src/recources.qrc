@@ -51,5 +51,7 @@
         <file>img/blueMenuIcon/subjectIco.png</file>
         <file>img/blueMenuIcon/teachersIco.png</file>
         <file>img/mainLogo/mainIcox256.png</file>
+        <file>img/whiteMenuIcon/clearLoginIco.png</file>
+        <file>img/blackMenuIcon/clearLoginIco.png</file>
     </qresource>
 </RCC>

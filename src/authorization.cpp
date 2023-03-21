@@ -41,6 +41,12 @@ void authorization::startAuthozation()
 }
 
 
+void authorization::on_loginClearButton_clicked()
+{
+    ui->loginLineEdit->clear();
+}
+
+
 void authorization::on_forgotPasswordButton_clicked()
 {
     QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
@@ -124,6 +130,8 @@ void authorization::on_loginButton_clicked()
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
         // maybe fix & put normal hostname
+        // comm: у меня не конектится вообще, айпишник вроде норм, пинг проходит по нему
+
         authorizationDB.setHostName("45.84.207.102"); // 45.84.207.129
         authorizationDB.setUserName("u838940490_admin");
         authorizationDB.setPassword("Password1");
@@ -173,6 +181,7 @@ void authorization::setBlackUI()
     styleType = "black";
     isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
+    ui->loginClearButton->setIcon(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
@@ -188,6 +197,7 @@ void authorization::setWhiteUI()
     styleType = "white";
     isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
+    ui->loginClearButton->setIcon(QIcon(":/img/blackMenuIcon/clearLoginIco.png"));
     ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
@@ -210,3 +220,17 @@ void authorization::setSystemUI()
         setBlackUI();
     }
 }
+
+
+void authorization::on_rememberCheckBox_stateChanged(int arg1)
+{
+    if(arg1 == 0)
+    {
+        // КОД ЕСЛИ НЕ ЗАПОМНИТЬ ЮЗЕРА
+    }
+    else
+    {
+        // КОД ЗАПОМНИТЬ ЮЗЕРА !!!
+    }
+}
+

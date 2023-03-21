@@ -9,30 +9,39 @@ QLabel#headTitleLabel
     color: rgb(61, 60, 59);
 }
 
-QPushButton#loginButton,
 QPushButton#forgotPasswordButton
+{
+    background-color: rgba(0,0,0,0);
+    color: rgb(61, 60, 59);
+}
+
+QPushButton#forgotPasswordButton:hover
+{
+    color: rgb(65, 105, 225);
+}
+
+QPushButton#loginButton
 {
     border-radius: 8px;
     background-color: rgb(251,244,243);
     color: rgb(61, 60, 59);
 }
 
-QPushButton#loginButton:hover,
-QPushButton#forgotPasswordButton:hover
+QPushButton#loginButton:hover
 {
     background-color: rgb(217, 211, 209);
 }
 
 QPushButton#passwordVisibilityButton
 {
-    background-color: rgb(231,224,223);
+    background-color: none;
     border: 0px;
 }
 
 QLineEdit#loginLineEdit,
 QLineEdit#passwordLineEdit
 {
-    color:rgb(61, 60, 59);
+    color: rgb(61, 60, 59);
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
 }
@@ -40,11 +49,16 @@ QLineEdit#passwordLineEdit
 QLineEdit#loginLineEdit:focus,
 QLineEdit#passwordLineEdit:focus
 {
-    border: 2px solid rgb(0, 106, 188);
+    border: 2px solid rgb(65, 105, 225);
     border-radius: 8px;
 }
 
 QLabel#authorizationErrorLabel
 {
     color: red;
+}
+
+QCheckBox#rememberCheckBox
+{
+    color: rgb(61, 60, 59);
 }

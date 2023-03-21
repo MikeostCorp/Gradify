@@ -147,10 +147,10 @@ void MainWindow::mainWindowInit()
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
-    setEnabledButtons(true);  // <- для абьюзинга системы ставь true
-    setEnabledActions(true);  // <- и это тоже))
+    setEnabledButtons(false);  // <- для абьюзинга системы ставь true
+    setEnabledActions(false);  // <- и это тоже))
 
-    succesfullyAuthorization("xui");// <- абьюз для девелоперов
+    //succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
     // TEST!!
     ui->tempButton_2->setEnabled(false);
