@@ -13,3 +13,4 @@ Software for processing the database of the educational process
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
+- [ ] BUG!!! tables stop loading after a minute of inactivity :/
