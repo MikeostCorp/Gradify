@@ -1,6 +1,7 @@
 #include "preloader.h"
 #include "ui_preloader.h"
 
+#include <QStyle>
 #include <QPainterPath>
 #include <QPainter>
 
@@ -10,12 +11,16 @@ preloader::preloader(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint, true);
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(414,233);
-    //setFixedSize(622,350);
     setWindowTitle("Preloader");
 
+    auto screen = QGuiApplication::primaryScreen();
+    QRect rectScreen = screen->geometry();
+    QPoint center = rectScreen.center();
+    center.setX(center.x() - (this->width()/2));
+    center.setY(190);
+    move(center);
 
     QPainterPath paintPath;
     paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
