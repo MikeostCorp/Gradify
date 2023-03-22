@@ -6,8 +6,8 @@ Software for processing the database of the educational process
 - [X] Config file.
 - [X] Dark/Light/System UI themes.
 - [X] Qss styles.
-- [ ] New app icon.
-- [ ] New preloader.
+- [X] New app icon.
+- [X] New preloader.
 - [X] User Authorization.
 - [ ] Authorization on server(input fields for any ip, db names e.t.c.)
 - [ ] Teacher/Admin accounts.
