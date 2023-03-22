@@ -15,12 +15,10 @@ preloader::preloader(QWidget *parent) :
     setFixedSize(414,233);
     setWindowTitle("Preloader");
 
-    auto screen = QGuiApplication::primaryScreen();
-    QRect rectScreen = screen->geometry();
-    QPoint center = rectScreen.center();
-    center.setX(center.x() - (this->width()/2));
-    center.setY(190);
-    move(center);
+    QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
+    pointToCenter.setX(pointToCenter.x() - (this->width()/2));
+    pointToCenter.setY(190);
+    move(pointToCenter);
 
     QPainterPath paintPath;
     paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
