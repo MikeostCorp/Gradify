@@ -6,20 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>400</height>
+    <width>300</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="recources.qrc">
+   <iconset>
     <normaloff>:/appIcon.ico</normaloff>:/appIcon.ico</iconset>
   </property>
  </widget>
- <resources>
-  <include location="recources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

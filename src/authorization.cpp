@@ -130,7 +130,6 @@ void authorization::on_loginButton_clicked()
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
         // maybe fix & put normal hostname
-        // comm: у меня не конектится вообще, айпишник вроде норм, пинг проходит по нему
 
         authorizationDB.setHostName("45.84.207.102"); // 45.84.207.129
         authorizationDB.setUserName("u838940490_admin");
@@ -160,6 +159,7 @@ void authorization::on_loginButton_clicked()
             ui->loginLineEdit->clear();
             ui->passwordLineEdit->clear();
             ui->loginLineEdit->setFocus();
+            ui->authorizationErrorLabel->setVisible(false);
             authorizationDB.close();
             close();
         }
