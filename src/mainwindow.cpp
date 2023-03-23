@@ -154,6 +154,27 @@ void MainWindow::mainWindowInit()
 
     // TEST!!
     ui->tempButton_2->setEnabled(false);
+
+
+    logoutMessageBox.setIcon(QMessageBox::Question);
+    logoutMessageBox.addButton(QMessageBox::Yes);
+    logoutMessageBox.addButton(QMessageBox::No);
+    logoutMessageBox.setDefaultButton(QMessageBox::Yes);
+
+    logoutMessageBox.setButtonText(QMessageBox::Yes, tr("Так"));
+    logoutMessageBox.setButtonText(QMessageBox::No, tr("Ні"));
+
+    logoutMessageBox.setWindowTitle("Ролзогін");
+    logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
+
+
+
+
+   // QMessageBox::StandardButton reply;
+   // reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
+   //                               QMessageBox::Yes | QMessageBox::No);
+   // if (reply == QMessageBox::Yes)
+
 }
 
 
@@ -515,10 +536,7 @@ void MainWindow::on_authorizationButton_clicked()
     }
     else
     {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
-                                      QMessageBox::Yes|QMessageBox::No);
-        if (reply == QMessageBox::Yes)
+        if (logoutMessageBox.exec() == QMessageBox::Yes)
         {
             isLogin = false;
             setEnabledButtons(false);

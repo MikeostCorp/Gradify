@@ -1,7 +1,6 @@
 #include "preloader.h"
 #include "ui_preloader.h"
 
-#include <QStyle>
 #include <QPainterPath>
 #include <QPainter>
 
@@ -20,9 +19,9 @@ preloader::preloader(QWidget *parent) :
     pointToCenter.setY(190);
     move(pointToCenter);
 
-    QPainterPath paintPath;
-    paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
-    setMask(paintPath.toFillPolygon().toPolygon());
+    //QPainterPath paintPath;
+    //paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
+    //setMask(paintPath.toFillPolygon().toPolygon());
 
     player = new QMediaPlayer(this);
     videoWidget = new QVideoWidget(this);
@@ -33,8 +32,6 @@ preloader::preloader(QWidget *parent) :
     videoWidget->setFixedSize(width(),height());
     videoWidget->setWindowFlags(Qt::FramelessWindowHint);
     player->setVideoOutput(videoWidget);
-
-    videoWidget->setStyleSheet("border-radius: 16px;");
 
     videoWidget->setFocus();
     videoWidget->show();

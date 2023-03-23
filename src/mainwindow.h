@@ -10,6 +10,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QCloseEvent>
+#include <QMessageBox>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -130,6 +131,8 @@ private:
     QSqlDatabase db;
     QSqlQuery *query;
     QSqlTableModel *model;
+
+    QMessageBox logoutMessageBox;
 
     int row;
     int selectTable;
