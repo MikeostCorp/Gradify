@@ -150,30 +150,24 @@ void MainWindow::mainWindowInit()
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
 
-    //succesfullyAuthorization("xui");// <- абьюз для девелоперов
+    succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
     // TEST!!
     ui->tempButton_2->setEnabled(false);
 
 
     logoutMessageBox.setIcon(QMessageBox::Question);
-    logoutMessageBox.addButton(QMessageBox::Yes);
-    logoutMessageBox.addButton(QMessageBox::No);
-    logoutMessageBox.setDefaultButton(QMessageBox::Yes);
+    yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
+    logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
+    logoutMessageBox.setDefaultButton(yesButton);
 
-    logoutMessageBox.setButtonText(QMessageBox::Yes, tr("Так"));
-    logoutMessageBox.setButtonText(QMessageBox::No, tr("Ні"));
-
-    logoutMessageBox.setWindowTitle("Ролзогін");
+    logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
 
-
-
-
-   // QMessageBox::StandardButton reply;
-   // reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
-   //                               QMessageBox::Yes | QMessageBox::No);
-   // if (reply == QMessageBox::Yes)
+    // QMessageBox::StandardButton reply;
+    // reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
+    //                               QMessageBox::Yes | QMessageBox::No);
+    // if (reply == QMessageBox::Yes)
 
 }
 
@@ -536,7 +530,8 @@ void MainWindow::on_authorizationButton_clicked()
     }
     else
     {
-        if (logoutMessageBox.exec() == QMessageBox::Yes)
+        logoutMessageBox.exec();
+        if (logoutMessageBox.clickedButton() == yesButton)
         {
             isLogin = false;
             setEnabledButtons(false);

@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "QtWidgets/qpushbutton.h"
 #include <QMainWindow>
 #include <QString>
 #include <QEvent>
@@ -133,6 +134,7 @@ private:
     QSqlTableModel *model;
 
     QMessageBox logoutMessageBox;
+    QPushButton *yesButton;
 
     int row;
     int selectTable;
