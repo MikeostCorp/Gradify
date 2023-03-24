@@ -153,7 +153,10 @@ void MainWindow::mainWindowInit()
     succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
     // TEST!!
-    ui->tempButton_2->setEnabled(false);
+    ui->filterButton->setEnabled(true);
+    ui->filterComboBox->setEnabled(true);
+    ui->filterConditionComboBox->setEnabled(false);
+    ui->filterLineEdit->setEnabled(true);
 
 
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -163,12 +166,6 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-
-    // QMessageBox::StandardButton reply;
-    // reply = QMessageBox::question(this, "", "Ви дійсно хочете вийти з аккаунта?",
-    //                               QMessageBox::Yes | QMessageBox::No);
-    // if (reply == QMessageBox::Yes)
-
 }
 
 

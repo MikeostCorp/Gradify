@@ -30,25 +30,25 @@ QLabel#borderSection_1, QLabel#borderSection_2
     background-color: rgb(228, 228, 228);
 }
 
-QPushButton#tempButton,
-QPushButton#tempButton_2,
-QPushButton#tempButton_3
+QPushButton#filterButton,
+QPushButton#queryButton,
+QPushButton#userQueryButton
 {
     border-radius: 6px;
     background-color: rgb(225, 225, 225);
     color: rgb(61, 60, 59);
 }
 
-QPushButton#tempButton:hover,
-QPushButton#tempButton_2:hover,
-QPushButton#tempButton_3:hover
+QPushButton#filterButton:hover,
+QPushButton#queryButton:hover,
+QPushButton#userQueryButton:hover
 {
     background-color: rgb(205, 205, 205);
 }
 
-QPushButton#tempButton:disabled,
-QPushButton#tempButton_2:disabled,
-QPushButton#tempButton_3:disabled
+QPushButton#filterButton:disabled,
+QPushButton#queryButton:disabled,
+QPushButton#userQueryButton:disabled
 {
     color: #989898;
 }
