@@ -77,6 +77,10 @@ private slots:
 
     void setEnabledActions(bool status);
 
+    void setEnabledFilters(bool status);
+
+    void updateFilterComboBox();
+
     void on_addRowAction_triggered();
 
     void on_deleteRowAction_triggered();
@@ -137,7 +141,8 @@ private:
     QPushButton *yesButton;
 
     int row;
-    int selectTable;
+    int currentSelectTable;
+    int lastCurrentSelectTable;
 
     bool isLogin;
 

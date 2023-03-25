@@ -6,7 +6,7 @@ MainWindow
 
 QFrame#leftMenuFrame, QFrame#upMenuFrame
 {
-    background-color: rgb(231,224,223);
+    background-color: rgb(231, 224, 223);
     border: 0px;
 }
 
@@ -19,8 +19,8 @@ QFrame#controlTableFrame
 
 QFrame#mainTableFrame
 {
-    color: black;
-    background-color: rgb(231,224,223);
+    color: rgb(61, 60, 59);
+    background-color: rgb(231, 224, 223);
     border: 0px;
     border-radius: 16px;
 }
@@ -28,6 +28,19 @@ QFrame#mainTableFrame
 QLabel#borderSection_1, QLabel#borderSection_2
 {
     background-color: rgb(228, 228, 228);
+}
+
+QLineEdit#filterLineEdit
+{
+    color: rgb(61, 60, 59);
+    background-color: rgb(205, 205, 205);
+    border: 0px;
+    border-radius: 8px;
+}
+
+QLineEdit#filterLineEdit:disabled
+{
+    color: #989898
 }
 
 QPushButton#filterButton,
@@ -112,17 +125,98 @@ QPushButton#settingsButton:disabled
     color: #989898;
 }
 
+
+QLabel#filterLabel
+{
+    color: rgb(132, 132, 132);
+}
+
+QLabel#filterLabel:disabled
+{
+    color: rgb(198, 198, 198);
+}
+
+QComboBox#filterComboBox,
+QComboBox#filterConditionComboBox
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(61, 60, 59);
+    border: 2px solid rgb(205, 205, 205);
+    border-radius: 6px;
+}
+
+QComboBox#filterComboBox:disabled,
+QComboBox#filterConditionComboBox:disabled
+{
+    color: #989898;
+}
+
+QComboBox#filterComboBox:editable,
+QComboBox#filterConditionComboBox:editable
+{
+    background-color: rgb(225, 225, 225);
+}
+
+QComboBox#filterComboBox::hover,
+QComboBox#filterConditionComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox#filterComboBox::drop-down,
+QComboBox#filterConditionComboBox::drop-down
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(61, 60, 59);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox#filterComboBox::separator,
+QComboBox#filterConditionComboBox::separator
+{
+    background-color: rgb(181, 185, 188);
+    height: 2px;
+    border: 8px solid white;
+}
+
+QComboBox#filterComboBox::down-arrow,
+QComboBox#filterConditionComboBox::down-arrow
+{
+   image:url(:/img/blackMenuIcon/downArrow.png);
+   width: 12px;
+   height: 12px;
+}
+
+QComboBox#filterComboBox::down-arrow:disabled,
+QComboBox#filterConditionComboBox::down-arrow:disabled
+{
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox#filterComboBox QAbstractItemView,
+QComboBox#filterConditionComboBox QAbstractItemView
+{
+  color: white;
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+}
+
 QHeaderView
 {
     background-color: white;
-    color: black;
+    color: rgb(61, 60, 59);
     size: 12px;
 }
 
 QHeaderView::section
 {
    background-color: white;
-   color: black;
+   color: rgb(61, 60, 59);
    size: 12px;
    background-color: white;
    padding-bottom:5px;
@@ -138,7 +232,7 @@ QHeaderView::section:checked
 QTableView
 {
    background-color: white;
-   color: black;
+   color: rgb(61, 60, 59);
    border: 0px;
    border-radius: 12px;
 }
@@ -146,13 +240,13 @@ QTableView
 QTableView QLineEdit
 {
     background-color: white;
-    color: black;
+    color: rgb(61, 60, 59);
     padding: 5px 5px 5px 4px;
 }
 
 QTableView::item
 {
-   color: black;
+   color: rgb(61, 60, 59);
    text-align: center;
    border-style: 1px solid rgb(211,204,203);
    border-radius: 8px;
@@ -160,7 +254,7 @@ QTableView::item
 
 QTableView::item:selected
 {
-   color: black;
+   color: rgb(61, 60, 59);
    background-color: rgb(55, 95, 215);
 }
 

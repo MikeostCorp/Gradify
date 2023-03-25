@@ -125,6 +125,16 @@ QPushButton#settingsButton:disabled
     color: #989898;
 }
 
+QLabel#filterLabel
+{
+    color: rgb(188, 188, 188);
+}
+
+QLabel#filterLabel:disabled
+{
+    color: rgb(128, 128, 128);
+}
+
 QComboBox#filterComboBox,
 QComboBox#filterConditionComboBox
 {
@@ -159,21 +169,29 @@ QComboBox#filterConditionComboBox::drop-down
     color: rgb(255, 255, 255);
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox#filterComboBox::separator,
+QComboBox#filterConditionComboBox::separator
+{
+    background-color: rgb(81,85,88);
+    height: 2px;
+    border: 8px solid rgb(61,65,68);
 }
 
 QComboBox#filterComboBox::down-arrow,
 QComboBox#filterConditionComboBox::down-arrow
 {
-   image:url(:/img/blackMenuIcon/downArrow.png);
+   image:url(:/img/whiteMenuIcon/downArrow.png);
    width: 12px;
    height: 12px;
 }
 
-
 QComboBox#filterComboBox::down-arrow:disabled,
 QComboBox#filterConditionComboBox::down-arrow:disabled
 {
-    image:url(:/img/whiteMenuIcon/downArrow.png);
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
     width: 12px;
     height: 12px;
 }
@@ -186,8 +204,6 @@ QComboBox#filterConditionComboBox QAbstractItemView
   border: none;
   border-radius: 6px;
 }
-
-
 
 QHeaderView
 {

@@ -955,6 +955,19 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QFrame" name="firstControlFrame">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -1014,6 +1027,12 @@
                  <height>21</height>
                 </rect>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>21</height>
+                </size>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -1021,48 +1040,8 @@
                 <bool>false</bool>
                </property>
                <property name="currentText">
-                <string>Оберіть колонку</string>
+                <string/>
                </property>
-               <item>
-                <property name="text">
-                 <string>Оберіть колонку</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>fsdfds</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>sfdf</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>adsfasf</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>asf</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>sdafdsf</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>sdaf</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>da</string>
-                </property>
-               </item>
               </widget>
               <widget class="QComboBox" name="filterConditionComboBox">
                <property name="geometry">
@@ -1072,6 +1051,12 @@
                  <width>91</width>
                  <height>21</height>
                 </rect>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>91</width>
+                 <height>21</height>
+                </size>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -1116,8 +1101,17 @@
                  <height>21</height>
                 </rect>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>101</width>
+                 <height>21</height>
+                </size>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
+               </property>
+               <property name="placeholderText">
+                <string/>
                </property>
               </widget>
               <widget class="QLabel" name="filterLabel">
@@ -1129,14 +1123,49 @@
                  <height>16</height>
                 </rect>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>101</width>
+                 <height>16</height>
+                </size>
+               </property>
                <property name="styleSheet">
-                <string notr="true">color: rgb(188, 188, 188);</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Фільтрування&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>1</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QLabel" name="borderSection_1">
@@ -1159,6 +1188,19 @@
                <string/>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QFrame" name="secondControlFrame">
@@ -1211,7 +1253,36 @@
                 <string>Виконати запит</string>
                </property>
               </widget>
+              <widget class="QLabel" name="label">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>30</y>
+                 <width>151</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #989898;</string>
+               </property>
+               <property name="text">
+                <string>В СЛЕД ОБНОВЕ БУДЕТ</string>
+               </property>
+              </widget>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QLabel" name="borderSection_2">
@@ -1240,6 +1311,19 @@
                <string/>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QFrame" name="thirdControlFrame">
@@ -1298,7 +1382,38 @@
                 <string>mySQL запит</string>
                </property>
               </widget>
+              <widget class="QLabel" name="label_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>20</y>
+                 <width>221</width>
+                 <height>51</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #989898;</string>
+               </property>
+               <property name="text">
+                <string>ПОСЛЕ ДИЗАЙНА ЭТОГО
+ФРЕЙМА ДЕЛАТЬ 
+ФУНКИЦОНАЛ!!!</string>
+               </property>
+              </widget>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>

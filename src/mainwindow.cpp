@@ -27,7 +27,8 @@ void MainWindow::mainWindowInit()
 
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
-    selectTable = -1;
+    currentSelectTable = -1;
+    lastCurrentSelectTable = -1;
 
 
     //=================================================
@@ -149,14 +150,21 @@ void MainWindow::mainWindowInit()
 
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
+    setEnabledFilters(false);   // <- нуу и это тоже シシ
 
-    succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
-    // TEST!!
-    ui->filterButton->setEnabled(true);
-    ui->filterComboBox->setEnabled(true);
-    ui->filterConditionComboBox->setEnabled(false);
-    ui->filterLineEdit->setEnabled(true);
+    //ui->filterLabel->setEnabled(true);
+    //ui->filterButton->setEnabled(true);
+    //ui->filterComboBox->setEnabled(true);
+    //ui->filterConditionComboBox->setEnabled(false);
+    //ui->filterLineEdit->setEnabled(true);
+
+
+    //succesfullyAuthorization("xui");// <- абьюз для девелоперов
+
+    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
+
+
 
 
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -269,11 +277,12 @@ void MainWindow::on_studentsTableButton_clicked()
     setWindowTitle("Gradify - (Студенти)");
     model->setTable("Студенти");
     model->select();
-    selectTable = 0;
+    currentSelectTable = 0;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
+    updateFilterComboBox();
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
 
     if (config["theme"] == "white")
@@ -297,11 +306,12 @@ void MainWindow::on_teachersTableButton_clicked()
     setWindowTitle("Gradify - (Викладачі)");
     model->setTable("Викладачі");
     model->select();
-    selectTable = 1;
+    currentSelectTable = 1;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
+    updateFilterComboBox();
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
 
     if (config["theme"] == "white")
@@ -328,10 +338,11 @@ void MainWindow::on_gradesTableButton_clicked()
     setWindowTitle("Gradify - (Оцінки)");
     model->setTable("Оцінки");
     model->select();
-    selectTable = 2;
+    currentSelectTable = 2;
     ui->tableView->setModel(model);
 
     clearStyleButtonTable();
+    updateFilterComboBox();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
 
     if (config["theme"] == "white")
@@ -355,11 +366,12 @@ void MainWindow::on_groupsTableButton_clicked()
     setWindowTitle("Gradify - (Групи)");
     model->setTable("Групи");
     model->select();
-    selectTable = 3;
+    currentSelectTable = 3;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
+    updateFilterComboBox();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
 
     if (config["theme"] == "white")
@@ -383,12 +395,14 @@ void MainWindow::on_subjectsTableButton_clicked()
     setWindowTitle("Gradify - (Предмети)");
     model->setTable("Предмет");
     model->select();
-    selectTable = 4;
+    currentSelectTable = 4;
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
     clearStyleButtonTable();
+    updateFilterComboBox();
     ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+
     if (config["theme"] == "white")
     {
         ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
@@ -404,8 +418,11 @@ void MainWindow::clearSelectTable()
 {
     model->setTable("NULL");
     model->select();
-    selectTable = -1;
+    currentSelectTable = -1;
     ui->tableView->setModel(model);
+
+    ui->filterComboBox->clear();
+    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 }
 
 
@@ -428,6 +445,7 @@ void MainWindow::setEnabledButtons(bool status)
     ui->editRowButton->setEnabled(status);
 }
 
+
 void MainWindow::setEnabledActions(bool status)
 {
     ui->addRowAction->setEnabled(status);
@@ -448,6 +466,50 @@ void MainWindow::setEnabledActions(bool status)
 }
 
 
+void MainWindow::setEnabledFilters(bool status)
+{
+    // будет фиксится
+    // в методы нажатия кнопок таблиц добавить изменение комбоБоксов для списка колонок таблиц
+    // ещё нужен метод очистки лайнЭдитов!!
+
+    ui->filterLabel->setEnabled(status);
+    ui->filterButton->setEnabled(status);
+    ui->filterComboBox->setEnabled(status);
+    ui->filterConditionComboBox->setEnabled(status);
+    ui->filterLineEdit->setEnabled(status);
+
+    if (status)
+    {
+        ui->filterLineEdit->setPlaceholderText("Змінна умови");
+    }
+    else
+    {
+        ui->filterLineEdit->setPlaceholderText("");
+    }
+
+    updateFilterComboBox();
+}
+
+
+void MainWindow::updateFilterComboBox()
+{
+    if (lastCurrentSelectTable != currentSelectTable)
+    {
+        lastCurrentSelectTable = currentSelectTable;
+
+        ui->filterComboBox->clear();
+        ui->filterComboBox->insertItem(0, "Оберіть колонку");
+        ui->filterComboBox->setCurrentIndex(0);
+        ui->filterComboBox->insertSeparator(1);
+
+        for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+        {
+            ui->filterComboBox->insertItem(i + 2, ui->tableView->model()->headerData(i, Qt::Horizontal).toString());
+        }
+    }
+}
+
+
 void MainWindow::clearStyleButtonTable()
 {
     ui->studentsTableButton->setStyleSheet("");
@@ -462,6 +524,7 @@ void MainWindow::clearStyleButtonTable()
     ui->groupsTableButton->setIcon(QIcon(":/img/blueMenuIcon/groupIco.png"));
     ui->subjectsTableButton->setIcon(QIcon(":/img/blueMenuIcon/subjectIco.png"));
 }
+
 
 void MainWindow::setThemeUI(const QString style)
 {
@@ -489,6 +552,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
 {
     ui->authorizationButton->setText(" Привіт, " + login + "!");
     ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
+    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
@@ -506,6 +570,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
     isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
+    setEnabledFilters(true);
 
     clearSelectTable();
 }
@@ -532,6 +597,7 @@ void MainWindow::on_authorizationButton_clicked()
         {
             isLogin = false;
             setEnabledButtons(false);
+            setEnabledFilters(false);
             clearSelectTable();
             clearStyleButtonTable();
             ui->authorizationButton->setText(" Авторизація");
@@ -643,7 +709,7 @@ void MainWindow::setBlackUI()
 
     setCurrentIconAction();
 
-    switch (selectTable)
+    switch (currentSelectTable)
     {
     case 0:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -689,7 +755,7 @@ void MainWindow::setWhiteUI()
 
     setCurrentIconAction();
 
-    switch (selectTable)
+    switch (currentSelectTable)
     {
     case 0:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);

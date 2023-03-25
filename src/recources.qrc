@@ -55,5 +55,6 @@
         <file>img/blackMenuIcon/clearLoginIco.png</file>
         <file>img/blackMenuIcon/downArrow.png</file>
         <file>img/whiteMenuIcon/downArrow.png</file>
+        <file>img/blackMenuIcon/downArrowDisabled.png</file>
     </qresource>
 </RCC>
