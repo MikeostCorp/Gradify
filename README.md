@@ -1,5 +1,9 @@
 # Gradify
-Software for processing the database of the educational process
+
+Gradify is a handy student database application. It is designed specifically for teachers, administrators and other education professionals who need tools to manage their learning process.
+In Gradify, you can easily add, edit, and delete student records, including their name, date of birth, contact information, academic performance, and grades.
+Gradify also provides quick access to student information through a user-friendly interface. You can quickly search for a student by name, group, or other criteria, and filter the data by various criteria.
+
 
 
 ## To-Do list:
