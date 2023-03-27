@@ -217,8 +217,8 @@ QHeaderView::section
    color: rgb(61, 60, 59);
    size: 12px;
    background-color: white;
-   padding-bottom:5px;
-   padding-top:5px;
+   padding-bottom: 5px;
+   padding-top: 5px;
 }
 
 QHeaderView::section:checked
@@ -232,7 +232,7 @@ QTableView
    background-color: white;
    color: rgb(61, 60, 59);
    border: 0px;
-   border-radius: 12px;
+   border-radius: 6px;
 }
 
 QTableView QLineEdit
@@ -252,13 +252,13 @@ QTableView::item
 
 QTableView::item:selected
 {
-   color: rgb(61, 60, 59);
+   color: black;
    background-color: rgb(55, 95, 215);
 }
 
 QTableView QTableCornerButton::section
 {
-    border-top-left-radius: 8px;
+    border-top-left-radius: 6px;
     background-color: rgb(205, 205, 205);
 }
 
@@ -275,7 +275,7 @@ QScrollBar::handle:vertical
 {
    background-color: rgb(212, 212, 212);
    min-height: 20px;
-   border-radius: 7px;
+   border-radius: 6px;
 }
 
 QScrollBar::handle:vertical:hover
@@ -293,8 +293,8 @@ QScrollBar::sub-line:vertical
    border: none;
    background-color: rgb(181, 185, 188);
    height: 15px;
-   border-top-left-radius: 7px;
-   border-top-right-radius: 7px;
+   border-top-left-radius: 6px;
+   border-top-right-radius: 6px;
    subcontrol-position: top;
    subcontrol-origin: margin;
 }
@@ -314,8 +314,8 @@ QScrollBar::add-line:vertical
    border: none;
    background-color: rgb(181, 185, 188);
    height: 15px;
-   border-bottom-left-radius: 7px;
-   border-bottom-right-radius: 7px;
+   border-bottom-left-radius: 6px;
+   border-bottom-right-radius: 6px;
    subcontrol-position: bottom;
    subcontrol-origin: margin;
 }
@@ -343,7 +343,7 @@ QScrollBar::handle:horizontal
 {
    background: rgb(212, 212, 212);
    min-width: 20px;
-   border-radius: 7px;
+   border-radius: 6px;
 }
 
 QScrollBar::handle:horizontal:hover
@@ -361,8 +361,8 @@ QScrollBar::add-line:horizontal
    border: none;
    background: rgb(181, 185, 188);
    width: 15px;
-   border-top-right-radius: 7px;
-   border-bottom-right-radius: 7px;
+   border-top-right-radius: 6px;
+   border-bottom-right-radius: 6px;
    subcontrol-position: right;
    subcontrol-origin: margin;
 }
@@ -377,8 +377,8 @@ QScrollBar::sub-line:horizontal
    border: none;
    background: rgb(181, 185, 188);
    width: 15px;
-   border-top-left-radius: 7px;
-   border-bottom-left-radius: 7px;
+   border-top-left-radius: 6px;
+   border-bottom-left-radius: 6px;
    subcontrol-position: left;
    subcontrol-origin: margin;
 }
