@@ -1,0 +1,12 @@
+QPushButton#authorizationButton
+{
+    qproperty-icon: url(:/img/whiteMenuIcon/outLog.png);
+    border-radius: 6px;
+    background-color: rgb(76, 80, 83);
+    color: rgb(255, 255, 255);
+}
+
+QPushButton#authorizationButton:hover
+{
+    background-color: rgb(86, 90, 93);
+}

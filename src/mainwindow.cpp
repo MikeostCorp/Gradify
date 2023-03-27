@@ -553,7 +553,10 @@ void MainWindow::setThemeUI(const QString style)
 void MainWindow::succesfullyAuthorization(const QString login)
 {
     ui->authorizationButton->setText(" Привіт, " + login + "!");
-    ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
+    ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
+
+
+    //ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
     //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 
     // Может быть стоит перенести в отдельный метод
@@ -576,8 +579,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
-
-
 
     isLogin = true;
     setEnabledButtons(true);
@@ -614,8 +615,9 @@ void MainWindow::on_authorizationButton_clicked()
             clearStyleButtonTable();
             //ui->filterConditionComboBox->setCurrentIndex(0);
             ui->searchLineEdit->clear();
+            setWindowTitle("Gradify");
             ui->authorizationButton->setText("Авторизація");
-            ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/inLog.png"));
+            ui->authorizationButton->setStyleSheet("");
         }
     }
 }
@@ -721,6 +723,16 @@ void MainWindow::setBlackUI()
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
+    file.setFileName(":/styles/black/mainWindow/outLoginButton.qss");
+    file.open(QFile::ReadOnly);
+    selectButtonAuthStyle = QLatin1String(file.readAll());
+    file.close();
+
+    if(isLogin)
+    {
+        ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
+    }
+
     setCurrentIconAction();
 
     switch (currentSelectTable)
@@ -766,6 +778,16 @@ void MainWindow::setWhiteUI()
     file.open(QFile::ReadOnly);
     selectButtonTableStyle = QLatin1String(file.readAll());
     file.close();
+
+    file.setFileName(":/styles/white/mainWindow/outLoginButton.qss");
+    file.open(QFile::ReadOnly);
+    selectButtonAuthStyle = QLatin1String(file.readAll());
+    file.close();
+
+    if(isLogin)
+    {
+        ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
+    }
 
     setCurrentIconAction();
 

@@ -57,7 +57,7 @@ QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
 QPushButton#queryButton:hover
 {
-    background-color: rgb(88, 90, 93);
+    background-color: rgb(84, 88, 91);
 }
 
 QPushButton#deleteRowButton:disabled,
@@ -80,7 +80,6 @@ QPushButton#teachersReportButton,
 QPushButton#gradesReportButton,
 QPushButton#groupsReportButton,
 QPushButton#subjectsReportButton,
-QPushButton#authorizationButton,
 QPushButton#currentTableReportButton
 {
     text-align: left;
@@ -101,7 +100,6 @@ QPushButton#teachersReportButton:hover,
 QPushButton#gradesReportButton:hover,
 QPushButton#groupsReportButton:hover,
 QPushButton#subjectsReportButton:hover,
-QPushButton#authorizationButton:hover,
 QPushButton#currentTableReportButton:hover,
 QPushButton#settingsButton:hover
 {
@@ -118,11 +116,23 @@ QPushButton#teachersReportButton:disabled,
 QPushButton#gradesReportButton:disabled,
 QPushButton#groupsReportButton:disabled,
 QPushButton#subjectsReportButton:disabled,
-QPushButton#authorizationButton:disabled,
 QPushButton#currentTableReportButton:disabled,
 QPushButton#settingsButton:disabled
 {
     color: #989898;
+}
+
+QPushButton#authorizationButton
+{
+    qproperty-icon: url(:/img/whiteMenuIcon/inLog.png);
+    border-radius: 6px;
+    background-color: rgb(65, 105, 225);
+    color: rgb(255, 255, 255);
+}
+
+QPushButton#authorizationButton:hover
+{
+    background-color: rgb(85, 125, 245);
 }
 
 QPushButton#settingsButton

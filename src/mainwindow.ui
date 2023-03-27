@@ -303,7 +303,7 @@
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>20</y>
+            <y>30</y>
             <width>180</width>
             <height>41</height>
            </rect>
@@ -318,7 +318,7 @@
            <string> Авторизація</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/inLog.png</normaloff>:/img/blueMenuIcon/inLog.png</iconset>
           </property>
           <property name="iconSize">
@@ -998,7 +998,7 @@
               </property>
               <property name="icon">
                <iconset resource="recources.qrc">
-                <normaloff>:/img/blueMenuIcon/filterIco.png</normaloff>:/img/blueMenuIcon/filterIco.png</iconset>
+                <normaloff>:/img/blueMenuIcon/queryIco.png</normaloff>:/img/blueMenuIcon/queryIco.png</iconset>
               </property>
               <property name="iconSize">
                <size>

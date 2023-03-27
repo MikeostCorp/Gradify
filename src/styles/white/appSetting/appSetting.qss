@@ -1,6 +1,6 @@
 appSetting
 {
-    background-color: rgb(231,224,223);
+    background-color: rgb(231, 224, 223);
 }
 
 QFrame#mainUIStyleFrame

@@ -127,6 +127,7 @@ private:
     authorization *authorizationWindow;
 
     QString selectButtonTableStyle;
+    QString selectButtonAuthStyle;
 
     QMap<QString, QString> config;
 

@@ -14,9 +14,7 @@
         <file>img/blueMenuIcon/deleteRecord.png</file>
         <file>img/blueMenuIcon/editRecord.png</file>
         <file>img/blueMenuIcon/groupIco.png</file>
-        <file>img/blueMenuIcon/inLog.png</file>
         <file>img/blueMenuIcon/newRecord.png</file>
-        <file>img/blueMenuIcon/outLog.png</file>
         <file>img/blueMenuIcon/raitingIco.png</file>
         <file>img/blueMenuIcon/settingIco.png</file>
         <file>img/blueMenuIcon/studentsIco.png</file>
@@ -57,5 +55,12 @@
         <file>styles/white/mainWindow/mainWindow.qss</file>
         <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
         <file>img/blueMenuIcon/filterIco.png</file>
+        <file>img/blueMenuIcon/queryIco.png</file>
+        <file>styles/black/mainWindow/outLoginButton.qss</file>
+        <file>styles/white/mainWindow/outLoginButton.qss</file>
+        <file>img/blackMenuIcon/inLog.png</file>
+        <file>img/blackMenuIcon/outLog.png</file>
+        <file>img/whiteMenuIcon/inLog.png</file>
+        <file>img/whiteMenuIcon/outLog.png</file>
     </qresource>
 </RCC>

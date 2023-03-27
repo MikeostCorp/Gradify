@@ -1,6 +1,6 @@
 authorization
 {
-    background-color: rgb(231,224,223);
+    background-color: rgb(231, 224, 223);
 }
 
 QLabel#headTitleLabel
@@ -11,7 +11,7 @@ QLabel#headTitleLabel
 
 QPushButton#forgotPasswordButton
 {
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     color: rgb(61, 60, 59);
 }
 
@@ -23,13 +23,13 @@ QPushButton#forgotPasswordButton:hover
 QPushButton#loginButton
 {
     border-radius: 8px;
-    background-color: rgb(251,244,243);
+    background-color: rgb(251, 244, 243);
     color: rgb(61, 60, 59);
 }
 
 QPushButton#loginButton:hover
 {
-    background-color: rgb(217, 211, 209);
+    background-color: rgb(246, 239, 238);
 }
 
 QPushButton#passwordVisibilityButton
