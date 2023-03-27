@@ -612,8 +612,9 @@ void MainWindow::on_authorizationButton_clicked()
             setEnabledEditButton(false);
             clearSelectTable();
             clearStyleButtonTable();
-            //ui->filterConditionComboBox->setCurrentIndex(0);
+            //ui->filterConditionComboBox->setCurrentIndex(0);         
             ui->searchLineEdit->clear();
+            setWindowTitle("Gradify");
             ui->authorizationButton->setText("Авторизація");
             ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/inLog.png"));
         }
