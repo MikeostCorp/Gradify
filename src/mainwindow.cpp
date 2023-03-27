@@ -150,20 +150,15 @@ void MainWindow::mainWindowInit()
 
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
-    setEnabledFilters(false);   // <- нуу и это тоже シシ
+    setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
+    succesfullyAuthorization("xui");// <- абьюз для девелоперов
 
-    //ui->filterLabel->setEnabled(true);
-    //ui->filterButton->setEnabled(true);
-    //ui->filterComboBox->setEnabled(true);
-    //ui->filterConditionComboBox->setEnabled(false);
-    //ui->filterLineEdit->setEnabled(true);
+    //ui->filterConditionComboBox->insertSeparator(1);
 
-
-    //succesfullyAuthorization("xui");// <- абьюз для девелоперов
-
-    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
-
+    //ui->filterConditionComboBox->setVisible(false);
+    //ui->filterComboBox->setVisible(false);
+    //ui->filterButton->setVisible(false);
 
 
 
@@ -288,6 +283,7 @@ void MainWindow::on_studentsTableButton_clicked()
     if (config["theme"] == "white")
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
+
     }
     else if (config["theme"] == "black")
     {
@@ -421,8 +417,8 @@ void MainWindow::clearSelectTable()
     currentSelectTable = -1;
     ui->tableView->setModel(model);
 
-    ui->filterComboBox->clear();
-    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
+    //ui->filterComboBox->clear();
+    //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 }
 
 
@@ -433,6 +429,7 @@ void MainWindow::setEnabledButtons(bool status)
     ui->groupsReportButton->setEnabled(status);
     ui->teachersReportButton->setEnabled(status);
     ui->studentsReportButton->setEnabled(status);
+    ui->currentTableReportButton->setEnabled(status);
 
     ui->gradesTableButton->setEnabled(status);
     ui->studentsTableButton->setEnabled(status);
@@ -448,10 +445,6 @@ void MainWindow::setEnabledButtons(bool status)
 
 void MainWindow::setEnabledActions(bool status)
 {
-    ui->addRowAction->setEnabled(status);
-    ui->deleteRowAction->setEnabled(status);
-    ui->editRowAction->setEnabled(status);
-
     ui->openGradesTabAction->setEnabled(status);
     ui->openGroupTabAction->setEnabled(status);
     ui->openStudTabAction->setEnabled(status);
@@ -466,28 +459,35 @@ void MainWindow::setEnabledActions(bool status)
 }
 
 
-void MainWindow::setEnabledFilters(bool status)
+void MainWindow::setEnabledEditButton(bool status)
 {
+    ui->addRowAction->setEnabled(status);
+    ui->deleteRowAction->setEnabled(status);
+    ui->editRowAction->setEnabled(status);
+    ui->filterButton->setEnabled(status);
+    ui->searchLineEdit->setEnabled(status);
+    ui->queryButton->setEnabled(status);
+
     // будет фиксится
     // в методы нажатия кнопок таблиц добавить изменение комбоБоксов для списка колонок таблиц
     // ещё нужен метод очистки лайнЭдитов!!
 
-    ui->filterLabel->setEnabled(status);
-    ui->filterButton->setEnabled(status);
-    ui->filterComboBox->setEnabled(status);
-    ui->filterConditionComboBox->setEnabled(status);
-    ui->filterLineEdit->setEnabled(status);
+   // ui->filterLabel->setEnabled(status);
+    //ui->filterButton->setEnabled(status);
+    //ui->filterComboBox->setEnabled(status);
+    //ui->filterConditionComboBox->setEnabled(status);
+    //ui->filterLineEdit->setEnabled(status);
 
-    if (status)
-    {
-        ui->filterLineEdit->setPlaceholderText("Змінна умови");
-    }
-    else
-    {
-        ui->filterLineEdit->setPlaceholderText("");
-    }
+    //if (status)
+    //{
+    //    ui->filterLineEdit->setPlaceholderText("Змінна умови");
+    //}
+    //else
+    //{
+    //    ui->filterLineEdit->setPlaceholderText("");
+    //}
 
-    updateFilterComboBox();
+    //updateFilterComboBox();
 }
 
 
@@ -497,15 +497,17 @@ void MainWindow::updateFilterComboBox()
     {
         lastCurrentSelectTable = currentSelectTable;
 
-        ui->filterComboBox->clear();
-        ui->filterComboBox->insertItem(0, "Оберіть колонку");
-        ui->filterComboBox->setCurrentIndex(0);
-        ui->filterComboBox->insertSeparator(1);
+       // БУДЕТ РЕАЛИЗОВАНО КОГДА БУДЕТ РЕШЕНО С ФИЛЬТРАМИ ДИЗАЙН!
 
-        for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
-        {
-            ui->filterComboBox->insertItem(i + 2, ui->tableView->model()->headerData(i, Qt::Horizontal).toString());
-        }
+       // ui->filterComboBox->clear();
+       // ui->filterComboBox->insertItem(0, "Оберіть колонку");
+       // ui->filterComboBox->setCurrentIndex(0);
+       // ui->filterComboBox->insertSeparator(1);
+
+       // for (int i = 1; i < ui->tableView->model()->columnCount(); i++)
+       // {
+       //     ui->filterComboBox->insertItem(i + 1, ui->tableView->model()->headerData(i, Qt::Horizontal).toString());
+       // }
     }
 }
 
@@ -552,7 +554,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
 {
     ui->authorizationButton->setText(" Привіт, " + login + "!");
     ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
-    ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
+    //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
@@ -563,14 +565,24 @@ void MainWindow::succesfullyAuthorization(const QString login)
     db.setUserName("u838940490_gradify_admin");
     db.setPassword("Password1");
     db.setDatabaseName("u838940490_Gradify");
+
+
+    //db.setConnectOptions("MYSQL_OPT_CONNECT_TIMEOUT = 90000;");
+    //db.setConnectOptions("SET GLOBAL connect_timeout=28800");
+    //db.setConnectOptions("SET GLOBAL interactive_timeout=28800");
+    //db.setConnectOptions("SET SESSION wait_timeout=28800;");
+    //db.setConnectOptions("QSQLITE_BUSY_TIMEOU = 2000");
+    //db.setConnectOptions("SQL_ATTR_CONNECTION_TIMEOUT=2;");
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
 
+
+
     isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
-    setEnabledFilters(true);
+    setEnabledEditButton(true);
 
     clearSelectTable();
 }
@@ -597,10 +609,12 @@ void MainWindow::on_authorizationButton_clicked()
         {
             isLogin = false;
             setEnabledButtons(false);
-            setEnabledFilters(false);
+            setEnabledEditButton(false);
             clearSelectTable();
             clearStyleButtonTable();
-            ui->authorizationButton->setText(" Авторизація");
+            //ui->filterConditionComboBox->setCurrentIndex(0);
+            ui->searchLineEdit->clear();
+            ui->authorizationButton->setText("Авторизація");
             ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/inLog.png"));
         }
     }

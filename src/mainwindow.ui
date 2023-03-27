@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
-    <height>700</height>
+    <width>800</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
       <property name="minimumSize">
        <size>
         <width>210</width>
-        <height>570</height>
+        <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -86,174 +86,11 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLabel" name="mainLogoImg">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>20</y>
-            <width>51</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="recources.qrc">:/img/mainLogo/mainIcox128.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="studentsReportButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>290</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  По студентам             </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportStudent.png</normaloff>:/img/reportsIcon/reportStudent.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="autoRepeatDelay">
-           <number>300</number>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="gradesReportButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>348</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  По оцінкам                   </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportRaiting.png</normaloff>:/img/reportsIcon/reportRaiting.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="teachersReportButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>319</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  По викладачам           </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportTeachers.png</normaloff>:/img/reportsIcon/reportTeachers.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
          <widget class="QPushButton" name="gradesTableButton">
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>172</y>
+            <y>197</y>
             <width>180</width>
             <height>29</height>
            </rect>
@@ -283,7 +120,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>  Оцінки                          </string>
+           <string>  Оцінки</string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
@@ -296,33 +133,11 @@
            </size>
           </property>
          </widget>
-         <widget class="QLabel" name="reportSectionLabel">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>270</y>
-            <width>51</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Звіти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="tablesSectionLabel">
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>94</y>
+            <y>90</y>
             <width>51</width>
             <height>16</height>
            </rect>
@@ -344,7 +159,7 @@
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>114</y>
+            <y>168</y>
             <width>180</width>
             <height>29</height>
            </rect>
@@ -374,7 +189,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>  Студенти                      </string>
+           <string>  Студенти</string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
@@ -394,7 +209,7 @@
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>143</y>
+            <y>110</y>
             <width>180</width>
             <height>29</height>
            </rect>
@@ -424,7 +239,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>  Викладачі                     </string>
+           <string>  Викладачі</string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
@@ -441,7 +256,7 @@
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>201</y>
+            <y>226</y>
             <width>180</width>
             <height>29</height>
            </rect>
@@ -471,7 +286,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>  Групи                            </string>
+           <string>  Групи</string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
@@ -484,60 +299,13 @@
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="groupsReportButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>377</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  По групам                    </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
          <widget class="QPushButton" name="authorizationButton">
           <property name="geometry">
            <rect>
-            <x>77</x>
-            <y>30</y>
-            <width>121</width>
-            <height>32</height>
+            <x>15</x>
+            <y>20</y>
+            <width>180</width>
+            <height>41</height>
            </rect>
           </property>
           <property name="cursor">
@@ -560,12 +328,59 @@
            </size>
           </property>
          </widget>
-         <widget class="QLabel" name="actionsSectionLabel">
+         <widget class="QPushButton" name="subjectsTableButton">
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>442</y>
-            <width>31</width>
+            <y>139</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  Предмети</string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/blueMenuIcon/subjectIco.png</normaloff>:/img/blueMenuIcon/subjectIco.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QLabel" name="tablesSectionLabel_2">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>280</y>
+            <width>41</width>
             <height>16</height>
            </rect>
           </property>
@@ -579,202 +394,14 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Дії&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="addRowButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>462</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  Додати запис              </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/newRecord.png</normaloff>:/img/blueMenuIcon/newRecord.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="deleteRowButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>491</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  Видалити запис          </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/deleteRecord.png</normaloff>:/img/blueMenuIcon/deleteRecord.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>18</width>
-            <height>18</height>
-           </size>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="editRowButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>520</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  Редагувати запис        </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/editRecord.png</normaloff>:/img/blueMenuIcon/editRecord.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>18</width>
-            <height>18</height>
-           </size>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="subjectsTableButton">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>230</y>
-            <width>180</width>
-            <height>29</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>29</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>  Предмети                    </string>
-          </property>
-          <property name="icon">
-           <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/subjectIco.png</normaloff>:/img/blueMenuIcon/subjectIco.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>18</width>
-            <height>18</height>
-           </size>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#989898;&quot;&gt;Звіти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
          <widget class="QPushButton" name="subjectsReportButton">
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>406</y>
+            <y>358</y>
             <width>180</width>
             <height>29</height>
            </rect>
@@ -804,7 +431,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>  По предметам             </string>
+           <string>  По предметам </string>
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
@@ -817,23 +444,245 @@
            </size>
           </property>
          </widget>
+         <widget class="QPushButton" name="teachersReportButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>329</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  По викладачам</string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportTeachers.png</normaloff>:/img/reportsIcon/reportTeachers.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="gradesReportButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>416</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  По оцінкам</string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportRaiting.png</normaloff>:/img/reportsIcon/reportRaiting.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="groupsReportButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>445</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  По групам</string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="studentsReportButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>387</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  По студентам </string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportStudent.png</normaloff>:/img/reportsIcon/reportStudent.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="autoRepeatDelay">
+           <number>300</number>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="currentTableReportButton">
+          <property name="geometry">
+           <rect>
+            <x>15</x>
+            <y>300</y>
+            <width>180</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>  По поточній таблиці</string>
+          </property>
+          <property name="icon">
+           <iconset resource="recources.qrc">
+            <normaloff>:/img/reportsIcon/reportCurrentTable.png</normaloff>:/img/reportsIcon/reportCurrentTable.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
         </widget>
-       </item>
-       <item>
-        <spacer name="verticalMenuSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>0</width>
-           <height>1</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="settingsButton">
@@ -859,7 +708,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>  Налаштування          </string>
+          <string>  Налаштування</string>
          </property>
          <property name="icon">
           <iconset resource="recources.qrc">
@@ -913,7 +762,7 @@
        <widget class="QFrame" name="mainTableFrame">
         <property name="minimumSize">
          <size>
-          <width>710</width>
+          <width>0</width>
           <height>0</height>
          </size>
         </property>
@@ -930,15 +779,15 @@
          <item>
           <widget class="QFrame" name="controlTableFrame">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>1</horstretch>
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>710</width>
-             <height>150</height>
+             <width>500</width>
+             <height>50</height>
             </size>
            </property>
            <property name="mouseTracking">
@@ -955,230 +804,244 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
+             <widget class="QPushButton" name="addRowButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>141</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>  Додати запис</string>
+              </property>
+              <property name="icon">
+               <iconset resource="recources.qrc">
+                <normaloff>:/img/blueMenuIcon/newRecord.png</normaloff>:/img/blueMenuIcon/newRecord.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="editRowButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="recources.qrc">
+                <normaloff>:/img/blueMenuIcon/editRecord.png</normaloff>:/img/blueMenuIcon/editRecord.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>18</width>
+                <height>18</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="deleteRowButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="recources.qrc">
+                <normaloff>:/img/blueMenuIcon/deleteRecord.png</normaloff>:/img/blueMenuIcon/deleteRecord.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>18</width>
+                <height>18</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="filterButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="recources.qrc">
+                <normaloff>:/img/blueMenuIcon/filterIco.png</normaloff>:/img/blueMenuIcon/filterIco.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="queryButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>29</width>
+                <height>29</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="recources.qrc">
+                <normaloff>:/img/blueMenuIcon/filterIco.png</normaloff>:/img/blueMenuIcon/filterIco.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QFrame" name="firstControlFrame">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>215</width>
-                <height>120</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border: 0px;</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <widget class="QPushButton" name="filterButton">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>90</y>
-                 <width>200</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Фільтрувати</string>
-               </property>
-              </widget>
-              <widget class="QComboBox" name="filterComboBox">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>30</y>
-                 <width>200</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="editable">
-                <bool>false</bool>
-               </property>
-               <property name="currentText">
-                <string/>
-               </property>
-              </widget>
-              <widget class="QComboBox" name="filterConditionComboBox">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>60</y>
-                 <width>91</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>91</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <item>
-                <property name="text">
-                 <string>Умова</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>&lt;</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>&gt;</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>=&gt;</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>=&lt;</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>==</string>
-                </property>
-               </item>
-              </widget>
-              <widget class="QLineEdit" name="filterLineEdit">
-               <property name="geometry">
-                <rect>
-                 <x>110</x>
-                 <y>60</y>
-                 <width>101</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>101</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="placeholderText">
-                <string/>
-               </property>
-              </widget>
-              <widget class="QLabel" name="filterLabel">
-               <property name="geometry">
-                <rect>
-                 <x>60</x>
-                 <y>0</y>
-                 <width>101</width>
-                 <height>16</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>101</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Фільтрування&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Minimum</enum>
+               <enum>QSizePolicy::Expanding</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>1</width>
+                <width>60</width>
                 <height>20</height>
                </size>
               </property>
              </spacer>
             </item>
             <item>
-             <spacer name="horizontalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="borderSection_1">
+             <widget class="QLineEdit" name="searchLineEdit">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>141</width>
+                <height>29</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>2</width>
-                <height>120</height>
+                <width>290</width>
+                <height>29</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -1187,233 +1050,10 @@
               <property name="text">
                <string/>
               </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QFrame" name="secondControlFrame">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>215</width>
-                <height>120</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border: 0px;</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <widget class="QPushButton" name="queryButton">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>90</y>
-                 <width>200</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Виконати запит</string>
-               </property>
-              </widget>
-              <widget class="QLabel" name="label">
-               <property name="geometry">
-                <rect>
-                 <x>20</x>
-                 <y>30</y>
-                 <width>151</width>
-                 <height>20</height>
-                </rect>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: #989898;</string>
-               </property>
-               <property name="text">
-                <string>В СЛЕД ОБНОВЕ БУДЕТ</string>
-               </property>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="borderSection_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>2</width>
-                <height>120</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>2</width>
-                <height>120</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string/>
+              <property name="placeholderText">
+               <string>Пошук</string>
               </property>
              </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QFrame" name="thirdControlFrame">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>215</width>
-                <height>120</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border: 0px;</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <widget class="QPushButton" name="userQueryButton">
-               <property name="geometry">
-                <rect>
-                 <x>12</x>
-                 <y>90</y>
-                 <width>200</width>
-                 <height>21</height>
-                </rect>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>21</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>mySQL запит</string>
-               </property>
-              </widget>
-              <widget class="QLabel" name="label_2">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>20</y>
-                 <width>221</width>
-                 <height>51</height>
-                </rect>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: #989898;</string>
-               </property>
-               <property name="text">
-                <string>ПОСЛЕ ДИЗАЙНА ЭТОГО
-ФРЕЙМА ДЕЛАТЬ 
-ФУНКИЦОНАЛ!!!</string>
-               </property>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_7">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -1423,7 +1063,7 @@
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>5</horstretch>
-             <verstretch>9</verstretch>
+             <verstretch>12</verstretch>
             </sizepolicy>
            </property>
            <property name="styleSheet">
@@ -1461,7 +1101,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>

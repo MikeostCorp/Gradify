@@ -77,7 +77,7 @@ private slots:
 
     void setEnabledActions(bool status);
 
-    void setEnabledFilters(bool status);
+    void setEnabledEditButton(bool status);
 
     void updateFilterComboBox();
 

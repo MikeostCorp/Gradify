@@ -6,7 +6,7 @@ MainWindow
 
 QFrame#leftMenuFrame, QFrame#upMenuFrame
 {
-    background-color: rgb(41,45,48);
+    background-color: rgb(41, 45, 48);
     border: 0px;
 }
 
@@ -14,56 +14,60 @@ QFrame#controlTableFrame
 {
     border-radius: 6px;
     color: white;
-    background-color: rgb(61,65,68);
+    background-color: rgb(61, 65, 68);
 }
 
 QFrame#mainTableFrame
 {
     color: white;
-    background-color: rgb(41,45,48);
+    background-color: rgb(41, 45, 48);
     border: 0px;
     border-radius: 16px;
 }
 
-QLabel#borderSection_1, QLabel#borderSection_2
-{
-    background-color: rgb(108, 108, 108);
-}
-
-QLineEdit#filterLineEdit
+QLineEdit#searchLineEdit
 {
     color: white;
-    background-color: rgb(47 , 48, 49);
+    background-color: rgb(47, 48, 49);
     border: 0px;
+    padding-left: 5px;
     border-radius: 8px;
 }
 
-QLineEdit#filterLineEdit:disabled
+QLineEdit#searchLineEdit:disabled
 {
+    background-color: rgb(51, 55, 58);
     color: #989898
 }
 
+QPushButton#deleteRowButton,
+QPushButton#addRowButton,
+QPushButton#editRowButton,
 QPushButton#filterButton,
-QPushButton#queryButton,
-QPushButton#userQueryButton
+QPushButton#queryButton
 {
     border-radius: 6px;
-    background-color: rgb(81,85,88);
+    background-color: rgb(76, 80, 83);
     color: rgb(255, 255, 255);
 }
 
+QPushButton#deleteRowButton:hover,
+QPushButton#addRowButton:hover,
+QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
-QPushButton#queryButton:hover,
-QPushButton#userQueryButton:hover
+QPushButton#queryButton:hover
 {
-    background-color: rgb(101, 105, 108);
+    background-color: rgb(88, 90, 93);
 }
 
+QPushButton#deleteRowButton:disabled,
+QPushButton#addRowButton:disabled,
+QPushButton#editRowButton:disabled,
 QPushButton#filterButton:disabled,
-QPushButton#queryButton:disabled,
-QPushButton#userQueryButton:disabled
+QPushButton#queryButton:disabled
 {
     color: #989898;
+    background-color: rgb(71, 75, 78);
 }
 
 QPushButton#studentsTableButton,
@@ -77,13 +81,13 @@ QPushButton#gradesReportButton,
 QPushButton#groupsReportButton,
 QPushButton#subjectsReportButton,
 QPushButton#authorizationButton,
-QPushButton#deleteRowButton,
-QPushButton#addRowButton,
-QPushButton#editRowButton,
-QPushButton#settingsButton
+QPushButton#currentTableReportButton
 {
+    text-align: left;
+    padding-left: 10px;
+    background-position: 10px center;
     border-radius: 6px;
-    background-color: rgb(41,45,48);
+    background-color: rgb(41, 45, 48);
     color: rgb(255, 255, 255);
 }
 
@@ -98,9 +102,7 @@ QPushButton#gradesReportButton:hover,
 QPushButton#groupsReportButton:hover,
 QPushButton#subjectsReportButton:hover,
 QPushButton#authorizationButton:hover,
-QPushButton#deleteRowButton:hover,
-QPushButton#addRowButton:hover,
-QPushButton#editRowButton:hover,
+QPushButton#currentTableReportButton:hover,
 QPushButton#settingsButton:hover
 {
     background-color: rgb(78, 78, 78);
@@ -117,30 +119,27 @@ QPushButton#gradesReportButton:disabled,
 QPushButton#groupsReportButton:disabled,
 QPushButton#subjectsReportButton:disabled,
 QPushButton#authorizationButton:disabled,
-QPushButton#deleteRowButton:disabled,
-QPushButton#addRowButton:disabled,
-QPushButton#editRowButton:disabled,
+QPushButton#currentTableReportButton:disabled,
 QPushButton#settingsButton:disabled
 {
     color: #989898;
 }
 
-QLabel#filterLabel
+QPushButton#settingsButton
 {
-    color: rgb(188, 188, 188);
-}
-
-QLabel#filterLabel:disabled
-{
-    color: rgb(128, 128, 128);
+    text-align: left;
+    padding-left: 25px;
+    border-radius: 6px;
+    background-color: rgb(41, 45, 48);
+    color: rgb(255, 255, 255);
 }
 
 QComboBox#filterComboBox,
 QComboBox#filterConditionComboBox
 {
-    background-color: rgb(81,85,88);
+    background-color: rgb(81, 85, 88);
     color: rgb(255, 255, 255);
-    border: 2px solid rgb(81,85,88);
+    border: 2px solid rgb(81, 85, 88);
     border-radius: 6px;
 }
 
@@ -153,7 +152,7 @@ QComboBox#filterConditionComboBox:disabled
 QComboBox#filterComboBox:editable,
 QComboBox#filterConditionComboBox:editable
 {
-    background-color: rgb(81,85,88);
+    background-color: rgb(81, 85, 88);
 }
 
 QComboBox#filterComboBox::hover,
@@ -175,9 +174,9 @@ QComboBox#filterConditionComboBox::drop-down
 QComboBox#filterComboBox::separator,
 QComboBox#filterConditionComboBox::separator
 {
-    background-color: rgb(81,85,88);
+    background-color: rgb(81, 85, 88);
     height: 2px;
-    border: 8px solid rgb(61,65,68);
+    border: 8px solid rgb(61, 65, 68);
 }
 
 QComboBox#filterComboBox::down-arrow,
@@ -200,14 +199,14 @@ QComboBox#filterComboBox QAbstractItemView,
 QComboBox#filterConditionComboBox QAbstractItemView
 {
   color: white;
-  background-color: rgb(61,65,68);
+  background-color: rgb(61, 65, 68);
   border: none;
   border-radius: 6px;
 }
 
 QHeaderView
 {
-    background-color: rgb(61,65,68);
+    background-color: rgb(61, 65, 68);
     color: white;
     size: 12px;
 }
@@ -216,20 +215,20 @@ QHeaderView::section
 {
     size: 12px;
     color: white;
-    background-color: rgb(61,65,68);
+    background-color: rgb(61, 65, 68);
     padding-bottom:5px;
     padding-top:5px;
 }
 
 QHeaderView::section:checked
 {
-    background-color: rgb(81,85,88);
+    background-color: rgb(81, 85, 88);
     border: 0px;
 }
 
 QTableView
 {
-   background-color: rgb(61,65,68);
+   background-color: rgb(61, 65, 68);
    color: white;
    border: 0px;
    border-radius: 12px;
@@ -237,7 +236,7 @@ QTableView
 
 QTableView QLineEdit
 {
-    background-color: rgb(61,65,68);
+    background-color: rgb(61, 65, 68);
     color: white;
     padding: 5px 5px 5px 4px;
 }
@@ -246,7 +245,7 @@ QTableView::item
 {
     color: white;
     text-align: center;
-    border-style: 1px solid rgb(41,45,48);
+    border-style: 1px solid rgb(41, 45, 48);
     border-radius: 8px;
 }
 
@@ -259,13 +258,13 @@ QTableView::item:selected
 QTableView QTableCornerButton::section
 {
     border-top-left-radius: 8px;
-    background-color: rgb(101,105,108);
+    background-color: rgb(101, 105, 108);
 }
 
 QScrollBar:vertical
 {
     border: none;
-    background: rgb(61,65,68);
+    background: rgb(61 ,65, 68);
     width: 14px;
     margin: 15px 0 15px 0;
     border-radius: 0px;
@@ -273,25 +272,25 @@ QScrollBar:vertical
 
 QScrollBar::handle:vertical
 {
-    background-color: rgb(132,132,132);
+    background-color: rgb(132, 132, 132);
     min-height: 20px;
     border-radius: 7px;
 }
 
 QScrollBar::handle:vertical:hover
 {
-    background-color: rgb(152,152,152);
+    background-color: rgb(152, 152, 152);
 }
 
 QScrollBar::handle:vertical:pressed
 {
-    background-color: rgb(152,152,152);
+    background-color: rgb(152, 152, 152);
 }
 
 QScrollBar::sub-line:vertical
 {
     border: none;
-    background-color: rgb(91,95,98);
+    background-color: rgb(91, 95, 98);
     height: 15px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
@@ -301,18 +300,18 @@ QScrollBar::sub-line:vertical
 
 QScrollBar::sub-line:vertical:hover
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar::sub-line:vertical:pressed
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar::add-line:vertical
 {
     border: none;
-    background-color: rgb(91,95,98);
+    background-color: rgb(91, 95, 98);
     height: 15px;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
@@ -322,44 +321,44 @@ QScrollBar::add-line:vertical
 
 QScrollBar::add-line:vertical:hover
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar::add-line:vertical:pressed
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar:horizontal
 {
     border: none;
     border-radius: 0px;
-    background: rgb(61,65,68);
+    background: rgb(61, 65, 68);
     height: 14px;
     margin: 0px 15px 0 15px;
 }
 
 QScrollBar::handle:horizontal
 {
-    background: rgb(132,132,132);
+    background: rgb(132, 132, 132);
     min-width: 20px;
     border-radius: 7px;
 }
 
 QScrollBar::handle:horizontal:hover
 {
-    background-color: rgb(152,152,152);
+    background-color: rgb(152, 152, 152);
 }
 
 QScrollBar::handle:horizontal:pressed
 {
-    background-color: rgb(152,152,152);
+    background-color: rgb(152, 152, 152);
 }
 
 QScrollBar::add-line:horizontal
 {
     border: none;
-    background: rgb(91,95,98);
+    background: rgb(91, 95, 98);
     width: 15px;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
@@ -369,13 +368,13 @@ QScrollBar::add-line:horizontal
 
 QScrollBar::add-line:horizontal:hover
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar::sub-line:horizontal
 {
     border: none;
-    background: rgb(91,95,98);
+    background: rgb(91, 95, 98);
     width: 15px;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -385,10 +384,10 @@ QScrollBar::sub-line:horizontal
 
 QScrollBar::sub-line:horizontal:hover
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }
 
 QScrollBar::sub-line:horizontal:pressed
 {
-    background-color: rgb(111,115,118);
+    background-color: rgb(111, 115, 118);
 }

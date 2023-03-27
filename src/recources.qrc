@@ -1,44 +1,16 @@
 <RCC>
-    <qresource prefix="/img"/>
     <qresource prefix="/">
-        <file>img/AppIcon.icns</file>
-        <file>img/preloader.mp4</file>
-        <file>img/whiteMenuIcon/settingIco.png</file>
-        <file>img/mainLogo/mainIcox128.png</file>
-        <file>img/mainLogo/mainIcox64.png</file>
-        <file>img/mainLogo/mainIcox512.png</file>
-        <file>img/whiteMenuIcon/groupIco.png</file>
-        <file>img/whiteMenuIcon/raitingIco.png</file>
-        <file>img/whiteMenuIcon/studentsIco.png</file>
-        <file>img/whiteMenuIcon/teachersIco.png</file>
-        <file>img/reportsIcon/reportGroup.png</file>
-        <file>img/reportsIcon/reportRaiting.png</file>
-        <file>img/reportsIcon/reportStudent.png</file>
-        <file>img/reportsIcon/reportTeachers.png</file>
+        <file>img/blackMenuIcon/clearLoginIco.png</file>
+        <file>img/blackMenuIcon/cloud.png</file>
+        <file>img/blackMenuIcon/downArrow.png</file>
+        <file>img/blackMenuIcon/downArrowDisabled.png</file>
         <file>img/blackMenuIcon/groupIco.png</file>
+        <file>img/blackMenuIcon/noWatchPass.png</file>
         <file>img/blackMenuIcon/raitingIco.png</file>
         <file>img/blackMenuIcon/studenstIco.png</file>
-        <file>img/blackMenuIcon/teachersIco.png</file>
-        <file>img/settingIcon/settingBlackUIIco.png</file>
-        <file>img/settingIcon/settingWhiteUIIco.png</file>
-        <file>img/whiteMenuIcon/cloud.png</file>
-        <file>img/whiteMenuIcon/noWatchPass.png</file>
-        <file>img/whiteMenuIcon/watchPass.png</file>
-        <file>img/blackMenuIcon/cloud.png</file>
-        <file>img/blackMenuIcon/noWatchPass.png</file>
-        <file>img/blackMenuIcon/watchPass.png</file>
         <file>img/blackMenuIcon/subjectIco.png</file>
-        <file>img/whiteMenuIcon/subjectIco.png</file>
-        <file>img/reportsIcon/reportItem.png</file>
-        <file>img/settingIcon/settingSystemUIICo.png</file>
-        <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
-        <file>styles/white/mainWindow/mainWindow.qss</file>
-        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
-        <file>styles/white/authorization/authorization.qss</file>
-        <file>styles/white/appSetting/appSetting.qss</file>
-        <file>styles/black/mainWindow/mainWindow.qss</file>
-        <file>styles/black/authorization/authorization.qss</file>
-        <file>styles/black/appSetting/appSetting.qss</file>
+        <file>img/blackMenuIcon/teachersIco.png</file>
+        <file>img/blackMenuIcon/watchPass.png</file>
         <file>img/blueMenuIcon/deleteRecord.png</file>
         <file>img/blueMenuIcon/editRecord.png</file>
         <file>img/blueMenuIcon/groupIco.png</file>
@@ -50,11 +22,40 @@
         <file>img/blueMenuIcon/studentsIco.png</file>
         <file>img/blueMenuIcon/subjectIco.png</file>
         <file>img/blueMenuIcon/teachersIco.png</file>
+        <file>img/mainLogo/mainIcox128.png</file>
         <file>img/mainLogo/mainIcox256.png</file>
+        <file>img/mainLogo/mainIcox512.png</file>
+        <file>img/mainLogo/mainIcox64.png</file>
+        <file>img/reportsIcon/reportCurrentTable.png</file>
+        <file>img/reportsIcon/reportGroup.png</file>
+        <file>img/reportsIcon/reportItem.png</file>
+        <file>img/reportsIcon/reportRaiting.png</file>
+        <file>img/reportsIcon/reportStudent.png</file>
+        <file>img/reportsIcon/reportTeachers.png</file>
+        <file>img/settingIcon/settingBlackUIIco.png</file>
+        <file>img/settingIcon/settingSystemUIICo.png</file>
+        <file>img/settingIcon/settingWhiteUIIco.png</file>
         <file>img/whiteMenuIcon/clearLoginIco.png</file>
-        <file>img/blackMenuIcon/clearLoginIco.png</file>
-        <file>img/blackMenuIcon/downArrow.png</file>
+        <file>img/whiteMenuIcon/cloud.png</file>
         <file>img/whiteMenuIcon/downArrow.png</file>
-        <file>img/blackMenuIcon/downArrowDisabled.png</file>
+        <file>img/whiteMenuIcon/groupIco.png</file>
+        <file>img/whiteMenuIcon/noWatchPass.png</file>
+        <file>img/whiteMenuIcon/raitingIco.png</file>
+        <file>img/whiteMenuIcon/settingIco.png</file>
+        <file>img/whiteMenuIcon/studentsIco.png</file>
+        <file>img/whiteMenuIcon/subjectIco.png</file>
+        <file>img/whiteMenuIcon/teachersIco.png</file>
+        <file>img/whiteMenuIcon/watchPass.png</file>
+        <file>img/AppIcon.icns</file>
+        <file>img/preloader.mp4</file>
+        <file>styles/black/appSetting/appSetting.qss</file>
+        <file>styles/black/authorization/authorization.qss</file>
+        <file>styles/black/mainWindow/mainWindow.qss</file>
+        <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/white/appSetting/appSetting.qss</file>
+        <file>styles/white/authorization/authorization.qss</file>
+        <file>styles/white/mainWindow/mainWindow.qss</file>
+        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
+        <file>img/blueMenuIcon/filterIco.png</file>
     </qresource>
 </RCC>
