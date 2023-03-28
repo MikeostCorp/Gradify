@@ -15,6 +15,7 @@
 
 #include <appsetting.h>
 #include <authorization.h>
+#include <filterform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +30,9 @@ public:
     ~MainWindow();
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
 
 private slots:
     void on_studentsTableButton_clicked();
@@ -121,10 +125,13 @@ private slots:
 
     void on_subjectsReportAction_triggered();
 
+    void on_filterButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;
     authorization *authorizationWindow;
+    filterForm *filter;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;

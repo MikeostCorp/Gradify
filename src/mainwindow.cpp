@@ -27,9 +27,11 @@ void MainWindow::mainWindowInit()
 
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
+    filter = new filterForm(this);
     currentSelectTable = -1;
     lastCurrentSelectTable = -1;
 
+    filter->close();
 
     //=================================================
     //               Креатим таблицу акаунти
@@ -259,6 +261,18 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (event->Close)
         QApplication::closeAllWindows();
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    // метод закрытия фильтра
+    //if(event->button() == Qt::LeftButton
+    //        and filter->isVisible()
+    //        and (event->pos().x() <= filter->pos().x() or event->pos().x() >= filter->pos().x())
+    //        and (event->pos().y() <= filter->pos().y() or event->pos().y() >= filter->pos().y()))
+    //{
+    //    filter->close();
+    //}
 }
 
 
@@ -569,6 +583,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
     db.setPassword("Password1");
     db.setDatabaseName("u838940490_Gradify");
 
+    db.setConnectOptions();
+
 
     //db.setConnectOptions("MYSQL_OPT_CONNECT_TIMEOUT = 90000;");
     //db.setConnectOptions("SET GLOBAL connect_timeout=28800");
@@ -576,6 +592,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
     //db.setConnectOptions("SET SESSION wait_timeout=28800;");
     //db.setConnectOptions("QSQLITE_BUSY_TIMEOU = 2000");
     //db.setConnectOptions("SQL_ATTR_CONNECTION_TIMEOUT=2;");
+
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     db.open();
@@ -613,7 +630,7 @@ void MainWindow::on_authorizationButton_clicked()
             setEnabledEditButton(false);
             clearSelectTable();
             clearStyleButtonTable();
-            //ui->filterConditionComboBox->setCurrentIndex(0);         
+            //ui->filterConditionComboBox->setCurrentIndex(0);
             ui->searchLineEdit->clear();
             setWindowTitle("Gradify");
             ui->authorizationButton->setText("Авторизація");
@@ -947,3 +964,25 @@ void MainWindow::on_subjectsReportAction_triggered()
 {
     on_subjectsReportButton_clicked();
 }
+
+void MainWindow::on_filterButton_clicked()
+{
+
+    //QPoint globalPos = ui->filterButton->mapToGlobal(ui->filterButton);
+
+    //filter->move(globalPos);
+    //QPoint globalPosFilterBut = ui->C->mapToGlobal(ui->filterButton);
+
+
+    //filter->move(ui->filterButton->x(), ui->filterButton->y());
+    //filter->move(globalPosFilterBut.x(), globalPosFilterBut.y());
+
+                //QGuiApplication::primaryScreen()->geometry().x(),
+                 //QGuiApplication::primaryScreen()->geometry().y());
+    //QPoint point = ui->filterButton->mapToGlobal(QPoint(this->pos().x() + width(), this->pos().y() + height()));
+
+    filter->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
+                 ui->filterButton->pos().y() + 60);
+    filter->show();
+}
+

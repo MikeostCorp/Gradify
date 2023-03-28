@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     appsetting.cpp \
     authorization.cpp \
+    filterform.cpp \
     main.cpp \
     mainwindow.cpp \
     preloader.cpp
@@ -18,12 +19,14 @@ SOURCES += \
 HEADERS += \
     appsetting.h \
     authorization.h \
+    filterform.h \
     mainwindow.h \
     preloader.h
 
 FORMS += \
     appsetting.ui \
     authorization.ui \
+    filterform.ui \
     mainwindow.ui \
     preloader.ui
 
