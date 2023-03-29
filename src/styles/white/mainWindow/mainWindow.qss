@@ -126,13 +126,13 @@ QPushButton#authorizationButton
 {
     qproperty-icon: url(:/img/blackMenuIcon/inLog.png);
     border-radius: 6px;
-    background-color: rgb(65, 105, 225);
+    background-color: rgb(85, 125, 245);
     color: black;
 }
 
 QPushButton#authorizationButton:hover
 {
-    background-color: rgb(85, 125, 245);
+    background-color: rgb(95, 135, 255);
 }
 
 QPushButton#settingsButton

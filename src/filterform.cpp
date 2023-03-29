@@ -8,21 +8,10 @@ filterForm::filterForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(width(),height());
+    close();
 }
 
 filterForm::~filterForm()
 {
     delete ui;
-}
-
-void filterForm::changeEvent(QEvent *event)
-{
-    QWidget::changeEvent(event);
-    if (event->type() == QEvent::ActivationChange)
-    {
-        if (!isActiveWindow())
-        {
-            close();
-        }
-    }
 }

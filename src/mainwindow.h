@@ -77,6 +77,8 @@ private slots:
 
     void clearSelectTable();
 
+    void closeAllPopUpWindow();
+
     void setEnabledButtons(bool status);
 
     void setEnabledActions(bool status);
@@ -126,6 +128,12 @@ private slots:
     void on_subjectsReportAction_triggered();
 
     void on_filterButton_clicked();
+
+    void on_currentTableReportAction_triggered();
+
+    void on_currentTableReportButton_clicked();
+
+    void on_tableView_pressed(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

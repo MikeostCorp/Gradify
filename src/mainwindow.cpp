@@ -28,10 +28,10 @@ void MainWindow::mainWindowInit()
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
     filter = new filterForm(this);
+
     currentSelectTable = -1;
     lastCurrentSelectTable = -1;
 
-    filter->close();
 
     //=================================================
     //               Креатим таблицу акаунти
@@ -129,7 +129,6 @@ void MainWindow::mainWindowInit()
 
     // Нужно пофиксить CONSTRAINT CHECK, phpMyAdmin говорит что есть синтаксическая ошибка, пока базы данных без этих проверок
 
-
     //query->exec("DROP TABLE loginPassTable");
 
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
@@ -147,6 +146,14 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
+
+
+
+    auto header = ui->tableView->horizontalHeader();
+    connect(header, &QHeaderView::sectionClicked, [this]
+    {
+        closeAllPopUpWindow();
+    });
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
@@ -260,19 +267,25 @@ void MainWindow::changeEvent(QEvent *event)
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (event->Close)
+    {
         QApplication::closeAllWindows();
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    // метод закрытия фильтра
-    //if(event->button() == Qt::LeftButton
-    //        and filter->isVisible()
-    //        and (event->pos().x() <= filter->pos().x() or event->pos().x() >= filter->pos().x())
-    //        and (event->pos().y() <= filter->pos().y() or event->pos().y() >= filter->pos().y()))
-    //{
-    //    filter->close();
-    //}
+    // Условие ещё нужно будет править как будет окно sql запросов
+    if (event->button() == Qt::LeftButton
+            and filter->isVisible()
+            and (event->pos().x() < filter->pos().x() or event->pos().x() > (filter->pos().x() + filter->width()))
+            or (event->y() < filter->y() or event->y() > filter->y() + filter->height())) //or event->pos().y() > (filter->pos().y() + filter->height())))
+    {
+        filter->close();
+    }
+
+    // debug pos click and pos filter
+    //QMessageBox::information(this,"","myY: " + QString::number(event->y()) + "filtY: " + QString::number(filter->y()) +
+    //                         "\nmyX: " + QString::number(event->x()) + "filtX: " + QString::number(filter->x()));
 }
 
 
@@ -290,9 +303,12 @@ void MainWindow::on_studentsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
+    closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
+
+    setEnabledEditButton(true);
 
     if (config["theme"] == "white")
     {
@@ -320,9 +336,12 @@ void MainWindow::on_teachersTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
+    closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+
+    setEnabledEditButton(true);
 
     if (config["theme"] == "white")
     {
@@ -351,9 +370,12 @@ void MainWindow::on_gradesTableButton_clicked()
     currentSelectTable = 2;
     ui->tableView->setModel(model);
 
+    closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
+
+    setEnabledEditButton(true);
 
     if (config["theme"] == "white")
     {
@@ -380,9 +402,12 @@ void MainWindow::on_groupsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
+    closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+
+    setEnabledEditButton(true);
 
     if (config["theme"] == "white")
     {
@@ -409,9 +434,12 @@ void MainWindow::on_subjectsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
+    closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+
+    setEnabledEditButton(true);
 
     if (config["theme"] == "white")
     {
@@ -430,9 +458,17 @@ void MainWindow::clearSelectTable()
     model->select();
     currentSelectTable = -1;
     ui->tableView->setModel(model);
+    closeAllPopUpWindow();
+
 
     //ui->filterComboBox->clear();
     //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
+}
+
+void MainWindow::closeAllPopUpWindow()
+{
+    // cюда ещё нужно будет метод закрытия всплывающего окна с запрсоами
+    filter->close();
 }
 
 
@@ -450,10 +486,6 @@ void MainWindow::setEnabledButtons(bool status)
     ui->subjectsTableButton->setEnabled(status);
     ui->teachersTableButton->setEnabled(status);
     ui->groupsTableButton->setEnabled(status);
-
-    ui->addRowButton->setEnabled(status);
-    ui->deleteRowButton->setEnabled(status);
-    ui->editRowButton->setEnabled(status);
 }
 
 
@@ -478,6 +510,10 @@ void MainWindow::setEnabledEditButton(bool status)
     ui->addRowAction->setEnabled(status);
     ui->deleteRowAction->setEnabled(status);
     ui->editRowAction->setEnabled(status);
+
+    ui->addRowButton->setEnabled(status);
+    ui->editRowButton->setEnabled(status);
+    ui->deleteRowButton->setEnabled(status);
     ui->filterButton->setEnabled(status);
     ui->searchLineEdit->setEnabled(status);
     ui->queryButton->setEnabled(status);
@@ -600,7 +636,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
     isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
-    setEnabledEditButton(true);
 
     clearSelectTable();
 }
@@ -610,6 +645,7 @@ void MainWindow::on_settingsButton_clicked()
 {
     settingWindow->show();
     authorizationWindow->close();
+    closeAllPopUpWindow();
 }
 
 
@@ -671,11 +707,31 @@ void MainWindow::on_editRowButton_clicked()
 }
 
 
+void MainWindow::on_filterButton_clicked()
+{
+    if (filter->isVisible())
+    {
+        filter->close();
+    }
+    else
+    {
+        filter->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
+                     ui->filterButton->pos().y() + 60);
+        filter->show();
+    }
+}
+
+
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
+    closeAllPopUpWindow();
 }
 
+void MainWindow::on_tableView_pressed(const QModelIndex &index)
+{
+    closeAllPopUpWindow();
+}
 
 //=========================================================
 //
@@ -683,33 +739,40 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 //
 //=========================================================
 
+
+void MainWindow::on_currentTableReportButton_clicked()
+{
+    closeAllPopUpWindow();
+}
+
+
 void MainWindow::on_studentsReportButton_clicked()
 {
-
+    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_teachersReportButton_clicked()
 {
-
+    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_gradesReportButton_clicked()
 {
-
+    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_groupsReportButton_clicked()
 {
-
+    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_subjectsReportButton_clicked()
 {
-
+    closeAllPopUpWindow();
 }
 
 
@@ -745,7 +808,7 @@ void MainWindow::setBlackUI()
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
 
-    if(isLogin)
+    if (isLogin)
     {
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
@@ -801,7 +864,7 @@ void MainWindow::setWhiteUI()
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
 
-    if(isLogin)
+    if (isLogin)
     {
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
@@ -965,24 +1028,11 @@ void MainWindow::on_subjectsReportAction_triggered()
     on_subjectsReportButton_clicked();
 }
 
-void MainWindow::on_filterButton_clicked()
+void MainWindow::on_currentTableReportAction_triggered()
 {
-
-    //QPoint globalPos = ui->filterButton->mapToGlobal(ui->filterButton);
-
-    //filter->move(globalPos);
-    //QPoint globalPosFilterBut = ui->C->mapToGlobal(ui->filterButton);
-
-
-    //filter->move(ui->filterButton->x(), ui->filterButton->y());
-    //filter->move(globalPosFilterBut.x(), globalPosFilterBut.y());
-
-                //QGuiApplication::primaryScreen()->geometry().x(),
-                 //QGuiApplication::primaryScreen()->geometry().y());
-    //QPoint point = ui->filterButton->mapToGlobal(QPoint(this->pos().x() + width(), this->pos().y() + height()));
-
-    filter->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
-                 ui->filterButton->pos().y() + 60);
-    filter->show();
+    on_currentTableReportButton_clicked();
 }
+
+
+
 

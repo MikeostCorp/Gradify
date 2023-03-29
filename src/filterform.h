@@ -14,7 +14,6 @@ class filterForm : public QWidget
 public:
     explicit filterForm(QWidget *parent = nullptr);
     ~filterForm();
-    void changeEvent(QEvent *event) override;
 
 private:
     Ui::filterForm *ui;
