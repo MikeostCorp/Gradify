@@ -30,6 +30,7 @@ public:
     ~MainWindow();
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
+    bool eventFilter(QObject *object, QEvent *event);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -127,19 +128,17 @@ private slots:
 
     void on_subjectsReportAction_triggered();
 
-    void on_filterButton_clicked();
-
     void on_currentTableReportAction_triggered();
 
     void on_currentTableReportButton_clicked();
 
-    void on_tableView_pressed(const QModelIndex &index);
+    void on_tableView_pressed();
 
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;
     authorization *authorizationWindow;
-    filterForm *filter;
+    filterForm *filterWindow;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;

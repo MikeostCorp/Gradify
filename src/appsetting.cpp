@@ -65,13 +65,14 @@ void appSetting::setSystemUI()
     if (newBase.name() == "#000000")
     {
         setWhiteUI();
+        emit changeThemeApp("white");
     }
     else
     {
         setBlackUI();
+        emit changeThemeApp("black");
     }
 
-    emit changeThemeApp("system");
     ui->selectSystemUIRadioButton->setChecked(true);
 }
 

@@ -27,7 +27,8 @@ void MainWindow::mainWindowInit()
 
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
-    filter = new filterForm(this);
+    filterWindow = new filterForm(this);
+    ui->filterButton->installEventFilter(this);
 
     currentSelectTable = -1;
     lastCurrentSelectTable = -1;
@@ -147,21 +148,13 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
-
-
-    auto header = ui->tableView->horizontalHeader();
-    connect(header, &QHeaderView::sectionClicked, [this]
-    {
-        closeAllPopUpWindow();
-    });
-
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    succesfullyAuthorization("xui");// <- абьюз для девелоперов
+    succesfullyAuthorization("xyz"); // <- абьюз для ровных девелоперов
 
     //ui->filterConditionComboBox->insertSeparator(1);
 
@@ -275,17 +268,19 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     // Условие ещё нужно будет править как будет окно sql запросов
-    if (event->button() == Qt::LeftButton
-            and filter->isVisible()
-            and (event->pos().x() < filter->pos().x() or event->pos().x() > (filter->pos().x() + filter->width()))
-            or (event->y() < filter->y() or event->y() > filter->y() + filter->height())) //or event->pos().y() > (filter->pos().y() + filter->height())))
+    /*
+    if ((event->button() == Qt::LeftButton
+            and filterWindow->isVisible()
+            and (event->pos().x() < filterWindow->pos().x() or event->pos().x() > (filterWindow->pos().x() + filterWindow->width())))
+            or (event->y() < filterWindow->y() or event->y() > filterWindow->y() + filterWindow->height())) //or event->pos().y() > (filterWindow->pos().y() + filterWindow->height())))
     {
-        filter->close();
+        filterWindow->close();
     }
+    */
 
     // debug pos click and pos filter
-    //QMessageBox::information(this,"","myY: " + QString::number(event->y()) + "filtY: " + QString::number(filter->y()) +
-    //                         "\nmyX: " + QString::number(event->x()) + "filtX: " + QString::number(filter->x()));
+    //QMessageBox::information(this,"","myY: " + QString::number(event->y()) + "filtY: " + QString::number(filterWindow->y()) +
+    //                         "\nmyX: " + QString::number(event->x()) + "filtX: " + QString::number(filterWindow->x()));
 }
 
 
@@ -456,8 +451,8 @@ void MainWindow::clearSelectTable()
 {
     model->setTable("NULL");
     model->select();
-    currentSelectTable = -1;
     ui->tableView->setModel(model);
+    currentSelectTable = -1;
     closeAllPopUpWindow();
 
 
@@ -467,8 +462,8 @@ void MainWindow::clearSelectTable()
 
 void MainWindow::closeAllPopUpWindow()
 {
-    // cюда ещё нужно будет метод закрытия всплывающего окна с запрсоами
-    filter->close();
+    // cюда ещё нужно будет добавить метод закрытия всплывающего окна с запросами
+    filterWindow->close();
 }
 
 
@@ -507,10 +502,6 @@ void MainWindow::setEnabledActions(bool status)
 
 void MainWindow::setEnabledEditButton(bool status)
 {
-    ui->addRowAction->setEnabled(status);
-    ui->deleteRowAction->setEnabled(status);
-    ui->editRowAction->setEnabled(status);
-
     ui->addRowButton->setEnabled(status);
     ui->editRowButton->setEnabled(status);
     ui->deleteRowButton->setEnabled(status);
@@ -612,8 +603,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
-    // долго открываются таблицы, наверное плохой интернет или сервак слоупок
-    // может надо использовать tab widget с предварительным подключением к таблицам
     db.setHostName("45.84.207.102"); // 45.84.207.129
     db.setUserName("u838940490_gradify_admin");
     db.setPassword("Password1");
@@ -707,18 +696,24 @@ void MainWindow::on_editRowButton_clicked()
 }
 
 
-void MainWindow::on_filterButton_clicked()
+bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
-    if (filter->isVisible())
+    if (object == ui->filterButton)
     {
-        filter->close();
+        if (event->type() == QEvent::Enter)
+        {
+            if (!filterWindow->isVisible())
+            {
+                filterWindow->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
+                             ui->filterButton->pos().y() + 60);
+                filterWindow->show();
+                filterWindow->setFocus();
+            }
+            return true;
+        }
     }
-    else
-    {
-        filter->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
-                     ui->filterButton->pos().y() + 60);
-        filter->show();
-    }
+
+    return false;
 }
 
 
@@ -728,7 +723,7 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
     closeAllPopUpWindow();
 }
 
-void MainWindow::on_tableView_pressed(const QModelIndex &index)
+void MainWindow::on_tableView_pressed()
 {
     closeAllPopUpWindow();
 }
@@ -797,6 +792,7 @@ void MainWindow::setBlackUI()
     QFile file(":/styles/black/mainWindow/mainWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
 
     styleF.setFileName(":/styles/black/mainWindow/selectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
@@ -906,10 +902,12 @@ void MainWindow::setSystemUI()
     if (newBase.name() == "#000000")
     {
         setWhiteUI();
+        config["theme"] = "white";
     }
     else
     {
         setBlackUI();
+        config["theme"] = "black";
     }
 }
 
@@ -1032,7 +1030,3 @@ void MainWindow::on_currentTableReportAction_triggered()
 {
     on_currentTableReportButton_clicked();
 }
-
-
-
-
