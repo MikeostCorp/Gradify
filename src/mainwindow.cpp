@@ -502,6 +502,10 @@ void MainWindow::setEnabledActions(bool status)
 
 void MainWindow::setEnabledEditButton(bool status)
 {
+    ui->addRowAction->setEnabled(status);
+    ui->editRowAction->setEnabled(status);
+    ui->deleteRowAction->setEnabled(status);
+
     ui->addRowButton->setEnabled(status);
     ui->editRowButton->setEnabled(status);
     ui->deleteRowButton->setEnabled(status);
