@@ -1,7 +1,7 @@
 # Gradify
 
 <p align="center">
-  <img src="https://storage.cloudconvert.com/tasks/a4c4fdc2-464e-465c-b02e-12a2093cb8ff/AppIcon_512x512x32.png?AWSAccessKeyId=cloudconvert-production&Expires=1679936640&Signature=sdBiryzJLgEYPF4fMjvYNSZCNs8%3D&response-content-disposition=attachment%3B%20filename%3D%22AppIcon_512x512x32.png%22&response-content-type=image%2Fpng" width="200" height="200">
+  <img src="https://github.com/MikeostCorp/Gradify/blob/main/src/img/mainLogo/mainIcox512.png" width="200" height="200">
 </p>
 
 ----
