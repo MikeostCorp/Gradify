@@ -30,6 +30,7 @@ FORMS += \
     mainwindow.ui \
     preloader.ui
 
+TARGET = Gradify
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
