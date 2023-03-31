@@ -15,13 +15,12 @@ public:
     explicit filterForm(QWidget *parent = nullptr);
     ~filterForm();
 
-    void leaveEvent(QEvent *event);
+protected:
+    virtual void enterEvent(QEnterEvent *event);
+    virtual void leaveEvent(QEvent *event);
 
 private:
     Ui::filterForm *ui;
-
-signals:
-    void enter(bool);
 };
 
 #endif // FILTERFORM_H
