@@ -15,11 +15,13 @@ public:
     explicit filterForm(QWidget *parent = nullptr);
     ~filterForm();
 
-    void changeEvent(QEvent *event);
     void leaveEvent(QEvent *event);
 
 private:
     Ui::filterForm *ui;
+
+signals:
+    void enter(bool);
 };
 
 #endif // FILTERFORM_H

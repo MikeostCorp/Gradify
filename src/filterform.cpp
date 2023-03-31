@@ -17,21 +17,6 @@ filterForm::~filterForm()
     delete ui;
 }
 
-void filterForm::changeEvent(QEvent *event)
-{
-    //QWidget::changeEvent(event);
-    if(event->type() == QEvent::Enter)
-    {
-        QMessageBox::information(this, "Enter", "Enter");
-        show();
-    }
-    else if (event->type() == QEvent::Leave)
-    {
-        QMessageBox::information(this, "leave", "leave");
-        close();
-    }
-}
-
 void filterForm::leaveEvent(QEvent *event)
 {
     close();

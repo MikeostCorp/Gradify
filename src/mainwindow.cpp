@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QInputDialog>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -699,7 +700,6 @@ void MainWindow::on_editRowButton_clicked()
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 
-
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
     if (object == ui->filterButton)
@@ -709,11 +709,15 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
             if (!filterWindow->isVisible())
             {
                 filterWindow->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
-                             ui->filterButton->pos().y() + 60);
+                                   ui->filterButton->pos().y() + 60);
                 filterWindow->show();
-                filterWindow->setFocus();
             }
             return true;
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            QThread::msleep(300);
+            if (!ui->filterButton->underMouse() and !filterWindow->underMouse()) filterWindow->close();
         }
     }
 

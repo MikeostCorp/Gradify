@@ -30,10 +30,10 @@ public:
     ~MainWindow();
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
-    bool eventFilter(QObject *object, QEvent *event);
+    bool eventFilter(QObject *object, QEvent *event) override;
 
 protected:
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
 
 private slots:
     void on_studentsTableButton_clicked();
