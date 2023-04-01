@@ -62,5 +62,6 @@
         <file>img/blackMenuIcon/outLog.png</file>
         <file>img/whiteMenuIcon/inLog.png</file>
         <file>img/whiteMenuIcon/outLog.png</file>
+        <file>img/mainLogo/mainIcox1024.png</file>
     </qresource>
 </RCC>
