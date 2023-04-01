@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::queryForm *ui;
+
 };
 
 #endif // QUERYFORM_H

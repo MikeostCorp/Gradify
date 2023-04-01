@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
-    <height>150</height>
+    <width>230</width>
+    <height>120</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,17 +24,12 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>150</width>
-     <height>150</height>
+     <width>230</width>
+     <height>120</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">#mainFrame
-{
-background-color: rgb(123, 132, 123);
-border: 0px;
-border-radius: 9px;
-}</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -42,43 +37,108 @@ border-radius: 9px;
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QLineEdit" name="conditionLineEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TEST FILTER</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>DEUTHCLAND</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>110</y>
-      <width>113</width>
+      <x>156</x>
+      <y>50</y>
+      <width>61</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>LINEDIT</string>
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Текст</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="tableComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>210</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Оберіть колонку</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dad</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>asdasd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>asd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>asd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>asdas</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="conditionComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>140</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Оберіть умову</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>sda</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>asas</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>a</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="filterPushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Фільтруваті</string>
     </property>
    </widget>
   </widget>

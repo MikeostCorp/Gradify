@@ -1,7 +1,7 @@
 #include "filterform.h"
 #include "ui_filterform.h"
-#include <QMessageBox>
-#include <QDebug>
+
+#include <QFile>
 
 filterForm::filterForm(QWidget *parent) :
     QWidget(parent),
@@ -17,4 +17,3 @@ filterForm::~filterForm()
 {
     delete ui;
 }
-

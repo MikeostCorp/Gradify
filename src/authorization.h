@@ -43,7 +43,6 @@ private:
 
     QString styleType;
 
-    QFile styleF;
 
 public slots:
     void setThemeAuthorUI(const QString style);

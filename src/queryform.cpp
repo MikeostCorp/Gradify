@@ -1,6 +1,8 @@
 #include "queryform.h"
 #include "ui_queryform.h"
 
+#include <QFile>
+
 queryForm::queryForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::queryForm)
@@ -15,3 +17,4 @@ queryForm::~queryForm()
 {
     delete ui;
 }
+

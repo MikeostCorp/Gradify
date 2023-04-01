@@ -722,7 +722,7 @@ void MainWindow::on_filterButton_clicked()
     {
         queryWindow->close();
 
-        filterWindow->move(ui->filterButton->x() * 1.76,
+        filterWindow->move(ui->filterButton->x() * 1.6,
                            ui->filterButton->y() + ui->mainTableFrame->y() + 50);
         filterWindow->show();
     }

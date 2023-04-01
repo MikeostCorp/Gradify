@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::filterForm *ui;
+
 };
 
 #endif // FILTERFORM_H
