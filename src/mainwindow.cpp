@@ -151,16 +151,17 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
+    /*
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, [this]
     {
-        closeAllPopUpWindow();
+        //closeAllPopUpWindow();
     });
 
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, [this]
     {
-        closeAllPopUpWindow();
+        //closeAllPopUpWindow();
     });
-
+    */
 
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
@@ -292,9 +293,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     */
 
-    // debug pos click and pos filter
-    //QMessageBox::information(this,"","myY: " + QString::number(event->y()) + "filtY: " + QString::number(filterWindow->y()) +
-    //                         "\nmyX: " + QString::number(event->x()) + "filtX: " + QString::number(filterWindow->x()));
+    if (event->button() == Qt::LeftButton and filterWindow->isVisible() and !filterWindow->underMouse())
+    {
+        filterWindow->close();
+    }
 }
 
 
@@ -312,7 +314,7 @@ void MainWindow::on_studentsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -345,7 +347,7 @@ void MainWindow::on_teachersTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
@@ -379,7 +381,7 @@ void MainWindow::on_gradesTableButton_clicked()
     currentSelectTable = 2;
     ui->tableView->setModel(model);
 
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
@@ -411,7 +413,7 @@ void MainWindow::on_groupsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -443,7 +445,7 @@ void MainWindow::on_subjectsTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
 
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     clearStyleButtonTable();
     updateFilterComboBox();
     ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -467,7 +469,7 @@ void MainWindow::clearSelectTable()
     model->select();
     ui->tableView->setModel(model);
     currentSelectTable = -1;
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 
 
     //ui->filterComboBox->clear();
@@ -652,13 +654,13 @@ void MainWindow::on_settingsButton_clicked()
 {
     settingWindow->show();
     authorizationWindow->close();
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_authorizationButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 
     if (!isLogin)
     {
@@ -687,7 +689,7 @@ void MainWindow::on_authorizationButton_clicked()
 
 void MainWindow::on_addRowButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     model->insertRow(model->rowCount());
     ui->tableView->scrollToBottom();
     ui->tableView->selectRow(model->rowCount() - 1);
@@ -696,7 +698,7 @@ void MainWindow::on_addRowButton_clicked()
 
 void MainWindow::on_deleteRowButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 
     bool ok;
     int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
@@ -715,7 +717,7 @@ void MainWindow::on_deleteRowButton_clicked()
 
 void MainWindow::on_editRowButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 
@@ -757,7 +759,7 @@ void MainWindow::on_queryButton_clicked()
 
 void MainWindow::on_searchLineEdit_editingFinished()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
@@ -790,12 +792,12 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 void MainWindow::on_tableView_pressed()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
@@ -808,37 +810,37 @@ void MainWindow::on_tableView_pressed()
 
 void MainWindow::on_currentTableReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_studentsReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_teachersReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_gradesReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_groupsReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_subjectsReportButton_clicked()
 {
-    closeAllPopUpWindow();
+    //closeAllPopUpWindow();
 }
 
 
