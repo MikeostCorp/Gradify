@@ -151,20 +151,7 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
-    /*
-    connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, [this]
-    {
-        //closeAllPopUpWindow();
-    });
-
-    connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, [this]
-    {
-        //closeAllPopUpWindow();
-    });
-    */
-
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
-
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
@@ -288,9 +275,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             and filterWindow->isVisible()
             and (event->pos().x() < filterWindow->pos().x() or event->pos().x() > (filterWindow->pos().x() + filterWindow->width())))
             or (event->y() < filterWindow->y() or event->y() > filterWindow->y() + filterWindow->height())) //or event->pos().y() > (filterWindow->pos().y() + filterWindow->height())))
-    {
-        filterWindow->close();
-    }
+
     */
 
     if (event->button() == Qt::LeftButton and filterWindow->isVisible() and !filterWindow->underMouse())
@@ -330,6 +315,8 @@ void MainWindow::on_studentsTableButton_clicked()
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
+
+
 }
 
 
@@ -736,6 +723,8 @@ void MainWindow::on_filterButton_clicked()
                            ui->filterButton->y() + ui->mainTableFrame->y() + 50);
         filterWindow->show();
 
+        filterWindow->clearFocus();
+        filterWindow->close();
     }
 }
 
