@@ -259,13 +259,12 @@ void MainWindow::changeEvent(QEvent *event)
     }
 }
 
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if (event->Close)
-    {
-        QApplication::closeAllWindows();
-    }
+    QApplication::closeAllWindows();
 }
+
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -281,6 +280,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton and filterWindow->isVisible() and !filterWindow->underMouse())
     {
         filterWindow->close();
+    }
+    else if (event->button() == Qt::LeftButton and queryWindow->isVisible() and !queryWindow->underMouse())
+    {
+        queryWindow->close();
     }
 }
 
