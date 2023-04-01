@@ -29,7 +29,9 @@ void MainWindow::mainWindowInit()
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
     filterWindow = new filterForm(this);
-    ui->filterButton->installEventFilter(this);
+    queryWindow = new queryForm(this);
+
+    //ui->filterButton->installEventFilter(this);
 
     currentSelectTable = -1;
     lastCurrentSelectTable = -1;
@@ -149,13 +151,24 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
+    connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, [this]
+    {
+        closeAllPopUpWindow();
+    });
+
+    connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, [this]
+    {
+        closeAllPopUpWindow();
+    });
+
+
     // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
 
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    succesfullyAuthorization("xyz"); // <- абьюз для ровных девелоперов
+    succesfullyAuthorization("XxX_Jopa_XxX"); // <- абьюз для ровных девелоперов
 
     //ui->filterConditionComboBox->insertSeparator(1);
 
@@ -463,8 +476,8 @@ void MainWindow::clearSelectTable()
 
 void MainWindow::closeAllPopUpWindow()
 {
-    // cюда ещё нужно будет добавить метод закрытия всплывающего окна с запросами
     filterWindow->close();
+    queryWindow->close();
 }
 
 
@@ -645,6 +658,8 @@ void MainWindow::on_settingsButton_clicked()
 
 void MainWindow::on_authorizationButton_clicked()
 {
+    closeAllPopUpWindow();
+
     if (!isLogin)
     {
         authorizationWindow->show();
@@ -672,6 +687,7 @@ void MainWindow::on_authorizationButton_clicked()
 
 void MainWindow::on_addRowButton_clicked()
 {
+    closeAllPopUpWindow();
     model->insertRow(model->rowCount());
     ui->tableView->scrollToBottom();
     ui->tableView->selectRow(model->rowCount() - 1);
@@ -680,6 +696,8 @@ void MainWindow::on_addRowButton_clicked()
 
 void MainWindow::on_deleteRowButton_clicked()
 {
+    closeAllPopUpWindow();
+
     bool ok;
     int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
                                               tr("Введіть номер ключового поля:"), row + 1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
@@ -697,11 +715,55 @@ void MainWindow::on_deleteRowButton_clicked()
 
 void MainWindow::on_editRowButton_clicked()
 {
+    closeAllPopUpWindow();
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 
+
+void MainWindow::on_filterButton_clicked()
+{
+    if (filterWindow->isVisible())
+    {
+        filterWindow->close();
+    }
+    else
+    {
+        queryWindow->close();
+
+        filterWindow->move(ui->filterButton->x() * 1.76,
+                           ui->filterButton->y() + ui->mainTableFrame->y() + 50);
+        filterWindow->show();
+
+    }
+}
+
+
+void MainWindow::on_queryButton_clicked()
+{
+    if (queryWindow->isVisible())
+    {
+        queryWindow->close();
+    }
+    else
+    {
+        filterWindow->close();
+
+        queryWindow->move(ui->queryButton->x() * 1.65,
+                           ui->queryButton->y() + ui->mainTableFrame->y() + 50);
+        queryWindow->show();
+
+    }
+}
+
+void MainWindow::on_searchLineEdit_editingFinished()
+{
+    closeAllPopUpWindow();
+}
+
+
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
+    /*
     if (object == ui->filterButton)
     {
         if (event->type() == QEvent::Enter)
@@ -709,7 +771,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
             if (!filterWindow->isVisible())
             {
                 filterWindow->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
-                                   ui->filterButton->pos().y() + 30);
+                                   ui->filterButton->pos().y() + 40);
                 filterWindow->show();
             }
             return true;
@@ -721,6 +783,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
     }
 
     return false;
+    */
 }
 
 
@@ -734,6 +797,7 @@ void MainWindow::on_tableView_pressed()
 {
     closeAllPopUpWindow();
 }
+
 
 //=========================================================
 //
@@ -1033,7 +1097,12 @@ void MainWindow::on_subjectsReportAction_triggered()
     on_subjectsReportButton_clicked();
 }
 
+
 void MainWindow::on_currentTableReportAction_triggered()
 {
     on_currentTableReportButton_clicked();
 }
+
+
+
+

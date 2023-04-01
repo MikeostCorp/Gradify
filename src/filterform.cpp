@@ -18,13 +18,3 @@ filterForm::~filterForm()
     delete ui;
 }
 
-void filterForm::enterEvent(QEnterEvent *event)
-{
-    activateWindow();
-}
-
-
-void filterForm::leaveEvent(QEvent *event)
-{
-    close();
-}

@@ -16,6 +16,7 @@
 #include <appsetting.h>
 #include <authorization.h>
 #include <filterform.h>
+#include <queryform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -134,11 +135,18 @@ private slots:
 
     void on_tableView_pressed();
 
+    void on_filterButton_clicked();
+
+    void on_searchLineEdit_editingFinished();
+
+    void on_queryButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;
     authorization *authorizationWindow;
     filterForm *filterWindow;
+    queryForm *queryWindow;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;
@@ -160,7 +168,6 @@ private:
     int lastCurrentSelectTable;
 
     bool isLogin;
-
 
 public slots:
     void setThemeUI(const QString style);

@@ -14,21 +14,24 @@ SOURCES += \
     filterform.cpp \
     main.cpp \
     mainwindow.cpp \
-    preloader.cpp
+    preloader.cpp \
+    queryform.cpp
 
 HEADERS += \
     appsetting.h \
     authorization.h \
     filterform.h \
     mainwindow.h \
-    preloader.h
+    preloader.h \
+    queryform.h
 
 FORMS += \
     appsetting.ui \
     authorization.ui \
     filterform.ui \
     mainwindow.ui \
-    preloader.ui
+    preloader.ui \
+    queryform.ui
 
 TARGET = Gradify
 

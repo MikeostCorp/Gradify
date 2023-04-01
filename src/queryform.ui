@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>filterForm</class>
- <widget class="QWidget" name="filterForm">
+ <class>queryForm</class>
+ <widget class="QWidget" name="queryForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,12 +12,6 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">filterForm
-{
-     background-color: rgb(12,53,64);
-}</string>
   </property>
   <widget class="QFrame" name="mainFrame">
    <property name="geometry">
@@ -52,7 +46,7 @@ border-radius: 9px;
      </rect>
     </property>
     <property name="text">
-     <string>TEST FILTER</string>
+     <string>Я УБЛЮДАК</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -65,7 +59,7 @@ border-radius: 9px;
      </rect>
     </property>
     <property name="text">
-     <string>DEUTHCLAND</string>
+     <string>Запрос кнопка</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -78,7 +72,7 @@ border-radius: 9px;
      </rect>
     </property>
     <property name="text">
-     <string>LINEDIT</string>
+     <string>попа попа попа</string>
     </property>
    </widget>
   </widget>
