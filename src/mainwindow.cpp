@@ -722,9 +722,6 @@ void MainWindow::on_filterButton_clicked()
         filterWindow->move(ui->filterButton->x() * 1.76,
                            ui->filterButton->y() + ui->mainTableFrame->y() + 50);
         filterWindow->show();
-
-        filterWindow->clearFocus();
-        filterWindow->close();
     }
 }
 
