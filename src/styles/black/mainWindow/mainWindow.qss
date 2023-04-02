@@ -172,6 +172,7 @@ QTableView
    color: white;
    border: 0px;
    border-radius: 6px;
+   gridline-color: rgb(20,22,23);
 }
 
 QTableView QLineEdit
@@ -334,23 +335,32 @@ QScrollBar::sub-line:horizontal:pressed
 
 
 
-QPushButton#filterPushButton
+QFrame#filterMainFrame,
+QFrame#queryMainFrame
 {
     border-radius: 6px;
-    background-color: rgb(51, 55, 58);
     color: white;
-}
-
-QPushButton#filterPushButton:hover
-{
     background-color: rgb(61, 65, 68);
 }
 
-QFrame#mainFrame
+QPushButton#filterPushButton,
+QPushButton#succesStudentPushButton,
+QPushButton#avgScorePushButton,
+QPushButton#freePushButton,
+QPushButton#mySQLPushButton
 {
-    background-color: rgb(81, 85, 88);
-    border: 0px;
     border-radius: 8px;
+    background-color: rgb(81, 85, 88);
+    color: white;
+}
+
+QPushButton#filterPushButton:hover,
+QPushButton#succesStudentPushButton:hover,
+QPushButton#avgScorePushButton:hover,
+QPushButton#freePushButton:hover,
+QPushButton#mySQLPushButton:hover
+{
+    background-color: rgb(91, 95, 98);
 }
 
 QLineEdit#conditionLineEdit
@@ -365,16 +375,16 @@ QLineEdit#conditionLineEdit
 QComboBox#tableComboBox,
 QComboBox#conditionComboBox
 {
-    background-color: rgb(101, 105, 108);
+    background-color: rgb(81, 85, 88);
     color: rgb(255, 255, 255);
-    border: 2px solid rgb(101, 105, 108);
+    border: 2px solid rgb(81, 85, 88);
     border-radius: 6px;
 }
 
 QComboBox#tableComboBox:editable,
 QComboBox#conditionComboBox:editable
 {
-    background-color: rgb(101, 105, 108);
+    background-color: rgb(81, 85, 88);
 }
 
 QComboBox#tableComboBox::hover,
@@ -386,7 +396,7 @@ QComboBox#conditionComboBox::hover
 QComboBox#tableComboBox::drop-down,
 QComboBox#conditionComboBox::drop-down
 {
-    background-color: rgb(101, 105, 108);
+    background-color: rgb(81, 85, 88);
     color: rgb(255, 255, 255);
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
@@ -421,15 +431,12 @@ QComboBox#tableComboBox QAbstractItemView,
 QComboBox#conditionComboBox QAbstractItemView
 {
   color: white;
-  background-color: rgb(101, 105, 108);
+  background-color: rgb(50, 50, 50);
   border: none;
   border-radius: 6px;
 }
 
 QComboBox#tableComboBox QAbstractItemView::item:hover,
-QComboBox QAbstractItemView::item:hover
-QComboBox#conditionComboBox QAbstractItemView::item:hover
 {
-    dont-work-this;
     background-color: red;
 }

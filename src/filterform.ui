@@ -19,7 +19,7 @@
      background-color: rgb(12,53,64);
 }</string>
   </property>
-  <widget class="QFrame" name="mainFrame">
+  <widget class="QFrame" name="filterMainFrame">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -138,7 +138,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Фільтруваті</string>
+     <string>Фільтрувати</string>
     </property>
    </widget>
   </widget>

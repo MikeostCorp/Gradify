@@ -243,6 +243,7 @@ QTableView
    color: rgb(61, 60, 59);
    border: 0px;
    border-radius: 6px;
+   gridline-color: rgb(85,85,85);
 }
 
 QTableView QLineEdit

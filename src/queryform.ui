@@ -6,29 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
-    <height>150</height>
+    <width>220</width>
+    <height>130</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QFrame" name="mainFrame">
+  <widget class="QFrame" name="queryMainFrame">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>150</width>
-     <height>150</height>
+     <width>220</width>
+     <height>130</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">#mainFrame
-{
-background-color: rgb(123, 132, 123);
-border: 0px;
-border-radius: 9px;
-}</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -36,43 +31,56 @@ border-radius: 9px;
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="avgScorePushButton">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Я УБЛЮДАК</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Запрос кнопка</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>110</y>
-      <width>113</width>
+      <x>10</x>
+      <y>40</y>
+      <width>201</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>попа попа попа</string>
+     <string>По середньому балу групи</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="succesStudentPushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>По успішності студента</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="freePushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>free porn</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mySQLPushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Свій SQL-запит</string>
     </property>
    </widget>
   </widget>
