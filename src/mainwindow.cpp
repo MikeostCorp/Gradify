@@ -744,7 +744,7 @@ void MainWindow::on_queryButton_clicked()
     {
         filterWindow->close();
 
-        queryWindow->move(ui->queryButton->x() * 1.865,
+        queryWindow->move(ui->queryButton->x() * 1.864,
                            ui->queryButton->y() + ui->mainTableFrame->y() + 45);
         queryWindow->show();
 
