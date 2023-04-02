@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QInputDialog>
-#include <QThread>
+#include <QGraphicsDropShadowEffect>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,6 +30,9 @@ void MainWindow::mainWindowInit()
     authorizationWindow = new authorization();
     filterWindow = new filterForm(this);
     queryWindow = new queryForm(this);
+
+    filterWindow->setGraphicsEffect(paintDropShadowEffect());
+    queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
     //ui->filterButton->installEventFilter(this);
 
@@ -163,6 +166,8 @@ void MainWindow::mainWindowInit()
     //ui->filterConditionComboBox->setVisible(false);
     //ui->filterComboBox->setVisible(false);
     //ui->filterButton->setVisible(false);
+
+
 
 
 
@@ -722,8 +727,8 @@ void MainWindow::on_filterButton_clicked()
     {
         queryWindow->close();
 
-        filterWindow->move(ui->filterButton->x() * 1.6,
-                           ui->filterButton->y() + ui->mainTableFrame->y() + 50);
+        filterWindow->move(ui->filterButton->x() * 2,
+                           ui->filterButton->y() + ui->mainTableFrame->y() + 45);
         filterWindow->show();
     }
 }
@@ -739,12 +744,23 @@ void MainWindow::on_queryButton_clicked()
     {
         filterWindow->close();
 
-        queryWindow->move(ui->queryButton->x() * 1.65,
-                           ui->queryButton->y() + ui->mainTableFrame->y() + 50);
+        queryWindow->move(ui->queryButton->x() * 1.86,
+                           ui->queryButton->y() + ui->mainTableFrame->y() + 45);
         queryWindow->show();
 
     }
 }
+
+
+QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
+{
+    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
+    effect->setBlurRadius(25);
+    effect->setColor(QColor(15, 15, 15));
+    effect->setOffset(QPointF(0, 0));
+    return effect;
+}
+
 
 void MainWindow::on_searchLineEdit_editingFinished()
 {

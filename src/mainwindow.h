@@ -12,6 +12,7 @@
 #include <QSqlTableModel>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QGraphicsDropShadowEffect>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -141,6 +142,8 @@ private slots:
 
     void on_queryButton_clicked();
 
+    QGraphicsDropShadowEffect *paintDropShadowEffect();
+
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;
@@ -162,6 +165,8 @@ private:
 
     QMessageBox logoutMessageBox;
     QPushButton *yesButton;
+
+    QGraphicsDropShadowEffect *effect;
 
     int row;
     int currentSelectTable;

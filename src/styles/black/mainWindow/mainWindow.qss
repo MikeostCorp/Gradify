@@ -426,8 +426,9 @@ QComboBox#conditionComboBox QAbstractItemView
   border-radius: 6px;
 }
 
-QComboBox#tableComboBox QAbstractItemView::hover,
-QComboBox#conditionComboBox QAbstractItemView::item::hover
+QComboBox#tableComboBox QAbstractItemView::item:hover,
+QComboBox QAbstractItemView::item:hover
+QComboBox#conditionComboBox QAbstractItemView::item:hover
 {
     dont-work-this;
     background-color: red;

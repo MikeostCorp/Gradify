@@ -3,6 +3,8 @@
 
 #include <QPainterPath>
 #include <QPainter>
+#include <QVBoxLayout>
+#include <QGraphicsDropShadowEffect>
 
 preloader::preloader(QWidget *parent) :
     QWidget(parent),
@@ -11,6 +13,7 @@ preloader::preloader(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlag(Qt::FramelessWindowHint, true);
+    setAttribute(Qt::WA_TranslucentBackground);
     setFixedSize(414,233);
     setWindowTitle("Preloader");
 
@@ -19,9 +22,57 @@ preloader::preloader(QWidget *parent) :
     pointToCenter.setY(190);
     move(pointToCenter);
 
+
+    //QVBoxLayout *lay = new QVBoxLayout(videoWidget);
+    //lay->addWidget(videoWidget);
+    //lay->setContentsMargins(10, 10, 10, 10);
+
+    //QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+    //shadow->setBlurRadius(9.0);
+    //shadow->setColor(QColor(99, 255, 255));
+    //shadow->setOffset(QPointF(8.0, 8.0));
+    //this->setGraphicsEffect(shadow);
+
+
+
+    //painter = QtGui.QPainter(self)
+    //        painter.begin(self)
+    //        painter.setBrush(QColor(255, 255, 255))
+    //        painter.setPen(Qt.NoPen)
+    //        painter.drawRoundedRect(self.rect(), 10.0, 10.0)
+    //        painter.end()
+
+    //QPainter painter(this);
+    //painter.begin(this);
+    //painter.setBrush(QColor(255, 255, 255));
+    //painter.setPen(Qt::NoPen);
+    //painter.drawRoundedRect(this->rect(), 10.0, 10.0);
+    //painter.end();
     //QPainterPath paintPath;
     //paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
     //setMask(paintPath.toFillPolygon().toPolygon());
+
+    //lay = QtWidgets.QVBoxLayout(self)
+    //lay.addWidget(window)
+    //lay.setContentsMargins(10, 10, 10, 10)
+
+    //QVBoxLayout *videoLay = new QVBoxLayout(this);
+    //videoLay->addWidget(videoWidget);
+    //videoLay->setContentsMargins(10, 10, 10, 10);
+
+    //painter = QtGui.QPainter(self)
+    //painter.setRenderHint(QtGui.QPainter.Antialiasing)
+    //painter.setBrush(QtGui.QColor(195, 195, 255))
+    //painter.setPen(QtCore.Qt.NoPen)
+    //painter.drawRoundedRect(self.rect(), 10.0, 10.0)
+
+    //QPainter *painter = new QPainter(this);
+    //painter->setRenderHint(QPainter::Antialiasing);
+    //painter->setBrush(QColor(195, 195 , 255));
+    //painter->setPen(Qt::NoPen);
+    //painter->drawRoundedRect(this->rect(), 10.0, 10.0);
+
+
 
     player = new QMediaPlayer(this);
     videoWidget = new QVideoWidget(this);
