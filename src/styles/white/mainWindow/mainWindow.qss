@@ -1,6 +1,6 @@
 MainWindow
 {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     color: white;
 }
 
@@ -57,7 +57,7 @@ QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
 QPushButton#queryButton:hover
 {
-    background-color: rgb(205, 205, 205);
+    background-color: rgb(215, 215, 215);
 }
 
 QPushButton#deleteRowButton:disabled,
@@ -142,76 +142,6 @@ QPushButton#settingsButton
     border-radius: 6px;
     background-color: rgb(231, 224, 223);
     color: rgb(61, 60, 59);
-}
-
-QComboBox#filterComboBox,
-QComboBox#filterConditionComboBox
-{
-    background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
-    border: 2px solid rgb(205, 205, 205);
-    border-radius: 6px;
-}
-
-QComboBox#filterComboBox:disabled,
-QComboBox#filterConditionComboBox:disabled
-{
-    color: #989898;
-}
-
-QComboBox#filterComboBox:editable,
-QComboBox#filterConditionComboBox:editable
-{
-    background-color: rgb(225, 225, 225);
-}
-
-QComboBox#filterComboBox::hover,
-QComboBox#filterConditionComboBox::hover
-{
-    border: 2px solid rgb(65, 105, 225);
-}
-
-QComboBox#filterComboBox::drop-down,
-QComboBox#filterConditionComboBox::drop-down
-{
-    background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
-    padding-right: 5px;
-}
-
-QComboBox#filterComboBox::separator,
-QComboBox#filterConditionComboBox::separator
-{
-    background-color: rgb(181, 185, 188);
-    height: 2px;
-    border: 8px solid white;
-}
-
-QComboBox#filterComboBox::down-arrow,
-QComboBox#filterConditionComboBox::down-arrow
-{
-   image:url(:/img/blackMenuIcon/downArrow.png);
-   width: 12px;
-   height: 12px;
-}
-
-QComboBox#filterComboBox::down-arrow:disabled,
-QComboBox#filterConditionComboBox::down-arrow:disabled
-{
-    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
-    width: 12px;
-    height: 12px;
-}
-
-QComboBox#filterComboBox QAbstractItemView,
-QComboBox#filterConditionComboBox QAbstractItemView
-{
-  color: white;
-  background-color: white;
-  border: none;
-  border-radius: 6px;
 }
 
 QHeaderView
@@ -402,4 +332,147 @@ QScrollBar::sub-line:horizontal:hover
 QScrollBar::sub-line:horizontal:pressed
 {
    background-color: rgb(161, 165, 168);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QFrame#filterMainFrame,
+QFrame#queryMainFrame
+{
+    border-radius: 6px;
+    color: rgb(61, 60, 59);
+    background-color: white;
+}
+
+QPushButton#filterPushButton,
+QPushButton#succesStudentPushButton,
+QPushButton#avgScorePushButton,
+QPushButton#freePushButton,
+QPushButton#mySQLPushButton
+{
+    border-radius: 8px;
+    background-color: rgb(225, 225, 225);
+    color: rgb(61, 60, 59);
+}
+
+QPushButton#filterPushButton:hover,
+QPushButton#succesStudentPushButton:hover,
+QPushButton#avgScorePushButton:hover,
+QPushButton#freePushButton:hover,
+QPushButton#mySQLPushButton:hover
+{
+    background-color: rgb(215, 215, 215);
+}
+
+QLineEdit#conditionLineEdit
+{
+    color: rgb(61, 60, 59);
+    background-color: rgb(225, 225, 225);
+    border: 0px;
+    padding-left: 5px;
+    border-radius: 8px;
+}
+
+QComboBox#tableComboBox,
+QComboBox#conditionComboBox
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(61, 60, 59);
+    border: 2px solid rgb(225, 225, 225);
+    border-radius: 6px;
+}
+
+QComboBox#tableComboBox:editable,
+QComboBox#conditionComboBox:editable
+{
+    background-color: rgb(225, 225, 225);
+}
+
+QComboBox#tableComboBox::hover,
+QComboBox#conditionComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox#tableComboBox::drop-down,
+QComboBox#conditionComboBox::drop-down
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(61, 60, 59);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox#tableComboBox::separator,
+QComboBox#conditionComboBox::separator
+{
+    background-color: rgb(181, 185, 188);
+    height: 2px;
+    border: 8px solid white;
+}
+
+QComboBox#tableComboBox::down-arrow,
+QComboBox#conditionComboBox::down-arrow
+{
+   image:url(:/img/blackMenuIcon/downArrow.png);
+   width: 12px;
+   height: 12px;
+}
+
+QComboBox#tableComboBox::down-arrow:disabled,
+QComboBox#conditionComboBox::down-arrow:disabled
+{
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox#tableComboBox QAbstractItemView,
+QComboBox#conditionComboBox QAbstractItemView
+{
+
+  color: rgb(61, 60, 59);
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+QLabel#queryLineLabel
+{
+    border: 0px;
+    background-color: rgb(193, 195, 197);
 }

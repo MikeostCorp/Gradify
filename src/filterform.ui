@@ -62,6 +62,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <item>
      <property name="text">
       <string>Оберіть колонку</string>
@@ -102,6 +105,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <item>
      <property name="text">
       <string>Оберіть умову</string>
@@ -136,6 +142,9 @@
       <width>211</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>Фільтрувати</string>

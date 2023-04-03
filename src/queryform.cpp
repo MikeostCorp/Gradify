@@ -1,7 +1,7 @@
 #include "queryform.h"
 #include "ui_queryform.h"
 
-#include <QFile>
+#include <QMessageBox>
 
 queryForm::queryForm(QWidget *parent) :
     QWidget(parent),
@@ -16,5 +16,11 @@ queryForm::queryForm(QWidget *parent) :
 queryForm::~queryForm()
 {
     delete ui;
+}
+
+
+void queryForm::on_mySQLPushButton_clicked()
+{
+    QMessageBox::information(this,"","hello negr!\nIt's test!");
 }
 

@@ -15,6 +15,9 @@ public:
     explicit queryForm(QWidget *parent = nullptr);
     ~queryForm();
 
+private slots:
+    void on_mySQLPushButton_clicked();
+
 private:
     Ui::queryForm *ui;
 

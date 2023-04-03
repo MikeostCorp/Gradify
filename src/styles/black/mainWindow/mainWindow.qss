@@ -47,8 +47,8 @@ QPushButton#filterButton,
 QPushButton#queryButton
 {
     border-radius: 6px;
-    background-color: rgb(76, 79, 82);
-    color: rgb(255, 255, 255);
+    background-color: rgb(76, 80, 83);
+    color: white;
 }
 
 QPushButton#deleteRowButton:hover,
@@ -57,7 +57,7 @@ QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
 QPushButton#queryButton:hover
 {
-    background-color: rgb(81, 84, 87);
+    background-color: rgb(86, 90, 93);
 }
 
 QPushButton#deleteRowButton:disabled,
@@ -87,7 +87,7 @@ QPushButton#currentTableReportButton
     background-position: 10px center;
     border-radius: 6px;
     background-color: rgb(41, 45, 48);
-    color: rgb(255, 255, 255);
+    color: white;
 }
 
 QPushButton#studentsTableButton:hover,
@@ -127,7 +127,7 @@ QPushButton#authorizationButton
     qproperty-icon: url(:/img/whiteMenuIcon/inLog.png);
     border-radius: 6px;
     background-color: rgb(65, 105, 225);
-    color: rgb(255, 255, 255);
+    color: white;
 }
 
 QPushButton#authorizationButton:hover
@@ -141,7 +141,7 @@ QPushButton#settingsButton
     padding-left: 25px;
     border-radius: 6px;
     background-color: rgb(41, 45, 48);
-    color: rgb(255, 255, 255);
+    color: white;
 }
 
 QHeaderView
@@ -333,8 +333,6 @@ QScrollBar::sub-line:horizontal:pressed
     background-color: rgb(111, 115, 118);
 }
 
-
-
 QFrame#filterMainFrame,
 QFrame#queryMainFrame
 {
@@ -376,7 +374,7 @@ QComboBox#tableComboBox,
 QComboBox#conditionComboBox
 {
     background-color: rgb(81, 85, 88);
-    color: rgb(255, 255, 255);
+    color: white;
     border: 2px solid rgb(81, 85, 88);
     border-radius: 6px;
 }
@@ -397,7 +395,7 @@ QComboBox#tableComboBox::drop-down,
 QComboBox#conditionComboBox::drop-down
 {
     background-color: rgb(81, 85, 88);
-    color: rgb(255, 255, 255);
+    color: white;
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
     padding-right: 5px;
@@ -436,7 +434,8 @@ QComboBox#conditionComboBox QAbstractItemView
   border-radius: 6px;
 }
 
-QComboBox#tableComboBox QAbstractItemView::item:hover,
+QLabel#queryLineLabel
 {
-    background-color: red;
+    border: 0px;
+    background-color: grey;
 }

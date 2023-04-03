@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>220</width>
-    <height>130</height>
+    <height>140</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>220</width>
-     <height>130</height>
+     <height>140</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -36,9 +36,18 @@
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>201</width>
+      <width>200</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>По середньому балу групи</string>
@@ -49,9 +58,18 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>201</width>
+      <width>200</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>По успішності студента</string>
@@ -62,25 +80,59 @@
      <rect>
       <x>10</x>
       <y>70</y>
-      <width>201</width>
+      <width>200</width>
       <height>21</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
-     <string>free porn</string>
+     <string>по Free porn</string>
     </property>
    </widget>
    <widget class="QPushButton" name="mySQLPushButton">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>100</y>
-      <width>201</width>
+      <y>110</y>
+      <width>200</width>
       <height>21</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>Свій SQL-запит</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="queryLineLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>200</width>
+      <height>3</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
