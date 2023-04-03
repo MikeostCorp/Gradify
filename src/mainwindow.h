@@ -32,7 +32,6 @@ public:
     ~MainWindow();
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
-    bool eventFilter(QObject *object, QEvent *event) override;
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;

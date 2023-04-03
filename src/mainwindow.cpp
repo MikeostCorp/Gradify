@@ -768,37 +768,12 @@ void MainWindow::on_searchLineEdit_editingFinished()
 }
 
 
-bool MainWindow::eventFilter(QObject *object, QEvent *event)
-{
-    /*
-    if (object == ui->filterButton)
-    {
-        if (event->type() == QEvent::Enter)
-        {
-            if (!filterWindow->isVisible())
-            {
-                filterWindow->move(ui->filterButton->pos().x() + ui->controlTableFrame->pos().x() * 15,
-                                   ui->filterButton->pos().y() + 40);
-                filterWindow->show();
-            }
-            return true;
-        }
-        else if (event->type() == QEvent::Leave)
-        {
-            if (!filterWindow->underMouse()) filterWindow->close();
-        }
-    }
-
-    return false;
-    */
-}
-
-
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
     //closeAllPopUpWindow();
 }
+
 
 void MainWindow::on_tableView_pressed()
 {
@@ -1109,7 +1084,3 @@ void MainWindow::on_currentTableReportAction_triggered()
 {
     on_currentTableReportButton_clicked();
 }
-
-
-
-
