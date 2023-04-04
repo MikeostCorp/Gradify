@@ -6,6 +6,8 @@
 #include <QDir>
 #include <QInputDialog>
 #include <QGraphicsDropShadowEffect>
+#include <QKeyEvent>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -154,7 +156,48 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
-    // ИЛИ ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
+
+    //ui->tableView->setAttribute(Qt::WA_TransparentForMouseEvents, true); <- таблица вообще не работает
+    //                                                                        но подчиняктся маусЭвентам
+
+    //QButtonGroup *groupButt;
+    //groupButt->addButton(ui->addRowButton, 0);
+
+    //connect(groupButt, &QButtonGroup::buttonClicked, this, &MainWindow::closeAllPopUpWindow);
+
+    //connect(ui->tableView, &QHeader::, this, SLOT(closeAllPopUpWindow()));
+
+    //connect(ui->tableView, &QTableView::clicked, this, &MainWindow::closeAllPopUpWindow);
+
+    //connect(ui->tableView, &QTableView::pressed, this, &MainWindow::closeAllPopUpWindow);
+    //connect(ui->tableView, &QTableView::entered, this, &MainWindow::closeAllPopUpWindow);
+
+    //
+    //connect(ui->editRowButton, &QAbstractButton::clicked, this, &MainWindow::closeAllPopUpWindow);
+
+
+    //connect(contentsWidget,
+    //            SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
+    //            this, SLOT(changePage(QListWidgetItem *, QListWidgetItem*)));
+
+
+    // works: connect(ui->tableView, SIGNAL(pressed(QModelIndex)), this, SLOT(closeAllPopUpWindow()));
+    //ui->tableView->installEventFilter(this);
+   // works: connect(ui->tableView, &QAbstractItemView::pressed, this, &MainWindow::closeAllPopUpWindow);
+
+
+    // works: connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(closeAllPopUpWindow()));//MainWindow::closeAllPopUpWindow);
+
+    //ui->tableView->installEventFilter(this);
+
+    //connect(ui->tableView, &QAbstractItemView::pressed, this, &MainWindow::closeAllPopUpWindow);
+    //connect(ui->tableView, &QAbstractHeaderView::, this, &MainWindow::closeAllPopUpWindow);
+    //connect(ui.categoriesTree,SIGNAL(keyPressEvent(QKe yEvent*)),this,SLOT(FilesKeyPressEvent(QKeyEvent*) ));
+
+    //connect(ui->tableView, SIGNAL(QKeyEvent), this, &MainWindow::closeAllPopUpWindow);
+
+    // ui->tableView->QFrame.hasTabletTracking();
+    // ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
@@ -162,7 +205,6 @@ void MainWindow::mainWindowInit()
     succesfullyAuthorization("XxX_Jopa_XxX"); // <- абьюз для ровных девелоперов
 
     //ui->filterConditionComboBox->insertSeparator(1);
-
     //ui->filterConditionComboBox->setVisible(false);
     //ui->filterComboBox->setVisible(false);
     //ui->filterButton->setVisible(false);
@@ -279,6 +321,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             and filterWindow->isVisible()
             and (event->pos().x() < filterWindow->pos().x() or event->pos().x() > (filterWindow->pos().x() + filterWindow->width())))
             or (event->y() < filterWindow->y() or event->y() > filterWindow->y() + filterWindow->height())) //or event->pos().y() > (filterWindow->pos().y() + filterWindow->height())))
+
 
     */
 
