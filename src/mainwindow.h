@@ -87,8 +87,6 @@ private slots:
 
     void setEnabledEditButton(bool status);
 
-    void updateFilterComboBox();
-
     void on_addRowAction_triggered();
 
     void on_deleteRowAction_triggered();
@@ -143,6 +141,8 @@ private slots:
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
+    QStringList getAllColumnNames();
+
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;
@@ -169,16 +169,17 @@ private:
 
     int row;
     int currentSelectTable;
-    int lastCurrentSelectTable;
 
     bool isLogin;
 
 public slots:
     void setThemeUI(const QString style);
     void succesfullyAuthorization(const QString login);
+    void setFilterForTable(const QString filterQuery);
 
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
+    void setTableForFilter(const QStringList);
 };
 #endif // MAINWINDOW_H

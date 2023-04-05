@@ -18,6 +18,14 @@ public:
 private:
     Ui::filterForm *ui;
 
+public slots:
+    void setListTable(const QStringList tableList);
+
+signals:
+    void sendFilter(const QString);
+
+private slots:
+    void on_filterPushButton_clicked();
 };
 
 #endif // FILTERFORM_H
