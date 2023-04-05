@@ -27,3 +27,4 @@ Gradify also provides quick access to student information through a user-friendl
 - [ ] User remembering during authorization
 - [ ] Separate forms for editing posts
 - [ ] Filter buttons in the table
+- [ ] Ability to save the report in .html format, with a choice of saving path
