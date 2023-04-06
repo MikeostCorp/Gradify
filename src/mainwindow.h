@@ -143,6 +143,9 @@ private slots:
 
     QStringList getAllColumnNames();
 
+
+    void on_about_triggered();
+
 private:
     Ui::MainWindow *ui;
     appSetting *settingWindow;

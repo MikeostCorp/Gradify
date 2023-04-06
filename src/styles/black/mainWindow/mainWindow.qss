@@ -47,7 +47,7 @@ QPushButton#filterButton,
 QPushButton#queryButton
 {
     border-radius: 6px;
-    background-color: rgb(76, 80, 83);
+    background-color: rgb(47, 48, 49);
     color: white;
 }
 
@@ -57,7 +57,7 @@ QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
 QPushButton#queryButton:hover
 {
-    background-color: rgb(86, 90, 93);
+    background-color: rgb(57, 58, 59);
 }
 
 QPushButton#deleteRowButton:disabled,
@@ -67,7 +67,7 @@ QPushButton#filterButton:disabled,
 QPushButton#queryButton:disabled
 {
     color: #989898;
-    background-color: rgb(71, 75, 78);
+    background-color: rgb(51, 55, 58);
 }
 
 QPushButton#studentsTableButton,

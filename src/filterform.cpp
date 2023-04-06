@@ -1,8 +1,7 @@
 #include "filterform.h"
 #include "ui_filterform.h"
 
-#include <QFile>
-#include <QGraphicsDropShadowEffect>
+#include <QMessageBox>
 
 
 filterForm::filterForm(QWidget *parent) :
@@ -13,6 +12,8 @@ filterForm::filterForm(QWidget *parent) :
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(width(), height());
     close();
+
+    ui->conditionComboBox->insertSeparator(1);
 }
 
 
@@ -40,5 +41,11 @@ void filterForm::on_filterPushButton_clicked()
     // и потом врубать висибл второго эдита
 
     emit sendFilter(ui->tableComboBox->currentText());
+}
+
+
+void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
+{
+    QMessageBox::information(this,"", arg1);
 }
 

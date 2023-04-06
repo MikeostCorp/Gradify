@@ -1152,6 +1152,13 @@
     </property>
     <addaction name="openManual"/>
    </widget>
+   <widget class="QMenu" name="menuGeneral">
+    <property name="title">
+     <string>Gradify</string>
+    </property>
+    <addaction name="about"/>
+   </widget>
+   <addaction name="menuGeneral"/>
    <addaction name="menuWork"/>
    <addaction name="menuTables"/>
    <addaction name="menuReport"/>
@@ -1301,6 +1308,14 @@
    </property>
    <property name="shortcut">
     <string>Meta+Ctrl+1</string>
+   </property>
+  </action>
+  <action name="about">
+   <property name="text">
+    <string>Про Gradify</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>

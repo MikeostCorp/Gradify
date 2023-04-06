@@ -1129,3 +1129,11 @@ void MainWindow::on_currentTableReportAction_triggered()
 {
     on_currentTableReportButton_clicked();
 }
+
+
+void MainWindow::on_about_triggered()
+{
+    // Message for about to Gradiy
+    QMessageBox::information(this,"","232");
+}
+

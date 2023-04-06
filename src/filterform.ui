@@ -115,22 +115,37 @@
     </item>
     <item>
      <property name="text">
-      <string>sda</string>
+      <string>&lt;</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>asas</string>
+      <string>&gt;</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>dd</string>
+      <string>&lt;=</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>a</string>
+      <string>&gt;=</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>==</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>like</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>between</string>
      </property>
     </item>
    </widget>

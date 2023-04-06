@@ -26,6 +26,7 @@ signals:
 
 private slots:
     void on_filterPushButton_clicked();
+    void on_conditionComboBox_currentTextChanged(const QString &arg1);
 };
 
 #endif // FILTERFORM_H
