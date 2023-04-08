@@ -365,9 +365,14 @@ QLineEdit#conditionLineEdit
 {
     color: white;
     background-color: rgb(47, 48, 49);
-    border: 0px;
+    border: 2px solid rgb(47, 48, 49);
     padding-left: 5px;
     border-radius: 8px;
+}
+
+QLineEdit#conditionLineEdit::focus
+{
+    border-color: rgb(65, 105, 225);
 }
 
 QComboBox#tableComboBox,
@@ -407,6 +412,12 @@ QComboBox#conditionComboBox::separator
     background-color: rgb(101, 105, 108);
     height: 2px;
     border: 8px solid rgb(50, 50, 50);
+}
+
+QComboBox#tableComboBox::focus,
+QComboBox#conditionComboBox::focus
+{
+    border-color: rgb(196, 30, 58);
 }
 
 QComboBox#tableComboBox::down-arrow,

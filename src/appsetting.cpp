@@ -15,6 +15,14 @@ appSetting::appSetting(QWidget *parent) :
     close();
 
     setMinimumSize(width(), height());
+
+
+    // setting for connection another db!
+    // experemental
+    QString hostNameDB;
+    QString userNameDB;
+    QString passwordDB;
+    QString databaseNameDB;
 }
 
 appSetting::~appSetting()

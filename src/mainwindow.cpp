@@ -165,34 +165,7 @@ void MainWindow::mainWindowInit()
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
-    // temp musor
-    //connect(ui->tableView, QEvent::FocusIn, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView->isCornerButtonEnabled(), &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView->horizontalScrollBar, &QScrollEvent, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView, &QHorizontalHeader: , this, &MainWindow::closeAllPopUpWindow);
-    //ui->tableView->setAttribute(Qt::WA_TransparentForMouseEvents, true); <- таблица вообще не работает
-    //                                                                        но подчиняктся маусЭвентам
-    //QButtonGroup *groupButt;
-    //groupButt->addButton(ui->addRowButton, 0);
-    //connect(groupButt, &QButtonGroup::buttonClicked, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView, &QHeader::, this, SLOT(closeAllPopUpWindow()));
-    //connect(ui->tableView, &QTableView::clicked, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView, &QTableView::pressed, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView, &QTableView::entered, this, &MainWindow::closeAllPopUpWindow);
-    //
-    //connect(ui->editRowButton, &QAbstractButton::clicked, this, &MainWindow::closeAllPopUpWindow);
-    //connect(contentsWidget,
-    //            SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-    //            this, SLOT(changePage(QListWidgetItem *, QListWidgetItem*)));
-    // works: connect(ui->tableView, SIGNAL(pressed(QModelIndex)), this, SLOT(closeAllPopUpWindow()));
-    //ui->tableView->installEventFilter(this);
-    // works: connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(closeAllPopUpWindow()));//MainWindow::closeAllPopUpWindow);
-    //ui->tableView->installEventFilter(this);
-    //connect(ui->tableView, &QAbstractItemView::pressed, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui->tableView, &QAbstractHeaderView::, this, &MainWindow::closeAllPopUpWindow);
-    //connect(ui.categoriesTree,SIGNAL(keyPressEvent(QKe yEvent*)),this,SLOT(FilesKeyPressEvent(QKeyEvent*) ));
-    //connect(ui->tableView, SIGNAL(QKeyEvent), this, &MainWindow::closeAllPopUpWindow);
-    // ui->tableView->QFrame.hasTabletTracking();
+
 
     // ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
     setEnabledButtons(false);  // <- для абьюзинга системы ставь true
@@ -201,10 +174,7 @@ void MainWindow::mainWindowInit()
 
     succesfullyAuthorization("XxX_Jopa_XxX"); // <- абьюз для ровных девелоперов
 
-    //ui->filterConditionComboBox->insertSeparator(1);
-    //ui->filterConditionComboBox->setVisible(false);
-    //ui->filterComboBox->setVisible(false);
-    //ui->filterButton->setVisible(false);
+
 
 
 
@@ -312,16 +282,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    // Условие ещё нужно будет править как будет окно sql запросов
-    /*
-    if ((event->button() == Qt::LeftButton
-            and filterWindow->isVisible()
-            and (event->pos().x() < filterWindow->pos().x() or event->pos().x() > (filterWindow->pos().x() + filterWindow->width())))
-            or (event->y() < filterWindow->y() or event->y() > filterWindow->y() + filterWindow->height())) //or event->pos().y() > (filterWindow->pos().y() + filterWindow->height())))
-
-
-    */
-
     if (event->button() == Qt::LeftButton and filterWindow->isVisible() and !filterWindow->underMouse())
     {
         filterWindow->close();
@@ -364,7 +324,7 @@ void MainWindow::on_studentsTableButton_clicked()
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames());
+    emit setTableForFilter(getAllColumnNames(), "Студенти");
 }
 
 
@@ -398,7 +358,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames());
+    emit setTableForFilter(getAllColumnNames(), "Викладачі");
 }
 
 
@@ -434,7 +394,7 @@ void MainWindow::on_gradesTableButton_clicked()
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames());
+    emit setTableForFilter(getAllColumnNames(), "Оцінки");
 }
 
 
@@ -468,7 +428,7 @@ void MainWindow::on_groupsTableButton_clicked()
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames());
+    emit setTableForFilter(getAllColumnNames(), "Групи");
 }
 
 
@@ -502,7 +462,7 @@ void MainWindow::on_subjectsTableButton_clicked()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames());
+    emit setTableForFilter(getAllColumnNames(), "Предмет");
 }
 
 
@@ -513,11 +473,8 @@ void MainWindow::clearSelectTable()
     ui->tableView->setModel(model);
     currentSelectTable = -1;
     closeAllPopUpWindow();
-
-
-    //ui->filterComboBox->clear();
-    //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
 }
+
 
 void MainWindow::closeAllPopUpWindow()
 {
@@ -639,9 +596,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
     ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
 
 
-    //ui->authorizationButton->setIcon(QIcon(":/img/blueMenuIcon/outLog.png"));
-    //ui->filterComboBox->insertItem(0, "Оберіть таблицю зліва");
-
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
@@ -650,9 +604,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
     db.setPassword("Password1");
     db.setDatabaseName("u838940490_Gradify");
 
-    db.setConnectOptions();
-
-
+    //db.setConnectOptions();
     //db.setConnectOptions("MYSQL_OPT_CONNECT_TIMEOUT = 90000;");
     //db.setConnectOptions("SET GLOBAL connect_timeout=28800");
     //db.setConnectOptions("SET GLOBAL interactive_timeout=28800");
@@ -662,6 +614,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
+    queryModel = new QSqlQueryModel(this);
+
     db.open();
 
     isLogin = true;
@@ -672,10 +626,13 @@ void MainWindow::succesfullyAuthorization(const QString login)
 }
 
 
-void MainWindow::setFilterForTable(const QString filterQuery)
+void MainWindow::setFilterForTable(const QString filterQuery, const int selectFilterColumn)
 {
-    // присваиваем фильтер для таблицы
-    QMessageBox::information(this,"","hello negr!\nYou select this table: " + filterQuery);
+    //test query
+    //queryModel->setQuery("SELECT `Студенти`.* FROM `Студенти` WHERE `Студенти`.`Номер телефона` = 49545444");
+    queryModel->setQuery(filterQuery);
+    ui->tableView->setModel(queryModel);
+    ui->tableView->selectColumn(selectFilterColumn);
 }
 
 
@@ -706,7 +663,6 @@ void MainWindow::on_authorizationButton_clicked()
             setEnabledEditButton(false);
             clearSelectTable();
             clearStyleButtonTable();
-            //ui->filterConditionComboBox->setCurrentIndex(0);
             ui->searchLineEdit->clear();
             setWindowTitle("Gradify");
             ui->authorizationButton->setText("Авторизація");

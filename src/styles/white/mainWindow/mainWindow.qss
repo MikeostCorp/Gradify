@@ -334,41 +334,6 @@ QScrollBar::sub-line:horizontal:pressed
    background-color: rgb(161, 165, 168);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 QFrame#filterMainFrame,
 QFrame#queryMainFrame
 {
@@ -401,9 +366,14 @@ QLineEdit#conditionLineEdit
 {
     color: rgb(61, 60, 59);
     background-color: rgb(225, 225, 225);
-    border: 0px;
+    border: 2px solid rgb(225, 225, 225);
     padding-left: 5px;
     border-radius: 8px;
+}
+
+QLineEdit#conditionLineEdit::focus
+{
+    border-color: rgb(65, 105, 225);
 }
 
 QComboBox#tableComboBox,
@@ -443,6 +413,12 @@ QComboBox#conditionComboBox::separator
     background-color: rgb(181, 185, 188);
     height: 2px;
     border: 8px solid white;
+}
+
+QComboBox#tableComboBox::focus,
+QComboBox#conditionComboBox::focus
+{
+    border-color: rgb(210, 4, 45);
 }
 
 QComboBox#tableComboBox::down-arrow,

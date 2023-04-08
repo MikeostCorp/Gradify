@@ -143,7 +143,6 @@ private slots:
 
     QStringList getAllColumnNames();
 
-
     void on_about_triggered();
 
 private:
@@ -163,6 +162,7 @@ private:
 
     QSqlDatabase db;
     QSqlQuery *query;
+    QSqlQueryModel *queryModel;
     QSqlTableModel *model;
 
     QMessageBox logoutMessageBox;
@@ -178,11 +178,11 @@ private:
 public slots:
     void setThemeUI(const QString style);
     void succesfullyAuthorization(const QString login);
-    void setFilterForTable(const QString filterQuery);
+    void setFilterForTable(const QString filterQuery, const int selectFilterColumn);
 
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
-    void setTableForFilter(const QStringList);
+    void setTableForFilter(const QStringList, const QString);
 };
 #endif // MAINWINDOW_H

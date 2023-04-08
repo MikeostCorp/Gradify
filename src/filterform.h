@@ -18,15 +18,22 @@ public:
 private:
     Ui::filterForm *ui;
 
+    QString currentTabelSelect;
+
 public slots:
-    void setListTable(const QStringList tableList);
+    void setListTable(const QStringList tableList, const QString tableName);
 
 signals:
-    void sendFilter(const QString);
+    void sendFilter(const QString, const int);
 
 private slots:
     void on_filterPushButton_clicked();
+
+    void on_tableComboBox_currentTextChanged(const QString &arg1);
+
     void on_conditionComboBox_currentTextChanged(const QString &arg1);
+
+    void on_conditionLineEdit_editingFinished();
 };
 
 #endif // FILTERFORM_H
