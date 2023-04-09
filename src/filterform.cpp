@@ -11,9 +11,8 @@ filterForm::filterForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(width(), height());
-    ui->conditionComboBox->insertSeparator(1);
-    currentTabelSelect = "NULL";
     ui->conditionLineEdit_2->setVisible(false);
+    currentTabelSelect = "NULL";
     close();
 }
 
@@ -24,11 +23,12 @@ filterForm::~filterForm()
 }
 
 
-void filterForm::setListTable(const QStringList tableList, const QString tableName)
+void filterForm::setListTable(QString tableName, const QMap<QString, QString> tableNameType)
 {
     if (currentTabelSelect != tableName)
     {
-        currentTabelSelect = tableName;
+        ui->conditionComboBox->setEnabled(false);
+        QStringList columnList = tableNameType.keys();
 
         ui->tableComboBox->clear();
         ui->conditionLineEdit->clear();
@@ -36,8 +36,11 @@ void filterForm::setListTable(const QStringList tableList, const QString tableNa
 
         ui->tableComboBox->addItem("Оберіть колонку", 0);
         ui->tableComboBox->insertSeparator(1);
-        ui->tableComboBox->addItems(tableList);
+        ui->tableComboBox->addItems(columnList);
         ui->conditionComboBox->setCurrentIndex(0);
+
+        currentTabelSelect = tableName;
+        typeColumnsMap = tableNameType;
     }
 }
 
@@ -46,9 +49,6 @@ void filterForm::setNormalLineEdit()
 {
     ui->conditionLineEdit->setPlaceholderText("Текст");
     ui->conditionLineEdit->resize(61, ui->conditionLineEdit->height());
-    //ui->conditionLineEdit->clear(); пока в коментирование, не удобно юзеру будет если он
-    //                                меняет условие то чистится и само значение условия
-
     ui->conditionLineEdit_2->setVisible(false);
     ui->conditionLineEdit_2->clear();
 }
@@ -56,7 +56,7 @@ void filterForm::setNormalLineEdit()
 
 void filterForm::on_filterPushButton_clicked()
 {
-    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0 and !ui->conditionLineEdit->text().isEmpty())
+    /*if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0 and !ui->conditionLineEdit->text().isEmpty())
     {
         QString strSqlFilter;
         strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
@@ -91,7 +91,7 @@ void filterForm::on_filterPushButton_clicked()
             }
         }
 
-        emit sendFilter(strSqlFilter, ui->tableComboBox->currentIndex() - 2);
+        emit sendFilter(strSqlFilter, ui->tableComboBox->currentIndex() - 1);
     }
 
     else if (ui->tableComboBox->currentIndex() == 0)
@@ -108,7 +108,7 @@ void filterForm::on_filterPushButton_clicked()
     {
         QMessageBox::critical(this,"","Введіть значення у умову фільтрування");
         ui->conditionLineEdit->setFocus();
-    }
+    }*/
 }
 
 
@@ -116,13 +116,14 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 {
     ui->conditionComboBox->clearFocus();
 
+    /*
     if (ui->conditionComboBox->currentText() == "<"
             or ui->conditionComboBox->currentText() == ">"
             or ui->conditionComboBox->currentText() == "<="
             or ui->conditionComboBox->currentText() == ">="
             or ui->conditionComboBox->currentText() == "=")
     {
-        ui->conditionLineEdit->setInputMask("DDDDDDDD");   // only numbers
+        ui->conditionLineEdit->setInputMask("DDD");
         setNormalLineEdit();
     }
     else if (ui->conditionComboBox->currentText() == "between")
@@ -141,8 +142,8 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 35,
                                       ui->conditionLineEdit->y());
 
-        ui->conditionLineEdit->setInputMask("DDDDDDDD");
-        ui->conditionLineEdit_2->setInputMask("DDDDDDDD");
+        ui->conditionLineEdit->setInputMask("DDD");
+        ui->conditionLineEdit_2->setInputMask("DDD");
 
     }
     else if (ui->conditionComboBox->currentText() == "like")
@@ -150,6 +151,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit->setInputMask("");
         setNormalLineEdit();
     }
+    */
 }
 
 
@@ -162,4 +164,65 @@ void filterForm::on_conditionLineEdit_editingFinished()
 void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
+
+    if (typeColumnsMap.value(arg1) == "string")
+    {
+        setStringTypeComboBox();
+    }
+    else if (typeColumnsMap.value(arg1) == "int")
+    {
+        setIntTypeComboBox();
+    }
+    else if (typeColumnsMap.value(arg1) == "date")
+    {
+        setDateTypeComboBox();
+    }
 }
+
+
+void filterForm::setIntTypeComboBox()
+{
+    ui->conditionComboBox->setEnabled(true);
+    ui->conditionComboBox->clear();
+    ui->conditionComboBox->addItem("Оберіть умову", 0);
+    ui->conditionComboBox->insertSeparator(1);
+    ui->conditionComboBox->addItem(">", 2);
+    ui->conditionComboBox->addItem("<", 3);
+    ui->conditionComboBox->addItem("<=", 4);
+    ui->conditionComboBox->addItem(">=", 5);
+    ui->conditionComboBox->addItem("=", 6);
+    ui->conditionComboBox->addItem("between", 7);
+
+    ui->conditionLineEdit->setValidator(new QIntValidator(0, 1000, this));
+    ui->conditionLineEdit->setInputMask("");
+}
+
+
+void filterForm::setStringTypeComboBox()
+{
+    ui->conditionComboBox->setEnabled(true);
+    ui->conditionComboBox->clear();
+    ui->conditionComboBox->addItem("Оберіть умову", 0);
+    ui->conditionComboBox->insertSeparator(1);
+    ui->conditionComboBox->addItem("like%", 2);
+    ui->conditionComboBox->addItem("%like", 3);
+    ui->conditionComboBox->addItem("%like%", 4);
+
+    ui->conditionLineEdit->setValidator(nullptr);
+    ui->conditionLineEdit->setInputMask("");
+}
+
+
+void filterForm::setDateTypeComboBox()
+{
+    ui->conditionComboBox->setEnabled(true);
+    ui->conditionComboBox->clear();
+    ui->conditionComboBox->addItem("Оберіть умову", 0);
+    ui->conditionComboBox->insertSeparator(1);
+    ui->conditionComboBox->addItem("like%", 2);
+
+    ui->conditionLineEdit->setValidator(nullptr); // мэйби темп
+    ui->conditionLineEdit->setInputMask("99.99.99");
+}
+
+

@@ -15,19 +15,6 @@ public:
     explicit filterForm(QWidget *parent = nullptr);
     ~filterForm();
 
-private:
-    Ui::filterForm *ui;
-
-    QString currentTabelSelect;
-
-public slots:
-    void setListTable(const QStringList tableList, const QString tableName);
-
-    void setNormalLineEdit();
-
-signals:
-    void sendFilter(const QString, const int);
-
 private slots:
     void on_filterPushButton_clicked();
 
@@ -36,6 +23,29 @@ private slots:
     void on_conditionComboBox_currentTextChanged(const QString &arg1);
 
     void on_conditionLineEdit_editingFinished();
+
+    void setNormalLineEdit();
+
+    void setIntTypeComboBox();
+
+    void setStringTypeComboBox();
+
+    void setDateTypeComboBox();
+
+private:
+    Ui::filterForm *ui;
+
+    QString currentTabelSelect;
+
+    QMap<QString, QString> typeColumnsMap;
+
+public slots:
+    void setListTable(QString tableName, const QMap<QString, QString> columnNameType);
+
+signals:
+    void sendFilter(const QString, const int);
+
+
 };
 
 #endif // FILTERFORM_H

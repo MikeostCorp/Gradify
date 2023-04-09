@@ -159,8 +159,6 @@ void MainWindow::mainWindowInit()
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
 
-
-    // click to table and close popUpMenu
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
@@ -318,7 +316,7 @@ void MainWindow::on_studentsTableButton_clicked()
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames(), "Студенти");
+    emit setTableForFilter("Студенти", getAllColumnNames());
 }
 
 
@@ -352,7 +350,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames(), "Викладачі");
+    emit setTableForFilter("Викладачі",getAllColumnNames());
 }
 
 
@@ -388,7 +386,7 @@ void MainWindow::on_gradesTableButton_clicked()
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames(), "Оцінки");
+    emit setTableForFilter("Оцінки", getAllColumnNames());
 }
 
 
@@ -422,7 +420,7 @@ void MainWindow::on_groupsTableButton_clicked()
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames(), "Групи");
+    emit setTableForFilter("Групи", getAllColumnNames());
 }
 
 
@@ -456,7 +454,7 @@ void MainWindow::on_subjectsTableButton_clicked()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
-    emit setTableForFilter(getAllColumnNames(), "Предмет");
+    emit setTableForFilter("Предмет", getAllColumnNames());
 }
 
 
@@ -726,20 +724,61 @@ QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
 }
 
 
-QStringList MainWindow::getAllColumnNames()
+QMap<QString, QString> MainWindow::getAllColumnNames()
 {
-    QStringList headerList;
+    QMap<QString,QString> headerListMap;
 
-    for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+    switch (currentSelectTable)
     {
-        headerList.append(ui->tableView->model()->headerData(i, Qt::Horizontal).toString());
+    case 0:
+        headerListMap.insert("Прізвище", "string");
+        headerListMap.insert("Ім'я", "string");
+        headerListMap.insert("По батькові", "string");
+        headerListMap.insert("Стать", "string");
+        headerListMap.insert("Дата народження", "date");
+        headerListMap.insert("Група", "string");
+        break;
+    case 1:
+        headerListMap.insert("Прізвище", "string");
+        headerListMap.insert("Ім'я", "string");
+        headerListMap.insert("По батькові", "string");
+        headerListMap.insert("Дата народження", "date");
+        headerListMap.insert("Категорія", "string");
+        headerListMap.insert("Спеціализація", "string");
+        break;
+    case 2:
+        headerListMap.insert("Предмет", "string");
+        headerListMap.insert("Отримувач", "string");
+        headerListMap.insert("Викладач", "string");
+        headerListMap.insert("Дата оцінки", "date");
+        break;
+    case 3:
+        headerListMap.insert("Назва", "string");
+        headerListMap.insert("Спеціальність", "string");
+        headerListMap.insert("Рік початку навчання", "string");
+        headerListMap.insert("Рік закінчення навчання", "string");
+        headerListMap.insert("Куратор", "string");
+        headerListMap.insert("Староста", "string");
+        break;
+    case 4:
+        headerListMap.insert("Назва", "string");
+        headerListMap.insert("Тип", "string");
+        headerListMap.insert("Всього годин", "int");
+        headerListMap.insert("Кількість лабораторних годин", "int");
+        headerListMap.insert("Кількість лекційних годин", "int");
+        headerListMap.insert("Кількість семінарних годин", "int");
+        headerListMap.insert("Кількість годин на самостійну роботу", "int");
+        headerListMap.insert("Семестр в якому вивчається", "int");
+        break;
     }
-    return headerList;
+
+    return headerListMap;
 }
 
 
 void MainWindow::on_searchLineEdit_editingFinished()
 {
+    // РЕАЛИЗАЦИЯ ПОИСКА ПО ВСЕМ КОЛОНКАМ, НЕ ЗАБЫТЬ СДЕЛАТЬ 9 КВІТНЯ!
     closeAllPopUpWindow();
 }
 

@@ -143,7 +143,7 @@ private slots:
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
-    QStringList getAllColumnNames();
+    QMap<QString, QString> getAllColumnNames();
 
 private:
     Ui::MainWindow *ui;
@@ -183,6 +183,6 @@ public slots:
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
-    void setTableForFilter(const QStringList, const QString);
+    void setTableForFilter(const QString, const QMap<QString, QString>);
 };
 #endif // MAINWINDOW_H
