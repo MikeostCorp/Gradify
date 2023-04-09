@@ -23,6 +23,8 @@ private:
 public slots:
     void setListTable(const QStringList tableList, const QString tableName);
 
+    void setNormalLineEdit();
+
 signals:
     void sendFilter(const QString, const int);
 

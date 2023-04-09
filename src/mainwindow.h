@@ -131,6 +131,8 @@ private slots:
 
     void on_currentTableReportButton_clicked();
 
+    void on_about_triggered();
+
     void on_tableView_pressed();
 
     void on_filterButton_clicked();
@@ -142,8 +144,6 @@ private slots:
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
     QStringList getAllColumnNames();
-
-    void on_about_triggered();
 
 private:
     Ui::MainWindow *ui;

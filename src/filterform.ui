@@ -165,6 +165,22 @@
      <string>Фільтрувати</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="conditionLineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>156</x>
+      <y>30</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Текст</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

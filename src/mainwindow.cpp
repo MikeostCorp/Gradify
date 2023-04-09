@@ -174,12 +174,6 @@ void MainWindow::mainWindowInit()
 
     succesfullyAuthorization("XxX_Jopa_XxX"); // <- абьюз для ровных девелоперов
 
-
-
-
-
-
-
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
     logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
@@ -528,27 +522,6 @@ void MainWindow::setEnabledEditButton(bool status)
     ui->filterButton->setEnabled(status);
     ui->searchLineEdit->setEnabled(status);
     ui->queryButton->setEnabled(status);
-
-    // будет фиксится
-    // в методы нажатия кнопок таблиц добавить изменение комбоБоксов для списка колонок таблиц
-    // ещё нужен метод очистки лайнЭдитов!!
-
-   // ui->filterLabel->setEnabled(status);
-    //ui->filterButton->setEnabled(status);
-    //ui->filterComboBox->setEnabled(status);
-    //ui->filterConditionComboBox->setEnabled(status);
-    //ui->filterLineEdit->setEnabled(status);
-
-    //if (status)
-    //{
-    //    ui->filterLineEdit->setPlaceholderText("Змінна умови");
-    //}
-    //else
-    //{
-    //    ui->filterLineEdit->setPlaceholderText("");
-    //}
-
-
 }
 
 
@@ -628,11 +601,12 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
 void MainWindow::setFilterForTable(const QString filterQuery, const int selectFilterColumn)
 {
-    //test query
-    //queryModel->setQuery("SELECT `Студенти`.* FROM `Студенти` WHERE `Студенти`.`Номер телефона` = 49545444");
     queryModel->setQuery(filterQuery);
     ui->tableView->setModel(queryModel);
     ui->tableView->selectColumn(selectFilterColumn);
+
+    // debug
+    //QMessageBox::information(this, "", filterQuery);
 }
 
 

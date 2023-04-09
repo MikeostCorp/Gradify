@@ -362,7 +362,8 @@ QPushButton#mySQLPushButton:hover
     background-color: rgb(215, 215, 215);
 }
 
-QLineEdit#conditionLineEdit
+QLineEdit#conditionLineEdit,
+QLineEdit#conditionLineEdit_2
 {
     color: rgb(61, 60, 59);
     background-color: rgb(225, 225, 225);
@@ -371,7 +372,8 @@ QLineEdit#conditionLineEdit
     border-radius: 8px;
 }
 
-QLineEdit#conditionLineEdit::focus
+QLineEdit#conditionLineEdit::focus,
+QLineEdit#conditionLineEdit_2::focus
 {
     border-color: rgb(65, 105, 225);
 }
