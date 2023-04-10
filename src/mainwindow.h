@@ -31,7 +31,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
+    void closeEvent(QCloseEvent /* *event */);
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;

@@ -129,12 +129,11 @@ void authorization::on_loginButton_clicked()
 
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
-        // maybe fix & put normal hostname
 
-        authorizationDB.setHostName("45.84.207.102"); // 45.84.207.129
-        authorizationDB.setUserName("u838940490_admin");
-        authorizationDB.setPassword("Password1");
-        authorizationDB.setDatabaseName("u838940490_accounts");
+        authorizationDB.setHostName("45.132.242.245");
+        authorizationDB.setUserName("GradifyAdmin");
+        authorizationDB.setPassword("P433w0rD!");
+        authorizationDB.setDatabaseName("accounts_db");
 
         if (!authorizationDB.open())
         {

@@ -135,8 +135,6 @@ void MainWindow::mainWindowInit()
     //            "CONSTRAINT check_hours CHECK(\"Кількість лабораторних годин\"  > 0 AND \"Кількість лекційніх годин\" > 0 AND \"Кількість семінарних годин годин\" > 0 AND \"Кількість годин на самостійну роботу\" > 0 AND \"Семестр в якому вивчається\" > 0)"
     //            ");");
 
-    // Нужно пофиксить CONSTRAINT CHECK, phpMyAdmin говорит что есть синтаксическая ошибка, пока базы данных без этих проверок
-
     //query->exec("DROP TABLE loginPassTable");
 
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
@@ -170,7 +168,7 @@ void MainWindow::mainWindowInit()
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    succesfullyAuthorization("XxX_Jopa_XxX"); // <- абьюз для ровных девелоперов
+    //succesfullyAuthorization("XxX_Jopak_XxX"); // <- абьюз для ровных девелоперов
 
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
@@ -266,7 +264,7 @@ void MainWindow::changeEvent(QEvent *event)
 }
 
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent /* *event */)
 {
     QApplication::closeAllWindows();
 }
@@ -570,18 +568,10 @@ void MainWindow::succesfullyAuthorization(const QString login)
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
-    db.setHostName("45.84.207.102"); // 45.84.207.129
-    db.setUserName("u838940490_gradify_admin");
-    db.setPassword("Password1");
-    db.setDatabaseName("u838940490_Gradify");
-
-    //db.setConnectOptions();
-    //db.setConnectOptions("MYSQL_OPT_CONNECT_TIMEOUT = 90000;");
-    //db.setConnectOptions("SET GLOBAL connect_timeout=28800");
-    //db.setConnectOptions("SET GLOBAL interactive_timeout=28800");
-    //db.setConnectOptions("SET SESSION wait_timeout=28800;");
-    //db.setConnectOptions("QSQLITE_BUSY_TIMEOU = 2000");
-    //db.setConnectOptions("SQL_ATTR_CONNECTION_TIMEOUT=2;");
+    db.setHostName("45.132.242.245");
+    db.setUserName("teacher");
+    db.setPassword("P433w0rD!");
+    db.setDatabaseName("Gradify");
 
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
@@ -1105,4 +1095,3 @@ void MainWindow::on_about_triggered()
     // Message for about to Gradiy
     QMessageBox::information(this,"","232");
 }
-
