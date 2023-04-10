@@ -178,7 +178,7 @@ private:
 public slots:
     void setThemeUI(const QString style);
     void succesfullyAuthorization(const QString login);
-    void setFilterForTable(const QString filterQuery, const int selectFilterColumn);
+    void setFilterForTable(const QString filterQuery, const QString currentColumnFilter);
 
 signals:
     void setThemeSettingsUI(const QString);

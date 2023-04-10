@@ -1,11 +1,11 @@
 ///============================================
 ///
 /// Developed by the team: Mikeost Team
+/// Education: DSEA DDMA, city Druzkiwka
 /// List of developers: Mikhail Ostashchenko
 ///                     Andriy Izbash
 ///
 /// ============================================
-
 
 #include "preloader.h"
 

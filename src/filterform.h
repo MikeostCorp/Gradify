@@ -24,18 +24,19 @@ private slots:
 
     void on_conditionLineEdit_editingFinished();
 
-    void setNormalLineEdit();
-
     void setIntTypeComboBox();
 
     void setStringTypeComboBox();
 
     void setDateTypeComboBox();
 
+    QString reverseDate(QString str);
+
 private:
     Ui::filterForm *ui;
 
     QString currentTabelSelect;
+    QString currentPlaceHolderText;
 
     QMap<QString, QString> typeColumnsMap;
 
@@ -43,7 +44,7 @@ public slots:
     void setListTable(QString tableName, const QMap<QString, QString> columnNameType);
 
 signals:
-    void sendFilter(const QString, const int);
+    void sendFilter(const QString, const QString);
 
 
 };

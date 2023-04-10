@@ -41,57 +41,90 @@ void filterForm::setListTable(QString tableName, const QMap<QString, QString> ta
 
         currentTabelSelect = tableName;
         typeColumnsMap = tableNameType;
+
+        ui->conditionLineEdit->setPlaceholderText("Текст");
+        ui->conditionLineEdit->setValidator(nullptr);
     }
-}
-
-
-void filterForm::setNormalLineEdit()
-{
-    ui->conditionLineEdit->setPlaceholderText("Текст");
-    ui->conditionLineEdit->resize(61, ui->conditionLineEdit->height());
-    ui->conditionLineEdit_2->setVisible(false);
-    ui->conditionLineEdit_2->clear();
 }
 
 
 void filterForm::on_filterPushButton_clicked()
 {
-    /*if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0 and !ui->conditionLineEdit->text().isEmpty())
+    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0)
     {
         QString strSqlFilter;
         strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
         strSqlFilter += "\nFROM `" + currentTabelSelect + "`";
         strSqlFilter += "\nWHERE `" + currentTabelSelect +"`.`" + ui->tableComboBox->currentText() + "` ";
 
-        if (ui->conditionComboBox->currentIndex() >= 2 and ui->conditionComboBox->currentIndex() <= 6)
+        if (currentPlaceHolderText == "Число")
         {
-            strSqlFilter += ui->conditionComboBox->currentText() + " " + ui->conditionLineEdit->text();
-        }
-        else if (ui->conditionComboBox->currentIndex() == 7)
-        {
-            strSqlFilter += "LIKE '" + ui->conditionLineEdit->text() + "%'";
-        }
-        else if (ui->conditionComboBox->currentIndex() == 8)
-        {
-            if (!ui->conditionLineEdit_2->text().isEmpty() and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
+            if (ui->conditionComboBox->currentText() != "between")
+            {
+                strSqlFilter += ui->conditionComboBox->currentText() + " " + ui->conditionLineEdit->text();
+            }
+            else if (ui->conditionComboBox->currentText() == "between" and !ui->conditionLineEdit_2->text().isEmpty()
+                     and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
             {
                 strSqlFilter += "BETWEEN " + ui->conditionLineEdit->text() + " AND " + ui->conditionLineEdit_2->text();
             }
-            else if (ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
+            else if (ui->conditionComboBox->currentText() == "between" and ui->conditionLineEdit_2->text().isEmpty())
             {
-                QMessageBox::critical(this, "", "Перше значення повине бути меншим за друге!");
-                ui->conditionLineEdit->setFocus();
-                return;
-            }
-            else
-            {
-                QMessageBox::critical(this, "", "Для цього оператора потрібно 2 значення!");
+                QMessageBox::critical(this,"","Введіть значення умови фільтрування!");
                 ui->conditionLineEdit_2->setFocus();
                 return;
             }
+            else if (ui->conditionComboBox->currentText() == "between"
+                     and ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
+            {
+                QMessageBox::critical(this,"","Перше значення повине бути меншим за друге!");
+                ui->conditionLineEdit->setFocus();
+                return;
+            }
+        }
+        else if (currentPlaceHolderText == "Текст")
+        {
+            if (ui->conditionComboBox->currentText() == "like%")
+            {
+                strSqlFilter += "LIKE '" + ui->conditionLineEdit->text() + "%'";
+            }
+            else if (ui->conditionComboBox->currentText() == "%like")
+            {
+                strSqlFilter += "LIKE '%" + ui->conditionLineEdit->text() + "'";
+            }
+            else if (ui->conditionComboBox->currentText() == "%like%")
+            {
+                strSqlFilter += "LIKE '%" + ui->conditionLineEdit->text() + "%'";
+            }
+        }
+        else if (currentPlaceHolderText == "Дата")
+        {
+            if (ui->conditionComboBox->currentText() != "between")
+            {
+                strSqlFilter += ui->conditionComboBox->currentText() + " '" + reverseDate(ui->conditionLineEdit->text()) + "'";
+            }
+            /*else if (ui->conditionComboBox->currentText() == "between" and !ui->conditionLineEdit_2->text().isEmpty()
+                     and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
+            {
+                strSqlFilter += "BETWEEN '" + reverseDate(ui->conditionLineEdit->text()) + "' AND '"
+                        + reverseDate(ui->conditionLineEdit_2->text()) + "'";
+            }
+            else if (ui->conditionComboBox->currentText() == "between" and ui->conditionLineEdit_2->text().isEmpty())
+            {
+                QMessageBox::critical(this,"","Введіть значення умови фільтрування!");
+                ui->conditionLineEdit_2->setFocus();
+                return;
+            }
+            else if (ui->conditionComboBox->currentText() == "between"
+                     and ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
+            {
+                QMessageBox::critical(this,"","Перше значення повине бути меншим за друге!");
+                ui->conditionLineEdit->setFocus();
+                return;
+            }*/
         }
 
-        emit sendFilter(strSqlFilter, ui->tableComboBox->currentIndex() - 1);
+        emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
     }
 
     else if (ui->tableComboBox->currentIndex() == 0)
@@ -106,9 +139,9 @@ void filterForm::on_filterPushButton_clicked()
     }
     else
     {
-        QMessageBox::critical(this,"","Введіть значення у умову фільтрування");
+        QMessageBox::critical(this,"","Введіть значення умови фільтрування");
         ui->conditionLineEdit->setFocus();
-    }*/
+    }
 }
 
 
@@ -116,17 +149,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 {
     ui->conditionComboBox->clearFocus();
 
-    /*
-    if (ui->conditionComboBox->currentText() == "<"
-            or ui->conditionComboBox->currentText() == ">"
-            or ui->conditionComboBox->currentText() == "<="
-            or ui->conditionComboBox->currentText() == ">="
-            or ui->conditionComboBox->currentText() == "=")
-    {
-        ui->conditionLineEdit->setInputMask("DDD");
-        setNormalLineEdit();
-    }
-    else if (ui->conditionComboBox->currentText() == "between")
+    if (ui->conditionComboBox->currentText() == "between")
     {
         ui->conditionLineEdit_2->setVisible(true);
 
@@ -141,17 +164,14 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 
         ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 35,
                                       ui->conditionLineEdit->y());
-
-        ui->conditionLineEdit->setInputMask("DDD");
-        ui->conditionLineEdit_2->setInputMask("DDD");
-
     }
-    else if (ui->conditionComboBox->currentText() == "like")
+    else
     {
-        ui->conditionLineEdit->setInputMask("");
-        setNormalLineEdit();
+        ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
+        ui->conditionLineEdit->resize(61, ui->conditionLineEdit->height());
+        ui->conditionLineEdit_2->setVisible(false);
+        ui->conditionLineEdit_2->clear();
     }
-    */
 }
 
 
@@ -193,8 +213,11 @@ void filterForm::setIntTypeComboBox()
     ui->conditionComboBox->addItem("=", 6);
     ui->conditionComboBox->addItem("between", 7);
 
-    ui->conditionLineEdit->setValidator(new QIntValidator(0, 1000, this));
-    ui->conditionLineEdit->setInputMask("");
+    ui->conditionLineEdit->setValidator(new QIntValidator(0, 10000, this));
+    ui->conditionLineEdit_2->setValidator(new QIntValidator(0, 10000, this));
+
+    currentPlaceHolderText = "Число";
+    ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 }
 
 
@@ -209,7 +232,10 @@ void filterForm::setStringTypeComboBox()
     ui->conditionComboBox->addItem("%like%", 4);
 
     ui->conditionLineEdit->setValidator(nullptr);
-    ui->conditionLineEdit->setInputMask("");
+    ui->conditionLineEdit_2->setValidator(nullptr);
+
+    currentPlaceHolderText = "Текст";
+    ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 }
 
 
@@ -219,10 +245,31 @@ void filterForm::setDateTypeComboBox()
     ui->conditionComboBox->clear();
     ui->conditionComboBox->addItem("Оберіть умову", 0);
     ui->conditionComboBox->insertSeparator(1);
-    ui->conditionComboBox->addItem("like%", 2);
+    ui->conditionComboBox->addItem(">", 2);
+    ui->conditionComboBox->addItem("<", 3);
+    ui->conditionComboBox->addItem("<=", 4);
+    ui->conditionComboBox->addItem(">=", 5);
+    ui->conditionComboBox->addItem("=", 6);
+    //ui->conditionComboBox->addItem("between", 7);
 
-    ui->conditionLineEdit->setValidator(nullptr); // мэйби темп
-    ui->conditionLineEdit->setInputMask("99.99.99");
+
+    // можно доделать регулярное выражение чтобы не вводить больше 31 дня и 12 месяцев
+    ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
+    ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
+    currentPlaceHolderText = "Дата";
+    ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
+
 }
 
+QString filterForm::reverseDate(QString str)
+{
+    QString tempStr = str;
 
+    tempStr[0] = str[str.length() - 2];
+    tempStr[1] = str[str.length() - 1];
+
+    tempStr[str.length() - 2] = str[0];
+    tempStr[str.length() - 1] = str[1];
+
+    return tempStr;
+}

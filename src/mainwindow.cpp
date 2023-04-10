@@ -599,11 +599,25 @@ void MainWindow::succesfullyAuthorization(const QString login)
 }
 
 
-void MainWindow::setFilterForTable(const QString filterQuery, const int selectFilterColumn)
+void MainWindow::setFilterForTable(const QString filterQuery, const QString currentColumnFilter)
 {
+    //temp query
+    //queryModel->setQuery("SELECT `Оцінки`.*"
+    //                     "FROM `Оцінки`"
+    //                     "WHERE `Оцінки`.`Дата оцінки` = '23.07.03'"); // wtf?? day = year, year = day??
+    //'03-07-23'
+
     queryModel->setQuery(filterQuery);
     ui->tableView->setModel(queryModel);
-    ui->tableView->selectColumn(selectFilterColumn);
+
+    for(int i = 0; i < ui->tableView->model()->columnCount(); i++)
+    {
+        if (ui->tableView->model()->headerData(i, Qt::Horizontal).toString() == currentColumnFilter)
+        {
+            ui->tableView->selectColumn(i);
+            break;
+        }
+    }
 
     // debug
     //QMessageBox::information(this, "", filterQuery);
