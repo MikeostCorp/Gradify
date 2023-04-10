@@ -294,8 +294,10 @@ void MainWindow::on_studentsTableButton_clicked()
     model->setTable("Студенти");
     model->select();
     currentSelectTable = 0;
+
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
@@ -329,13 +331,16 @@ void MainWindow::on_teachersTableButton_clicked()
     model->setTable("Викладачі");
     model->select();
     currentSelectTable = 1;
+
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+
 
     setEnabledEditButton(true);
 
@@ -366,7 +371,10 @@ void MainWindow::on_gradesTableButton_clicked()
     model->setTable("Оцінки");
     model->select();
     currentSelectTable = 2;
+
     ui->tableView->setModel(model);
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
@@ -399,8 +407,10 @@ void MainWindow::on_groupsTableButton_clicked()
     model->setTable("Групи");
     model->select();
     currentSelectTable = 3;
+
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
@@ -433,8 +443,10 @@ void MainWindow::on_subjectsTableButton_clicked()
     model->setTable("Предмет");
     model->select();
     currentSelectTable = 4;
+
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
@@ -745,8 +757,8 @@ QMap<QString, QString> MainWindow::getAllColumnNames()
     case 3:
         headerListMap.insert("Назва", "string");
         headerListMap.insert("Спеціальність", "string");
-        headerListMap.insert("Рік початку навчання", "string");
-        headerListMap.insert("Рік закінчення навчання", "string");
+        headerListMap.insert("Рік початку навчання", "int");
+        headerListMap.insert("Рік закінчення навчання", "int");
         headerListMap.insert("Куратор", "string");
         headerListMap.insert("Староста", "string");
         break;
