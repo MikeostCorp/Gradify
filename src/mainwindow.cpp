@@ -580,7 +580,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
-    db.setHostName("45.132.242.245");
+    db.setHostName("141.136.44.252");
     db.setUserName("teacher");
     db.setPassword("P433w0rD!");
     db.setDatabaseName("Gradify");
