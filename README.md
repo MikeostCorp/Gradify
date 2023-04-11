@@ -23,7 +23,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
-- [ ] BUG!!! tables stop loading after a minute of inactivity :/
+- [X] BUG!!! tables stop loading after a minute of inactivity :/
 - [ ] User remembering during authorization
 - [ ] Separate forms for editing posts
 - [ ] Filter buttons in the table
