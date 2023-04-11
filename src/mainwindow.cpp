@@ -36,8 +36,6 @@ void MainWindow::mainWindowInit()
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
-    //ui->filterButton->installEventFilter(this);
-
     currentSelectTable = -1;
 
 
@@ -147,7 +145,6 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
-
     configRead();
     configInit();
 
@@ -161,6 +158,8 @@ void MainWindow::mainWindowInit()
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
+    connect(ui->searchLineEdit, &QLineEditWithButton::buttonClicked, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QLineEdit::editingFinished, this, &MainWindow::goSearch);
 
 
     // ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
@@ -177,6 +176,8 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
+
+
 }
 
 
@@ -353,7 +354,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    emit setTableForFilter("Викладачі",getAllColumnNames());
+    emit setTableForFilter("Викладачі", getAllColumnNames());
 }
 
 
@@ -374,7 +375,6 @@ void MainWindow::on_gradesTableButton_clicked()
 
     ui->tableView->setModel(model);
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-
 
     closeAllPopUpWindow();
     clearStyleButtonTable();
@@ -730,6 +730,31 @@ void MainWindow::on_queryButton_clicked()
 }
 
 
+void MainWindow::goSearch()
+{
+    QString searchString = "SELECT `" + model->tableName() + "`.*" +
+            "FROM `" + model->tableName() + "`" +
+            "WHERE ";
+
+    for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+    {
+        searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
+                "'%" + ui->searchLineEdit->text() + "%'";
+
+        if (i != ui->tableView->model()->columnCount() - 1)
+        {
+            searchString += " OR ";
+        }
+    }
+
+    queryModel->setQuery(searchString);
+    ui->tableView->setModel(queryModel);
+
+    //QMessageBox::information(this,"", "надо искать!" + ui->searchLineEdit->text() +
+    //                         "\n" + model->tableName());
+}
+
+
 QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
 {
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
@@ -789,13 +814,6 @@ QMap<QString, QString> MainWindow::getAllColumnNames()
     }
 
     return headerListMap;
-}
-
-
-void MainWindow::on_searchLineEdit_editingFinished()
-{
-    // РЕАЛИЗАЦИЯ ПОИСКА ПО ВСЕМ КОЛОНКАМ, НЕ ЗАБЫТЬ СДЕЛАТЬ 9 КВІТНЯ!
-    closeAllPopUpWindow();
 }
 
 

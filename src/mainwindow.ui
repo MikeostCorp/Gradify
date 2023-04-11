@@ -1031,7 +1031,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLineEdit" name="searchLineEdit">
+             <widget class="QLineEditWithButton" name="searchLineEdit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1319,6 +1319,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QLineEditWithButton</class>
+   <extends>QLineEdit</extends>
+   <header>qlineeditwithbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="recources.qrc"/>
  </resources>

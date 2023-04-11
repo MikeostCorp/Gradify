@@ -18,6 +18,7 @@
 #include <authorization.h>
 #include <filterform.h>
 #include <queryform.h>
+#include <customWidgets/qlineeditwithbutton.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -137,8 +138,6 @@ private slots:
 
     void on_filterButton_clicked();
 
-    void on_searchLineEdit_editingFinished();
-
     void on_queryButton_clicked();
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
@@ -179,6 +178,7 @@ public slots:
     void setThemeUI(const QString style);
     void succesfullyAuthorization(const QString login);
     void setFilterForTable(const QString filterQuery, const QString currentColumnFilter);
+    void goSearch();
 
 signals:
     void setThemeSettingsUI(const QString);

@@ -164,7 +164,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 
         ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 35,
                                       ui->conditionLineEdit->y());
-    }
+    }    
     else
     {
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
@@ -172,6 +172,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit_2->setVisible(false);
         ui->conditionLineEdit_2->clear();
     }
+
 }
 
 
@@ -196,6 +197,10 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
     else if (typeColumnsMap.value(arg1) == "date")
     {
         setDateTypeComboBox();
+    }
+    else if (ui->tableComboBox->currentIndex() == 0)
+    {
+        setDisabledComboBox();
     }
 }
 
@@ -260,6 +265,14 @@ void filterForm::setDateTypeComboBox()
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
 }
+
+
+void filterForm::setDisabledComboBox()
+{
+    ui->conditionComboBox->setEnabled(false);
+    ui->conditionComboBox->setCurrentIndex(0);
+}
+
 
 QString filterForm::reverseDate(QString str)
 {

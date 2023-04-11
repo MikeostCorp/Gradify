@@ -30,6 +30,8 @@ private slots:
 
     void setDateTypeComboBox();
 
+    void setDisabledComboBox();
+
     QString reverseDate(QString str);
 
 private:

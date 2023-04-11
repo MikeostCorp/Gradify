@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     appsetting.cpp \
     authorization.cpp \
+    customWidgets/qlineeditwithbutton.cpp \
     filterform.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     appsetting.h \
     authorization.h \
+    customWidgets/qlineeditwithbutton.h \
     filterform.h \
     mainwindow.h \
     preloader.h \
