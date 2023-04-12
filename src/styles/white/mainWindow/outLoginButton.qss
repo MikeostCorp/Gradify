@@ -4,6 +4,8 @@ QPushButton#authorizationButton
     border-radius: 6px;
     background-color: rgb(210, 201, 201);
     color: rgb(61, 60, 59);
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 QPushButton#authorizationButton:hover

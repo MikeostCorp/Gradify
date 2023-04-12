@@ -39,6 +39,7 @@ private:
 
     QString currentTabelSelect;
     QString currentPlaceHolderText;
+    QString oldColumnSelect;
 
     QMap<QString, QString> typeColumnsMap;
 

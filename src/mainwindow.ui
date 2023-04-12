@@ -1253,7 +1253,7 @@
   </action>
   <action name="openManual">
    <property name="text">
-    <string>Відкрити довідку</string>
+    <string>Довідка Gradify</string>
    </property>
    <property name="toolTip">
     <string>Відкрити довідку</string>

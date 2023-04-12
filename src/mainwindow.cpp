@@ -177,7 +177,6 @@ void MainWindow::mainWindowInit()
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
 
-
 }
 
 
@@ -510,6 +509,7 @@ void MainWindow::setEnabledActions(bool status)
     ui->openSubjTabAction->setEnabled(status);
     ui->openTeachTabAction->setEnabled(status);
 
+    ui->currentTableReportAction->setEnabled(status);
     ui->gradesReportAction->setEnabled(status);
     ui->groupsReportAction->setEnabled(status);
     ui->studentsReportAction->setEnabled(status);
@@ -706,7 +706,7 @@ void MainWindow::on_filterButton_clicked()
         queryWindow->close();
 
         filterWindow->move(ui->filterButton->x() * 2,
-                           ui->filterButton->y() + ui->mainTableFrame->y() + 45);
+                           ui->filterButton->y() + ui->mainTableFrame->y() + 42);
         filterWindow->show();
     }
 }
@@ -723,7 +723,7 @@ void MainWindow::on_queryButton_clicked()
         filterWindow->close();
 
         queryWindow->move(ui->queryButton->x() * 1.864,
-                           ui->queryButton->y() + ui->mainTableFrame->y() + 45);
+                           ui->queryButton->y() + ui->mainTableFrame->y() + 42);
         queryWindow->show();
 
     }
@@ -778,6 +778,7 @@ QMap<QString, QString> MainWindow::getAllColumnNames()
         headerListMap.insert("Стать", "string");
         headerListMap.insert("Дата народження", "date");
         headerListMap.insert("Група", "string");
+        headerListMap.insert("Номер паспорту","int");
         break;
     case 1:
         headerListMap.insert("Прізвище", "string");
@@ -1137,5 +1138,5 @@ void MainWindow::on_currentTableReportAction_triggered()
 void MainWindow::on_about_triggered()
 {
     // Message for about to Gradiy
-    QMessageBox::information(this,"","232");
+    QMessageBox::information(this,"","СООБЩЕНИЕ ЧТО ТАКОЕ GRADIFY");
 }

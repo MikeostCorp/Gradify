@@ -208,6 +208,12 @@ QTableView QLineEdit
     padding: 5px 5px 5px 4px;
 }
 
+QTableView QSpinBox,
+QTableView QDateEdit
+{
+    background-color: rgb(61, 65, 68);
+}
+
 QTableView::item
 {
     color: white;

@@ -13,6 +13,7 @@ filterForm::filterForm(QWidget *parent) :
     setFixedSize(width(), height());
     ui->conditionLineEdit_2->setVisible(false);
     currentTabelSelect = "NULL";
+    oldColumnSelect = "NULL";
     close();
 }
 
@@ -172,7 +173,6 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit_2->setVisible(false);
         ui->conditionLineEdit_2->clear();
     }
-
 }
 
 
@@ -186,15 +186,15 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
 
-    if (typeColumnsMap.value(arg1) == "string")
+    if (typeColumnsMap.value(arg1) == "string" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
     {
         setStringTypeComboBox();
     }
-    else if (typeColumnsMap.value(arg1) == "int")
+    else if (typeColumnsMap.value(arg1) == "int" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
     {
         setIntTypeComboBox();
     }
-    else if (typeColumnsMap.value(arg1) == "date")
+    else if (typeColumnsMap.value(arg1) == "date" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
     {
         setDateTypeComboBox();
     }
@@ -202,6 +202,8 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
     {
         setDisabledComboBox();
     }
+
+    oldColumnSelect = arg1;
 }
 
 
@@ -223,6 +225,15 @@ void filterForm::setIntTypeComboBox()
 
     currentPlaceHolderText = "Число";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
+
+    if (!ui->conditionLineEdit->text().toInt())
+    {
+        ui->conditionLineEdit->clear();
+    }
+    else if (!ui->conditionLineEdit_2->text().toInt())
+    {
+        ui->conditionLineEdit_2->clear();
+    }
 }
 
 
@@ -264,6 +275,7 @@ void filterForm::setDateTypeComboBox()
     currentPlaceHolderText = "Дата";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
+    ui->conditionLineEdit->clear();
 }
 
 
@@ -271,6 +283,9 @@ void filterForm::setDisabledComboBox()
 {
     ui->conditionComboBox->setEnabled(false);
     ui->conditionComboBox->setCurrentIndex(0);
+
+    ui->conditionLineEdit->clear();
+    ui->conditionLineEdit_2->clear();
 }
 
 
