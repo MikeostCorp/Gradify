@@ -225,6 +225,13 @@ QTableView QTableCornerButton::section
     background-color: rgb(205, 205, 205);
 }
 
+QAbstractScrollArea::corner
+{
+    border: none;
+    background-color: white;
+    border-bottom-right-radius: 6px;
+}
+
 QScrollBar:vertical
 {
    border: none;

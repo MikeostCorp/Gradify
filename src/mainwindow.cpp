@@ -159,6 +159,7 @@ void MainWindow::mainWindowInit()
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
     connect(ui->searchLineEdit, &QLineEditWithButton::buttonClicked, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QLineEditWithButton::haveFocus, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->searchLineEdit, &QLineEdit::editingFinished, this, &MainWindow::goSearch);
 
 
@@ -167,7 +168,7 @@ void MainWindow::mainWindowInit()
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    //succesfullyAuthorization("XxX_Jopak_XxX"); // <- абьюз для ровных девелоперов
+    succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
@@ -176,7 +177,6 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-
 }
 
 
@@ -264,7 +264,7 @@ void MainWindow::changeEvent(QEvent *event)
 }
 
 
-void MainWindow::closeEvent(QCloseEvent /* *event */)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
     QApplication::closeAllWindows();
 }
@@ -666,12 +666,14 @@ void MainWindow::on_addRowButton_clicked()
     model->insertRow(model->rowCount());
     ui->tableView->scrollToBottom();
     ui->tableView->selectRow(model->rowCount() - 1);
+    ui->searchLineEdit->clearFocus();
 }
 
 
 void MainWindow::on_deleteRowButton_clicked()
 {
     closeAllPopUpWindow();
+    ui->searchLineEdit->clearFocus();
 
     bool ok;
     int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
@@ -691,12 +693,15 @@ void MainWindow::on_deleteRowButton_clicked()
 void MainWindow::on_editRowButton_clicked()
 {
     closeAllPopUpWindow();
+    ui->searchLineEdit->clearFocus();
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 
 
 void MainWindow::on_filterButton_clicked()
 {
+    ui->searchLineEdit->clearFocus();
+
     if (filterWindow->isVisible())
     {
         filterWindow->close();
@@ -714,6 +719,8 @@ void MainWindow::on_filterButton_clicked()
 
 void MainWindow::on_queryButton_clicked()
 {
+    ui->searchLineEdit->clearFocus();
+
     if (queryWindow->isVisible())
     {
         queryWindow->close();
@@ -725,7 +732,6 @@ void MainWindow::on_queryButton_clicked()
         queryWindow->move(ui->queryButton->x() * 1.864,
                            ui->queryButton->y() + ui->mainTableFrame->y() + 42);
         queryWindow->show();
-
     }
 }
 

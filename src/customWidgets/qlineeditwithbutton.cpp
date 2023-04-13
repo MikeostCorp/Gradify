@@ -2,7 +2,7 @@
 
 #include <QToolButton>
 #include <QStyle>
-#include <QMessageBox>
+#include <QPropertyAnimation>
 
 QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     : QLineEdit{parent}
@@ -20,15 +20,35 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
 }
 
 
-void QLineEditWithButton::resizeEvent(QResizeEvent *)
+void QLineEditWithButton::resizeEvent(QResizeEvent *event)
 {
     int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
     searchButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
 }
 
+void QLineEditWithButton::focusInEvent(QFocusEvent *event)
+{
+    QLineEdit::focusInEvent(event);
+    emit haveFocus(true);
+}
+
+void QLineEditWithButton::focusOutEvent(QFocusEvent *event)
+{
+    QLineEdit::focusOutEvent(event);
+    emit(haveFocus(true));
+}
+
 
 void QLineEditWithButton::updateCloseButton(const QString &text)
 {
+    // bruh animation
+    //QPropertyAnimation *anim = new QPropertyAnimation(searchButton, "pos", this);
+    //anim->setDuration(10000);
+    //anim->setStartValue(QPoint(0, 0));
+    //anim->setEndValue(QPoint(100, 250));
+    //anim->start();
+    //searchButton->paintEvent();
+
     // было бы прикольно сюда впихнуть анимацию появления лупы как у тг крестика, но как((
     searchButton->setVisible(!text.isEmpty());
 }
@@ -38,3 +58,5 @@ void QLineEditWithButton::buttonClick()
 {
     emit buttonClicked();
 }
+
+

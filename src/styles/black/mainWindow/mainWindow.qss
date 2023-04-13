@@ -83,7 +83,7 @@ QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
 QPushButton#queryButton:hover
 {
-    background-color: rgb(57, 58, 59);
+    background-color: rgb(55, 56, 57);
 }
 
 QPushButton#deleteRowButton:disabled,
@@ -232,6 +232,13 @@ QTableView QTableCornerButton::section
 {
     border-top-left-radius: 6px;
     background-color: rgb(101, 105, 108);
+}
+
+QAbstractScrollArea::corner
+{
+    border: none;
+    background-color: rgb(61, 65, 68);
+    border-bottom-right-radius: 6px;
 }
 
 QScrollBar:vertical

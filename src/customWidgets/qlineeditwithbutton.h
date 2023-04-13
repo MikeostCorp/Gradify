@@ -12,19 +12,20 @@ public:
     explicit QLineEditWithButton(QWidget *parent = nullptr);
 
 protected:
-    void resizeEvent(QResizeEvent *);
+    virtual void focusInEvent(QFocusEvent *event);
+    virtual void focusOutEvent(QFocusEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     QToolButton *searchButton;
 
 private slots:
     void updateCloseButton(const QString &text);
-
     void buttonClick();
 
 signals:
     void buttonClicked();
-
+    void haveFocus(bool);
 };
 
 
