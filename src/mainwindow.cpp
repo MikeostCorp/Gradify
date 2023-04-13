@@ -316,7 +316,7 @@ void MainWindow::on_studentsTableButton_clicked()
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
 
-    emit setTableForFilter("Студенти", getAllColumnNames());
+    emit setTableForFilter("Студенти", getColumnsAndDatatypes("Студенти"));
 }
 
 
@@ -353,7 +353,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    emit setTableForFilter("Викладачі", getAllColumnNames());
+    emit setTableForFilter("Викладачі", getColumnsAndDatatypes("Викладачі"));
 }
 
 
@@ -391,7 +391,7 @@ void MainWindow::on_gradesTableButton_clicked()
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
 
-    emit setTableForFilter("Оцінки", getAllColumnNames());
+    emit setTableForFilter("Оцінки", getColumnsAndDatatypes("Оцінки"));
 }
 
 
@@ -427,7 +427,7 @@ void MainWindow::on_groupsTableButton_clicked()
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
 
-    emit setTableForFilter("Групи", getAllColumnNames());
+    emit setTableForFilter("Групи", getColumnsAndDatatypes("Групи"));
 }
 
 
@@ -463,7 +463,7 @@ void MainWindow::on_subjectsTableButton_clicked()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
-    emit setTableForFilter("Предмет", getAllColumnNames());
+    emit setTableForFilter("Предмет", getColumnsAndDatatypes("Предмет"));
 }
 
 
@@ -771,53 +771,24 @@ QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
 }
 
 
-QMap<QString, QString> MainWindow::getAllColumnNames()
+QMap<QString, QString> MainWindow::getColumnsAndDatatypes(const QString &tableName)
 {
     QMap<QString,QString> headerListMap;
 
-    switch (currentSelectTable)
+    if (!tableName.isEmpty())
     {
-    case 0:
-        headerListMap.insert("Прізвище", "string");
-        headerListMap.insert("Ім'я", "string");
-        headerListMap.insert("По батькові", "string");
-        headerListMap.insert("Стать", "string");
-        headerListMap.insert("Дата народження", "date");
-        headerListMap.insert("Група", "string");
-        headerListMap.insert("Номер паспорту","int");
-        break;
-    case 1:
-        headerListMap.insert("Прізвище", "string");
-        headerListMap.insert("Ім'я", "string");
-        headerListMap.insert("По батькові", "string");
-        headerListMap.insert("Дата народження", "date");
-        headerListMap.insert("Категорія", "string");
-        headerListMap.insert("Спеціализація", "string");
-        break;
-    case 2:
-        headerListMap.insert("Предмет", "string");
-        headerListMap.insert("Отримувач", "string");
-        headerListMap.insert("Викладач", "string");
-        headerListMap.insert("Дата оцінки", "date");
-        break;
-    case 3:
-        headerListMap.insert("Назва", "string");
-        headerListMap.insert("Спеціальність", "string");
-        headerListMap.insert("Рік початку навчання", "int");
-        headerListMap.insert("Рік закінчення навчання", "int");
-        headerListMap.insert("Куратор", "string");
-        headerListMap.insert("Староста", "string");
-        break;
-    case 4:
-        headerListMap.insert("Назва", "string");
-        headerListMap.insert("Тип", "string");
-        headerListMap.insert("Всього годин", "int");
-        headerListMap.insert("Кількість лабораторних годин", "int");
-        headerListMap.insert("Кількість лекційних годин", "int");
-        headerListMap.insert("Кількість семінарних годин", "int");
-        headerListMap.insert("Кількість годин на самостійну роботу", "int");
-        headerListMap.insert("Семестр в якому вивчається", "int");
-        break;
+        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+        QTableView *tableView = new QTableView(this);
+        queryModel->setQuery("SELECT COLUMN_NAME, DATA_TYPE "
+                             "FROM INFORMATION_SCHEMA.COLUMNS "
+                             "WHERE table_schema = 'Gradify' "
+                             "AND table_name = '" + tableName + "'");
+        tableView->setModel(queryModel);
+
+        for(int row = 0; row < tableView->model()->rowCount(); ++row){
+            headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
+                                 tableView->model()->index(row, 1).data().toString());
+        }
     }
 
     return headerListMap;

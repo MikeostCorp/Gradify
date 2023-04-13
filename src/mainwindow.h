@@ -142,7 +142,7 @@ private slots:
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
-    QMap<QString, QString> getAllColumnNames();
+    QMap<QString, QString> getColumnsAndDatatypes(const QString &tableName);
 
 private:
     Ui::MainWindow *ui;

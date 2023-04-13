@@ -186,7 +186,7 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
 
-    if (typeColumnsMap.value(arg1) == "string" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
+    if (typeColumnsMap.value(arg1) == "text" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
     {
         setStringTypeComboBox();
     }
@@ -269,9 +269,9 @@ void filterForm::setDateTypeComboBox()
     //ui->conditionComboBox->addItem("between", 7);
 
 
-    // можно доделать регулярное выражение чтобы не вводить больше 31 дня и 12 месяцев
+    // нужно доделать регулярное выражение чтобы не вводить больше 31 дня и 12 месяцев
     ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
-    ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
+    //ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\-(\\d\\d)\\-(\\d\\d)$"), this));
     currentPlaceHolderText = "Дата";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
