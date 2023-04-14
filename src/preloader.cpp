@@ -1,9 +1,8 @@
 #include "preloader.h"
 #include "ui_preloader.h"
 
-#include <QPainterPath>
-#include <QPainter>
-#include <QVBoxLayout>
+#include <QTime>
+#include <QTimer>
 #include <QGraphicsDropShadowEffect>
 
 preloader::preloader(QWidget *parent) :
@@ -13,82 +12,43 @@ preloader::preloader(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlag(Qt::FramelessWindowHint, true);
+    //setWindowFlag(Qt::WindowStaysOnTopHint, true); может как нибудь и включу
     setAttribute(Qt::WA_TranslucentBackground);
-    setFixedSize(414,233);
+
     setWindowTitle("Preloader");
+    setFocus();
+    setFixedSize(this->width(), this->height());
+    ui->loadStatusLabel->setText("<strong>LOADING</strong> user interface");
 
     QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
     pointToCenter.setX(pointToCenter.x() - (this->width()/2));
     pointToCenter.setY(190);
     move(pointToCenter);
 
+    shadowEffect = new QGraphicsDropShadowEffect(this);
+    shadowEffect->setBlurRadius(25);
+    shadowEffect->setColor(QColor(0, 0, 0, 60));
+    shadowEffect->setOffset(QPointF(0, 0));
+    ui->mainFrame->setGraphicsEffect(shadowEffect);
 
-    //QVBoxLayout *lay = new QVBoxLayout(videoWidget);
-    //lay->addWidget(videoWidget);
-    //lay->setContentsMargins(10, 10, 10, 10);
+    timer = new QTimer(this);
+    timer->start(25); // время загрузки
 
-    //QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
-    //shadow->setBlurRadius(9.0);
-    //shadow->setColor(QColor(99, 255, 255));
-    //shadow->setOffset(QPointF(8.0, 8.0));
-    //this->setGraphicsEffect(shadow);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
 
+    QTimer::singleShot(1000, [this] {
+        ui->loadStatusLabel->setText("<strong>LOADING</strong> database connection");
+    });
 
+    QTimer::singleShot(1850, [this]
+    {
+        ui->loadStatusLabel->setText("<strong>LOADING</strong> application styles");
+    });
 
-    //painter = QtGui.QPainter(self)
-    //        painter.begin(self)
-    //        painter.setBrush(QColor(255, 255, 255))
-    //        painter.setPen(Qt.NoPen)
-    //        painter.drawRoundedRect(self.rect(), 10.0, 10.0)
-    //        painter.end()
-
-    //QPainter painter(this);
-    //painter.begin(this);
-    //painter.setBrush(QColor(255, 255, 255));
-    //painter.setPen(Qt::NoPen);
-    //painter.drawRoundedRect(this->rect(), 10.0, 10.0);
-    //painter.end();
-    //QPainterPath paintPath;
-    //paintPath.addRoundedRect(rect(), 18, 18, Qt::AbsoluteSize);
-    //setMask(paintPath.toFillPolygon().toPolygon());
-
-    //lay = QtWidgets.QVBoxLayout(self)
-    //lay.addWidget(window)
-    //lay.setContentsMargins(10, 10, 10, 10)
-
-    //QVBoxLayout *videoLay = new QVBoxLayout(this);
-    //videoLay->addWidget(videoWidget);
-    //videoLay->setContentsMargins(10, 10, 10, 10);
-
-    //painter = QtGui.QPainter(self)
-    //painter.setRenderHint(QtGui.QPainter.Antialiasing)
-    //painter.setBrush(QtGui.QColor(195, 195, 255))
-    //painter.setPen(QtCore.Qt.NoPen)
-    //painter.drawRoundedRect(self.rect(), 10.0, 10.0)
-
-    //QPainter *painter = new QPainter(this);
-    //painter->setRenderHint(QPainter::Antialiasing);
-    //painter->setBrush(QColor(195, 195 , 255));
-    //painter->setPen(Qt::NoPen);
-    //painter->drawRoundedRect(this->rect(), 10.0, 10.0);
-
-
-
-    player = new QMediaPlayer(this);
-    videoWidget = new QVideoWidget(this);
-    MainMenu = new MainWindow;
-
-    player->setSource(QUrl("qrc:/img/preloader.mp4"));
-    videoWidget->setObjectName("videoWidget");
-    videoWidget->setFixedSize(width(),height());
-    videoWidget->setWindowFlags(Qt::FramelessWindowHint);
-    player->setVideoOutput(videoWidget);
-
-    videoWidget->setFocus();
-    videoWidget->show();
-    player->play();
-
-    connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(closeVideoWidget(QMediaPlayer::MediaStatus)));
+    QFile file(":/styles/other/preloader/preloader.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
 }
 
 
@@ -98,11 +58,18 @@ preloader::~preloader()
 }
 
 
-void preloader::closeVideoWidget(const QMediaPlayer::MediaStatus status)
+void preloader::updateProgressBar()
 {
-    if (status == QMediaPlayer::EndOfMedia)
+
+    if (ui->progressBar->value() < 100)
     {
-        MainMenu->show();
-        close();
+        ui->progressBar->setValue(ui->progressBar->value() + 1);
+    }
+    else
+    {
+        mainMenu = new MainWindow;
+        mainMenu->show();
+        delete(timer);
+        this->close();
     }
 }

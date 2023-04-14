@@ -2,8 +2,7 @@
 #define PRELOADER_H
 
 #include <QWidget>
-#include <QVideoWidget>
-#include <QMediaPlayer>
+#include <QGraphicsDropShadowEffect>
 
 #include <mainwindow.h>
 
@@ -21,12 +20,14 @@ public:
 
 private:
     Ui::preloader *ui;
-    MainWindow *MainMenu;
-    QMediaPlayer *player;
-    QVideoWidget *videoWidget;
+
+    MainWindow *mainMenu;
+
+    QGraphicsDropShadowEffect *shadowEffect;
+    QTimer *timer;
 
 private slots:
-    void closeVideoWidget(const QMediaPlayer::MediaStatus status);
+    void updateProgressBar();
 };
 
 #endif // PRELOADER_H

@@ -785,7 +785,8 @@ QMap<QString, QString> MainWindow::getColumnsAndDatatypes(const QString &tableNa
                              "AND table_name = '" + tableName + "'");
         tableView->setModel(queryModel);
 
-        for(int row = 0; row < tableView->model()->rowCount(); ++row){
+        for (int row = 1; row < tableView->model()->rowCount(); ++row)
+        {
             headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
                                  tableView->model()->index(row, 1).data().toString());
         }
