@@ -19,6 +19,8 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
 
     connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonClick()));
     connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateCloseButton(const QString)));
+
+    setClearButtonEnabled(true);
 }
 
 

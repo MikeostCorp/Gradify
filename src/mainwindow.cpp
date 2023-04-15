@@ -178,7 +178,6 @@ void MainWindow::mainWindowInit()
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
 
-    ui->searchLineEdit->setClearButtonEnabled(true);
 }
 
 
@@ -266,7 +265,7 @@ void MainWindow::changeEvent(QEvent *event)
 }
 
 
-void MainWindow::closeEvent(QCloseEvent /* *event */)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
     QApplication::closeAllWindows();
 }
