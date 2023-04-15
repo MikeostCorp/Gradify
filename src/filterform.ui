@@ -108,6 +108,9 @@
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
     <item>
      <property name="text">
       <string>Оберіть умову</string>

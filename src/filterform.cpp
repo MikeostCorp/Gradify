@@ -51,7 +51,8 @@ void filterForm::setListTable(QString tableName, const QMap<QString, QString> ta
 
 void filterForm::on_filterPushButton_clicked()
 {
-    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0)
+    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0
+            and !ui->conditionLineEdit->text().isEmpty())
     {
         QString strSqlFilter;
         strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
@@ -127,21 +128,23 @@ void filterForm::on_filterPushButton_clicked()
 
         emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
     }
-
     else if (ui->tableComboBox->currentIndex() == 0)
     {
         QMessageBox::critical(this,"","Оберіть потрібну колонку!");
         ui->tableComboBox->setFocus();
+        show();
     }
     else if (ui->conditionComboBox->currentIndex() == 0)
     {
         QMessageBox::critical(this,"","Оберіть умову!");
         ui->conditionComboBox->setFocus();
+        show();
     }
     else
     {
         QMessageBox::critical(this,"","Введіть значення умови фільтрування");
         ui->conditionLineEdit->setFocus();
+        show();
     }
 }
 
