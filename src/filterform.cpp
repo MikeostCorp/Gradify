@@ -168,7 +168,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 
         ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 35,
                                       ui->conditionLineEdit->y());
-    }    
+    }
     else
     {
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
