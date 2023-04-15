@@ -204,6 +204,7 @@ QTableView QSpinBox,
 QTableView QDateEdit
 {
     background-color: white;
+    color: rgb(61, 60, 59);
 }
 
 QTableView::item
