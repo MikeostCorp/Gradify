@@ -36,13 +36,19 @@ preloader::preloader(QWidget *parent) :
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
 
-    QTimer::singleShot(1000, [this] {
+    QTimer::singleShot(1000, [this]
+    {
         ui->loadStatusLabel->setText("<strong>LOADING</strong> database connection");
     });
 
     QTimer::singleShot(1850, [this]
     {
         ui->loadStatusLabel->setText("<strong>LOADING</strong> application styles");
+    });
+
+    QTimer::singleShot(2300, [this]
+    {
+        ui->loadLabel->setText("start!");
     });
 
     QFile file(":/styles/other/preloader/preloader.qss");

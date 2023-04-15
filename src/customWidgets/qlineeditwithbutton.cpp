@@ -1,9 +1,8 @@
 #include "qlineeditwithbutton.h"
 
-#include <QToolButton>
 #include <QStyle>
+#include <QToolButton>
 #include <QPropertyAnimation>
-
 
 QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     : QLineEdit{parent}
@@ -23,7 +22,7 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
 
     setTextMargins(searchButton->minimumWidth(), 2, clearButton->minimumWidth(), 2);
 
-    connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonSearchClick()));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonClick()));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
     connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateClearButton(const QString)));
 }

@@ -160,7 +160,7 @@ void MainWindow::mainWindowInit()
 
     connect(ui->searchLineEdit, &QLineEditWithButton::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEditWithButton::haveFocus, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->searchLineEdit, &QLineEdit::editingFinished, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
 
     // ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
