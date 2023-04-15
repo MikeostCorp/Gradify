@@ -22,6 +22,7 @@ private:
 private slots:
     void updateCloseButton(const QString &text);
     void buttonClick();
+    void setCurrentTextAligment();
 
 signals:
     void buttonClicked();

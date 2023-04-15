@@ -30,9 +30,7 @@ QLineEdit#searchLineEdit
     color: rgb(61, 60, 59);
     background-color: rgb(225, 225, 225);
     border: 2px solid rgb(225, 225, 225);
-    padding-left: 5px;
     border-radius: 8px;
-    padding-right: 23px;
 }
 
 QLineEdit#searchLineEdit:focus
@@ -40,20 +38,23 @@ QLineEdit#searchLineEdit:focus
     border-color: rgb(65, 105, 225);
 }
 
-QLineEdit#searchLineEdit QToolButton
-{
-    background-color: rgb(225, 225, 225);
-    border: 0px;
-    padding: 0px;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-}
-
 QLineEdit#searchLineEdit:disabled
 {
     background-color: rgb(235, 235, 235);
     border-color: rgb(235, 235, 235);
     color: #989898
+}
+
+QLineEdit#searchLineEdit QToolButton
+{
+    background-color: rgb(225, 225, 225);
+    border: 0px;
+    border-radius: 6px;
+}
+
+QLineEdit#searchLineEdit QToolButton:disabled
+{
+    background-color: rgb(235, 235, 235);
 }
 
 QPushButton#deleteRowButton,

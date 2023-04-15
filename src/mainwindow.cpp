@@ -738,23 +738,31 @@ void MainWindow::on_queryButton_clicked()
 
 void MainWindow::goSearch()
 {
-    QString searchString = "SELECT `" + model->tableName() + "`.*" +
-            "FROM `" + model->tableName() + "`" +
-            "WHERE ";
-
-    for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+    if (!ui->searchLineEdit->text().isEmpty())
     {
-        searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
-                "'%" + ui->searchLineEdit->text() + "%'";
+        QString searchString = "SELECT `" + model->tableName() + "`.*" +
+                "FROM `" + model->tableName() + "`" +
+                "WHERE ";
 
-        if (i != ui->tableView->model()->columnCount() - 1)
+        for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
         {
-            searchString += " OR ";
-        }
-    }
+            searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
+                    "'%" + ui->searchLineEdit->text() + "%'";
 
-    queryModel->setQuery(searchString);
-    ui->tableView->setModel(queryModel);
+            if (i != ui->tableView->model()->columnCount() - 1)
+            {
+                searchString += " OR ";
+            }
+        }
+
+        queryModel->setQuery(searchString);
+        ui->tableView->setModel(queryModel);
+    }
+    else
+    {
+        model->select();
+        ui->tableView->setModel(model);
+    }
 
     //QMessageBox::information(this,"", "надо искать!" + ui->searchLineEdit->text() +
     //                         "\n" + model->tableName());
