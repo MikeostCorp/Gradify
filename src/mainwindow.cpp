@@ -158,7 +158,7 @@ void MainWindow::mainWindowInit()
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
-    connect(ui->searchLineEdit, &QLineEditWithButton::buttonClicked, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QLineEditWithButton::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEditWithButton::haveFocus, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->searchLineEdit, &QLineEdit::editingFinished, this, &MainWindow::goSearch);
 
@@ -177,7 +177,6 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-
 }
 
 
@@ -898,6 +897,9 @@ void MainWindow::setBlackUI()
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
 
+    ui->searchLineEdit->setIconSearchButton(QIcon(":/img/blackMenuIcon/search.png"), QSize(12, 12));
+    ui->searchLineEdit->setIconClearButton(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"), QSize(12, 12));
+
     setCurrentIconAction();
 
     switch (currentSelectTable)
@@ -953,6 +955,9 @@ void MainWindow::setWhiteUI()
     {
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
+
+    ui->searchLineEdit->setIconSearchButton(QIcon(":/img/blackMenuIcon/search.png"), QSize(12, 12));
+    ui->searchLineEdit->setIconClearButton(QIcon(":/img/blackMenuIcon/clearLoginIco.png"), QSize(12, 12));
 
     setCurrentIconAction();
 

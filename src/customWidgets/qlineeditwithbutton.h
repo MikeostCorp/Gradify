@@ -2,6 +2,7 @@
 #define QLINEEDITWITHBUTTON_H
 
 #include <QLineEdit>
+#include <QPropertyAnimation>
 
 class QToolButton;
 
@@ -18,14 +19,23 @@ protected:
 
 private:
     QToolButton *searchButton;
+    QToolButton *clearButton;
+
+    QPropertyAnimation *animationSearchButton;
+    //QPropertyAnimation *animationLineEdit; ДОДЕЛАТЬ ДЛЯ ПЛАВНОГО СМЕЩЕНИЯ КУРСОРА
+
 
 private slots:
-    void updateCloseButton(const QString &text);
+    void updateClearButton(const QString &text);
     void buttonClick();
-    void setCurrentTextAligment();
+    void playAnimationSearchButton();
+
+public slots:
+    void setIconSearchButton(QIcon icon, QSize size);
+    void setIconClearButton(QIcon icon, QSize size);
 
 signals:
-    void buttonClicked();
+    void buttonSearchClick();
     void haveFocus(bool);
 };
 

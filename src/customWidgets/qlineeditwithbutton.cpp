@@ -9,46 +9,45 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     : QLineEdit{parent}
 {
     searchButton = new QToolButton(this);
+    clearButton = new QToolButton(this);
 
-    searchButton->setIcon(QIcon(":/img/blackMenuIcon/search.png"));
-    searchButton->setIconSize(QSize(12,12));
-    searchButton->setCursor(Qt::PointingHandCursor);
+    animationSearchButton = new QPropertyAnimation(searchButton, "geometry");
+    animationSearchButton->setDuration(100);
+
+    searchButton->setCursor(Qt::IBeamCursor);
     searchButton->setMinimumSize(25, this->height() - 5);
-    searchButton->move(width()/5 - 10, 2);
-    searchButton->setVisible(false);
 
-    connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonClick()));
-    connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateCloseButton(const QString)));
+    clearButton->setVisible(false);
+    clearButton->setMinimumSize(25, this->height() - 5);
+    clearButton->setCursor(Qt::PointingHandCursor);
 
-    setClearButtonEnabled(true);
+    setTextMargins(searchButton->minimumWidth(), 2, clearButton->minimumWidth(), 2);
+
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonSearchClick()));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+    connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateClearButton(const QString)));
 }
 
 
 void QLineEditWithButton::resizeEvent(QResizeEvent *event)
 {
     int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-    searchButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
+    clearButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
 
-    //int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-    //searchButton->move(width()/5 - 10 , 2);
-    // for x coord: rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
-
-    //if (!hasFocus())
-    //{
-    //    searchButton->move(width()/2 - 54, 2);
-    //}
-
-    //    int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-    //  searchButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
-
+    if (!hasFocus())
+    {
+        QFontMetrics font(placeholderText());
+        searchButton->move(width()/2 - font.horizontalAdvance(placeholderText()) - 6, 2);
+    }
 }
 
 
 void QLineEditWithButton::focusInEvent(QFocusEvent *event)
 {
     QLineEdit::focusInEvent(event);
-    setCurrentTextAligment();
-    //searchButton->setCursor(Qt::PointingHandCursor);
+    setAlignment(Qt::AlignLeft);
+    searchButton->setCursor(Qt::PointingHandCursor);
+    playAnimationSearchButton();
     emit haveFocus(true);
 }
 
@@ -56,80 +55,60 @@ void QLineEditWithButton::focusInEvent(QFocusEvent *event)
 void QLineEditWithButton::focusOutEvent(QFocusEvent *event)
 {
     QLineEdit::focusOutEvent(event);
-    setCurrentTextAligment();
-    //searchButton->setCursor(Qt::IBeamCursor);
-    emit(haveFocus(true));
+    playAnimationSearchButton();
+
+    if (text().isEmpty())
+    {
+        searchButton->setCursor(Qt::IBeamCursor);
+        setAlignment(Qt::AlignCenter);
+    }
+
+    emit(haveFocus(false));
 }
 
 
-void QLineEditWithButton::updateCloseButton(const QString &text)
+void QLineEditWithButton::updateClearButton(const QString &text)
 {
-    // bruh animation
-    //QPropertyAnimation *anim = new QPropertyAnimation(searchButton, "pos", this);
-    //anim->setDuration(10000);
-    //anim->setStartValue(QPoint(0, 0));
-    //anim->setEndValue(QPoint(100, 250));
-    //anim->start();
-    //searchButton->paintEvent();
-
-    // было бы прикольно сюда впихнуть анимацию появления лупы как у тг крестика, но как((
-
-    //setCurrentTextAligment();
-
-    searchButton->setVisible(!text.isEmpty());
-
+    clearButton->setVisible(!text.isEmpty());
 }
 
 
 void QLineEditWithButton::buttonClick()
 {
-    //if (hasFocus() or !text().isEmpty())
-    //{
-    //    emit buttonClicked();
-    //}
-
-    emit buttonClicked();
-
+    emit buttonSearchClick();
 }
 
 
-void QLineEditWithButton::setCurrentTextAligment()
+void QLineEditWithButton::playAnimationSearchButton()
 {
-    /*if (hasFocus() or !text().isEmpty())
+    if (hasFocus() or !text().isEmpty())
     {
-        setAlignment(Qt::AlignLeft);
-
-        setTextMargins(25, defaultTextMargins()->top(),
-                       defaultTextMargins().right(), defaultTextMargins().bottom());
-
-
-        QPropertyAnimation animation(searchButton, "geometry");
-        animation.setDuration(5);
-        animation.setStartValue(QRect(searchButton->x(),searchButton->y(),searchButton->width(), searchButton->height()));
-        animation.setEndValue(QRect(2,2,searchButton->width(), searchButton->height()));
-        animation.start();
-
+        animationSearchButton->setStartValue(searchButton->geometry());
+        animationSearchButton->setEndValue(QRect(2, 2, searchButton->width(), searchButton->height()));
+        animationSearchButton->start();
     }
     else
     {
-        setAlignment(Qt::AlignCenter);
+        QFontMetrics font(placeholderText());
+        animationSearchButton->setStartValue(searchButton->geometry());
+        animationSearchButton->setEndValue(QRect(width()/2 - font.horizontalAdvance(placeholderText()) - 6, 2,
+                                                 searchButton->width(), searchButton->height()));
+        animationSearchButton->start();
 
-        setTextMargins(textMargins().left(), textMargins().top(),
-                       textMargins().right(), textMargins().bottom());
-
-        searchButton->move(width()/2 - 54, 2);
     }
-     *
-     * QPushButton button("Animated Button");
-button.show();
-
-QPropertyAnimation animation(&button, "geometry");
-animation.setDuration(10000);
-animation.setStartValue(QRect(0, 0, 100, 30));
-animation.setEndValue(QRect(250, 250, 100, 30));
-
-animation.start();
-*/
 }
 
+
+void QLineEditWithButton::setIconSearchButton(QIcon icon, QSize size)
+{
+    searchButton->setIcon(icon);
+    searchButton->setIconSize(size);
+}
+
+
+void QLineEditWithButton::setIconClearButton(QIcon icon, QSize size)
+{
+    clearButton->setIcon(icon);
+    clearButton->setIconSize(size);
+}
 

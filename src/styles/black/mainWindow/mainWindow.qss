@@ -47,7 +47,7 @@ QLineEdit#searchLineEdit:disabled
 
 QLineEdit#searchLineEdit QToolButton
 {
-    background-color: rgb(47, 48, 49);
+    background-color: rgba(47, 48, 49, 0);
     border: 0px;
     border-radius: 6px;
 }
