@@ -24,6 +24,9 @@ private:
     QPropertyAnimation *animationSearchButton;
     //QPropertyAnimation *animationLineEdit; ДОДЕЛАТЬ ДЛЯ ПЛАВНОГО СМЕЩЕНИЯ КУРСОРА
 
+    QFontMetrics *font;
+
+
 
 private slots:
     void updateClearButton(const QString &text);

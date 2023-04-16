@@ -10,6 +10,9 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     searchButton = new QToolButton(this);
     clearButton = new QToolButton(this);
 
+    font = new QFontMetrics(placeholderText());
+
+
     animationSearchButton = new QPropertyAnimation(searchButton, "geometry");
     animationSearchButton->setDuration(100);
 
@@ -35,8 +38,7 @@ void QLineEditWithButton::resizeEvent(QResizeEvent *event)
 
     if (!hasFocus())
     {
-        QFontMetrics font(placeholderText());
-        searchButton->move(width()/2 - font.horizontalAdvance(placeholderText()) - 6, 2);
+        searchButton->move(width()/2 - font->horizontalAdvance(placeholderText()) - 6, 2);
     }
 }
 
@@ -88,9 +90,8 @@ void QLineEditWithButton::playAnimationSearchButton()
     }
     else
     {
-        QFontMetrics font(placeholderText());
         animationSearchButton->setStartValue(searchButton->geometry());
-        animationSearchButton->setEndValue(QRect(width()/2 - font.horizontalAdvance(placeholderText()) - 6, 2,
+        animationSearchButton->setEndValue(QRect(width()/2 - font->horizontalAdvance(placeholderText()) - 6, 2,
                                                  searchButton->width(), searchButton->height()));
         animationSearchButton->start();
 
