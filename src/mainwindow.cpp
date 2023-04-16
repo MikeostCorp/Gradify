@@ -28,6 +28,7 @@ void MainWindow::mainWindowInit()
 {
     setWindowTitle("Gradify");
 
+    // new windows
     settingWindow = new appSetting();
     authorizationWindow = new authorization();
     filterWindow = new filterForm(this);
@@ -38,103 +39,7 @@ void MainWindow::mainWindowInit()
 
     currentSelectTable = -1;
 
-
-    //=================================================
-    //               Креатим таблицу акаунти
-    //=================================================
-    //
-    //passLogQuery->exec("CREATE TABLE Акаунти ("
-    //                               "Логін TEXT,"
-    //                               "Пароль TEXT,"
-    //                               "Роль TEXT"
-    //                               ");");
-
-    //=================================================
-    //               Креатим таблицу группы
-    //=================================================
-    //
-    //query->exec("CREATE TABLE Групи ("
-    //            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Назва TEXT,"
-    //            "Спеціальність TEXT," // можно условие закинуть на проверку групп
-    //            "\"Рік початку навчання\" INTEGER,"
-    //            "\"Рік закінчення навчання\" INTEGER,"
-    //            "Куратор TEXT,"
-    //            "Староста TEXT,"
-    //            "CONSTRAINT check_yearStart CHECK(\"Рік початку навчання\" >= 2000 AND \"Рік закінчення навчання\" > \"Рік початку навчання\" AND id >= 0)"
-    //            ");");
-
-
-    //=================================================
-    //               Креатим таблицу студенти
-    //=================================================
-    //
-    //query->exec("CREATE TABLE Студенти ("
-    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Прізвище TEXT,"
-    //            "\"Ім'я\" TEXT,"
-    //            "\"По батькові\" TEXT,"
-    //            "Стать TEXT,"
-    //            "\"Номер телефона\" INTEGER,"
-    //            "\"Дата народження\" DATE,"
-    //            "\"Адреса проживання\" TEXT,"
-    //            "\"Номер паспорту\" INTEGER,"
-    //            "Група TEXT,"
-    //            "IHH INTEGER"
-    //            ");");
-
-
-    //=================================================
-    //               Креатим таблицу Викладачі
-    //=================================================
-    //
-    //query->exec("CREATE TABLE Викладачі ("
-    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Прізвище TEXT,"
-    //            "\"Ім'я\" TEXT,"
-    //            "\"По батькові\" TEXT,"
-    //            "\"Номер телефона\" INTEGER,"
-    //            "\"Дата народження\" DATE,"
-    //            "\"Адреса проживання\" TEXT,"
-    //            "\"Категорія\" INTEGER,"
-    //            "Спецілізація TEXT"
-    //            ");");
-
-
-    //=================================================
-    //               Креатим таблицу Оцінки
-    //=================================================
-    //
-    //query->exec("CREATE TABLE Оцінки ("
-    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Предмет TEXT,"
-    //            "Отримувач TEXT,"
-    //            "Викладач TEXT,"
-    //            "Оцінка INTEGER,"
-    //            "Дата оцінки DATE"
-    //            ");");
-
-
-    //=================================================
-    //               Креатим таблицу Предмет
-    //=================================================
-    //
-    //query->exec("CREATE TABLE Предмет ("
-    //           "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-    //            "Назва TEXT,"
-    //            "Тип TEXT,"
-    //            "\"Всього годин\" INTEGER,"
-    //            "\"Кількість лабораторних годин\" INTEGER,"
-    //            "\"Кількість лекційніх годин\" INTEGER,"
-    //            "\"Кількість семінарних годин годин\" INTEGER,"
-    //            "\"Кількість годин на самостійну роботу\" INTEGER,"
-    //            "\"Семестр в якому вивчається\" INTEGER,"
-    //            "\"Семестровий контроль\" TEXT," // (іспит, залік)
-    //            "CONSTRAINT check_hours CHECK(\"Кількість лабораторних годин\"  > 0 AND \"Кількість лекційніх годин\" > 0 AND \"Кількість семінарних годин годин\" > 0 AND \"Кількість годин на самостійну роботу\" > 0 AND \"Семестр в якому вивчається\" > 0)"
-    //            ");");
-
-    //query->exec("DROP TABLE loginPassTable");
-
+    // tableview settings
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
     ui->tableView->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
 
@@ -170,6 +75,7 @@ void MainWindow::mainWindowInit()
 
     //succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
+    // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
     logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
