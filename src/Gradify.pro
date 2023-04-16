@@ -12,6 +12,7 @@ SOURCES += \
     appsetting.cpp \
     authorization.cpp \
     customWidgets/qlineeditwithbutton.cpp \
+    customWidgets/qsearchbar.cpp \
     filterform.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     appsetting.h \
     authorization.h \
     customWidgets/qlineeditwithbutton.h \
+    customWidgets/qsearchbar.h \
     filterform.h \
     mainwindow.h \
     preloader.h \

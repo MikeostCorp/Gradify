@@ -18,7 +18,7 @@
 #include <authorization.h>
 #include <filterform.h>
 #include <queryform.h>
-#include <customWidgets/qlineeditwithbutton.h>
+#include <customWidgets/qsearchbar.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

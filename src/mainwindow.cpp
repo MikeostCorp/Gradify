@@ -158,8 +158,8 @@ void MainWindow::mainWindowInit()
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
-    connect(ui->searchLineEdit, &QLineEditWithButton::buttonSearchClick, this, &MainWindow::goSearch);
-    connect(ui->searchLineEdit, &QLineEditWithButton::haveFocus, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
 
@@ -168,7 +168,7 @@ void MainWindow::mainWindowInit()
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
+    //succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);

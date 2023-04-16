@@ -57,7 +57,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="loginLineEdit">
+  <widget class="QLineEditWithButton" name="loginLineEdit">
    <property name="geometry">
     <rect>
      <x>19</x>
@@ -73,7 +73,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="passwordLineEdit">
+  <widget class="QLineEditWithButton" name="passwordLineEdit">
    <property name="geometry">
     <rect>
      <x>19</x>
@@ -151,32 +151,6 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Введено неправильний логін або пароль!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="passwordVisibilityButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>150</y>
-     <width>31</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="icon">
-    <iconset resource="recources.qrc">
-     <normaloff>:/img/blackMenuIcon/noWatchPass.png</normaloff>:/img/blackMenuIcon/noWatchPass.png</iconset>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>16</width>
-     <height>16</height>
-    </size>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="rememberCheckBox">
    <property name="geometry">
     <rect>
@@ -190,33 +164,14 @@
     <string>Запам'ятай мене</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="loginClearButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>110</y>
-     <width>31</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="icon">
-    <iconset resource="recources.qrc">
-     <normaloff>:/img/blackMenuIcon/noWatchPass.png</normaloff>:/img/blackMenuIcon/noWatchPass.png</iconset>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>13</width>
-     <height>13</height>
-    </size>
-   </property>
-  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QLineEditWithButton</class>
+   <extends>QLineEdit</extends>
+   <header>qlineeditwithbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="recources.qrc"/>
  </resources>

@@ -1031,7 +1031,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLineEditWithButton" name="searchLineEdit">
+             <widget class="QSearchBar" name="searchLineEdit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1324,9 +1324,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QLineEditWithButton</class>
+   <class>QSearchBar</class>
    <extends>QLineEdit</extends>
-   <header>qlineeditwithbutton.h</header>
+   <header>qsearchbar.h</header>
   </customwidget>
  </customwidgets>
  <resources>

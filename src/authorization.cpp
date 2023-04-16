@@ -16,9 +16,12 @@ authorization::authorization(QWidget *parent) :
     setWindowFlag(Qt::WindowStaysOnTopHint);
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
-    connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
     connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
+    connect(ui->loginLineEdit, &QLineEditWithButton::buttonClicked, this, &authorization::loginClearButtonCliked);
+
+    connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
     connect(ui->passwordLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
+    connect(ui->passwordLineEdit, &QLineEditWithButton::buttonClicked, this, &authorization::passwordVisibilityButtonClicked);
 
     show();
     close();
@@ -41,12 +44,6 @@ void authorization::startAuthozation()
 }
 
 
-void authorization::on_loginClearButton_clicked()
-{
-    ui->loginLineEdit->clear();
-}
-
-
 void authorization::on_forgotPasswordButton_clicked()
 {
     QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
@@ -55,7 +52,13 @@ void authorization::on_forgotPasswordButton_clicked()
 }
 
 
-void authorization::on_passwordVisibilityButton_clicked()
+void authorization::loginClearButtonCliked()
+{
+    ui->loginLineEdit->clear();
+}
+
+
+void authorization::passwordVisibilityButtonClicked()
 {
     if (!isPasswordHidden)
     {
@@ -63,11 +66,11 @@ void authorization::on_passwordVisibilityButton_clicked()
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
         if (styleType == "white")
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/noWatchPass.png"));
+            ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/noWatchPass.png"));
         }
         else
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/noWatchPass.png"));
+            ui->passwordLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/noWatchPass.png"));
         }
     }
     else
@@ -76,11 +79,11 @@ void authorization::on_passwordVisibilityButton_clicked()
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
         if (styleType == "white")
         {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+            ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/watchPass.png"));
         }
         else
-       {
-            ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+        {
+            ui->passwordLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/watchPass.png"));
         }
     }
 }
@@ -145,6 +148,7 @@ void authorization::on_loginButton_clicked()
                              "FROM Акаунти "
                              "WHERE Логін = '" + login + "'"
                              " AND Пароль = '" + password + "'");
+
         tableView->setModel(queryModel);
 
         if (tableView->model()->rowCount() > 0)
@@ -175,8 +179,12 @@ void authorization::setBlackUI()
     styleType = "black";
     isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/whiteMenuIcon/cloud.png"));
-    ui->loginClearButton->setIcon(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"));
-    ui->passwordVisibilityButton->setIcon(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+
+    ui->loginLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"));
+    ui->loginLineEdit->setIconSize(QSize(13, 13));
+
+    ui->passwordLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/watchPass.png"));
+    ui->passwordLineEdit->setIconSize(QSize(16, 16));
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
@@ -191,8 +199,12 @@ void authorization::setWhiteUI()
     styleType = "white";
     isPasswordHidden = false;
     ui->imageLabel->setPixmap(QPixmap(":/img/blackMenuIcon/cloud.png"));
-    ui->loginClearButton->setIcon(QIcon(":/img/blackMenuIcon/clearLoginIco.png"));
-    ui->passwordVisibilityButton->setIcon(QIcon(":/img/blackMenuIcon/watchPass.png"));
+
+    ui->loginLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/clearLoginIco.png"));
+    ui->loginLineEdit->setIconSize(QSize(13, 13));
+
+    ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/watchPass.png"));
+    ui->passwordLineEdit->setIconSize(QSize(16, 16)  );
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
@@ -218,7 +230,7 @@ void authorization::setSystemUI()
 
 void authorization::on_rememberCheckBox_stateChanged(int arg1)
 {
-    if(arg1 == 0)
+    if (arg1 == 0)
     {
         // КОД ЕСЛИ НЕ ЗАПОМНИТЬ ЮЗЕРА
     }

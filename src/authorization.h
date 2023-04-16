@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QSqlDatabase>
 #include <QFile>
+#include "customWidgets/qlineeditwithbutton.h"
 
 namespace Ui {
 class authorization;
@@ -26,13 +27,15 @@ private slots:
 
     void on_forgotPasswordButton_clicked();
 
-    void on_passwordVisibilityButton_clicked();
+    void loginClearButtonCliked();
+
+    void passwordVisibilityButtonClicked();
 
     void on_loginButton_clicked();
 
-    void on_loginClearButton_clicked();
-
     void on_rememberCheckBox_stateChanged(int arg1);
+
+
 
 private:
     Ui::authorization *ui;
@@ -42,7 +45,6 @@ private:
     bool isPasswordHidden;
 
     QString styleType;
-
 
 public slots:
     void setThemeAuthorUI(const QString style);

@@ -32,19 +32,12 @@ QPushButton#loginButton:hover
     background-color: rgb(88, 88, 88);
 }
 
-QPushButton#passwordVisibilityButton,
-QPushButton#loginClearButton
-{
-    background-color: none;
-    border: 0px;
-}
-
 QLineEdit#loginLineEdit,
 QLineEdit#passwordLineEdit
 {
     color: white;
     background-color: rgb(29, 31, 32);
-    border: 0px;
+    border: 2px solid rgb(29, 31, 32);
     border-radius: 8px;
 }
 
@@ -54,6 +47,14 @@ QLineEdit#passwordLineEdit:focus
     border: 2px solid rgb(85, 135, 235);
     border-radius: 8px;
 }
+
+QLineEdit#loginLineEdit QToolButton,
+QLineEdit#passwordLineEdit QToolButton
+{
+    background-color: none;
+    border: 0px;
+}
+
 
 QLabel#authorizationErrorLabel
 {
