@@ -2,6 +2,7 @@
 #define FILTERFORM_H
 
 #include <QWidget>
+#include <QGraphicsDropShadowEffect>
 
 namespace Ui {
 class filterForm;
@@ -14,6 +15,7 @@ class filterForm : public QWidget
 public:
     explicit filterForm(QWidget *parent = nullptr);
     ~filterForm();
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
     void on_filterPushButton_clicked();
@@ -33,6 +35,8 @@ private slots:
     void setDisabledComboBox();
 
     QString reverseDate(QString str);
+
+    QGraphicsDropShadowEffect *paintDropRedShadowEffect();
 
 private:
     Ui::filterForm *ui;

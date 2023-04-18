@@ -11,7 +11,11 @@ filterForm::filterForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(width(), height());
+
     ui->conditionLineEdit_2->setVisible(false);
+    ui->conditionComboBox->installEventFilter(this);
+    ui->tableComboBox->installEventFilter(this);
+
     currentTabelSelect = "NULL";
     oldColumnSelect = "NULL";
     close();
@@ -21,6 +25,35 @@ filterForm::filterForm(QWidget *parent) :
 filterForm::~filterForm()
 {
     delete ui;
+}
+
+
+bool filterForm::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::FocusIn)
+    {
+        if (ui->conditionComboBox->hasFocus())
+        {
+            ui->conditionComboBox->setGraphicsEffect(paintDropRedShadowEffect());
+        }
+        else if (ui->tableComboBox->hasFocus())
+        {
+            ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
+        }
+
+        //FocusEvent *tmp = static_cast<QFocusEvent*>(event);
+        //if (tmp->reason() == Qt::TabFocusReason || tmp->reason() == Qt::BacktabFocusReason)
+        //{
+        //  ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
+        //}
+    }
+    else if (event->type() == QEvent::FocusOut and !this->hasFocus())
+    {
+        ui->conditionComboBox->setGraphicsEffect(nullptr);
+        ui->tableComboBox->setGraphicsEffect(nullptr);
+    }
+
+    return false;
 }
 
 
@@ -303,4 +336,15 @@ QString filterForm::reverseDate(QString str)
     tempStr[str.length() - 1] = str[1];
 
     return tempStr;
+}
+
+
+QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
+{
+    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
+    effect->setBlurRadius(25);
+    effect->setColor(QColor(196, 30, 58));
+    effect->setOffset(QPointF(0, 0));
+    return effect;
+
 }

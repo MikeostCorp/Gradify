@@ -11,7 +11,7 @@ QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     button = new QToolButton(this);
     button->setCursor(Qt::PointingHandCursor);
 
-    setMinimumSize(25, this->height() - 5);
+    button->setMinimumSize(25, this->height() - 5);
     setTextMargins(2, 2, button->minimumWidth(), 2);
 
     connect(button, SIGNAL(clicked()), this, SLOT(buttonClick()));

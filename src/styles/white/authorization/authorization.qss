@@ -17,7 +17,7 @@ QPushButton#forgotPasswordButton
 
 QPushButton#forgotPasswordButton:hover
 {
-    color: rgb(65, 105, 225);
+    color: rgb(65, 125, 215);
 }
 
 QPushButton#loginButton
