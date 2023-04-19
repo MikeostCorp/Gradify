@@ -13,7 +13,6 @@ QSearchBar::QSearchBar(QWidget *parent)
     font = new QFontMetrics(placeholderText());
 
     animationSearchButton = new QPropertyAnimation(searchButton, "geometry");
-    animationSearchButton->setDuration(100);
 
     searchButton->setCursor(Qt::IBeamCursor);
     searchButton->setMinimumSize(25, this->height() - 5);
@@ -83,12 +82,14 @@ void QSearchBar::playAnimationSearchButton()
 {
     if (hasFocus() or !text().isEmpty())
     {
+        animationSearchButton->setDuration(this->width() / 1.85);
         animationSearchButton->setStartValue(searchButton->geometry());
         animationSearchButton->setEndValue(QRect(2, 2, searchButton->width(), searchButton->height()));
         animationSearchButton->start();
     }
     else
     {
+        animationSearchButton->setDuration(this->width() / 1.85);
         animationSearchButton->setStartValue(searchButton->geometry());
         animationSearchButton->setEndValue(QRect(width()/2 - font->horizontalAdvance(placeholderText()) - 6, 2,
                                                searchButton->width(), searchButton->height()));

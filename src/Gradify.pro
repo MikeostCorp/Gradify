@@ -48,3 +48,6 @@ RESOURCES += \
     recources.qrc
 
 ICON = img/AppIcon.icns
+
+DISTFILES += \
+    img/whiteMenuIcon/okayIndicator.png

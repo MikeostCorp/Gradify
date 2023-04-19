@@ -48,7 +48,7 @@ QLineEdit#passwordLineEdit:focus
     border-radius: 8px;
 }
 
-QLineEdit#loginLineEdit QToolButton
+QLineEdit#loginLineEdit QToolButton,
 QLineEdit#passwordLineEdit QToolButton
 {
     background-color: none;
@@ -63,4 +63,20 @@ QLabel#authorizationErrorLabel
 QCheckBox#rememberCheckBox
 {
     color: rgb(61, 60, 59);
+    spacing: 5px;
+}
+
+QCheckBox#rememberCheckBox::indicator
+{
+    background-color: white;
+    border-radius: 3px;
+    width: 14px;
+    height: 14px;
+}
+
+QCheckBox#rememberCheckBox::indicator:checked
+{
+    image: url(:/img/whiteMenuIcon/okayIndicator.png);
+    background-color: qlineargradient(spread:pad, x1:0.519608, y1:1, x2:0.52451, y2:0,
+        stop:0 rgba(0, 112, 213, 255), stop:1 rgba(0, 123, 233, 255));
 }

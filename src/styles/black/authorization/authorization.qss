@@ -55,7 +55,6 @@ QLineEdit#passwordLineEdit QToolButton
     border: 0px;
 }
 
-
 QLabel#authorizationErrorLabel
 {
     color: red;
@@ -64,4 +63,21 @@ QLabel#authorizationErrorLabel
 QCheckBox#rememberCheckBox
 {
     color: white;
+    spacing: 5px;
+}
+
+QCheckBox#rememberCheckBox::indicator
+{
+    background-color: qlineargradient(spread:pad, x1:0.519608, y1:1, x2:0.52451, y2:0,
+        stop:0 rgba(101, 103, 106, 255), stop:1 rgba(74, 79, 81, 255));
+    border-radius: 3px;
+    width: 14px;
+    height: 14px;
+}
+
+QCheckBox#rememberCheckBox::indicator:checked
+{
+    image: url(:/img/whiteMenuIcon/okayIndicator.png);
+    background-color: qlineargradient(spread:pad, x1:0.519608, y1:1, x2:0.52451, y2:0,
+        stop:0 rgba(0, 112, 213, 255), stop:1 rgba(0, 123, 233, 255));
 }

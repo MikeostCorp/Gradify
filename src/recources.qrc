@@ -64,5 +64,6 @@
         <file>img/mainLogo/mainIcox1024.png</file>
         <file>img/blackMenuIcon/search.png</file>
         <file>styles/other/preloader/preloader.qss</file>
+        <file>img/whiteMenuIcon/okayIndicator.png</file>
     </qresource>
 </RCC>

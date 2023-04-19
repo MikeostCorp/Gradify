@@ -20,7 +20,6 @@ private:
     QToolButton *clearButton;
 
     QPropertyAnimation *animationSearchButton;
-    //QPropertyAnimation *animationLineEdit; ДОДЕЛАТЬ ДЛЯ ПЛАВНОГО СМЕЩЕНИЯ КУРСОРА
 
     QFontMetrics *font;
 
