@@ -684,7 +684,7 @@ QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
     effect->setBlurRadius(25);
     effect->setColor(QColor(15, 15, 15));
-    effect->setOffset(QPointF(0, 0));
+    effect->setOffset(QPointF(0, 1));
     return effect;
 }
 
