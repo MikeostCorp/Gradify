@@ -134,8 +134,6 @@ private slots:
 
     void on_about_triggered();
 
-    void on_tableView_pressed();
-
     void on_filterButton_clicked();
 
     void on_queryButton_clicked();

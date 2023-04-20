@@ -59,12 +59,23 @@ void MainWindow::mainWindowInit()
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
 
+    // close popup windows on click tableView (need fix empty space)
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->tableView, &QTableView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
-    //connect(ui->tableView, &QFocus::);
-    //QFocusEvent::
+    // close popup windows on click any buttons
+    for (QPushButton* button : findChildren<QPushButton*>())
+    {
+        if (button->objectName() != "filterButton" and button->objectName() != "queryButton")
+        {
+            connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
+        }
+    }
+
+    // close popup windows on click menubar
+    connect(ui->menuBar, &QMenuBar::triggered, this, &MainWindow::closeAllPopUpWindow);
 
 
     connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
@@ -87,6 +98,7 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
+
 }
 
 
@@ -212,7 +224,6 @@ void MainWindow::on_studentsTableButton_clicked()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
-    closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -249,7 +260,6 @@ void MainWindow::on_teachersTableButton_clicked()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
-    closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
@@ -288,7 +298,6 @@ void MainWindow::on_gradesTableButton_clicked()
     ui->tableView->setModel(model);
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
-    closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
@@ -324,7 +333,6 @@ void MainWindow::on_groupsTableButton_clicked()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
-    closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -360,7 +368,6 @@ void MainWindow::on_subjectsTableButton_clicked()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
-    closeAllPopUpWindow();
     clearStyleButtonTable();
 
     ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
@@ -541,14 +548,11 @@ void MainWindow::on_settingsButton_clicked()
 {
     settingWindow->show();
     authorizationWindow->close();
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_authorizationButton_clicked()
 {
-    closeAllPopUpWindow();
-
     if (!isLogin)
     {
         authorizationWindow->show();
@@ -575,7 +579,6 @@ void MainWindow::on_authorizationButton_clicked()
 
 void MainWindow::on_addRowButton_clicked()
 {
-    closeAllPopUpWindow();
     model->insertRow(model->rowCount());
     ui->tableView->scrollToBottom();
     ui->tableView->selectRow(model->rowCount() - 1);
@@ -585,7 +588,6 @@ void MainWindow::on_addRowButton_clicked()
 
 void MainWindow::on_deleteRowButton_clicked()
 {
-    closeAllPopUpWindow();
     ui->searchLineEdit->clearFocus();
 
     bool ok;
@@ -605,7 +607,6 @@ void MainWindow::on_deleteRowButton_clicked()
 
 void MainWindow::on_editRowButton_clicked()
 {
-    closeAllPopUpWindow();
     ui->searchLineEdit->clearFocus();
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
@@ -723,12 +724,6 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 }
 
 
-void MainWindow::on_tableView_pressed()
-{
-    closeAllPopUpWindow();
-}
-
-
 //=========================================================
 //
 //                 КОД ДЛЯ ЗВИТОВ ПО ТАБЛИЦАМ!!!
@@ -738,37 +733,31 @@ void MainWindow::on_tableView_pressed()
 
 void MainWindow::on_currentTableReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_studentsReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_teachersReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_gradesReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_groupsReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
 void MainWindow::on_subjectsReportButton_clicked()
 {
-    closeAllPopUpWindow();
 }
 
 
