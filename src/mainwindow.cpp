@@ -176,7 +176,10 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    QApplication::closeAllWindows();
+    if (event->Close)
+    {
+        QApplication::closeAllWindows();
+    }
 }
 
 
