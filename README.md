@@ -1,7 +1,7 @@
 # Gradify
 
 <p align="center">
-  <img src="https://github.com/MikeostCorp/Gradify/blob/main/src/img/mainLogo/mainIcox512.png" width="200" height="200">
+  <img src="https://github.com/MikeostCorp/Gradify/blob/main/src/img/iconSets/icon_512x512%402x.png" width="200" height="200">
 </p>
 
 ----
