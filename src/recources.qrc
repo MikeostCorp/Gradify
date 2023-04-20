@@ -20,10 +20,6 @@
         <file>img/blueMenuIcon/studentsIco.png</file>
         <file>img/blueMenuIcon/subjectIco.png</file>
         <file>img/blueMenuIcon/teachersIco.png</file>
-        <file>img/mainLogo/mainIcox128.png</file>
-        <file>img/mainLogo/mainIcox256.png</file>
-        <file>img/mainLogo/mainIcox512.png</file>
-        <file>img/mainLogo/mainIcox64.png</file>
         <file>img/reportsIcon/reportCurrentTable.png</file>
         <file>img/reportsIcon/reportGroup.png</file>
         <file>img/reportsIcon/reportItem.png</file>
@@ -61,9 +57,19 @@
         <file>img/blackMenuIcon/outLog.png</file>
         <file>img/whiteMenuIcon/inLog.png</file>
         <file>img/whiteMenuIcon/outLog.png</file>
-        <file>img/mainLogo/mainIcox1024.png</file>
         <file>img/blackMenuIcon/search.png</file>
         <file>styles/other/preloader/preloader.qss</file>
         <file>img/whiteMenuIcon/okayIndicator.png</file>
+        <file>img/iconSets/Contents.json</file>
+        <file>img/iconSets/icon_128x128.png</file>
+        <file>img/iconSets/icon_128x128@2x.png</file>
+        <file>img/iconSets/icon_16x16.png</file>
+        <file>img/iconSets/icon_16x16@2x.png</file>
+        <file>img/iconSets/icon_256x256.png</file>
+        <file>img/iconSets/icon_256x256@2x.png</file>
+        <file>img/iconSets/icon_32x32.png</file>
+        <file>img/iconSets/icon_32x32@2x.png</file>
+        <file>img/iconSets/icon_512x512.png</file>
+        <file>img/iconSets/icon_512x512@2x.png</file>
     </qresource>
 </RCC>
