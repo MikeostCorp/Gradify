@@ -68,7 +68,11 @@ void MainWindow::mainWindowInit()
     // close popup windows on click any buttons
     for (QPushButton* button : findChildren<QPushButton*>())
     {
-        if (button->objectName() != "filterButton" and button->objectName() != "queryButton")
+        // Добавлять в условие название кнопок форм привязаных к главном у окну
+        if (button->objectName() != "filterButton" and button->objectName() != "queryButton"
+            and button->objectName() != "filterPushButton" and button->objectName() != "succesStudentPushButton"
+            and button->objectName() != "avgScorePushButton" and button->objectName() != "mySQLPushButton"
+            and button->objectName() != "nameFreeButtonМенять!")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
@@ -76,10 +80,8 @@ void MainWindow::mainWindowInit()
 
     // close popup windows on click menubar
     connect(ui->menuBar, &QMenuBar::triggered, this, &MainWindow::closeAllPopUpWindow);
-
-
-    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
 
