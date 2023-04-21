@@ -42,7 +42,7 @@
      <rect>
       <x>156</x>
       <y>50</y>
-      <width>61</width>
+      <width>64</width>
       <height>21</height>
      </rect>
     </property>
@@ -157,7 +157,7 @@
      <rect>
       <x>10</x>
       <y>80</y>
-      <width>211</width>
+      <width>171</width>
       <height>21</height>
      </rect>
     </property>
@@ -184,8 +184,60 @@
      <string>Текст</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="clearFilterPushButton">
+    <property name="geometry">
+     <rect>
+      <x>188</x>
+      <y>80</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="recources.qrc">
+      <normaloff>:/img/blueMenuIcon/clearFilterIco.png</normaloff>:/img/blueMenuIcon/clearFilterIco.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>20</width>
+      <height>18</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="conditionDataEdit">
+    <property name="geometry">
+     <rect>
+      <x>59</x>
+      <y>60</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maximumDate">
+     <date>
+      <year>2099</year>
+      <month>12</month>
+      <day>31</day>
+     </date>
+    </property>
+    <property name="minimumDate">
+     <date>
+      <year>2000</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+   </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="recources.qrc"/>
+ </resources>
  <connections/>
 </ui>

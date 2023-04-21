@@ -18,6 +18,8 @@ filterForm::filterForm(QWidget *parent) :
 
     currentTabelSelect = "NULL";
     oldColumnSelect = "NULL";
+    ui->clearFilterPushButton->setEnabled(false);
+    ui->conditionDataEdit->setVisible(false);
     close();
 }
 
@@ -40,12 +42,6 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
         {
             ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
         }
-
-        //FocusEvent *tmp = static_cast<QFocusEvent*>(event);
-        //if (tmp->reason() == Qt::TabFocusReason || tmp->reason() == Qt::BacktabFocusReason)
-        //{
-        //  ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
-        //}
     }
     else if (event->type() == QEvent::FocusOut and !this->hasFocus())
     {
@@ -61,6 +57,7 @@ void filterForm::setListTable(QString tableName, const QMap<QString, QString> ta
 {
     if (currentTabelSelect != tableName)
     {
+        ui->clearFilterPushButton->setEnabled(false);
         ui->conditionComboBox->setEnabled(false);
         QStringList columnList = tableNameType.keys();
 
@@ -84,10 +81,11 @@ void filterForm::setListTable(QString tableName, const QMap<QString, QString> ta
 
 void filterForm::on_filterPushButton_clicked()
 {
-    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0
-            and !ui->conditionLineEdit->text().isEmpty())
+    if (ui->tableComboBox->currentIndex() > 0
+        and ui->conditionComboBox->currentIndex() > 0
+        and !ui->conditionLineEdit->text().isEmpty()
+        and currentPlaceHolderText != "Дата")
     {
-        QString strSqlFilter;
         strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
         strSqlFilter += "\nFROM `" + currentTabelSelect + "`";
         strSqlFilter += "\nWHERE `" + currentTabelSelect +"`.`" + ui->tableComboBox->currentText() + "` ";
@@ -132,34 +130,26 @@ void filterForm::on_filterPushButton_clicked()
                 strSqlFilter += "LIKE '%" + ui->conditionLineEdit->text() + "%'";
             }
         }
-        else if (currentPlaceHolderText == "Дата")
-        {
-            if (ui->conditionComboBox->currentText() != "between")
-            {
-                strSqlFilter += ui->conditionComboBox->currentText() + " '" + reverseDate(ui->conditionLineEdit->text()) + "'";
-            }
-            /*else if (ui->conditionComboBox->currentText() == "between" and !ui->conditionLineEdit_2->text().isEmpty()
-                     and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
-            {
-                strSqlFilter += "BETWEEN '" + reverseDate(ui->conditionLineEdit->text()) + "' AND '"
-                        + reverseDate(ui->conditionLineEdit_2->text()) + "'";
-            }
-            else if (ui->conditionComboBox->currentText() == "between" and ui->conditionLineEdit_2->text().isEmpty())
-            {
-                QMessageBox::critical(this,"","Введіть значення умови фільтрування!");
-                ui->conditionLineEdit_2->setFocus();
-                return;
-            }
-            else if (ui->conditionComboBox->currentText() == "between"
-                     and ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
-            {
-                QMessageBox::critical(this,"","Перше значення повине бути меншим за друге!");
-                ui->conditionLineEdit->setFocus();
-                return;
-            }*/
-        }
 
         emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
+        ui->clearFilterPushButton->setEnabled(true);
+    }
+
+    else if (ui->tableComboBox->currentIndex() > 0
+             and ui->conditionComboBox->currentIndex() > 0
+             and currentPlaceHolderText == "Дата")
+    {
+        strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
+        strSqlFilter += "\nFROM `" + currentTabelSelect + "`";
+        strSqlFilter += "\nWHERE `" + currentTabelSelect +"`.`" +
+                        ui->tableComboBox->currentText() + "` " + ui->conditionComboBox->currentText()
+                        + " '" + QString::number(ui->conditionDataEdit->date().year()) + "-"
+                        + QString::number(ui->conditionDataEdit->date().month()) + "-"
+                        + QString::number(ui->conditionDataEdit->date().day()) + "'";
+
+        emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
+        ui->clearFilterPushButton->setEnabled(true);
+        show();
     }
     else if (ui->tableComboBox->currentIndex() == 0)
     {
@@ -186,26 +176,31 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 {
     ui->conditionComboBox->clearFocus();
 
-    if (ui->conditionComboBox->currentText() == "between")
+    if (ui->conditionComboBox->currentText() == "between" and currentPlaceHolderText != "Дата")
     {
         ui->conditionLineEdit_2->setVisible(true);
 
         ui->conditionLineEdit->setPlaceholderText("1");
         ui->conditionLineEdit_2->setPlaceholderText("2");
 
-        ui->conditionLineEdit->resize(ui->conditionLineEdit->height() + 10,
+        ui->conditionComboBox->resize(QSize(95, 21));
+
+        ui->conditionLineEdit->move(110, ui->conditionLineEdit->y());
+        ui->conditionLineEdit->resize(ui->conditionLineEdit->height() + 30,
                                       ui->conditionLineEdit->height());
 
-        ui->conditionLineEdit_2->resize(ui->conditionLineEdit->height() + 10,
+        ui->conditionLineEdit_2->resize(ui->conditionLineEdit->height() + 30,
                                         ui->conditionLineEdit->height());
 
-        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 35,
+        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 58,
                                       ui->conditionLineEdit->y());
     }
-    else
+    else if (currentPlaceHolderText != "Дата")
     {
+        ui->conditionComboBox->resize(QSize(140, 21));
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
-        ui->conditionLineEdit->resize(61, ui->conditionLineEdit->height());
+        ui->conditionLineEdit->resize(64, ui->conditionLineEdit->height());
+        ui->conditionLineEdit->move(156, ui->conditionLineEdit->y());
         ui->conditionLineEdit_2->setVisible(false);
         ui->conditionLineEdit_2->clear();
     }
@@ -270,6 +265,13 @@ void filterForm::setIntTypeComboBox()
     {
         ui->conditionLineEdit_2->clear();
     }
+
+    ui->conditionLineEdit->setVisible(true);
+    ui->conditionLineEdit_2->setVisible(false);
+    ui->conditionDataEdit->setVisible(false);
+    ui->conditionDataEdit->clear();
+
+    ui->conditionComboBox->resize(QSize(140, 21));
 }
 
 
@@ -288,6 +290,13 @@ void filterForm::setStringTypeComboBox()
 
     currentPlaceHolderText = "Текст";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
+
+    ui->conditionLineEdit->setVisible(true);
+    ui->conditionLineEdit_2->setVisible(false);
+    ui->conditionDataEdit->setVisible(false);
+    ui->conditionDataEdit->clear();
+
+    ui->conditionComboBox->resize(QSize(140, 21));
 }
 
 
@@ -306,12 +315,18 @@ void filterForm::setDateTypeComboBox()
 
 
     // нужно доделать регулярное выражение чтобы не вводить больше 31 дня и 12 месяцев
-    ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
+    //ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
     //ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\-(\\d\\d)\\-(\\d\\d)$"), this));
     currentPlaceHolderText = "Дата";
-    ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
+    //ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
+    ui->conditionLineEdit->setVisible(false);
+    ui->conditionLineEdit_2->setVisible(false);
+    ui->conditionDataEdit->setVisible(true);
     ui->conditionLineEdit->clear();
+
+    ui->conditionDataEdit->move(140, 50);
+    ui->conditionComboBox->resize(QSize(130, 21));
 }
 
 
@@ -348,3 +363,10 @@ QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
     return effect;
 
 }
+
+void filterForm::on_clearFilterPushButton_clicked()
+{
+    ui->clearFilterPushButton->setEnabled(false);
+    emit clearFilter();
+}
+

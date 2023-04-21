@@ -178,6 +178,7 @@ public slots:
     void succesfullyAuthorization(const QString login);
     void setFilterForTable(const QString filterQuery, const QString currentColumnFilter);
     void goSearch();
+    void clearFilterForTable();
 
 signals:
     void setThemeSettingsUI(const QString);

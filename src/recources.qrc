@@ -71,5 +71,6 @@
         <file>img/iconSets/icon_32x32@2x.png</file>
         <file>img/iconSets/icon_512x512.png</file>
         <file>img/iconSets/icon_512x512@2x.png</file>
+        <file>img/blueMenuIcon/clearFilterIco.png</file>
     </qresource>
 </RCC>

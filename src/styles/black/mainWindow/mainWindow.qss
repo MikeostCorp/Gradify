@@ -165,12 +165,10 @@ QHeaderView
 {
     background-color: rgb(61, 65, 68);
     color: white;
-    size: 12px;
 }
 
 QHeaderView::section
 {
-    size: 12px;
     color: white;
     background-color: rgb(61, 65, 68);
     padding-bottom: 5px;
@@ -381,11 +379,17 @@ QPushButton#filterPushButton,
 QPushButton#succesStudentPushButton,
 QPushButton#avgScorePushButton,
 QPushButton#freePushButton,
-QPushButton#mySQLPushButton
+QPushButton#mySQLPushButton,
+QPushButton#clearFilterPushButton
 {
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: rgb(81, 85, 88);
     color: white;
+}
+
+QPushButton#clearFilterPushButton:hover
+{
+    background-color: rgb(86, 91, 93);
 }
 
 QPushButton#filterPushButton:hover,
@@ -396,6 +400,12 @@ QPushButton#mySQLPushButton:hover
 {
     background-color: rgb(91, 95, 98);
 }
+
+QPushButton#clearFilterPushButton:disabled
+{
+    background-color: rgb(71, 75, 78);
+}
+
 
 QLineEdit#conditionLineEdit,
 QLineEdit#conditionLineEdit_2
@@ -487,6 +497,13 @@ QComboBox#conditionComboBox QAbstractItemView
   background-color: rgb(50, 50, 50);
   border: none;
   border-radius: 6px;
+}
+
+QDateEdit#conditionDataEdit
+{
+    color: white;
+    background-color: rgb(47, 48, 49);
+    padding-left: 5px;
 }
 
 QLabel#queryLineLabel

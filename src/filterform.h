@@ -38,12 +38,15 @@ private slots:
 
     QGraphicsDropShadowEffect *paintDropRedShadowEffect();
 
+    void on_clearFilterPushButton_clicked();
+
 private:
     Ui::filterForm *ui;
 
     QString currentTabelSelect;
     QString currentPlaceHolderText;
     QString oldColumnSelect;
+    QString strSqlFilter;
 
     QMap<QString, QString> typeColumnsMap;
 
@@ -52,6 +55,7 @@ public slots:
 
 signals:
     void sendFilter(const QString, const QString);
+    void clearFilter();
 
 
 };

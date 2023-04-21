@@ -38,6 +38,7 @@ authorization::~authorization()
     delete ui;
 }
 
+
 void authorization::startAuthozation()
 {
     on_loginButton_clicked();
@@ -125,6 +126,7 @@ void authorization::on_loginButton_clicked()
         // про ошибку ввода пароля
         //
 
+
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
         authorizationDB.setHostName("141.136.44.252");
@@ -152,12 +154,14 @@ void authorization::on_loginButton_clicked()
 
         if (tableView->model()->rowCount() > 0)
         {
-            emit signalLogin(login);
             ui->loginLineEdit->clear();
             ui->passwordLineEdit->clear();
             ui->loginLineEdit->setFocus();
             ui->authorizationErrorLabel->setVisible(false);
+
             authorizationDB.close();
+            QSqlDatabase::removeDatabase(authorizationDB.connectionName());
+            emit signalLogin(login);
             close();
         }
         else

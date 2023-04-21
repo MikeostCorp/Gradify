@@ -58,6 +58,7 @@ void MainWindow::mainWindowInit()
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
+    connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
 
     // close popup windows on click tableView (need fix empty space)
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
@@ -71,8 +72,8 @@ void MainWindow::mainWindowInit()
         // Добавлять в условие название кнопок форм привязаных к главном у окну
         if (button->objectName() != "filterButton" and button->objectName() != "queryButton"
             and button->objectName() != "filterPushButton" and button->objectName() != "succesStudentPushButton"
-            and button->objectName() != "avgScorePushButton" and button->objectName() != "mySQLPushButton"
-            and button->objectName() != "nameFreeButtonМенять!")
+            and button->objectName() != "avgScorePushButton" and button->objectName() != "clearFilterPushButton"
+            and button->objectName() != "mySQLPushButton" and button->objectName() != "nameFreeButtonМенять!")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
@@ -90,7 +91,7 @@ void MainWindow::mainWindowInit()
     setEnabledActions(false);  // <- и это тоже))
     setEnabledEditButton(false);   // <- нуу и это тоже シシ
 
-    //succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
+    succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -682,6 +683,13 @@ void MainWindow::goSearch()
 
     //QMessageBox::information(this,"", "надо искать!" + ui->searchLineEdit->text() +
     //                         "\n" + model->tableName());
+}
+
+
+void MainWindow::clearFilterForTable()
+{
+    model->select();
+    ui->tableView->setModel(model);
 }
 
 
