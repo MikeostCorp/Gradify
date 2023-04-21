@@ -12,7 +12,7 @@ QFrame#leftMenuFrame, QFrame#upMenuFrame
 
 QFrame#controlTableFrame
 {
-    border-radius: 6px;
+    border-radius: 10px;
     color: white;
     background-color: rgb(61, 65, 68);
 }
@@ -188,7 +188,7 @@ QTableView
    background-color: rgb(61, 65, 68);
    color: white;
    border: 0px;
-   border-radius: 6px;
+   border-radius: 10px;
    gridline-color: rgb(20,22,23);
 }
 
@@ -204,6 +204,11 @@ QTableView QDateEdit
 {
     background-color: rgb(61, 65, 68);
     color: white
+}
+
+QTableView QFrame
+{
+    border-radius: 10px;
 }
 
 QTableView::item
@@ -222,7 +227,7 @@ QTableView::item:selected
 
 QTableView QTableCornerButton::section
 {
-    border-top-left-radius: 6px;
+    border-top-left-radius: 8px;
     background-color: rgb(101, 105, 108);
 }
 
@@ -230,7 +235,7 @@ QAbstractScrollArea::corner
 {
     border: none;
     background-color: rgb(61, 65, 68);
-    border-bottom-right-radius: 6px;
+    border-bottom-right-radius: 8px;
 }
 
 QScrollBar:vertical

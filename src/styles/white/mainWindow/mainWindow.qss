@@ -12,7 +12,7 @@ QFrame#leftMenuFrame, QFrame#upMenuFrame
 
 QFrame#controlTableFrame
 {
-    border-radius: 6px;
+    border-radius: 10px;
     color: white;
     background-color: white;
 }
@@ -170,12 +170,11 @@ QHeaderView
 
 QHeaderView::section
 {
-   background-color: white;
-   color: rgb(61, 60, 59);
-   size: 12px;
-   background-color: white;
-   padding-bottom: 5px;
-   padding-top: 5px;
+    color: rgb(61, 60, 59);
+    size: 12px;
+    background-color: white;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 QHeaderView::section:checked
@@ -189,7 +188,7 @@ QTableView
    background-color: white;
    color: rgb(61, 60, 59);
    border: 0px;
-   border-radius: 6px;
+   border-radius: 10px;
    gridline-color: rgb(85,85,85);
 }
 
@@ -205,6 +204,11 @@ QTableView QDateEdit
 {
     background-color: white;
     color: rgb(61, 60, 59);
+}
+
+QTableView QFrame
+{
+    border-radius: 10px;
 }
 
 QTableView::item
@@ -223,7 +227,7 @@ QTableView::item:selected
 
 QTableView QTableCornerButton::section
 {
-    border-top-left-radius: 6px;
+    border-top-left-radius: 8px;
     background-color: rgb(205, 205, 205);
 }
 
@@ -231,7 +235,7 @@ QAbstractScrollArea::corner
 {
     border: none;
     background-color: white;
-    border-bottom-right-radius: 6px;
+    border-bottom-right-radius: 8px;
 }
 
 QScrollBar:vertical
