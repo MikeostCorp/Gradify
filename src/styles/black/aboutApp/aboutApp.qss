@@ -1,0 +1,12 @@
+aboutApp
+{
+    background-color: rgb(41, 45, 48);
+}
+
+QLabel#appName,
+QLabel#corpLabel,
+QLabel#textLabel,
+QLabel#version
+{
+    color: white;
+}

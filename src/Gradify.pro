@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aboutapp.cpp \
     appsetting.cpp \
     authorization.cpp \
     customWidgets/qlineeditwithbutton.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     queryform.cpp
 
 HEADERS += \
+    aboutapp.h \
     appsetting.h \
     authorization.h \
     customWidgets/qlineeditwithbutton.h \
@@ -30,6 +32,7 @@ HEADERS += \
     queryform.h
 
 FORMS += \
+    aboutapp.ui \
     appsetting.ui \
     authorization.ui \
     filterform.ui \

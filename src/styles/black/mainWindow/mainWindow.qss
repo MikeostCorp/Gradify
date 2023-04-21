@@ -504,6 +504,33 @@ QDateEdit#conditionDataEdit
     color: white;
     background-color: rgb(47, 48, 49);
     padding-left: 5px;
+    border-radius: 6px;
+    border: 2px solid rgb(47, 48, 49);
+}
+
+QDateEdit#conditionDataEdit:focus
+{
+    border-color: rgb(65, 105, 225);
+}
+
+QDateEdit#conditionDataEdit::up-button
+{
+    subcontrol-position: top right;
+    background-color: rgb(109, 113, 115);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    width: 14px;
+    image: url(:/img/whiteMenuIcon/upArrow.png);
+}
+
+QDateEdit#conditionDataEdit::down-button
+{
+    subcontrol-position: bottom right;
+    background-color: rgb(109, 113, 115);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width: 14px;
+    image: url(:/img/whiteMenuIcon/downArrow.png);
 }
 
 QLabel#queryLineLabel

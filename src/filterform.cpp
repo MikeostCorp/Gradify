@@ -197,7 +197,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
     }
     else if (currentPlaceHolderText != "Дата")
     {
-        ui->conditionComboBox->resize(QSize(140, 21));
+        ui->conditionComboBox->resize(QSize(137, 21));
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
         ui->conditionLineEdit->resize(64, ui->conditionLineEdit->height());
         ui->conditionLineEdit->move(156, ui->conditionLineEdit->y());
@@ -271,7 +271,7 @@ void filterForm::setIntTypeComboBox()
     ui->conditionDataEdit->setVisible(false);
     ui->conditionDataEdit->clear();
 
-    ui->conditionComboBox->resize(QSize(140, 21));
+    ui->conditionComboBox->resize(QSize(137, 21));
 }
 
 
@@ -296,7 +296,7 @@ void filterForm::setStringTypeComboBox()
     ui->conditionDataEdit->setVisible(false);
     ui->conditionDataEdit->clear();
 
-    ui->conditionComboBox->resize(QSize(140, 21));
+    ui->conditionComboBox->resize(QSize(137, 21));
 }
 
 
@@ -325,8 +325,8 @@ void filterForm::setDateTypeComboBox()
     ui->conditionDataEdit->setVisible(true);
     ui->conditionLineEdit->clear();
 
-    ui->conditionDataEdit->move(140, 50);
-    ui->conditionComboBox->resize(QSize(130, 21));
+    ui->conditionDataEdit->move(137, 50);
+    ui->conditionComboBox->resize(QSize(120, 21));
 }
 
 

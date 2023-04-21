@@ -33,6 +33,7 @@ void MainWindow::mainWindowInit()
     authorizationWindow = new authorization();
     filterWindow = new filterForm(this);
     queryWindow = new queryForm(this);
+    aboutAppAction = new aboutApp();
 
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
@@ -48,6 +49,7 @@ void MainWindow::mainWindowInit()
 
     connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
+    connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
     configRead();
@@ -56,6 +58,7 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
+    connect(settingWindow, &appSetting::changeThemeApp, aboutAppAction, &aboutApp::setThemeSettingUI);
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
@@ -926,19 +929,41 @@ void MainWindow::setCurrentIconAction()
 
     if (newBase.name() == "#000000")
     {
-        ui->openStudTabAction->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
-        ui->openTeachTabAction->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
-        ui->openGradesTabAction->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
-        ui->openGroupTabAction->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
-        ui->openSubjTabAction->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+        ui->openStudTabAction->setIcon(QIcon(":/img/blackActionsIcon/studenstIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/blackActionsIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/blackActionsIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/blackActionsIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/blackActionsIcon/subjectIco.png"));
+
+        ui->addRowAction->setIcon(QIcon(":/img/blackActionsIcon/newRecord.png"));
+        ui->deleteRowAction->setIcon(QIcon(":/img/blackActionsIcon/deleteRecord.png"));
+        ui->editRowAction->setIcon(QIcon(":/img/blackActionsIcon/editRecord.png"));
+
+        ui->currentTableReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportCurrentTable.png"));
+        ui->studentsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportStudent.png"));
+        ui->teachersReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportTeachers.png"));
+        ui->gradesReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportRaiting.png"));
+        ui->groupsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportGroup.png"));
+        ui->subjectsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportItem.png"));
     }
     else
     {
-        ui->openStudTabAction->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
-        ui->openTeachTabAction->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
-        ui->openGradesTabAction->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
-        ui->openGroupTabAction->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
-        ui->openSubjTabAction->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+        ui->openStudTabAction->setIcon(QIcon(":/img/whiteActionsIcon/studentsIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/whiteActionsIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/whiteActionsIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/whiteActionsIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/whiteActionsIcon/subjectIco.png"));
+
+        ui->addRowAction->setIcon(QIcon(":/img/whiteActionsIcon/newRecord.png"));
+        ui->deleteRowAction->setIcon(QIcon(":/img/whiteActionsIcon/deleteRecord.png"));
+        ui->editRowAction->setIcon(QIcon(":/img/whiteActionsIcon/editRecord.png"));
+
+        ui->currentTableReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportCurrentTable.png"));
+        ui->studentsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportStudent.png"));
+        ui->teachersReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportTeachers.png"));
+        ui->gradesReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportRaiting.png"));
+        ui->groupsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportGroup.png"));
+        ui->subjectsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportItem.png"));
     }
 }
 
@@ -1042,6 +1067,5 @@ void MainWindow::on_currentTableReportAction_triggered()
 
 void MainWindow::on_about_triggered()
 {
-    // Message for about to Gradiy
-    QMessageBox::information(this,"","СООБЩЕНИЕ ЧТО ТАКОЕ GRADIFY");
+    aboutAppAction->show();
 }

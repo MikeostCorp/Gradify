@@ -18,6 +18,7 @@
 #include <authorization.h>
 #include <filterform.h>
 #include <queryform.h>
+#include <aboutapp.h>
 #include <customWidgets/qsearchbar.h>
 
 QT_BEGIN_NAMESPACE
@@ -149,6 +150,7 @@ private:
     authorization *authorizationWindow;
     filterForm *filterWindow;
     queryForm *queryWindow;
+    aboutApp *aboutAppAction;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;
