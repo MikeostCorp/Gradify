@@ -23,11 +23,14 @@ Gradify also provides quick access to student information through a user-friendl
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
-- [X] BUG!!! tables stop loading after a minute of inactivity :/
 - [ ] User remembering during authorization
 - [ ] Separate forms for editing posts
 - [ ] Filter buttons in the table
 - [ ] Ability to save the report in .pdf format, with a choice of saving path
 - [X] Search bar on the table
 - [ ] Change the delete-row window
-- [ ] BUG!!! (Only on OSX 10.15). Sometimes after restarting appears "ghost" logged user and causes an error[segfault]
+
+## Bug report:
+- [X] Tables stop loading after a minute of inactivity :/
+- [ ] (Only on OSX 10.15). Sometimes after restarting appears "ghost" logged user and causes an error[segfault]
+
