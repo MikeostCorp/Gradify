@@ -561,6 +561,8 @@ void MainWindow::on_authorizationButton_clicked()
             setWindowTitle("Gradify");
             ui->authorizationButton->setText("Авторизація");
             ui->authorizationButton->setStyleSheet("");
+            QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+            settingsConfig.remove("userlogin");
         }
     }
 }
