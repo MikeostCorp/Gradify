@@ -39,7 +39,7 @@ QLabel#accountText_5
 
 QLabel#succSaveSettings
 {
-    color: green;
+    color: lime;
 }
 
 QLineEdit#dbhostnameLineEdit,

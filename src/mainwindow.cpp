@@ -50,14 +50,14 @@ void MainWindow::mainWindowInit()
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
     ui->authorizationButton->setFocus();
 
-    connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
-
     connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
     configInit();
+
+    connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
 
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
@@ -378,9 +378,7 @@ void MainWindow::on_subjectsTableButton_clicked()
 
 void MainWindow::clearSelectTable()
 {
-    model->setTable("NULL");
-    model->select();
-    ui->tableView->setModel(model);
+    ui->tableView->setModel(NULL);
     currentSelectTable = -1;
     closeAllPopUpWindow();
 }
