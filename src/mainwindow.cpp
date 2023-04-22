@@ -39,6 +39,9 @@ void MainWindow::mainWindowInit()
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
     currentSelectTable = -1;
+    setEnabledButtons(false);
+    setEnabledActions(false);
+    setEnabledEditButton(false);
 
     // tableview settings
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
@@ -52,7 +55,6 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
-    configRead();
     configInit();
 
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
@@ -88,13 +90,7 @@ void MainWindow::mainWindowInit()
     connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
-
-    // ТУТ УСЛОВИЕ ПРОВЕРКИ АВТОРИЗАЦИИ РАНЕЕ
-    setEnabledButtons(false);  // <- для абьюзинга системы ставь true
-    setEnabledActions(false);  // <- и это тоже))
-    setEnabledEditButton(false);   // <- нуу и это тоже シシ
-
-    succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
+    //succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -110,68 +106,54 @@ void MainWindow::mainWindowInit()
 
 void MainWindow::configDefault()
 {
-    config["theme"] = "system";
-    configWrite();
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    settingsConfig.setValue("theme", "system");
+
+    settingsConfig.setValue("hostname", "141.136.44.252");
+    settingsConfig.setValue("username", "teacher");
+    settingsConfig.setValue("password", "P433w0rD!");
+    settingsConfig.setValue("databasename", "Gradify");
 }
-
-
-void MainWindow::configRead()
-{
-    cfgFile.setFileName(QDir::currentPath() + "/cfg");
-    if (!cfgFile.open(QIODevice::ReadOnly))
-    {
-        configDefault();
-        return;
-    }
-
-    while (!cfgFile.atEnd())
-    {
-        QString cfgData = cfgFile.readLine();
-        if (cfgData.isEmpty()) continue;
-        QStringList list = cfgData.split("=");
-        list[1].remove("\n");
-        config[list[0]] = list[1];
-    }
-
-    cfgFile.close();
-}
-
 
 void MainWindow::configInit()
 {
-    if (config["theme"] == "white")
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+
+    if (settingsConfig.allKeys().empty())
     {
-        setWhiteUI();
-    }
-    else if (config["theme"] == "black")
-    {
-        setBlackUI();
-    }
-    else if (config["theme"] == "system")
-    {
-        setSystemUI();
+        configDefault();
     }
 
-    emit setThemeSettingsUI(config["theme"]);
+    if (settingsConfig.contains("theme"))
+    {
+        theme = settingsConfig.value("theme").toString();
+
+        if (theme == "white")
+        {
+            setWhiteUI();
+        }
+        else if (theme == "black")
+        {
+            setBlackUI();
+        }
+        else if (theme == "system")
+        {
+            setSystemUI();
+        }
+
+        emit setThemeSettingsUI(theme);
+    }
+    if (settingsConfig.contains("userlogin"))
+    {
+        succesfullyAuthorization(settingsConfig.value("userlogin").toString());
+    }
 }
 
 
-void MainWindow::configWrite()
+void MainWindow::configWrite(const QString &key, const QVariant &value)
 {
-    cfgFile.setFileName(QDir::currentPath() + "/cfg");
-    if (!cfgFile.open(QIODevice::WriteOnly))
-        return;
-
-    QTextStream stream(&cfgFile);
-
-    QMapIterator<QString, QString> it(config);
-    while (it.hasNext())
-    {
-        it.next();
-        stream << it.key() << "=" << it.value() << Qt::endl;
-    }
-
-    cfgFile.close();
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    settingsConfig.setValue(key, value);
 }
 
 
@@ -236,12 +218,12 @@ void MainWindow::on_studentsTableButton_clicked()
 
     setEnabledEditButton(true);
 
-    if (config["theme"] == "white")
+    if (theme == "white")
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
 
     }
-    else if (config["theme"] == "black")
+    else if (theme == "black")
     {
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
@@ -273,11 +255,11 @@ void MainWindow::on_teachersTableButton_clicked()
 
     setEnabledEditButton(true);
 
-    if (config["theme"] == "white")
+    if (theme == "white")
     {
         ui->teachersTableButton->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
     }
-    else if (config["theme"] == "black")
+    else if (theme == "black")
     {
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
@@ -310,11 +292,11 @@ void MainWindow::on_gradesTableButton_clicked()
 
     setEnabledEditButton(true);
 
-    if (config["theme"] == "white")
+    if (theme == "white")
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
     }
-    else if (config["theme"] == "black")
+    else if (theme == "black")
     {
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
@@ -345,11 +327,11 @@ void MainWindow::on_groupsTableButton_clicked()
 
     setEnabledEditButton(true);
 
-    if (config["theme"] == "white")
+    if (theme == "white")
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
     }
-    else if (config["theme"] == "black")
+    else if (theme == "black")
     {
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
@@ -380,11 +362,11 @@ void MainWindow::on_subjectsTableButton_clicked()
 
     setEnabledEditButton(true);
 
-    if (config["theme"] == "white")
+    if (theme == "white")
     {
         ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
     }
-    else if (config["theme"] == "black")
+    else if (theme == "black")
     {
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
@@ -477,23 +459,24 @@ void MainWindow::clearStyleButtonTable()
 
 void MainWindow::setThemeUI(const QString style)
 {
+    QString theme;
     if (style == "black")
     {
         setBlackUI();
-        config["theme"] = "black";
+        theme = "black";
     }
     else if (style == "white")
     {
         setWhiteUI();
-        config["theme"] = "white";
+        theme = "white";
     }
     else
     {
         setSystemUI();
-        config["theme"] = "system";
+        theme = "system";
     }
 
-    configWrite();
+    configWrite("theme", theme);
 }
 
 
@@ -911,12 +894,12 @@ void MainWindow::setSystemUI()
     if (newBase.name() == "#000000")
     {
         setWhiteUI();
-        config["theme"] = "white";
+        theme = "white";
     }
     else
     {
         setBlackUI();
-        config["theme"] = "black";
+        theme = "black";
     }
 }
 

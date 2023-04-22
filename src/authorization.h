@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QFile>
 #include "customWidgets/qlineeditwithbutton.h"
+#include <QSettings>
 
 namespace Ui {
 class authorization;

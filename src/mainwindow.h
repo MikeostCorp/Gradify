@@ -13,6 +13,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
+#include <QSettings>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -33,7 +34,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -63,11 +64,9 @@ private slots:
 
     void configDefault();
 
-    void configRead();
-
     void configInit();
 
-    void configWrite();
+    void configWrite(const QString &key, const QVariant &value);
 
     void on_authorizationButton_clicked();
 
@@ -155,7 +154,8 @@ private:
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;
 
-    QMap<QString, QString> config;
+    //QMap<QString, QString> config;
+    QString theme;
 
     QFile cfgFile;
     QFile styleF;

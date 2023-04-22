@@ -159,6 +159,17 @@ void authorization::on_loginButton_clicked()
             ui->loginLineEdit->setFocus();
             ui->authorizationErrorLabel->setVisible(false);
 
+            if (ui->rememberCheckBox->isChecked())
+            {
+                QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+                settingsConfig.setValue("userlogin", login);
+            }
+            else
+            {
+                QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+                settingsConfig.remove("userlogin");
+            }
+
             authorizationDB.close();
             QSqlDatabase::removeDatabase(authorizationDB.connectionName());
             emit signalLogin(login);
