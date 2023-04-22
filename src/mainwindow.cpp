@@ -50,6 +50,8 @@ void MainWindow::mainWindowInit()
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
     ui->authorizationButton->setFocus();
 
+    connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
+
     connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
@@ -100,7 +102,6 @@ void MainWindow::mainWindowInit()
 
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-
 }
 
 
@@ -482,29 +483,35 @@ void MainWindow::setThemeUI(const QString style)
 
 void MainWindow::succesfullyAuthorization(const QString login)
 {
-    ui->authorizationButton->setText(" Привіт, " + login + "!");
-    ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
 
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
 
     // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
-    db.setHostName("141.136.44.252");
-    db.setUserName("teacher");
-    db.setPassword("P433w0rD!");
-    db.setDatabaseName("Gradify");
+    db.setHostName(settingsConfig.value("hostname").toString());
+    db.setUserName(settingsConfig.value("username").toString());
+    db.setPassword(settingsConfig.value("password").toString());
+    db.setDatabaseName(settingsConfig.value("databasename").toString());
+
+    if (!db.open())
+    {
+        QMessageBox::critical(this, "Помилка з'єднання", "Перевірте статус серверу або параметри серверу в налаштуваннях!");
+        return;
+    }
 
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     queryModel = new QSqlQueryModel(this);
-
-    db.open();
 
     isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
 
     clearSelectTable();
+
+    ui->authorizationButton->setText(" Привіт, " + login + "!");
+    ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
 }
 
 
@@ -539,6 +546,20 @@ void MainWindow::on_settingsButton_clicked()
     authorizationWindow->close();
 }
 
+void MainWindow::userLogout()
+{
+    isLogin = false;
+    setEnabledButtons(false);
+    setEnabledEditButton(false);
+    clearSelectTable();
+    clearStyleButtonTable();
+    ui->searchLineEdit->clear();
+    setWindowTitle("Gradify");
+    ui->authorizationButton->setText("Авторизація");
+    ui->authorizationButton->setStyleSheet("");
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    settingsConfig.remove("userlogin");
+}
 
 void MainWindow::on_authorizationButton_clicked()
 {
@@ -552,17 +573,7 @@ void MainWindow::on_authorizationButton_clicked()
         logoutMessageBox.exec();
         if (logoutMessageBox.clickedButton() == yesButton)
         {
-            isLogin = false;
-            setEnabledButtons(false);
-            setEnabledEditButton(false);
-            clearSelectTable();
-            clearStyleButtonTable();
-            ui->searchLineEdit->clear();
-            setWindowTitle("Gradify");
-            ui->authorizationButton->setText("Авторизація");
-            ui->authorizationButton->setStyleSheet("");
-            QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
-            settingsConfig.remove("userlogin");
+            userLogout();
         }
     }
 }

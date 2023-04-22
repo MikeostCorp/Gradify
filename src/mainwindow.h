@@ -68,6 +68,8 @@ private slots:
 
     void configWrite(const QString &key, const QVariant &value);
 
+    void userLogout();
+
     void on_authorizationButton_clicked();
 
     void on_addRowButton_clicked();

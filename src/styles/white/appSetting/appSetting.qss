@@ -37,6 +37,11 @@ QLabel#accountText_5
     color: rgb(71, 71, 72);
 }
 
+QLabel#succSaveSettings
+{
+    color: green;
+}
+
 QLineEdit#dbhostnameLineEdit,
 QLineEdit#dbloginLineEdit,
 QLineEdit#dbpasswordLineEdit,

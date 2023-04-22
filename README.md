@@ -19,7 +19,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] New app icon.
 - [X] New preloader.
 - [X] User Authorization.
-- [ ] Authorization on server(input fields for any ip, db names e.t.c.)
+- [X] Authorization on server(input fields for any ip, db names e.t.c.)
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
@@ -32,5 +32,5 @@ Gradify also provides quick access to student information through a user-friendl
 
 ## Bug report:
 - [X] Tables stop loading after a minute of inactivity :/
-- [ ] (Only on OSX 10.15). Sometimes after restarting appears "ghost" logged user and causes an error[segfault]
+- [X] (Only on OSX 10.15). Sometimes after restarting appears "ghost" logged user and causes an error[segfault]
 

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QFile>
 #include <QByteArray>
+#include <QSettings>
 
 namespace Ui {
 class appSetting;
@@ -41,11 +42,14 @@ private slots:
 
     void on_acceptAccountSetting_clicked();
 
+    void on_saveDBSettings_clicked();
+
 private:
     Ui::appSetting *ui;
 
 signals:
     void changeThemeApp(const QString);
+    void logoutSignal();
 
 public slots:
     void setThemeSettingUI(const QString style);

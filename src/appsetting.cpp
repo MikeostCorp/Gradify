@@ -16,13 +16,19 @@ appSetting::appSetting(QWidget *parent) :
 
     setMinimumSize(width(), height());
 
+    ui->succSaveSettings->setVisible(false);
 
-    // setting for connection another db!
-    // experemental
-    QString hostNameDB;
-    QString userNameDB;
-    QString passwordDB;
-    QString databaseNameDB;
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    if (settingsConfig.contains("hostname") and
+        settingsConfig.contains("username") and
+        settingsConfig.contains("password") and
+        settingsConfig.contains("databasename"))
+    {
+        ui->dbhostnameLineEdit->setText(settingsConfig.value("hostname").toString());
+        ui->dbloginLineEdit->setText(settingsConfig.value("username").toString());
+        ui->dbpasswordLineEdit->setText(settingsConfig.value("password").toString());
+        ui->dbnameLineEdit->setText(settingsConfig.value("databasename").toString());
+    }
 }
 
 appSetting::~appSetting()
@@ -38,6 +44,7 @@ void appSetting::changeEvent(QEvent *event)
     {
         if (!isActiveWindow())
         {
+            ui->succSaveSettings->setVisible(false);
             close();
         }
     }
@@ -155,3 +162,42 @@ void appSetting::on_acceptAccountSetting_clicked()
 {
     // код изменения настроек соеденения к аккаунтам
 }
+
+void appSetting::on_saveDBSettings_clicked()
+{
+    if (ui->dbhostnameLineEdit->text().isEmpty())
+    {
+        QMessageBox::information(this, "Хост", "Введіть хост!");
+        ui->dbhostnameLineEdit->setFocus();
+        return;
+    }
+    if (ui->dbloginLineEdit->text().isEmpty())
+    {
+        QMessageBox::information(this, "Логін", "Введіть логін!");
+        ui->dbloginLineEdit->setFocus();
+        return;
+    }
+    if (ui->dbpasswordLineEdit->text().isEmpty())
+    {
+        QMessageBox::information(this, "Пароль", "Введіть пароль!");
+        ui->dbpasswordLineEdit->setFocus();
+        return;
+    }
+    if (ui->dbnameLineEdit->text().isEmpty())
+    {
+        QMessageBox::information(this, "Назва БД", "Введіть назву БД!");
+        ui->dbnameLineEdit->setFocus();
+        return;
+    }
+
+    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    settingsConfig.setValue("hostname", ui->dbhostnameLineEdit->text());
+    settingsConfig.setValue("username", ui->dbloginLineEdit->text());
+    settingsConfig.setValue("password", ui->dbpasswordLineEdit->text());
+    settingsConfig.setValue("databasename", ui->dbnameLineEdit->text());
+
+    ui->succSaveSettings->setVisible(true);
+
+    emit logoutSignal();
+}
+
