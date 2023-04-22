@@ -25,10 +25,10 @@ QRadioButton#selectSystemUIRadioButton,
 QLabel#labelSeeUI,
 QLabel#dataBaseText,
 QLabel#accountText,
-QLabel#dbText,
-QLabel#dbText_2,
-QLabel#dbText_3,
-QLabel#dbText_4,
+QLabel#dbname,
+QLabel#dbhostname,
+QLabel#dblogin,
+QLabel#dbpassword,
 QLabel#accountText_2,
 QLabel#accountText_3,
 QLabel#accountText_4,
@@ -37,10 +37,10 @@ QLabel#accountText_5
     color: rgb(71, 71, 72);
 }
 
-QLineEdit#dbLineEdit,
-QLineEdit#dbLineEdit_2,
-QLineEdit#dbLineEdit_3,
-QLineEdit#dbLineEdit_4,
+QLineEdit#dbhostnameLineEdit,
+QLineEdit#dbloginLineEdit,
+QLineEdit#dbpasswordLineEdit,
+QLineEdit#dbnameLineEdit,
 QLineEdit#accountLideEdit,
 QLineEdit#accountLideEdit_2,
 QLineEdit#accountLideEdit_3,
@@ -54,10 +54,10 @@ QLineEdit#accountLideEdit_4
     border-radius: 8px;
 }
 
-QLineEdit#dbLineEdit:focus,
-QLineEdit#dbLineEdit_2:focus,
-QLineEdit#dbLineEdit_3:focus,
-QLineEdit#dbLineEdit_4:focus,
+QLineEdit#dbhostnameLineEdit:focus,
+QLineEdit#dbloginLineEdit:focus,
+QLineEdit#dbpasswordLineEdit:focus,
+QLineEdit#dbnameLineEdit:focus,
 QLineEdit#accountLideEdit:focus,
 QLineEdit#accountLideEdit_2:focus,
 QLineEdit#accountLideEdit_3:focus,
@@ -67,7 +67,7 @@ QLineEdit#accountLideEdit_4:focus
     border-radius: 8px;
 }
 
-QPushButton#acceptDBSetting,
+QPushButton#saveDBSettings,
 QPushButton#acceptAccountSetting
 {
     border-radius: 6px;
@@ -76,7 +76,7 @@ QPushButton#acceptAccountSetting
     color: rgb(71, 71, 72);
 }
 
-QPushButton#acceptDBSetting:hover,
+QPushButton#saveDBSettings:hover,
 QPushButton#acceptAccountSetting:hover
 {
     background-color: rgb(235, 235, 235);

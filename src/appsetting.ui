@@ -327,13 +327,13 @@ border-radius: 8px;
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>380</height>
+       <height>200</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>380</height>
+       <height>200</height>
       </size>
      </property>
      <property name="frameShape">
@@ -416,7 +416,7 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Акаунти&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -454,7 +454,7 @@ border-radius: 8px;
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QLabel" name="dbText">
+        <widget class="QLabel" name="dbname">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -473,10 +473,10 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Хост&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Назва БД&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dbText_2">
+        <widget class="QLabel" name="dbhostname">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -495,10 +495,10 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ім'я користувача&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Хост (ip)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dbText_3">
+        <widget class="QLabel" name="dblogin">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -517,10 +517,10 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Логін&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dbText_4">
+        <widget class="QLabel" name="dbpassword">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -539,10 +539,10 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Назва&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbLineEdit">
+        <widget class="QLineEdit" name="dbhostnameLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
@@ -552,7 +552,7 @@ border-radius: 8px;
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbLineEdit_2">
+        <widget class="QLineEdit" name="dbloginLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
@@ -562,7 +562,7 @@ border-radius: 8px;
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbLineEdit_3">
+        <widget class="QLineEdit" name="dbpasswordLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
@@ -572,7 +572,7 @@ border-radius: 8px;
           </rect>
          </property>
         </widget>
-        <widget class="QPushButton" name="acceptDBSetting">
+        <widget class="QPushButton" name="saveDBSettings">
          <property name="geometry">
           <rect>
            <x>430</x>
@@ -582,155 +582,14 @@ border-radius: 8px;
           </rect>
          </property>
          <property name="text">
-          <string>Застосувати</string>
+          <string>Зберегти</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbLineEdit_4">
+        <widget class="QLineEdit" name="dbnameLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
            <y>130</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="accountLideEdit">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>220</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="accountLideEdit_4">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>310</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="acceptAccountSetting">
-         <property name="geometry">
-          <rect>
-           <x>430</x>
-           <y>340</y>
-           <width>100</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Застосувати</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="accountText_3">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>250</y>
-           <width>121</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="accountText_2">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>220</y>
-           <width>121</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ім'я користувача&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="accountText_5">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>310</y>
-           <width>81</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Хост&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="accountText_4">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>280</y>
-           <width>121</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Назва&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="accountLideEdit_2">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>250</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="accountLideEdit_3">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>280</y>
            <width>341</width>
            <height>21</height>
           </rect>
