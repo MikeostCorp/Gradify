@@ -23,7 +23,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [ ] Teacher/Admin accounts.
 - [ ] SQL Query constructor.
 - [ ] Report constructor.
-- [ ] User remembering during authorization
+- [X] User remembering during authorization
 - [ ] Separate forms for editing posts
 - [X] Filter buttons in the table
 - [ ] Ability to save the report in .pdf format, with a choice of saving path
