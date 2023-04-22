@@ -49,7 +49,7 @@ void authorization::on_forgotPasswordButton_clicked()
 {
     QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
                                             "\nandreyizbash228@gmail.com"
-                                            "\nmikeostashenko@gmail.com");
+                                            "\nmikeostashenko@gradify.online");
 }
 
 
