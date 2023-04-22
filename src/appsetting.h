@@ -37,6 +37,10 @@ private slots:
 
     void on_selectSystemUIRadioButton_clicked();
 
+    void on_acceptDBSetting_clicked();
+
+    void on_acceptAccountSetting_clicked();
+
 private:
     Ui::appSetting *ui;
 

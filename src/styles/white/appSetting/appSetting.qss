@@ -3,26 +3,82 @@ appSetting
     background-color: rgb(231, 224, 223);
 }
 
-QFrame#mainUIStyleFrame
+QFrame#mainUIStyleFrame,
+QFrame#connectSetting
 {
     border-radius: 12px;
     background-color: white;
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
-QFrame#rightUIStyleFrame, QFrame#leftUIStyleFrame
+QFrame#rightUIStyleFrame,
+QFrame#leftUIStyleFrame,
+QFrame#leftConnectFrame,
+QFrame#rightConnectFrame
 {
     border: 0px;
 }
 
 QRadioButton#selectBlackUIRadioButton,
 QRadioButton#selectWhiteUIRadioButton,
-QRadioButton#selectSystemUIRadioButton
+QRadioButton#selectSystemUIRadioButton,
+QLabel#labelSeeUI,
+QLabel#dataBaseText,
+QLabel#accountText,
+QLabel#dbText,
+QLabel#dbText_2,
+QLabel#dbText_3,
+QLabel#dbText_4,
+QLabel#accountText_2,
+QLabel#accountText_3,
+QLabel#accountText_4,
+QLabel#accountText_5
 {
-    color: black;
+    color: rgb(71, 71, 72);
 }
 
-QLabel#labelSeeUI
+QLineEdit#dbLineEdit,
+QLineEdit#dbLineEdit_2,
+QLineEdit#dbLineEdit_3,
+QLineEdit#dbLineEdit_4,
+QLineEdit#accountLideEdit,
+QLineEdit#accountLideEdit_2,
+QLineEdit#accountLideEdit_3,
+QLineEdit#accountLideEdit_4
 {
-    color: rgb(92, 92, 92);
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(71, 71, 72);
+    background-color: rgb(225, 225, 225);
+    border: 2px solid rgb(225, 225, 225);
+    border-radius: 8px;
 }
+
+QLineEdit#dbLineEdit:focus,
+QLineEdit#dbLineEdit_2:focus,
+QLineEdit#dbLineEdit_3:focus,
+QLineEdit#dbLineEdit_4:focus,
+QLineEdit#accountLideEdit:focus,
+QLineEdit#accountLideEdit_2:focus,
+QLineEdit#accountLideEdit_3:focus,
+QLineEdit#accountLideEdit_4:focus
+{
+    border: 2px solid rgb(65, 105, 225);
+    border-radius: 8px;
+}
+
+QPushButton#acceptDBSetting,
+QPushButton#acceptAccountSetting
+{
+    border-radius: 6px;
+    border: 1px solid rgb(215, 215, 215);
+    background-color: rgb(255, 255, 255);
+    color: rgb(71, 71, 72);
+}
+
+QPushButton#acceptDBSetting:hover,
+QPushButton#acceptAccountSetting:hover
+{
+    background-color: rgb(235, 235, 235);
+}
+

@@ -510,12 +510,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
 void MainWindow::setFilterForTable(const QString filterQuery, const QString currentColumnFilter)
 {
-    //temp query
-    //queryModel->setQuery("SELECT `Оцінки`.*"
-    //                     "FROM `Оцінки`"
-    //                     "WHERE `Оцінки`.`Дата оцінки` = '23.07.03'"); // wtf?? day = year, year = day??
-    //'03-07-23'
-
     queryModel->setQuery(filterQuery);
     ui->tableView->setModel(queryModel);
 
@@ -535,7 +529,13 @@ void MainWindow::setFilterForTable(const QString filterQuery, const QString curr
 
 void MainWindow::on_settingsButton_clicked()
 {
+    QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
+    pointToCenter.setX(pointToCenter.x() - (settingWindow->width()/2));
+    pointToCenter.setY(130);
+
+    settingWindow->move(pointToCenter);
     settingWindow->show();
+
     authorizationWindow->close();
 }
 

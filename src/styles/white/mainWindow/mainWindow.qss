@@ -4,7 +4,8 @@ MainWindow
     color: white;
 }
 
-QFrame#leftMenuFrame, QFrame#upMenuFrame
+QFrame#leftMenuFrame,
+QFrame#upMenuFrame
 {
     background-color: rgb(231, 224, 223);
     border: 0px;

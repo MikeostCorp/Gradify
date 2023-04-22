@@ -23,6 +23,10 @@ appSetting::appSetting(QWidget *parent) :
     QString userNameDB;
     QString passwordDB;
     QString databaseNameDB;
+
+    ui->dbLineEdit->setText("ебашим");
+    ui->dbLineEdit_2->setText("Клянусь написать записку к диплому за Андрея");
+    ui->dbLineEdit_3->setText("Покляся? Выполняй😆😆😆😆");
 }
 
 appSetting::~appSetting()
@@ -142,4 +146,16 @@ void appSetting::setThemeSettingUI(const QString style)
     {
         setSystemUI();
     }
+}
+
+
+void appSetting::on_acceptDBSetting_clicked()
+{
+    // код изменения настроек соеденения к бд
+}
+
+
+void appSetting::on_acceptAccountSetting_clicked()
+{
+    // код изменения настроек соеденения к аккаунтам
 }
