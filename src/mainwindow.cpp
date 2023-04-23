@@ -35,6 +35,12 @@ void MainWindow::mainWindowInit()
     queryWindow = new queryForm(this);
     aboutAppAction = new aboutApp();
 
+    gradeEditForm = new editGrade();
+    groupEditForm = new editGroup();
+    studentEditForm = new editStudent();
+    subjectEditForm = new editSubject();
+    teacherEditForm = new editTeacher();
+
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
@@ -534,11 +540,6 @@ void MainWindow::setFilterForTable(const QString filterQuery, const QString curr
 
 void MainWindow::on_settingsButton_clicked()
 {
-    //QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
-    //pointToCenter.setX(pointToCenter.x() - (settingWindow->width()/2));
-    //pointToCenter.setY(130);
-    //settingWindow->move(pointToCenter);
-
     settingWindow->show();
 }
 
@@ -547,12 +548,15 @@ void MainWindow::userLogout()
     isLogin = false;
     setEnabledButtons(false);
     setEnabledEditButton(false);
+
     clearSelectTable();
     clearStyleButtonTable();
     ui->searchLineEdit->clear();
+
     setWindowTitle("Gradify");
     ui->authorizationButton->setText("Авторизація");
     ui->authorizationButton->setStyleSheet("");
+
     QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
     settingsConfig.remove("userlogin");
 }
@@ -605,6 +609,28 @@ void MainWindow::on_deleteRowButton_clicked()
 void MainWindow::on_editRowButton_clicked()
 {
     ui->searchLineEdit->clearFocus();
+    // добавить выбор кого редактировать ещё обязательно!! (по айди можно)
+
+    switch (currentSelectTable)
+    {
+    case 0:
+        studentEditForm->show();
+        break;
+    case 1:
+        teacherEditForm->show();
+        break;
+    case 2:
+        gradeEditForm->show();
+        break;
+    case 3:
+        groupEditForm->show();
+        break;
+    case 4:
+        subjectEditForm->show();
+        break;
+    }
+
+
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 

@@ -22,6 +22,12 @@
 #include <aboutapp.h>
 #include <customWidgets/qsearchbar.h>
 
+#include <editForms/editgrade.h>
+#include <editForms/editgroup.h>
+#include <editForms/editstudent.h>
+#include <editForms/editsubject.h>
+#include <editForms/editteacher.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -152,6 +158,12 @@ private:
     filterForm *filterWindow;
     queryForm *queryWindow;
     aboutApp *aboutAppAction;
+
+    editGrade *gradeEditForm;
+    editGroup *groupEditForm;
+    editStudent *studentEditForm;
+    editSubject *subjectEditForm;
+    editTeacher *teacherEditForm;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;

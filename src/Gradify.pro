@@ -14,6 +14,11 @@ SOURCES += \
     authorization.cpp \
     customWidgets/qlineeditwithbutton.cpp \
     customWidgets/qsearchbar.cpp \
+    editForms/editgrade.cpp \
+    editForms/editgroup.cpp \
+    editForms/editstudent.cpp \
+    editForms/editsubject.cpp \
+    editForms/editteacher.cpp \
     filterform.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,6 +31,11 @@ HEADERS += \
     authorization.h \
     customWidgets/qlineeditwithbutton.h \
     customWidgets/qsearchbar.h \
+    editForms/editgrade.h \
+    editForms/editgroup.h \
+    editForms/editstudent.h \
+    editForms/editsubject.h \
+    editForms/editteacher.h \
     filterform.h \
     mainwindow.h \
     preloader.h \
@@ -35,6 +45,11 @@ FORMS += \
     aboutapp.ui \
     appsetting.ui \
     authorization.ui \
+    editForms/editgrade.ui \
+    editForms/editgroup.ui \
+    editForms/editstudent.ui \
+    editForms/editsubject.ui \
+    editForms/editteacher.ui \
     filterform.ui \
     mainwindow.ui \
     preloader.ui \
