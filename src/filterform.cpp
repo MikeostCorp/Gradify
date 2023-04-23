@@ -337,20 +337,6 @@ void filterForm::setDisabledComboBox()
 }
 
 
-QString filterForm::reverseDate(QString str)
-{
-    QString tempStr = str;
-
-    tempStr[0] = str[str.length() - 2];
-    tempStr[1] = str[str.length() - 1];
-
-    tempStr[str.length() - 2] = str[0];
-    tempStr[str.length() - 1] = str[1];
-
-    return tempStr;
-}
-
-
 QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
 {
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);

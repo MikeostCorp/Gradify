@@ -34,8 +34,6 @@ private slots:
 
     void setDisabledComboBox();
 
-    QString reverseDate(QString str);
-
     QGraphicsDropShadowEffect *paintDropRedShadowEffect();
 
     void on_clearFilterPushButton_clicked();

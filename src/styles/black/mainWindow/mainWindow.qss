@@ -539,3 +539,62 @@ QLabel#queryLineLabel
     border: 0px;
     background-color: grey;
 }
+
+QInputDialog
+{
+    background-color: rgb(51, 55, 58);
+    border: 0px;
+}
+
+QInputDialog QLabel
+{
+    color: white;
+}
+
+QInputDialog QComboBox
+{
+    color: white;
+    border-radius: 6px;
+    border: 2px solid rgb(81, 85, 88);
+    background-color: rgb(81, 85, 88);
+}
+
+QInputDialog QComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QInputDialog QComboBox::drop-down
+{
+    background-color: rgb(81, 85, 88);
+    color: white;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QInputDialog QComboBox::down-arrow
+{
+    image:url(:/img/whiteMenuIcon/downArrow.png);
+    width: 12px;
+    height: 12px;
+}
+
+QInputDialog QComboBox QAbstractItemView
+{
+  color: white;
+  background-color: rgb(50, 50, 50);
+  border: none;
+  border-radius: 6px;
+}
+
+QInputDialog QComboBox::focus
+{
+    border-color: rgb(65, 105, 225);
+}
+
+QInputDialog QPushButton
+{
+    color: white;
+}
+

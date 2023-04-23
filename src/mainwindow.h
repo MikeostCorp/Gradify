@@ -167,8 +167,6 @@ private:
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;
-
-    //QMap<QString, QString> config;
     QString theme;
 
     QFile cfgFile;

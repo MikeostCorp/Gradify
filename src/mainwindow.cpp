@@ -591,9 +591,13 @@ void MainWindow::on_deleteRowButton_clicked()
 {
     ui->searchLineEdit->clearFocus();
 
+    // ТОЖЕ ПЕРЕДЛЕАТЬ КАК В ВЫБОРЕ ЗАПИСИ
+    QMessageBox::information(this,"","Не забыть переделать удаление");
+
     bool ok;
     int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
-                                              tr("Введіть номер ключового поля:"), row + 1, 1, model->rowCount(), 1, &ok); // model->rowCount() - максимальное выбранное число (в нашем
+                                              tr("Введіть номер ключового поля:"), row + 1, 1, model->rowCount(), 1, &ok);
+                                              // model->rowCount() - максимальное выбранное число (в нашем
                                               // случае максимальный выбор заканчивается на общем количестве записей)
                                               // первая 1 означает текущий выбор за умолчанием
                                               // вторая 1 означает минимальное значение выбор
@@ -608,30 +612,46 @@ void MainWindow::on_deleteRowButton_clicked()
 
 void MainWindow::on_editRowButton_clicked()
 {
+    // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
+
+
     ui->searchLineEdit->clearFocus();
     // добавить выбор кого редактировать ещё обязательно!! (по айди можно)
 
-    switch (currentSelectTable)
+    bool ok;
+
+    QStringList strList;
+
+    // код для вставки говна
+
+    strList << "242" << "42" << "21" << "ad" << "dad" << "baga";
+
+    QString selectedItem = QInputDialog::getItem(this, tr("Редагування запису"),
+                            tr("Оберіть номер ключового поля:"), strList, 0, false, &ok);
+
+
+    //QInputDialog::getText();
+    if (ok)
     {
-    case 0:
-        studentEditForm->show();
-        break;
-    case 1:
-        teacherEditForm->show();
-        break;
-    case 2:
-        gradeEditForm->show();
-        break;
-    case 3:
-        groupEditForm->show();
-        break;
-    case 4:
-        subjectEditForm->show();
-        break;
+        switch (currentSelectTable)
+        {
+        case 0:
+            studentEditForm->show();
+            break;
+        case 1:
+            teacherEditForm->show();
+            break;
+        case 2:
+            gradeEditForm->show();
+            break;
+        case 3:
+            groupEditForm->show();
+            break;
+        case 4:
+            subjectEditForm->show();
+            break;
+        }
     }
-
-
-    // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 }
 
 

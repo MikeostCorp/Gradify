@@ -1,9 +1,9 @@
 ///============================================
 ///
 /// Developed by the team: Mikeost Team
+/// Link: https://github.com/MikeostCorp/Gradify
 /// List of developers: Mikhail Ostashchenko
 ///                     Andriy Izbash
-///
 /// ============================================
 
 #include "preloader.h"
