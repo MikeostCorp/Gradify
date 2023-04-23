@@ -355,7 +355,7 @@ void MainWindow::on_subjectsTableButton_clicked()
      *
     */
     setWindowTitle("Gradify - (Предмети)");
-    model->setTable("Предмет");
+    model->setTable("Предмети");
     model->select();
     currentSelectTable = 4;
 
@@ -378,7 +378,7 @@ void MainWindow::on_subjectsTableButton_clicked()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
-    emit setTableForFilter("Предмет", getColumnsAndDatatypes("Предмет"));
+    emit setTableForFilter("Предмети", getColumnsAndDatatypes("Предмети"));
 }
 
 
