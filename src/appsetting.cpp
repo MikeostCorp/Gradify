@@ -11,6 +11,8 @@ appSetting::appSetting(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Налаштування");
+    setWindowFlags(Qt::WindowStaysOnTopHint);
+
     show();
     close();
 
@@ -45,7 +47,6 @@ void appSetting::changeEvent(QEvent *event)
         if (!isActiveWindow())
         {
             ui->succSaveSettings->setVisible(false);
-            close();
         }
     }
 }

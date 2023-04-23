@@ -13,7 +13,8 @@ authorization::authorization(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Авторизація");
     setFixedSize(width(), height());
-    setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
+
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
     connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);

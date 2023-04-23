@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>230</width>
+    <width>260</width>
     <height>120</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>230</width>
+     <width>260</width>
      <height>120</height>
     </rect>
    </property>
@@ -40,9 +40,9 @@
    <widget class="QLineEdit" name="conditionLineEdit">
     <property name="geometry">
      <rect>
-      <x>156</x>
+      <x>180</x>
       <y>50</y>
-      <width>64</width>
+      <width>70</width>
       <height>21</height>
      </rect>
     </property>
@@ -58,7 +58,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>210</width>
+      <width>240</width>
       <height>21</height>
      </rect>
     </property>
@@ -101,7 +101,7 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>137</width>
+      <width>160</width>
       <height>21</height>
      </rect>
     </property>
@@ -157,7 +157,7 @@
      <rect>
       <x>10</x>
       <y>80</y>
-      <width>167</width>
+      <width>201</width>
       <height>21</height>
      </rect>
     </property>
@@ -172,8 +172,8 @@
     <property name="geometry">
      <rect>
       <x>156</x>
-      <y>30</y>
-      <width>61</width>
+      <y>0</y>
+      <width>65</width>
       <height>21</height>
      </rect>
     </property>
@@ -187,9 +187,9 @@
    <widget class="QPushButton" name="clearFilterPushButton">
     <property name="geometry">
      <rect>
-      <x>188</x>
+      <x>220</x>
       <y>80</y>
-      <width>31</width>
+      <width>30</width>
       <height>21</height>
      </rect>
     </property>
@@ -213,8 +213,8 @@
    <widget class="QDateEdit" name="conditionDataEdit">
     <property name="geometry">
      <rect>
-      <x>59</x>
-      <y>60</y>
+      <x>70</x>
+      <y>0</y>
       <width>81</width>
       <height>21</height>
      </rect>

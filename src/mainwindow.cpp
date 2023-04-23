@@ -534,14 +534,12 @@ void MainWindow::setFilterForTable(const QString filterQuery, const QString curr
 
 void MainWindow::on_settingsButton_clicked()
 {
-    QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
-    pointToCenter.setX(pointToCenter.x() - (settingWindow->width()/2));
-    pointToCenter.setY(130);
+    //QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
+    //pointToCenter.setX(pointToCenter.x() - (settingWindow->width()/2));
+    //pointToCenter.setY(130);
+    //settingWindow->move(pointToCenter);
 
-    settingWindow->move(pointToCenter);
     settingWindow->show();
-
-    authorizationWindow->close();
 }
 
 void MainWindow::userLogout()
@@ -564,7 +562,6 @@ void MainWindow::on_authorizationButton_clicked()
     if (!isLogin)
     {
         authorizationWindow->show();
-        settingWindow->close();
     }
     else
     {

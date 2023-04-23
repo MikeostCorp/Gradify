@@ -183,24 +183,25 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit->setPlaceholderText("1");
         ui->conditionLineEdit_2->setPlaceholderText("2");
 
-        ui->conditionComboBox->resize(QSize(95, 21));
+        ui->conditionComboBox->resize(QSize(145, 21));
 
-        ui->conditionLineEdit->move(110, ui->conditionLineEdit->y());
-        ui->conditionLineEdit->resize(ui->conditionLineEdit->height() + 30,
+        ui->conditionLineEdit->move(165, ui->conditionLineEdit->y());
+        ui->conditionLineEdit->resize(ui->conditionLineEdit->height() + 18,
                                       ui->conditionLineEdit->height());
 
-        ui->conditionLineEdit_2->resize(ui->conditionLineEdit->height() + 30,
+        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 46,
+                                      ui->conditionLineEdit->y());
+
+        ui->conditionLineEdit_2->resize(ui->conditionLineEdit->height() + 18,
                                         ui->conditionLineEdit->height());
 
-        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 58,
-                                      ui->conditionLineEdit->y());
     }
     else if (currentPlaceHolderText != "Дата")
     {
-        ui->conditionComboBox->resize(QSize(137, 21));
+        ui->conditionComboBox->resize(QSize(160, 21));
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
-        ui->conditionLineEdit->resize(64, ui->conditionLineEdit->height());
-        ui->conditionLineEdit->move(156, ui->conditionLineEdit->y());
+        ui->conditionLineEdit->resize(70, ui->conditionLineEdit->height());
+        ui->conditionLineEdit->move(180, ui->conditionLineEdit->y());
         ui->conditionLineEdit_2->setVisible(false);
         ui->conditionLineEdit_2->clear();
     }
@@ -271,7 +272,8 @@ void filterForm::setIntTypeComboBox()
     ui->conditionDataEdit->setVisible(false);
     ui->conditionDataEdit->clear();
 
-    ui->conditionComboBox->resize(QSize(137, 21));
+    ui->conditionComboBox->resize(QSize(160, 21));
+    ui->conditionLineEdit->resize(QSize(70, 21));
 }
 
 
@@ -296,7 +298,8 @@ void filterForm::setStringTypeComboBox()
     ui->conditionDataEdit->setVisible(false);
     ui->conditionDataEdit->clear();
 
-    ui->conditionComboBox->resize(QSize(137, 21));
+    ui->conditionComboBox->resize(QSize(160, 21));
+    ui->conditionLineEdit->resize(QSize(70, 21));
 }
 
 
@@ -311,22 +314,16 @@ void filterForm::setDateTypeComboBox()
     ui->conditionComboBox->addItem("<=", 4);
     ui->conditionComboBox->addItem(">=", 5);
     ui->conditionComboBox->addItem("=", 6);
-    //ui->conditionComboBox->addItem("between", 7);
 
-
-    // нужно доделать регулярное выражение чтобы не вводить больше 31 дня и 12 месяцев
-    //ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\.(\\d\\d)\\.(\\d\\d)$"), this));
-    //ui->conditionLineEdit->setValidator(new QRegularExpressionValidator(QRegularExpression("^(\\d\\d)\\-(\\d\\d)\\-(\\d\\d)$"), this));
     currentPlaceHolderText = "Дата";
-    //ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
     ui->conditionLineEdit->setVisible(false);
     ui->conditionLineEdit_2->setVisible(false);
     ui->conditionDataEdit->setVisible(true);
     ui->conditionLineEdit->clear();
 
-    ui->conditionDataEdit->move(137, 50);
-    ui->conditionComboBox->resize(QSize(120, 21));
+    ui->conditionDataEdit->move(170, 50);
+    ui->conditionComboBox->resize(QSize(150, 21));
 }
 
 
