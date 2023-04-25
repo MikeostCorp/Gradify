@@ -218,7 +218,7 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
 
-    if (typeColumnsMap.value(arg1) == "text" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
+    if ((typeColumnsMap.value(arg1) == "text" or typeColumnsMap.value(arg1) == "set") and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
     {
         setStringTypeComboBox();
     }

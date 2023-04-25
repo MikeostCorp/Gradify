@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::editGroup *ui;
+
+    int idRowEdit;
+
+public slots:
+    void setData(QString titleName);
 };
 
 #endif // EDITGROUP_H

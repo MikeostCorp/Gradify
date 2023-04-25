@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::editGrade *ui;
+
+    int idRowEdit;
+
+public slots:
+    void setData(QString titleName);
 };
 
 #endif // EDITGRADE_H

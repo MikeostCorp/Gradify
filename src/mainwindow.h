@@ -150,6 +150,8 @@ private slots:
 
     QMap<QString, QString> getColumnsAndDatatypes(const QString &tableName);
 
+    QStringList getCurrentItemTable();
+
 private:
     Ui::MainWindow *ui;
 
@@ -198,5 +200,6 @@ signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
     void setTableForFilter(const QString, const QMap<QString, QString>);
+    void setDataEditForm(QString);
 };
 #endif // MAINWINDOW_H

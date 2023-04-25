@@ -591,21 +591,21 @@ void MainWindow::on_deleteRowButton_clicked()
 {
     ui->searchLineEdit->clearFocus();
 
-    // ТОЖЕ ПЕРЕДЛЕАТЬ КАК В ВЫБОРЕ ЗАПИСИ
-    QMessageBox::information(this,"","Не забыть переделать удаление");
-
-    bool ok;
-    int inputNum = QInputDialog::getInt(this, tr("Видалення запису"),
-                                              tr("Введіть номер ключового поля:"), row + 1, 1, model->rowCount(), 1, &ok);
-                                              // model->rowCount() - максимальное выбранное число (в нашем
-                                              // случае максимальный выбор заканчивается на общем количестве записей)
-                                              // первая 1 означает текущий выбор за умолчанием
-                                              // вторая 1 означает минимальное значение выбор
-                                              // третья 1 означает шаг с которым выбирается индекс
-    if (ok)
+    if (ui->tableView->model()->rowCount() > 0)
     {
-        model->removeRow(inputNum - 1);
-        model->select();                      // Для мгновенного обновления таблицы
+        bool ok;
+        QString selectedItem = QInputDialog::getItem(this, tr("Видалення запису"),
+                                                     tr("Оберіть запис для видалення:"), getCurrentItemTable(), 0, false, &ok);
+
+        if (ok)
+        {
+            model->removeRow(selectedItem.left(selectedItem.indexOf('.')).toInt() - 1);
+            model->select();
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this,"","Не знайдено записів для видалення!");
     }
 }
 
@@ -614,43 +614,54 @@ void MainWindow::on_editRowButton_clicked()
 {
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 
-
     ui->searchLineEdit->clearFocus();
-    // добавить выбор кого редактировать ещё обязательно!! (по айди можно)
 
-    bool ok;
-
-    QStringList strList;
-
-    // код для вставки говна
-
-    strList << "242" << "42" << "21" << "ad" << "dad" << "baga";
-
-    QString selectedItem = QInputDialog::getItem(this, tr("Редагування запису"),
-                            tr("Оберіть номер ключового поля:"), strList, 0, false, &ok);
-
-
-    //QInputDialog::getText();
-    if (ok)
+    if (ui->tableView->model()->rowCount() > 0)
     {
-        switch (currentSelectTable)
+        bool ok;
+        QString selectedItem = QInputDialog::getItem(this, tr("Редагування запису"),
+                                                     tr("Оберіть запис для редагування:"), getCurrentItemTable(), 0, false, &ok);
+
+        if (ok)
         {
-        case 0:
-            studentEditForm->show();
-            break;
-        case 1:
-            teacherEditForm->show();
-            break;
-        case 2:
-            gradeEditForm->show();
-            break;
-        case 3:
-            groupEditForm->show();
-            break;
-        case 4:
-            subjectEditForm->show();
-            break;
+            switch (currentSelectTable)
+            {
+            case 0:
+                connect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
+                emit setDataEditForm(selectedItem);
+                disconnect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
+                studentEditForm->show();
+                break;
+            case 1:
+                connect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
+                emit setDataEditForm(selectedItem);
+                disconnect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
+                teacherEditForm->show();
+                break;
+            case 2:
+                connect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
+                emit setDataEditForm(selectedItem);
+                disconnect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
+                gradeEditForm->show();
+                break;
+            case 3:
+                connect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
+                emit setDataEditForm(selectedItem);
+                disconnect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
+                groupEditForm->show();
+                break;
+            case 4:
+                connect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
+                emit setDataEditForm(selectedItem);
+                disconnect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
+                subjectEditForm->show();
+                break;
+            }
         }
+    }
+    else
+    {
+        QMessageBox::critical(this,"","Не знайдено записів для редагування!");
     }
 }
 
@@ -751,20 +762,54 @@ QMap<QString, QString> MainWindow::getColumnsAndDatatypes(const QString &tableNa
     {
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
         QTableView *tableView = new QTableView(this);
+
         queryModel->setQuery("SELECT COLUMN_NAME, DATA_TYPE "
                              "FROM INFORMATION_SCHEMA.COLUMNS "
                              "WHERE table_schema = 'Gradify' "
-                             "AND table_name = '" + tableName + "'");
+                             "AND table_name = '" + tableName + "'"
+                             "AND NOT column_name = 'Код'");
+
         tableView->setModel(queryModel);
 
-        for (int row = 1; row < tableView->model()->rowCount(); ++row)
+        for (int row = 0; row < tableView->model()->rowCount(); ++row)
         {
-            headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
-                                 tableView->model()->index(row, 1).data().toString());
+                headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
+                                     tableView->model()->index(row, 1).data().toString());
         }
     }
 
     return headerListMap;
+}
+
+
+QStringList MainWindow::getCurrentItemTable()
+{
+    QStringList str;
+
+    switch (currentSelectTable)
+    {
+    case 0:
+    case 1:
+        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+        {
+                str << ui->tableView->model()->data(model->index(i, 0)).toString() +  ". "
+                           + ui->tableView->model()->data(model->index(i, 1)).toString() + " "
+                           + ui->tableView->model()->data(model->index(i, 2)).toString() + " "
+                           + ui->tableView->model()->data(model->index(i, 3)).toString();
+        }
+        break;
+    case 2:
+    case 3:
+    case 4:
+        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+        {
+            str << ui->tableView->model()->data(model->index(i, 0)).toString() +  ". "
+                       + ui->tableView->model()->data(model->index(i, 1)).toString();
+        }
+        break;
+    }
+
+    return str;
 }
 
 

@@ -15,7 +15,6 @@ authorization::authorization(QWidget *parent) :
     setFixedSize(width(), height());
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 
-
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
     connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
     connect(ui->loginLineEdit, &QLineEditWithButton::buttonClicked, this, &authorization::loginClearButtonCliked);

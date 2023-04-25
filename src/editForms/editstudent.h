@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::editStudent *ui;
+
+    int idRowEdit;
+
+public slots:
+    void setData(QString titleName);
 };
 
 #endif // EDITSTUDENT_H

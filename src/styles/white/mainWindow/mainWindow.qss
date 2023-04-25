@@ -548,7 +548,14 @@ QInputDialog QLabel
     color: black;
 }
 
-QInputDialog QComboBox
+QInputDialog QSpinBox
+{
+    color: black;
+    background-color: rgb(225, 225, 225);
+}
+
+QInputDialog QComboBox,
+QInputDialog QLineEdit
 {
     color: black;
     border-radius: 6px;
