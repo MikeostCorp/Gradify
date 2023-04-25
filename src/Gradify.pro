@@ -67,20 +67,3 @@ RESOURCES += \
 
 ICON = img/AppIcon.icns
 
-DISTFILES += \
-    img/whiteMenuIcon/okayIndicator.png \
-    styles/black/aboutApp/aboutApp.qss \
-    styles/black/appSetting/appSetting.qss \
-    styles/black/authorization/authorization.qss \
-    styles/black/editForms/editForms.qss \
-    styles/black/mainWindow/mainWindow.qss \
-    styles/black/mainWindow/outLoginButton.qss \
-    styles/black/mainWindow/selectButtonTableStyle.qss \
-    styles/other/preloader/preloader.qss \
-    styles/white/aboutApp/aboutApp.qss \
-    styles/white/appSetting/appSetting.qss \
-    styles/white/authorization/authorization.qss \
-    styles/white/editForms/editForms.qss \
-    styles/white/mainWindow/mainWindow.qss \
-    styles/white/mainWindow/outLoginButton.qss \
-    styles/white/mainWindow/selectButtonTableStyle.qss
