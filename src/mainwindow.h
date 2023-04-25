@@ -199,7 +199,7 @@ public slots:
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
-    void setTableForFilter(const QString, const QMap<QString, QString>);
+    void setTableForFilter(const QMap<QString, QString>);
     void setDataEditForm(QString);
 };
 #endif // MAINWINDOW_H

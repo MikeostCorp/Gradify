@@ -235,7 +235,7 @@ void MainWindow::on_studentsTableButton_clicked()
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
     }
 
-    emit setTableForFilter("Студенти", getColumnsAndDatatypes("Студенти"));
+    emit setTableForFilter(getColumnsAndDatatypes("Студенти"));
 }
 
 
@@ -271,7 +271,7 @@ void MainWindow::on_teachersTableButton_clicked()
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
     }
 
-    emit setTableForFilter("Викладачі", getColumnsAndDatatypes("Викладачі"));
+    emit setTableForFilter(getColumnsAndDatatypes("Викладачі"));
 }
 
 
@@ -308,7 +308,7 @@ void MainWindow::on_gradesTableButton_clicked()
         ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
     }
 
-    emit setTableForFilter("Оцінки", getColumnsAndDatatypes("Оцінки"));
+    emit setTableForFilter(getColumnsAndDatatypes("Оцінки"));
 }
 
 
@@ -343,7 +343,7 @@ void MainWindow::on_groupsTableButton_clicked()
         ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
     }
 
-    emit setTableForFilter("Групи", getColumnsAndDatatypes("Групи"));
+    emit setTableForFilter(getColumnsAndDatatypes("Групи"));
 }
 
 
@@ -378,7 +378,7 @@ void MainWindow::on_subjectsTableButton_clicked()
         ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
     }
 
-    emit setTableForFilter("Предмети", getColumnsAndDatatypes("Предмети"));
+    emit setTableForFilter(getColumnsAndDatatypes("Предмети"));
 }
 
 
@@ -522,7 +522,7 @@ void MainWindow::succesfullyAuthorization(const QString login)
 void MainWindow::setFilterForTable(const QString filterQuery, const QString currentColumnFilter)
 {
     model->setFilter(filterQuery);
-    model->select();
+    ui->tableView->setModel(model);
 
     for(int i = 0; i < ui->tableView->model()->columnCount(); i++)
     {
@@ -534,7 +534,7 @@ void MainWindow::setFilterForTable(const QString filterQuery, const QString curr
     }
 
     // debug
-    QMessageBox::information(this, "", filterQuery);
+    //QMessageBox::information(this, "", filterQuery);
 }
 
 

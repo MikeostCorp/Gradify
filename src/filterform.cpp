@@ -53,29 +53,25 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
 }
 
 
-void filterForm::setListTable(QString tableName, const QMap<QString, QString> tableNameType)
+void filterForm::setListTable(const QMap<QString, QString> tableNameType)
 {
-    if (currentTabelSelect != tableName)
-    {
-        ui->clearFilterPushButton->setEnabled(false);
-        ui->conditionComboBox->setEnabled(false);
-        QStringList columnList = tableNameType.keys();
+    ui->clearFilterPushButton->setEnabled(false);
+    ui->conditionComboBox->setEnabled(false);
+    QStringList columnList = tableNameType.keys();
 
-        ui->tableComboBox->clear();
-        ui->conditionLineEdit->clear();
-        ui->conditionLineEdit_2->clear();
+    ui->tableComboBox->clear();
+    ui->conditionLineEdit->clear();
+    ui->conditionLineEdit_2->clear();
 
-        ui->tableComboBox->addItem("Оберіть колонку", 0);
-        ui->tableComboBox->insertSeparator(1);
-        ui->tableComboBox->addItems(columnList);
-        ui->conditionComboBox->setCurrentIndex(0);
+    ui->tableComboBox->addItem("Оберіть колонку", 0);
+    ui->tableComboBox->insertSeparator(1);
+    ui->tableComboBox->addItems(columnList);
+    ui->conditionComboBox->setCurrentIndex(0);
 
-        currentTabelSelect = tableName;
-        typeColumnsMap = tableNameType;
+    typeColumnsMap = tableNameType;
 
-        ui->conditionLineEdit->setPlaceholderText("Текст");
-        ui->conditionLineEdit->setValidator(nullptr);
-    }
+    ui->conditionLineEdit->setPlaceholderText("Текст");
+    ui->conditionLineEdit->setValidator(nullptr);
 }
 
 

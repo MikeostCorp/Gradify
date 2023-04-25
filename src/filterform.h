@@ -49,7 +49,7 @@ private:
     QMap<QString, QString> typeColumnsMap;
 
 public slots:
-    void setListTable(QString tableName, const QMap<QString, QString> columnNameType);
+    void setListTable(const QMap<QString, QString> columnNameType);
 
 signals:
     void sendFilter(const QString, const QString);
