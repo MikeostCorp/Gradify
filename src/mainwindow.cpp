@@ -59,16 +59,27 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
+    connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
+    connect(this, &MainWindow::setThemeSettingsUI, gradeEditForm, &editGrade::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, groupEditForm, &editGroup::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, studentEditForm, &editStudent::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, subjectEditForm, &editSubject::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, teacherEditForm, &editTeacher::setTheme);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
     configInit();
 
     connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
+    connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
-    connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
     connect(settingWindow, &appSetting::changeThemeApp, aboutAppAction, &aboutApp::setThemeSettingUI);
+    connect(settingWindow, &appSetting::changeThemeApp, gradeEditForm, &editGrade::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, groupEditForm, &editGroup::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, studentEditForm, &editStudent::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, subjectEditForm, &editSubject::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, teacherEditForm, &editTeacher::setTheme);
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
@@ -596,7 +607,9 @@ void MainWindow::on_deleteRowButton_clicked()
     {
         bool ok;
         QString selectedItem = QInputDialog::getItem(this, tr("Видалення запису"),
-                                                     tr("Оберіть запис для видалення:"), getCurrentItemTable(), 0, false, &ok);
+                                                     tr("Оберіть запис для видалення:"), getCurrentItemTable(),
+                                                     ui->tableView->currentIndex().row(), false, &ok);
+
 
         if (ok)
         {
@@ -613,8 +626,6 @@ void MainWindow::on_deleteRowButton_clicked()
 
 void MainWindow::on_editRowButton_clicked()
 {
-    // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
-
     ui->searchLineEdit->clearFocus();
     closeAllPopUpWindow();
 
@@ -622,7 +633,8 @@ void MainWindow::on_editRowButton_clicked()
     {
         bool ok;
         QString selectedItem = QInputDialog::getItem(this, tr("Редагування запису"),
-                                                     tr("Оберіть запис для редагування:"), getCurrentItemTable(), 0, false, &ok);
+                                                     tr("Оберіть запис для редагування:"), getCurrentItemTable(),
+                                                     ui->tableView->currentIndex().row(), false, &ok);
 
         if (ok)
         {
@@ -772,7 +784,7 @@ QMap<QString, QString> MainWindow::getColumnsAndDatatypes(const QString &tableNa
 
         tableView->setModel(queryModel);
 
-        for (int row = 0; row < tableView->model()->rowCount(); ++row)
+        for (int row = 0; row < queryModel->rowCount(); ++row)
         {
                 headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
                                      tableView->model()->index(row, 1).data().toString());
@@ -1152,3 +1164,5 @@ void MainWindow::on_about_triggered()
 {
     aboutAppAction->show();
 }
+
+

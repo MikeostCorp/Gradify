@@ -15,6 +15,11 @@ public:
     explicit editStudent(QWidget *parent = nullptr);
     ~editStudent();
 
+private slots:
+    void setBlackUI();
+    void setWhiteUI();
+    void setSystemUI();
+
 private:
     Ui::editStudent *ui;
 
@@ -22,6 +27,7 @@ private:
 
 public slots:
     void setData(QString titleName);
+    void setTheme(const QString style);
 };
 
 #endif // EDITSTUDENT_H

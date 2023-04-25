@@ -1,0 +1,119 @@
+editGrade,
+editGroup,
+editStudent,
+editSubject,
+editTeacher
+{
+    background-color: rgb(41, 45, 48);
+}
+
+QLabel
+{
+    color: white;
+}
+
+QLineEdit
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    background-color: rgb(29, 31, 32);
+    border: 2px solid rgb(29, 31, 32);
+    border-radius: 8px;
+}
+
+QLineEdit:focus
+{
+    border: 2px solid rgb(85, 135, 235);
+    border-radius: 8px;
+}
+
+QComboBox
+{
+    background-color: rgb(29, 31, 32);
+    color: white;
+    border: 2px solid rgb(29, 31, 32);
+    border-radius: 6px;
+}
+
+QComboBox:disabled
+{
+    color: #989898;
+}
+
+QComboBox:editable
+{
+    background-color: rgb(29, 31, 32);
+}
+
+QComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox::drop-down
+{
+    background-color: rgb(29, 31, 32);
+    color: white;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox::separator
+{
+    background-color: rgb(101, 105, 108);
+    height: 2px;
+    border: 8px solid rgb(50, 50, 50);
+}
+
+QComboBox::focus
+{
+    border-color: rgb(196, 30, 58);
+}
+
+QComboBox::down-arrow
+{
+   image:url(:/img/whiteMenuIcon/downArrow.png);
+   width: 12px;
+   height: 12px;
+}
+
+QComboBox::down-arrow:disabled
+{
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView
+{
+  color: white;
+  background-color: rgb(50, 50, 50);
+  border: none;
+  border-radius: 6px;
+}
+
+QPushButton#cancelButton
+{
+    border-radius: 6px;
+    background-color: rgb(109, 113, 115);
+    color: white;
+}
+
+QPushButton#cancelButton:hover
+{
+    background-color: rgb(120, 122, 124);
+}
+
+QPushButton#saveButton
+{
+    border-radius: 6px;
+    background-color: rgb(0, 116, 220);
+    color: white;
+}
+
+QPushButton#saveButton:hover
+{
+    background-color: rgb(15, 131, 235);
+}

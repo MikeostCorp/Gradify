@@ -15,6 +15,11 @@ public:
     explicit editSubject(QWidget *parent = nullptr);
     ~editSubject();
 
+private slots:
+    void setBlackUI();
+    void setWhiteUI();
+    void setSystemUI();
+
 private:
     Ui::editSubject *ui;
 
@@ -22,6 +27,7 @@ private:
 
 public slots:
     void setData(QString titleName);
+    void setTheme(const QString style);
 };
 
 #endif // EDITSUBJECT_H

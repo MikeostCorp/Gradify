@@ -1,6 +1,8 @@
 #include "editstudent.h"
 #include "ui_editstudent.h"
 
+#include <QFile>
+
 editStudent::editStudent(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::editStudent)
@@ -8,6 +10,7 @@ editStudent::editStudent(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
     setWindowTitle("Редагування студента (%studentPIB%)");
+    setFixedSize(width(), height());
     idRowEdit = -1;
 }
 
@@ -18,9 +21,61 @@ editStudent::~editStudent()
 }
 
 
+void editStudent::setBlackUI()
+{
+    QFile file(":/styles/black/editForms/editForms.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
+}
+
+
+void editStudent::setWhiteUI()
+{
+    QFile file(":/styles/white/editForms/editForms.qss");
+    file.open(QFile::ReadOnly);
+    setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
+}
+
+
+void editStudent::setSystemUI()
+{
+    QPalette basePalette;
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+
+    if (newBase.name() == "#000000")
+    {
+        setWhiteUI();
+    }
+    else
+    {
+        setBlackUI();
+    }
+}
+
+
 void editStudent::setData(QString titleName)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування студента (" + titleName +")");
+}
+
+
+void editStudent::setTheme(const QString style)
+{
+    if (style == "black")
+    {
+        setBlackUI();
+    }
+    else if (style == "white")
+    {
+        setWhiteUI();
+    }
+    else
+    {
+        setSystemUI();
+    }
 }

@@ -20,7 +20,7 @@ QFrame#controlTableFrame
 
 QFrame#mainTableFrame
 {
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: rgb(231, 224, 223);
     border: 0px;
     border-radius: 16px;
@@ -28,7 +28,7 @@ QFrame#mainTableFrame
 
 QLineEdit#searchLineEdit
 {
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: rgb(225, 225, 225);
     border: 2px solid rgb(225, 225, 225);
     border-radius: 8px;
@@ -66,7 +66,7 @@ QPushButton#queryButton
 {
     border-radius: 6px;
     background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QPushButton#deleteRowButton:hover,
@@ -105,7 +105,7 @@ QPushButton#subjectsReportButton
     background-position: 10px center;
     border-radius: 6px;
     background-color: rgb(231, 224, 223);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QPushButton#studentsTableButton:hover,
@@ -159,18 +159,18 @@ QPushButton#settingsButton
     padding-left: 25px;
     border-radius: 6px;
     background-color: rgb(231, 224, 223);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QHeaderView
 {
     background-color: white;
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QHeaderView::section
 {
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: white;
     padding-bottom: 5px;
     padding-top: 5px;
@@ -185,7 +185,7 @@ QHeaderView::section:checked
 QTableView
 {
    background-color: white;
-   color: rgb(61, 60, 59);
+   color: rgb(71, 71, 72);
    border: 0px;
    border-radius: 10px;
    gridline-color: rgb(85,85,85);
@@ -194,7 +194,7 @@ QTableView
 QTableView QLineEdit
 {
     background-color: white;
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     padding: 5px 5px 5px 4px;
 }
 
@@ -202,7 +202,7 @@ QTableView QSpinBox,
 QTableView QDateEdit
 {
     background-color: white;
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QTableView QFrame
@@ -212,7 +212,7 @@ QTableView QFrame
 
 QTableView::item
 {
-   color: rgb(61, 60, 59);
+   color: rgb(71, 71, 72);
    text-align: center;
    border-style: 1px solid rgb(211, 204, 203);
    border-radius: 8px;
@@ -372,7 +372,7 @@ QFrame#filterMainFrame,
 QFrame#queryMainFrame
 {
     border-radius: 6px;
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: white;
 }
 
@@ -385,7 +385,7 @@ QPushButton#clearFilterPushButton
 {
     border-radius: 6px;
     background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
 }
 
 QPushButton#filterPushButton:hover,
@@ -401,9 +401,9 @@ QPushButton#clearFilterPushButton:hover
 QLineEdit#conditionLineEdit,
 QLineEdit#conditionLineEdit_2
 {
-    color: rgb(61, 60, 59);
-    background-color: rgb(225, 225, 225);
-    border: 2px solid rgb(225, 225, 225);
+    color: rgb(71, 71, 72);
+    background-color: rgb(215, 215, 215);
+    border: 2px solid rgb(215, 215, 215);
     padding-left: 5px;
     border-radius: 8px;
 }
@@ -418,7 +418,7 @@ QComboBox#tableComboBox,
 QComboBox#conditionComboBox
 {
     background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     border: 2px solid rgb(225, 225, 225);
     border-radius: 6px;
 }
@@ -445,7 +445,7 @@ QComboBox#tableComboBox::drop-down,
 QComboBox#conditionComboBox::drop-down
 {
     background-color: rgb(225, 225, 225);
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
     padding-right: 5px;
@@ -484,7 +484,7 @@ QComboBox#conditionComboBox::down-arrow:disabled
 QComboBox#tableComboBox QAbstractItemView,
 QComboBox#conditionComboBox QAbstractItemView
 {
-  color: rgb(61, 60, 59);
+  color: rgb(71, 71, 72);
   background-color: white;
   border: none;
   border-radius: 6px;
@@ -492,14 +492,14 @@ QComboBox#conditionComboBox QAbstractItemView
 
 QDateEdit#conditionDataEdit
 {
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: rgb(225, 225, 225);
     padding-left: 5px;
 }
 
 QDateEdit#conditionDataEdit
 {
-    color: rgb(61, 60, 59);
+    color: rgb(71, 71, 72);
     background-color: rgb(225, 225, 225);
     padding-left: 5px;
     border-radius: 6px;
@@ -539,7 +539,7 @@ QLabel#queryLineLabel
 
 QInputDialog
 {
-    background-color: white;
+    background-color: rgb(240, 240, 240);
     border: 0px;
 }
 
@@ -559,8 +559,8 @@ QInputDialog QLineEdit
 {
     color: black;
     border-radius: 6px;
-    border: 2px solid rgb(225, 225, 225);
-    background-color: rgb(225, 225, 225);
+    border: 2px solid rgb(210, 210, 210);
+    background-color: rgb(210, 210, 210);
 }
 
 QInputDialog QComboBox::hover
@@ -570,7 +570,7 @@ QInputDialog QComboBox::hover
 
 QInputDialog QComboBox::drop-down
 {
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(210, 210, 210);
     color: black;
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
@@ -586,8 +586,8 @@ QInputDialog QComboBox::down-arrow
 
 QInputDialog QComboBox QAbstractItemView
 {
-    color: rgb(61, 60, 59);
-    background-color: white;
+    color: rgb(71, 71, 72);
+    background-color: rgb(236, 236, 236);
     border: none;
     border-radius: 6px;
 }
