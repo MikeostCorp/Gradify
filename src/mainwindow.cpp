@@ -73,6 +73,8 @@ void MainWindow::mainWindowInit()
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
 
+    connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
+
     // close popup windows on click tableView (need fix empty space)
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
@@ -97,8 +99,6 @@ void MainWindow::mainWindowInit()
     connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
-
-    //succesfullyAuthorization("ララ･サタ"); // <- абьюз для ровных девелоперов
 
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -521,8 +521,8 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
 void MainWindow::setFilterForTable(const QString filterQuery, const QString currentColumnFilter)
 {
-    queryModel->setQuery(filterQuery);
-    ui->tableView->setModel(queryModel);
+    model->setFilter(filterQuery);
+    model->select();
 
     for(int i = 0; i < ui->tableView->model()->columnCount(); i++)
     {
@@ -534,7 +534,7 @@ void MainWindow::setFilterForTable(const QString filterQuery, const QString curr
     }
 
     // debug
-    //QMessageBox::information(this, "", filterQuery);
+    QMessageBox::information(this, "", filterQuery);
 }
 
 
@@ -590,6 +590,7 @@ void MainWindow::on_addRowButton_clicked()
 void MainWindow::on_deleteRowButton_clicked()
 {
     ui->searchLineEdit->clearFocus();
+    closeAllPopUpWindow();
 
     if (ui->tableView->model()->rowCount() > 0)
     {
@@ -615,6 +616,7 @@ void MainWindow::on_editRowButton_clicked()
     // РЕАЛИЗАЦИЯ РЕДАКТИРОВАНИЯ ЗАПИСИ В ОТДЕЛЬНОМ ОКНЕ/ФОРМЕ
 
     ui->searchLineEdit->clearFocus();
+    closeAllPopUpWindow();
 
     if (ui->tableView->model()->rowCount() > 0)
     {
@@ -708,9 +710,7 @@ void MainWindow::goSearch()
 {
     if (!ui->searchLineEdit->text().isEmpty())
     {
-        QString searchString = "SELECT `" + model->tableName() + "`.*" +
-                "FROM `" + model->tableName() + "`" +
-                "WHERE ";
+        QString searchString;
 
         for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
         {
@@ -723,8 +723,8 @@ void MainWindow::goSearch()
             }
         }
 
-        queryModel->setQuery(searchString);
-        ui->tableView->setModel(queryModel);
+        model->setFilter(searchString);
+        ui->tableView->setModel(model);
     }
     else
     {
@@ -739,6 +739,7 @@ void MainWindow::goSearch()
 
 void MainWindow::clearFilterForTable()
 {
+    model->setFilter("");
     model->select();
     ui->tableView->setModel(model);
 }

@@ -86,9 +86,7 @@ void filterForm::on_filterPushButton_clicked()
         and !ui->conditionLineEdit->text().isEmpty()
         and currentPlaceHolderText != "Дата")
     {
-        strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
-        strSqlFilter += "\nFROM `" + currentTabelSelect + "`";
-        strSqlFilter += "\nWHERE `" + currentTabelSelect +"`.`" + ui->tableComboBox->currentText() + "` ";
+        strSqlFilter = "`" + ui->tableComboBox->currentText() + "` ";
 
         if (currentPlaceHolderText == "Число")
         {
@@ -139,13 +137,11 @@ void filterForm::on_filterPushButton_clicked()
              and ui->conditionComboBox->currentIndex() > 0
              and currentPlaceHolderText == "Дата")
     {
-        strSqlFilter = "SELECT `" + currentTabelSelect + "`.*";
-        strSqlFilter += "\nFROM `" + currentTabelSelect + "`";
-        strSqlFilter += "\nWHERE `" + currentTabelSelect +"`.`" +
-                        ui->tableComboBox->currentText() + "` " + ui->conditionComboBox->currentText()
-                        + " '" + QString::number(ui->conditionDataEdit->date().year()) + "-"
-                        + QString::number(ui->conditionDataEdit->date().month()) + "-"
-                        + QString::number(ui->conditionDataEdit->date().day()) + "'";
+        strSqlFilter = "`" + ui->tableComboBox->currentText() + "` " +
+                       ui->conditionComboBox->currentText()
+                       + " '" + QString::number(ui->conditionDataEdit->date().year()) + "-"
+                       + QString::number(ui->conditionDataEdit->date().month()) + "-"
+                       + QString::number(ui->conditionDataEdit->date().day()) + "'";
 
         emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
         ui->clearFilterPushButton->setEnabled(true);

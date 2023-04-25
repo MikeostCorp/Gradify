@@ -54,8 +54,6 @@ public slots:
 signals:
     void sendFilter(const QString, const QString);
     void clearFilter();
-
-
 };
 
 #endif // FILTERFORM_H

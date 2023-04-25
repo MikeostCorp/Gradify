@@ -27,6 +27,7 @@ private slots:
     void updateClearButton(const QString &text);
     void playAnimationSearchButton();
     void buttonClick();
+    void clearText();
 
 public slots:
     void setIconSearchButton(QIcon icon, QSize size);
@@ -35,6 +36,7 @@ public slots:
 signals:
     void buttonSearchClick();
     void haveFocus(bool);
+    void clickedClearButton();
 };
 
 #endif // QSEARCHBAR_H

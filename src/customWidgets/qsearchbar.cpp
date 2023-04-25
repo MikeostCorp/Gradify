@@ -24,7 +24,7 @@ QSearchBar::QSearchBar(QWidget *parent)
     setTextMargins(searchButton->minimumWidth(), 2, clearButton->minimumWidth(), 2);
 
     connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonClick()));
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(clearText()));
     connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateClearButton(const QString)));
 }
 
@@ -75,6 +75,12 @@ void QSearchBar::updateClearButton(const QString &text)
 void QSearchBar::buttonClick()
 {
     emit buttonSearchClick();
+}
+
+void QSearchBar::clearText()
+{
+    clear();
+    emit clickedClearButton();
 }
 
 
