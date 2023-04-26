@@ -80,3 +80,9 @@ void editGrade::setTheme(const QString style)
         setSystemUI();
     }
 }
+
+void editGrade::on_cancelButton_clicked()
+{
+    close();
+}
+
