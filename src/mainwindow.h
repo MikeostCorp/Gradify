@@ -90,6 +90,8 @@ private slots:
 
     void closeAllPopUpWindow();
 
+    void closeAllEditForm();
+
     void setEnabledButtons(bool status);
 
     void setEnabledActions(bool status);

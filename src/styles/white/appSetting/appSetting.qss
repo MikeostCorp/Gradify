@@ -54,8 +54,8 @@ QLineEdit#accountLideEdit_4
     padding-left: 5px;
     padding-right: 5px;
     color: rgb(71, 71, 72);
-    background-color: rgb(225, 225, 225);
-    border: 2px solid rgb(225, 225, 225);
+    background-color: rgb(235, 235, 235);
+    border: 1px solid rgb(195, 195, 195);
     border-radius: 8px;
 }
 
@@ -69,7 +69,6 @@ QLineEdit#accountLideEdit_3:focus,
 QLineEdit#accountLideEdit_4:focus
 {
     border: 2px solid rgb(65, 105, 225);
-    border-radius: 8px;
 }
 
 QPushButton#saveDBSettings,

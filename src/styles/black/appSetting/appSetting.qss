@@ -55,7 +55,7 @@ QLineEdit#accountLideEdit_4
     padding-right: 5px;
     color: white;
     background-color: rgb(29, 31, 32);
-    border: 2px solid rgb(29, 31, 32);
+    border: 1px solid rgb(139, 141, 142);
     border-radius: 8px;
 }
 

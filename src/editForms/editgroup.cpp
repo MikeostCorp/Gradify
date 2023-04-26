@@ -86,3 +86,9 @@ void editGroup::on_cancelButton_clicked()
     this->close();
 }
 
+
+void editGroup::on_saveButton_clicked()
+{
+    // проверка на заполненость данных
+}
+

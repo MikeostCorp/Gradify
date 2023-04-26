@@ -9,7 +9,7 @@ editTeacher
 
 QLabel
 {
-    color: rgb(71, 71, 72);
+    color: rgb(132, 132, 132);
 }
 
 QLineEdit
@@ -17,23 +17,22 @@ QLineEdit
     padding-left: 5px;
     padding-right: 5px;
     color: rgb(71, 71, 72);
-    background-color: rgb(225, 225, 225);
-    border: 2px solid rgb(225, 225, 225);
+    background-color: rgb(235, 235, 235);
+    border: 1px solid rgb(195, 195, 195);
     border-radius: 8px;
 }
 
 QLineEdit:focus
 {
     border: 2px solid rgb(65, 105, 225);
-    border-radius: 8px;
 }
 
 QComboBox
 {
     background-color: rgb(225, 225, 225);
     color: rgb(71, 71, 72);
-    border: 2px solid rgb(225, 225, 225);
-    border-radius: 6px;
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 8px;
 }
 
 QComboBox:disabled

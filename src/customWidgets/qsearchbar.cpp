@@ -69,6 +69,7 @@ void QSearchBar::focusOutEvent(QFocusEvent *event)
 void QSearchBar::updateClearButton(const QString &text)
 {
     clearButton->setVisible(!text.isEmpty());
+    buttonClick();
 }
 
 

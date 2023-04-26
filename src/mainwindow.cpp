@@ -288,20 +288,13 @@ void MainWindow::on_teachersTableButton_clicked()
 
 void MainWindow::on_gradesTableButton_clicked()
 {
-    /*
-     *
-     * Код реализации открытия таблицы оценок
-     *
-     *    ui->tableView->resizeColumnsToContents(); не юзаем ибо баг
-     *                                              с длиной колонк (последняя колонка не до
-     *                                              конца растянута)
-    */
     setWindowTitle("Gradify - (Оцінки)");
     model->setTable("Оцінки");
     model->select();
     currentSelectTable = 2;
 
     ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     clearStyleButtonTable();
@@ -405,6 +398,16 @@ void MainWindow::closeAllPopUpWindow()
 {
     filterWindow->close();
     queryWindow->close();
+}
+
+
+void MainWindow::closeAllEditForm()
+{
+    gradeEditForm->close();
+    groupEditForm->close();
+    studentEditForm->close();
+    subjectEditForm->close();
+    teacherEditForm->close();
 }
 
 
@@ -562,6 +565,7 @@ void MainWindow::userLogout()
 
     clearSelectTable();
     clearStyleButtonTable();
+    closeAllEditForm();
     ui->searchLineEdit->clear();
 
     setWindowTitle("Gradify");
