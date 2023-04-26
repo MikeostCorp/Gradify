@@ -23,6 +23,7 @@ editGrade::~editGrade()
 
 void editGrade::setBlackUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/raitingIco.png"));
     QFile file(":/styles/black/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -32,6 +33,7 @@ void editGrade::setBlackUI()
 
 void editGrade::setWhiteUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/raitingIco.png"));
     QFile file(":/styles/white/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));

@@ -32,6 +32,7 @@ public slots:
 private slots:
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
+    void on_startStudySpinBox_valueChanged(int arg1);
 };
 
 #endif // EDITGROUP_H

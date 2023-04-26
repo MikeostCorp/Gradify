@@ -20,6 +20,8 @@ private slots:
     void setWhiteUI();
     void setSystemUI();
 
+    void on_cancelButton_clicked();
+
 private:
     Ui::editTeacher *ui;
 

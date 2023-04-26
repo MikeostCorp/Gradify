@@ -23,6 +23,7 @@ editTeacher::~editTeacher()
 
 void editTeacher::setBlackUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/teachersIco.png"));
     QFile file(":/styles/black/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -32,6 +33,7 @@ void editTeacher::setBlackUI()
 
 void editTeacher::setWhiteUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/teachersIco.png"));
     QFile file(":/styles/white/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -79,3 +81,10 @@ void editTeacher::setTheme(const QString style)
         setSystemUI();
     }
 }
+
+
+void editTeacher::on_cancelButton_clicked()
+{
+    this->close();
+}
+

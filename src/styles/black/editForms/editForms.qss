@@ -12,7 +12,16 @@ QLabel
     color: #989898;
 }
 
-QLineEdit
+QLabel#mainImage
+{
+    background-color: rgb(91, 95, 98);
+    border: 2px solid rgb(139, 141, 142);
+    border-radius: 16px;
+}
+
+QLineEdit,
+QSpinBox,
+QDateEdit
 {
     padding-left: 5px;
     padding-right: 5px;
@@ -22,10 +31,11 @@ QLineEdit
     border-radius: 8px;
 }
 
-QLineEdit:focus
+QLineEdit:focus,
+QSpinBox:focus,
+QDateEdit:focus
 {
     border: 2px solid rgb(85, 135, 235);
-    border-radius: 8px;
 }
 
 QComboBox
@@ -46,11 +56,6 @@ QComboBox:editable
     background-color: rgb(29, 31, 32);
 }
 
-QComboBox::hover
-{
-    border: 2px solid rgb(65, 105, 225);
-}
-
 QComboBox::drop-down
 {
     background-color: rgb(29, 31, 32);
@@ -69,7 +74,7 @@ QComboBox::separator
 
 QComboBox::focus
 {
-    border-color: rgb(196, 30, 58);
+    border: 2px solid rgb(85, 135, 235);
 }
 
 QComboBox::down-arrow
@@ -117,3 +122,4 @@ QPushButton#saveButton:hover
 {
     background-color: rgb(15, 131, 235);
 }
+

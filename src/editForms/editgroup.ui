@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
-    <height>338</height>
+    <width>360</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>290</y>
+     <y>360</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>290</y>
+     <y>360</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -43,7 +43,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
+     <y>160</y>
      <width>321</width>
      <height>21</height>
     </rect>
@@ -53,7 +53,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
+     <y>140</y>
      <width>58</width>
      <height>16</height>
     </rect>
@@ -66,20 +66,20 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>80</y>
+     <y>190</y>
      <width>101</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Спецілальність&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Спеціальність&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="specialityLineEdit">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>100</y>
+     <y>210</y>
      <width>321</width>
      <height>21</height>
     </rect>
@@ -89,7 +89,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>190</y>
+     <y>290</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -102,46 +102,20 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>190</y>
-     <width>141</width>
+     <y>290</y>
+     <width>151</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Рік початку навчання&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="startYearLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>210</y>
-     <width>135</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="endYearLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>210</y>
-     <width>135</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Рік закінчення навчання&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>240</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -154,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>130</y>
+     <y>240</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -167,7 +141,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>150</y>
+     <y>260</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -197,10 +171,67 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>150</y>
+     <y>260</y>
      <width>134</width>
      <height>21</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="startStudySpinBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>310</y>
+     <width>135</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="minimum">
+    <number>2000</number>
+   </property>
+   <property name="maximum">
+    <number>2100</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="endStudySpinBox">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>310</y>
+     <width>135</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="minimum">
+    <number>2001</number>
+   </property>
+   <property name="maximum">
+    <number>2100</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mainImage">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>20</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

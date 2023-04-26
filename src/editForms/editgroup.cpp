@@ -23,6 +23,7 @@ editGroup::~editGroup()
 
 void editGroup::setBlackUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/groupIco.png"));
     QFile file(":/styles/black/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -32,6 +33,7 @@ void editGroup::setBlackUI()
 
 void editGroup::setWhiteUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/groupIco.png"));
     QFile file(":/styles/white/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -90,5 +92,11 @@ void editGroup::on_cancelButton_clicked()
 void editGroup::on_saveButton_clicked()
 {
     // проверка на заполненость данных
+}
+
+
+void editGroup::on_startStudySpinBox_valueChanged(int arg1)
+{
+    ui->endStudySpinBox->setMinimum(arg1 + 1);
 }
 

@@ -23,6 +23,7 @@ editSubject::~editSubject()
 
 void editSubject::setBlackUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/subjectIco.png"));
     QFile file(":/styles/black/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -32,6 +33,7 @@ void editSubject::setBlackUI()
 
 void editSubject::setWhiteUI()
 {
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/subjectIco.png"));
     QFile file(":/styles/white/editForms/editForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -79,3 +81,10 @@ void editSubject::setTheme(const QString style)
         setSystemUI();
     }
 }
+
+
+void editSubject::on_cancelButton_clicked()
+{
+    this->close();
+}
+

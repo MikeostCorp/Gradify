@@ -103,6 +103,10 @@ void MainWindow::mainWindowInit()
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
+        if (button->objectName() != "editRowButton")
+        {
+            connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
+        }
     }
 
     // close popup windows on click menubar
