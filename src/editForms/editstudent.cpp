@@ -2,6 +2,7 @@
 #include "ui_editstudent.h"
 
 #include <QFile>
+#include <QMessageBox>
 
 editStudent::editStudent(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,10 @@ editStudent::editStudent(QWidget *parent) :
     setWindowTitle("Редагування студента (%studentPIB%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
+
+    ui->groupComboBox->insertSeparator(1);
+
+    ui->numberLineEdit->setValidator(new QIntValidator(0, 38099999999, this));
 }
 
 
@@ -58,11 +63,14 @@ void editStudent::setSystemUI()
 }
 
 
-void editStudent::setData(QString titleName)
+void editStudent::setData(QString titleName, QStringList listData)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування студента (" + titleName +")");
+
+
+    ui->lastNameLineEdit->setFocus();
 }
 
 
@@ -86,5 +94,20 @@ void editStudent::setTheme(const QString style)
 void editStudent::on_cancelButton_clicked()
 {
     this->close();
+}
+
+
+QString editStudent::reverseDate()
+{
+
+}
+
+
+void editStudent::on_numberLineEdit_textChanged(const QString &arg1)
+{
+    if (arg1.isEmpty())
+    {
+        ui->numberLineEdit->setText("380");
+    }
 }
 

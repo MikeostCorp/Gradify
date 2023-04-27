@@ -103,7 +103,7 @@ void MainWindow::mainWindowInit()
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
-        if (button->objectName() != "editRowButton")
+        if (button->objectName() != "editRowButton" and button->objectName() != "settingsButton")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
         }
@@ -646,35 +646,36 @@ void MainWindow::on_editRowButton_clicked()
 
         if (ok)
         {
+            // tut red
             switch (currentSelectTable)
             {
             case 0:
                 connect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
-                emit setDataEditForm(selectedItem);
+                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
                 studentEditForm->show();
                 break;
             case 1:
                 connect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
-                emit setDataEditForm(selectedItem);
+                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
                 teacherEditForm->show();
                 break;
             case 2:
                 connect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
-                emit setDataEditForm(selectedItem);
+                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
                 gradeEditForm->show();
                 break;
             case 3:
                 connect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
-                emit setDataEditForm(selectedItem);
+                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
                 groupEditForm->show();
                 break;
             case 4:
                 connect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
-                emit setDataEditForm(selectedItem);
+                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
                 subjectEditForm->show();
                 break;
@@ -831,6 +832,26 @@ QStringList MainWindow::getCurrentItemTable()
     }
 
     return str;
+}
+
+
+QStringList MainWindow::getRowDate(int row)
+{
+    QStringList listDate;
+
+    for (int i = 0; i < model->rowCount(); i++)
+    {
+        if (ui->tableView->model()->data(model->index(i, 0)) == row)
+        {
+            for (int j = 1; j < model->columnCount(); j++)
+            {
+                listDate << model->data(model->index(i, j)).toString();
+            }
+            break;
+        }
+    }
+
+    return listDate;
 }
 
 

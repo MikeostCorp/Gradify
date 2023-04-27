@@ -2,6 +2,7 @@
 #include "ui_editgrade.h"
 
 #include <QFile>
+#include <QMessageBox>
 
 editGrade::editGrade(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,10 @@ editGrade::editGrade(QWidget *parent) :
     setWindowTitle("Редагування оцінки (%grade%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
+
+    ui->subjectComboBox->insertSeparator(1);
+    ui->typeGradeComboBox->insertSeparator(1);
+    ui->whoTakeComboBox->insertSeparator(1);
 }
 
 
@@ -57,11 +62,13 @@ void editGrade::setSystemUI()
     }
 }
 
-void editGrade::setData(QString titleName)
+void editGrade::setData(QString titleName, QStringList listData)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування оцінки (" + titleName +")");
+
+    ui->gradeSpinBox->setFocus();
 }
 
 
@@ -83,6 +90,12 @@ void editGrade::setTheme(const QString style)
 
 void editGrade::on_cancelButton_clicked()
 {
-    close();
+    this->close();
+}
+
+
+QString editGrade::reverseDate()
+{
+
 }
 

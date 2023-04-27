@@ -2,6 +2,7 @@
 #include "ui_editsubject.h"
 
 #include <QFile>
+#include <QMessageBox>
 
 editSubject::editSubject(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,9 @@ editSubject::editSubject(QWidget *parent) :
     setWindowTitle("Редагування предмета (%subjectName%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
+
+    ui->controlComboBox->insertSeparator(1);
+    ui->typeComboBox->insertSeparator(1);
 }
 
 
@@ -58,11 +62,13 @@ void editSubject::setSystemUI()
 }
 
 
-void editSubject::setData(QString titleName)
+void editSubject::setData(QString titleName, QStringList listData)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування предмета (" + titleName +")");
+
+    ui->nameLineEdit->setFocus();
 }
 
 

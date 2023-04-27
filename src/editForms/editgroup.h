@@ -25,14 +25,14 @@ private:
 
     int idRowEdit;
 
-public slots:
-    void setData(QString titleName);
-    void setTheme(const QString style);
-
 private slots:
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
     void on_startStudySpinBox_valueChanged(int arg1);
+
+public slots:
+    void setData(QString titleName, QStringList listData);
+    void setTheme(const QString style);
 };
 
 #endif // EDITGROUP_H

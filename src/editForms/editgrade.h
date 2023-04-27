@@ -21,6 +21,7 @@ private slots:
     void setSystemUI();
 
     void on_cancelButton_clicked();
+    QString reverseDate();
 
 private:
     Ui::editGrade *ui;
@@ -28,7 +29,7 @@ private:
     int idRowEdit;
 
 public slots:
-    void setData(QString titleName);
+    void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
 };
 

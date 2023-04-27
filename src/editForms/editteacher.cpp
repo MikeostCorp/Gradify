@@ -2,6 +2,7 @@
 #include "ui_editteacher.h"
 
 #include <QFile>
+#include <QMessageBox>
 
 editTeacher::editTeacher(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,11 @@ editTeacher::editTeacher(QWidget *parent) :
     setWindowTitle("Редагування викладача (%teacherName%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
+
+    ui->categoryComboBox->insertSeparator(1);
+    ui->specialComboBox->insertSeparator(1);
+
+    ui->numberLineEdit->setValidator(new QIntValidator(0, 38099999999, this));
 }
 
 
@@ -58,11 +64,25 @@ void editTeacher::setSystemUI()
 }
 
 
-void editTeacher::setData(QString titleName)
+void editTeacher::setData(QString titleName, QStringList listData)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування викладача (" + titleName +")");
+
+    ui->lastNameLineEdit->setFocus();
+    ui->lastNameLineEdit->setText(listData[0]);
+    ui->nameLineEdit->setText(listData[1]);
+    ui->surnameLineEdit->setText(listData[2]);
+    ui->numberLineEdit->setText(listData[3]);
+    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[4]), "dd/MM/yyyy"));
+    ui->addressLineEdit->setText(listData[5]);
+
+    ui->categoryComboBox->setCurrentText(listData[6]);
+    ui->specialComboBox->setCurrentText(listData[7]);
+
+    //QMessageBox::information(this, "", listData[6]);
+    //1992-12-31
 }
 
 
@@ -86,5 +106,33 @@ void editTeacher::setTheme(const QString style)
 void editTeacher::on_cancelButton_clicked()
 {
     this->close();
+}
+
+
+QString editTeacher::reverseDate(QString str)
+{
+    QString newStrDate;
+
+    newStrDate = str[str.length() - 2];
+    newStrDate += str[str.length() - 1];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 5];
+    newStrDate += str[str.length() - 4];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 10];
+    newStrDate += str[str.length() - 9];
+    newStrDate += str[str.length() - 8];
+    newStrDate += str[str.length() - 7];
+
+    return newStrDate;
+}
+
+
+void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
+{
+    if (arg1.isEmpty())
+    {
+        ui->numberLineEdit->setText("380");
+    }
 }
 

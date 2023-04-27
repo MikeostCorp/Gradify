@@ -38,10 +38,6 @@ private slots:
 
     void on_selectSystemUIRadioButton_clicked();
 
-    void on_acceptDBSetting_clicked();
-
-    void on_acceptAccountSetting_clicked();
-
     void on_saveDBSettings_clicked();
 
 private:

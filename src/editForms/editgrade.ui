@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>350</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,11 +32,11 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="typeGradeLabel">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>190</y>
+     <x>20</x>
+     <y>240</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -45,11 +45,11 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Тип оцінки&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="dateTakeLabel">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>240</y>
+     <x>200</x>
+     <y>290</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -58,11 +58,11 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Дата виставлення&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="gradeLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>190</y>
+     <y>290</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -71,7 +71,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Оцінка&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="subjectLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -84,11 +84,11 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Предмет&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="whoTakeLabel">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>140</y>
+     <x>20</x>
+     <y>190</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>310</y>
+     <y>360</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -113,12 +113,17 @@
   <widget class="QComboBox" name="typeGradeComboBox">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>210</y>
-     <width>135</width>
+     <x>20</x>
+     <y>260</y>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Оберіть тип оцінки</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>rew</string>
@@ -144,7 +149,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>310</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -166,7 +171,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>310</y>
+     <y>360</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -180,10 +185,15 @@
     <rect>
      <x>20</x>
      <y>160</y>
-     <width>135</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Оберіть предмет</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>rew</string>
@@ -208,12 +218,17 @@
   <widget class="QComboBox" name="whoTakeComboBox">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>160</y>
-     <width>135</width>
+     <x>20</x>
+     <y>210</y>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Оберіть отримувача</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>rew</string>
@@ -238,14 +253,24 @@
   <widget class="QDateEdit" name="takeDateEdit">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>260</y>
+     <x>200</x>
+     <y>310</y>
      <width>135</width>
      <height>21</height>
     </rect>
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="minimumDate">
+    <date>
+     <year>2000</year>
+     <month>9</month>
+     <day>14</day>
+    </date>
+   </property>
+   <property name="displayFormat">
+    <string>dd.MM.yyyy</string>
    </property>
   </widget>
  </widget>

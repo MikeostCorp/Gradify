@@ -152,18 +152,6 @@ void appSetting::setThemeSettingUI(const QString style)
     }
 }
 
-
-void appSetting::on_acceptDBSetting_clicked()
-{
-    // код изменения настроек соеденения к бд
-}
-
-
-void appSetting::on_acceptAccountSetting_clicked()
-{
-    // код изменения настроек соеденения к аккаунтам
-}
-
 void appSetting::on_saveDBSettings_clicked()
 {
     if (ui->dbhostnameLineEdit->text().isEmpty())

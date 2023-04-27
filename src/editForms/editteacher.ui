@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>500</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,12 +18,15 @@
     <rect>
      <x>20</x>
      <y>210</y>
-     <width>321</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <property name="maxLength">
+    <number>50</number>
+   </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lastNameLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -39,14 +42,44 @@
   <widget class="QComboBox" name="specialComboBox">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>410</y>
-     <width>134</width>
+     <x>20</x>
+     <y>460</y>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Оберіть спеціалізацію</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Фізико-математичні науки</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Педагогічна освіта</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Комп’ютерні науки</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Комп’ютерна інженерія</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Соціально-політичні науки</string>
+    </property>
+   </item>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="catogoriaLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -64,16 +97,19 @@
     <rect>
      <x>20</x>
      <y>160</y>
-     <width>321</width>
+     <width>320</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="maxLength">
+    <number>50</number>
    </property>
   </widget>
   <widget class="QPushButton" name="saveButton">
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>460</y>
+     <y>510</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -82,7 +118,7 @@
     <string>Зберегти</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="nameLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -99,7 +135,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>460</y>
+     <y>510</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -113,36 +149,41 @@
     <rect>
      <x>20</x>
      <y>410</y>
-     <width>135</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
    <item>
     <property name="text">
-     <string>rew</string>
+     <string>Оберіть категорію</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wrewr</string>
+     <string>Спеціаліст</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wer</string>
+     <string>Спеціаліст першої категорії</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wer</string>
+     <string>Спеціаліст другої категорії</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Спеціаліст вищої категорії</string>
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QLabel" name="specialLabel">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>390</y>
+     <x>20</x>
+     <y>440</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -151,7 +192,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Спеціалізація&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="surnameLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -169,12 +210,15 @@
     <rect>
      <x>20</x>
      <y>260</y>
-     <width>321</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <property name="maxLength">
+    <number>50</number>
+   </property>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QLabel" name="telephoneLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -196,11 +240,17 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="text">
+    <string>380</string>
+   </property>
+   <property name="maxLength">
+    <number>12</number>
+   </property>
   </widget>
   <widget class="QDateEdit" name="birthDayDataEdit">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>205</x>
      <y>310</y>
      <width>135</width>
      <height>21</height>
@@ -209,11 +259,21 @@
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
+   <property name="minimumDate">
+    <date>
+     <year>1900</year>
+     <month>9</month>
+     <day>14</day>
+    </date>
+   </property>
+   <property name="displayFormat">
+    <string>dd.MM.yyyy</string>
+   </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="birthDayLabel">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>205</x>
      <y>290</y>
      <width>111</width>
      <height>16</height>
@@ -228,12 +288,15 @@
     <rect>
      <x>20</x>
      <y>360</y>
-     <width>321</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>
+   <property name="maxLength">
+    <number>50</number>
+   </property>
   </widget>
-  <widget class="QLabel" name="label_10">
+  <widget class="QLabel" name="addressLabel">
    <property name="geometry">
     <rect>
      <x>20</x>

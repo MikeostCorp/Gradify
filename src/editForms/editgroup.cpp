@@ -2,6 +2,7 @@
 #include "ui_editgroup.h"
 
 #include <QFile>
+#include <QMessageBox>
 
 editGroup::editGroup(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,9 @@ editGroup::editGroup(QWidget *parent) :
     setWindowTitle("Редагування групи (%groupName%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
+
+    ui->curatorComboBox->insertSeparator(1);
+    ui->headManComboBox->insertSeparator(1);
 }
 
 
@@ -58,11 +62,13 @@ void editGroup::setSystemUI()
 }
 
 
-void editGroup::setData(QString titleName)
+void editGroup::setData(QString titleName, QStringList listData)
 {
     idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування групи (" + titleName +")");
+
+    ui->nameLineEdit->setFocus();
 }
 
 

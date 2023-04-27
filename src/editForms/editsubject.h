@@ -28,7 +28,7 @@ private:
     int idRowEdit;
 
 public slots:
-    void setData(QString titleName);
+    void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
 };
 

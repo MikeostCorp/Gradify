@@ -154,6 +154,8 @@ private slots:
 
     QStringList getCurrentItemTable();
 
+    QStringList getRowDate(int row);
+
 private:
     Ui::MainWindow *ui;
 
@@ -202,6 +204,6 @@ signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
     void setTableForFilter(const QMap<QString, QString>);
-    void setDataEditForm(QString);
+    void setDataEditForm(QString, QStringList);
 };
 #endif // MAINWINDOW_H
