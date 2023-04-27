@@ -244,7 +244,7 @@
     <string>380</string>
    </property>
    <property name="maxLength">
-    <number>12</number>
+    <number>13</number>
    </property>
   </widget>
   <widget class="QDateEdit" name="birthDayDataEdit">
