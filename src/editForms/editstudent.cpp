@@ -67,12 +67,32 @@ void editStudent::setSystemUI()
 
 void editStudent::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування студента (" + titleName +")");
 
+    ui->lastNameLineEdit->setFocus();
 
     ui->lastNameLineEdit->setFocus();
+    ui->lastNameLineEdit->setText(listData[1]);
+    ui->nameLineEdit->setText(listData[2]);
+    ui->surnameLineEdit->setText(listData[3]);
+    ui->numberLineEdit->setText(listData[4]);
+    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
+    ui->addressLineEdit->setText(listData[6]);
+
+    ui->passLineEdit->setText(listData[7]);
+    ui->groupComboBox->setCurrentText(listData[8]);
+    ui->nalogLineEdit->setText(listData[9]);
+}
+
+
+void editStudent::setComboBox(QStringList groupList)
+{
+    ui->groupComboBox->clear();
+    ui->groupComboBox->addItem("Оберіть групу");
+    ui->groupComboBox->insertSeparator(1);
+    ui->groupComboBox->addItems(groupList);
 }
 
 
@@ -99,9 +119,22 @@ void editStudent::on_cancelButton_clicked()
 }
 
 
-QString editStudent::reverseDate()
+QString editStudent::reverseDate(QString str)
 {
+    QString newStrDate;
 
+    newStrDate = str[str.length() - 2];
+    newStrDate += str[str.length() - 1];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 5];
+    newStrDate += str[str.length() - 4];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 10];
+    newStrDate += str[str.length() - 9];
+    newStrDate += str[str.length() - 8];
+    newStrDate += str[str.length() - 7];
+
+    return newStrDate;
 }
 
 

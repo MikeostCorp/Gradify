@@ -78,19 +78,6 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Спеціальність&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="specialityLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>210</y>
-     <width>320</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="maxLength">
-    <number>150</number>
-   </property>
-  </widget>
   <widget class="QLabel" name="yearStartLabel">
    <property name="geometry">
     <rect>
@@ -249,6 +236,36 @@
    <property name="scaledContents">
     <bool>true</bool>
    </property>
+  </widget>
+  <widget class="QComboBox" name="specialComboBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>210</y>
+     <width>320</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Оберіть спеціальність</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>051 - Економіка</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>121 - Інеженерія программного забезпечення</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>131 - Прикладна механіка</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

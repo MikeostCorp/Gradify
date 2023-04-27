@@ -20,9 +20,9 @@ private slots:
     void setWhiteUI();
     void setSystemUI();
 
-    void on_cancelButton_clicked();
     QString reverseDate(QString str);
 
+    void on_cancelButton_clicked();
     void on_numberLineEdit_textChanged(const QString &arg1);
 
 private:

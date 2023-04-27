@@ -15,6 +15,7 @@ editGroup::editGroup(QWidget *parent) :
     idRowEdit = -1;
 
     ui->curatorComboBox->insertSeparator(1);
+    ui->specialComboBox->insertSeparator(1);
     ui->headManComboBox->insertSeparator(1);
 }
 
@@ -64,13 +65,36 @@ void editGroup::setSystemUI()
 
 void editGroup::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування групи (" + titleName +")");
 
     ui->nameLineEdit->setFocus();
 
     ui->nameLineEdit->setText(listData[1]);
+    ui->specialComboBox->setCurrentText(listData[2]);
+    ui->startStudySpinBox->setValue(listData[3].toInt());
+    ui->endStudySpinBox->setValue(listData[4].toInt());
+    ui->curatorComboBox->setCurrentText(listData[5]);
+    ui->headManComboBox->setCurrentText(listData[6]);
+}
+
+
+void editGroup::setDataCuratorComboBox(QStringList list)
+{
+    ui->curatorComboBox->clear();
+    ui->curatorComboBox->addItem("Оберіть куратора");
+    ui->curatorComboBox->insertSeparator(1);
+    ui->curatorComboBox->addItems(list);
+}
+
+
+void editGroup::setDataHeadManComboBox(QStringList list)
+{
+    ui->headManComboBox->clear();
+    ui->headManComboBox->addItem("Оберіть старосту");
+    ui->headManComboBox->insertSeparator(1);
+    ui->headManComboBox->addItems(list);
 }
 
 

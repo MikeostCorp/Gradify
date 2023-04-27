@@ -115,6 +115,10 @@ void MainWindow::mainWindowInit()
     connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
+    // send list to edit form
+    connect(this, &MainWindow::sendGroupList, studentEditForm, &editStudent::setComboBox);
+
+
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
@@ -651,26 +655,50 @@ void MainWindow::on_editRowButton_clicked()
             {
             case 0:
                 connect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
+
+                emit sendGroupList(getGroupNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+
                 disconnect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
                 studentEditForm->show();
                 break;
             case 1:
                 connect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
+
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+
                 disconnect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
                 teacherEditForm->show();
                 break;
             case 2:
                 connect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
+                connect(this, &MainWindow::sendStudentList, gradeEditForm, &editGrade::setDataStudentComboBox);
+                connect(this, &MainWindow::sendTeacherList, gradeEditForm, &editGrade::setDataTeacherComboBox);
+                connect(this, &MainWindow::sendSubjectList, gradeEditForm, &editGrade::setDataSubjectComboBox);
+
+                emit sendSubjectList(getSubjectNames());
+                emit sendStudentList(getStudentNames());
+                emit sendTeacherList(getTeacherNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+
+                disconnect(this, &MainWindow::sendSubjectList, gradeEditForm, &editGrade::setDataSubjectComboBox);
+                disconnect(this, &MainWindow::sendStudentList, gradeEditForm, &editGrade::setDataStudentComboBox);
+                disconnect(this, &MainWindow::sendTeacherList, gradeEditForm, &editGrade::setDataTeacherComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
                 gradeEditForm->show();
                 break;
             case 3:
                 connect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
+                connect(this, &MainWindow::sendTeacherList, groupEditForm, &editGroup::setDataCuratorComboBox);
+                connect(this, &MainWindow::sendStudentList, groupEditForm, &editGroup::setDataHeadManComboBox);
+
+                emit sendTeacherList(getTeacherNames());
+                emit sendStudentList(getStudentNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+
                 disconnect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
+                disconnect(this, &MainWindow::sendTeacherList, groupEditForm, &editGroup::setDataCuratorComboBox);
+                disconnect(this, &MainWindow::sendStudentList, groupEditForm, &editGroup::setDataHeadManComboBox);
                 groupEditForm->show();
                 break;
             case 4:
@@ -749,9 +777,7 @@ void MainWindow::goSearch()
     }
     else
     {
-        model->setFilter("");
-        model->select();
-        ui->tableView->setModel(model);
+        clearFilterForTable();
     }
 
     //QMessageBox::information(this,"", "надо искать!" + ui->searchLineEdit->text() +
@@ -846,6 +872,90 @@ QStringList MainWindow::getRowDate(int row)
     }
 
     return listDate;
+}
+
+
+QStringList MainWindow::getStudentNames()
+{
+    QStringList studentList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
+                         "FROM `Студенти`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        studentList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
+                           virtualTable->model()->index(row, 1).data().toString() + " " +
+                           virtualTable->model()->index(row, 2).data().toString() );
+    }
+
+    return studentList;
+}
+
+
+QStringList MainWindow::getTeacherNames()
+{
+    QStringList teacherList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
+                               "FROM `Викладачі`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        teacherList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
+                           virtualTable->model()->index(row, 1).data().toString() + " " +
+                           virtualTable->model()->index(row, 2).data().toString());
+    }
+
+    return teacherList;
+}
+
+
+QStringList MainWindow::getSubjectNames()
+{
+    QStringList subjectList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Назва`"
+                               "FROM `Предмети`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        subjectList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    return subjectList;
+}
+
+
+QStringList MainWindow::getGroupNames()
+{
+    QStringList groupList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Назва`"
+                         "FROM `Групи`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        groupList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    return groupList;
 }
 
 

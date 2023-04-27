@@ -241,15 +241,3 @@ void authorization::setSystemUI()
 }
 
 
-void authorization::on_rememberCheckBox_stateChanged(int arg1)
-{
-    if (arg1 == 0)
-    {
-        // КОД ЕСЛИ НЕ ЗАПОМНИТЬ ЮЗЕРА
-    }
-    else
-    {
-        // КОД ЗАПОМНИТЬ ЮЗЕРА !!!
-    }
-}
-

@@ -62,13 +62,48 @@ void editGrade::setSystemUI()
     }
 }
 
+
 void editGrade::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування оцінки (" + titleName +")");
 
     ui->gradeSpinBox->setFocus();
+
+    ui->subjectComboBox->setCurrentText(listData[1]);
+    ui->whoTakeComboBox->setCurrentText(listData[2]);
+    ui->teacherComboBox->setCurrentText(listData[3]);
+    ui->gradeSpinBox->setValue(listData[4].toInt());
+    ui->typeGradeComboBox->setCurrentText(listData[5]);
+    ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[6]), "dd/MM/yyyy"));
+}
+
+
+void editGrade::setDataStudentComboBox(QStringList list)
+{
+    ui->whoTakeComboBox->clear();
+    ui->whoTakeComboBox->addItem("Оберіть отримувача");
+    ui->whoTakeComboBox->insertSeparator(1);
+    ui->whoTakeComboBox->addItems(list);
+}
+
+
+void editGrade::setDataTeacherComboBox(QStringList list)
+{
+    ui->teacherComboBox->clear();
+    ui->teacherComboBox->addItem("Оберіть хто виставив");
+    ui->teacherComboBox->insertSeparator(1);
+    ui->teacherComboBox->addItems(list);
+}
+
+
+void editGrade::setDataSubjectComboBox(QStringList list)
+{
+    ui->subjectComboBox->clear();
+    ui->subjectComboBox->addItem("Оберіть предмет");
+    ui->subjectComboBox->insertSeparator(1);
+    ui->subjectComboBox->addItems(list);
 }
 
 
@@ -94,8 +129,23 @@ void editGrade::on_cancelButton_clicked()
 }
 
 
-QString editGrade::reverseDate()
+QString editGrade::reverseDate(QString str)
 {
+    QString newStrDate;
 
+    newStrDate = str[str.length() - 2];
+    newStrDate += str[str.length() - 1];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 5];
+    newStrDate += str[str.length() - 4];
+    newStrDate += "/";
+    newStrDate += str[str.length() - 10];
+    newStrDate += str[str.length() - 9];
+    newStrDate += str[str.length() - 8];
+    newStrDate += str[str.length() - 7];
+
+    return newStrDate;
 }
+
+//Оберіть хто виставив
 

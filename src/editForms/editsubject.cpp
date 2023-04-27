@@ -64,11 +64,21 @@ void editSubject::setSystemUI()
 
 void editSubject::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування предмета (" + titleName +")");
 
     ui->nameLineEdit->setFocus();
+
+    ui->nameLineEdit->setText(listData[1]);
+    ui->typeComboBox->setCurrentText(listData[2]);
+    ui->allTimeSpinBox->setValue(listData[3].toInt());
+    ui->lectureTimeSpinBox->setValue(listData[4].toInt());
+    ui->labTimeSpinBox->setValue(listData[5].toInt());
+    ui->seminarSpinBox->setValue(listData[6].toInt());
+    ui->soloWorkSpinBox->setValue(listData[7].toInt());
+    ui->semesrtLearnSpinBox->setValue(listData[8].toInt());
+
 }
 
 

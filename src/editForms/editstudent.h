@@ -21,7 +21,7 @@ private slots:
     void setSystemUI();
 
     void on_cancelButton_clicked();
-    QString reverseDate();
+    QString reverseDate(QString str);
 
     void on_numberLineEdit_textChanged(const QString &arg1);
 
@@ -32,6 +32,7 @@ private:
 
 public slots:
     void setData(QString titleName, QStringList listData);
+    void setComboBox(QStringList groupList);
     void setTheme(const QString style);
 };
 

@@ -113,22 +113,47 @@
    </item>
    <item>
     <property name="text">
-     <string>rew</string>
+     <string>Фізична культура і здоров'я</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wrewr</string>
+     <string>Навчальний предмет</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wer</string>
+     <string>Антропологічні науки</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wer</string>
+     <string>Суспільствознавство</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Природознавство</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Технічні науки</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Математика</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Профільний</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Космологія</string>
     </property>
    </item>
   </widget>
@@ -161,22 +186,17 @@
    </item>
    <item>
     <property name="text">
-     <string>rew</string>
+     <string>Екзамен</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wrewr</string>
+     <string>Залік</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>wer</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>wer</string>
+     <string>Іспит</string>
     </property>
    </item>
   </widget>

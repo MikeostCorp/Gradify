@@ -34,10 +34,6 @@ private slots:
 
     void on_loginButton_clicked();
 
-    void on_rememberCheckBox_stateChanged(int arg1);
-
-
-
 private:
     Ui::authorization *ui;
 

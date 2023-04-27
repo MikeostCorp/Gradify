@@ -14,6 +14,7 @@
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
 #include <QSettings>
+#include <QTableView>
 
 #include <appsetting.h>
 #include <authorization.h>
@@ -156,6 +157,14 @@ private slots:
 
     QStringList getRowDate(int row);
 
+    QStringList getGroupNames();
+
+    QStringList getStudentNames();
+
+    QStringList getTeacherNames();
+
+    QStringList getSubjectNames();
+
 private:
     Ui::MainWindow *ui;
 
@@ -205,5 +214,9 @@ signals:
     void statusAuthorization(const bool);
     void setTableForFilter(const QMap<QString, QString>);
     void setDataEditForm(QString, QStringList);
+    void sendGroupList(QStringList);
+    void sendTeacherList(QStringList);
+    void sendStudentList(QStringList);
+    void sendSubjectList(QStringList);
 };
 #endif // MAINWINDOW_H

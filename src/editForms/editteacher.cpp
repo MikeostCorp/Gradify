@@ -68,10 +68,11 @@ void editTeacher::setSystemUI()
 
 void editTeacher::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = listData[0].toInt(); //titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування викладача (" + titleName +")");
 
+    ui->lastNameLineEdit->setFocus();
     ui->lastNameLineEdit->setFocus();
     ui->lastNameLineEdit->setText(listData[1]);
     ui->nameLineEdit->setText(listData[2]);
@@ -82,9 +83,6 @@ void editTeacher::setData(QString titleName, QStringList listData)
 
     ui->categoryComboBox->setCurrentText(listData[7]);
     ui->specialComboBox->setCurrentText(listData[8]);
-
-    //QMessageBox::information(this, "", listData[6]);
-    //1992-12-31
 }
 
 
