@@ -749,6 +749,7 @@ void MainWindow::goSearch()
     }
     else
     {
+        model->setFilter("");
         model->select();
         ui->tableView->setModel(model);
     }
@@ -814,7 +815,7 @@ QStringList MainWindow::getCurrentItemTable()
     case 1:
         for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
         {
-                str << ui->tableView->model()->data(model->index(i, 0)).toString() +  ". "
+                str << QString::number(i + 1) +  ". "
                            + ui->tableView->model()->data(model->index(i, 1)).toString() + " "
                            + ui->tableView->model()->data(model->index(i, 2)).toString() + " "
                            + ui->tableView->model()->data(model->index(i, 3)).toString();
@@ -825,7 +826,7 @@ QStringList MainWindow::getCurrentItemTable()
     case 4:
         for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
         {
-            str << ui->tableView->model()->data(model->index(i, 0)).toString() +  ". "
+            str << QString::number(i + 1) +  ". "
                        + ui->tableView->model()->data(model->index(i, 1)).toString();
         }
         break;
@@ -839,16 +840,9 @@ QStringList MainWindow::getRowDate(int row)
 {
     QStringList listDate;
 
-    for (int i = 0; i < model->rowCount(); i++)
+    for (int j = 0; j < model->columnCount(); j++)
     {
-        if (ui->tableView->model()->data(model->index(i, 0)) == row)
-        {
-            for (int j = 1; j < model->columnCount(); j++)
-            {
-                listDate << model->data(model->index(i, j)).toString();
-            }
-            break;
-        }
+        listDate << model->data(model->index(row - 1, j)).toString();
     }
 
     return listDate;

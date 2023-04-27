@@ -69,6 +69,8 @@ void editGroup::setData(QString titleName, QStringList listData)
     setWindowTitle("Редагування групи (" + titleName +")");
 
     ui->nameLineEdit->setFocus();
+
+    ui->nameLineEdit->setText(listData[1]);
 }
 
 

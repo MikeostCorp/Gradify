@@ -17,7 +17,9 @@ editTeacher::editTeacher(QWidget *parent) :
     ui->categoryComboBox->insertSeparator(1);
     ui->specialComboBox->insertSeparator(1);
 
-    ui->numberLineEdit->setValidator(new QIntValidator(0, 38099999999, this));
+    QRegularExpression numberRE("^\\+380\\d{9}");
+    QValidator *numberValidator = new QRegularExpressionValidator(numberRE, this);
+    ui->numberLineEdit->setValidator(numberValidator);
 }
 
 
@@ -66,20 +68,20 @@ void editTeacher::setSystemUI()
 
 void editTeacher::setData(QString titleName, QStringList listData)
 {
-    idRowEdit = titleName.left(titleName.indexOf('.')).toInt();
+    idRowEdit = listData[0].toInt(); //titleName.left(titleName.indexOf('.')).toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування викладача (" + titleName +")");
 
     ui->lastNameLineEdit->setFocus();
-    ui->lastNameLineEdit->setText(listData[0]);
-    ui->nameLineEdit->setText(listData[1]);
-    ui->surnameLineEdit->setText(listData[2]);
-    ui->numberLineEdit->setText(listData[3]);
-    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[4]), "dd/MM/yyyy"));
-    ui->addressLineEdit->setText(listData[5]);
+    ui->lastNameLineEdit->setText(listData[1]);
+    ui->nameLineEdit->setText(listData[2]);
+    ui->surnameLineEdit->setText(listData[3]);
+    ui->numberLineEdit->setText(listData[4]);
+    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
+    ui->addressLineEdit->setText(listData[6]);
 
-    ui->categoryComboBox->setCurrentText(listData[6]);
-    ui->specialComboBox->setCurrentText(listData[7]);
+    ui->categoryComboBox->setCurrentText(listData[7]);
+    ui->specialComboBox->setCurrentText(listData[8]);
 
     //QMessageBox::information(this, "", listData[6]);
     //1992-12-31
@@ -132,7 +134,7 @@ void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
 {
     if (arg1.isEmpty())
     {
-        ui->numberLineEdit->setText("380");
+        ui->numberLineEdit->setText("+380");
     }
 }
 
