@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>editSubject</class>
- <widget class="QWidget" name="editSubject">
+ <class>subjectWindow</class>
+ <widget class="QWidget" name="subjectWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -182,11 +182,6 @@
    <item>
     <property name="text">
      <string>Оберіть семестровий контроль</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Екзамен</string>
     </property>
    </item>
    <item>

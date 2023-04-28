@@ -1,19 +1,19 @@
-#ifndef EDITGRADE_H
-#define EDITGRADE_H
+#ifndef GROUPWINDOW_H
+#define GROUPWINDOW_H
 
 #include <QWidget>
 
 namespace Ui {
-class editGrade;
+class groupWindow;
 }
 
-class editGrade : public QWidget
+class groupWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit editGrade(QWidget *parent = nullptr);
-    ~editGrade();
+    explicit groupWindow(QWidget *parent = nullptr);
+    ~groupWindow();
 
 private slots:
     void setBlackUI();
@@ -21,23 +21,23 @@ private slots:
     void setSystemUI();
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
+    void on_startStudySpinBox_valueChanged(int arg1);
 
-    QString reverseDate(QString str);
     QStringList getCurrentData();
 
 private:
-    Ui::editGrade *ui;
+    Ui::groupWindow *ui;
+
     int idRowEdit;
 
 public slots:
     void setData(QString titleName, QStringList listData);
-    void setDataStudentComboBox(QStringList list);
-    void setDataTeacherComboBox(QStringList list);
-    void setDataSubjectComboBox(QStringList list);
+    void setDataCuratorComboBox(QStringList list);
+    void setDataHeadManComboBox(QStringList list);
     void setTheme(const QString style);
 
 signals:
     void sendData(QStringList);
 };
 
-#endif // EDITGRADE_H
+#endif // GROUPWINDOW_H

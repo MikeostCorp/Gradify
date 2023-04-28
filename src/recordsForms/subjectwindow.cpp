@@ -1,12 +1,12 @@
-#include "editsubject.h"
-#include "ui_editsubject.h"
+#include "subjectwindow.h"
+#include "ui_subjectwindow.h"
 
 #include <QFile>
 #include <QMessageBox>
 
-editSubject::editSubject(QWidget *parent) :
+subjectWindow::subjectWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::editSubject)
+    ui(new Ui::subjectWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -19,33 +19,33 @@ editSubject::editSubject(QWidget *parent) :
 }
 
 
-editSubject::~editSubject()
+subjectWindow::~subjectWindow()
 {
     delete ui;
 }
 
 
-void editSubject::setBlackUI()
+void subjectWindow::setBlackUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/subjectIco.png"));
-    QFile file(":/styles/black/editForms/editForms.qss");
+    QFile file(":/styles/black/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editSubject::setWhiteUI()
+void subjectWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/subjectIco.png"));
-    QFile file(":/styles/white/editForms/editForms.qss");
+    QFile file(":/styles/white/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editSubject::setSystemUI()
+void subjectWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
@@ -62,7 +62,7 @@ void editSubject::setSystemUI()
 }
 
 
-void editSubject::setData(QString titleName, QStringList listData)
+void subjectWindow::setData(QString titleName, QStringList listData)
 {
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
@@ -84,7 +84,7 @@ void editSubject::setData(QString titleName, QStringList listData)
 }
 
 
-void editSubject::setTheme(const QString style)
+void subjectWindow::setTheme(const QString style)
 {
     if (style == "black")
     {
@@ -101,13 +101,13 @@ void editSubject::setTheme(const QString style)
 }
 
 
-void editSubject::on_cancelButton_clicked()
+void subjectWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
 
-void editSubject::on_saveButton_clicked()
+void subjectWindow::on_saveButton_clicked()
 {
     if (!ui->nameLineEdit->text().isEmpty() and
          ui->typeComboBox->currentIndex() != 0 and
@@ -134,7 +134,7 @@ void editSubject::on_saveButton_clicked()
 }
 
 
-QStringList editSubject::getCurrentData()
+QStringList subjectWindow::getCurrentData()
 {
     QStringList dataList;
 

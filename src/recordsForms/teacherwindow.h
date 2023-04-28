@@ -1,19 +1,19 @@
-#ifndef EDITTEACHER_H
-#define EDITTEACHER_H
+#ifndef TEACHERWINDOW_H
+#define TEACHERWINDOW_H
 
 #include <QWidget>
 
 namespace Ui {
-class editTeacher;
+class teacherWindow;
 }
 
-class editTeacher : public QWidget
+class teacherWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit editTeacher(QWidget *parent = nullptr);
-    ~editTeacher();
+    explicit teacherWindow(QWidget *parent = nullptr);
+    ~teacherWindow();
 
 private slots:
     void setBlackUI();
@@ -28,7 +28,7 @@ private slots:
 
 
 private:
-    Ui::editTeacher *ui;
+    Ui::teacherWindow *ui;
 
     int idRowEdit;
 
@@ -40,4 +40,4 @@ signals:
     void sendData(QStringList);
 };
 
-#endif // EDITTEACHER_H
+#endif // TEACHERWINDOW_H

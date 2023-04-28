@@ -35,11 +35,11 @@ void MainWindow::mainWindowInit()
     queryWindow = new queryForm(this);
     aboutAppAction = new aboutApp();
 
-    gradeEditForm = new editGrade();
-    groupEditForm = new editGroup();
-    studentEditForm = new editStudent();
-    subjectEditForm = new editSubject();
-    teacherEditForm = new editTeacher();
+    gradeEditForm = new gradeWindow();
+    groupEditForm = new groupWindow();
+    studentEditForm = new studentWindow();
+    subjectEditForm = new subjectWindow();
+    teacherEditForm = new teacherWindow();
 
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
@@ -60,11 +60,11 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
-    connect(this, &MainWindow::setThemeSettingsUI, gradeEditForm, &editGrade::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, groupEditForm, &editGroup::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, studentEditForm, &editStudent::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, subjectEditForm, &editSubject::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, teacherEditForm, &editTeacher::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, gradeEditForm, &gradeWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, groupEditForm, &groupWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, studentEditForm, &studentWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, subjectEditForm, &subjectWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, teacherEditForm, &teacherWindow::setTheme);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
     configInit();
@@ -75,11 +75,11 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
     connect(settingWindow, &appSetting::changeThemeApp, aboutAppAction, &aboutApp::setThemeSettingUI);
-    connect(settingWindow, &appSetting::changeThemeApp, gradeEditForm, &editGrade::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, groupEditForm, &editGroup::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, studentEditForm, &editStudent::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, subjectEditForm, &editSubject::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, teacherEditForm, &editTeacher::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, gradeEditForm, &gradeWindow::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, groupEditForm, &groupWindow::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, studentEditForm, &studentWindow::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, subjectEditForm, &subjectWindow::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, teacherEditForm, &teacherWindow::setTheme);
 
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
@@ -116,14 +116,14 @@ void MainWindow::mainWindowInit()
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
     // send list to edit form
-    connect(this, &MainWindow::sendGroupList, studentEditForm, &editStudent::setComboBox);
+    connect(this, &MainWindow::sendGroupList, studentEditForm, &studentWindow::setComboBox);
 
     // get data from edit form
-    connect(gradeEditForm, &editGrade::sendData, this, &MainWindow::setDataToModel);
-    connect(groupEditForm, &editGroup::sendData, this, &MainWindow::setDataToModel);
-    connect(studentEditForm, &editStudent::sendData, this, &MainWindow::setDataToModel);
-    connect(subjectEditForm, &editSubject::sendData, this, &MainWindow::setDataToModel);
-    connect(teacherEditForm, &editTeacher::sendData, this, &MainWindow::setDataToModel);
+    connect(gradeEditForm, &gradeWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(groupEditForm, &groupWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(studentEditForm, &studentWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(subjectEditForm, &subjectWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(teacherEditForm, &teacherWindow::sendData, this, &MainWindow::setDataToModel);
 
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -660,57 +660,57 @@ void MainWindow::on_editRowButton_clicked()
             switch (currentSelectTable)
             {
             case 0:
-                connect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
+                connect(this, &MainWindow::setDataEditForm, studentEditForm, &studentWindow::setData);
 
                 emit sendGroupList(getGroupNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, studentEditForm, &editStudent::setData);
+                disconnect(this, &MainWindow::setDataEditForm, studentEditForm, &studentWindow::setData);
                 studentEditForm->show();
                 break;
             case 1:
-                connect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
+                connect(this, &MainWindow::setDataEditForm, teacherEditForm, &teacherWindow::setData);
 
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, teacherEditForm, &editTeacher::setData);
+                disconnect(this, &MainWindow::setDataEditForm, teacherEditForm, &teacherWindow::setData);
                 teacherEditForm->show();
                 break;
             case 2:
-                connect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
-                connect(this, &MainWindow::sendStudentList, gradeEditForm, &editGrade::setDataStudentComboBox);
-                connect(this, &MainWindow::sendTeacherList, gradeEditForm, &editGrade::setDataTeacherComboBox);
-                connect(this, &MainWindow::sendSubjectList, gradeEditForm, &editGrade::setDataSubjectComboBox);
+                connect(this, &MainWindow::setDataEditForm, gradeEditForm, &gradeWindow::setData);
+                connect(this, &MainWindow::sendStudentList, gradeEditForm, &gradeWindow::setDataStudentComboBox);
+                connect(this, &MainWindow::sendTeacherList, gradeEditForm, &gradeWindow::setDataTeacherComboBox);
+                connect(this, &MainWindow::sendSubjectList, gradeEditForm, &gradeWindow::setDataSubjectComboBox);
 
                 emit sendSubjectList(getSubjectNames());
                 emit sendStudentList(getStudentNames());
                 emit sendTeacherList(getTeacherNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::sendSubjectList, gradeEditForm, &editGrade::setDataSubjectComboBox);
-                disconnect(this, &MainWindow::sendStudentList, gradeEditForm, &editGrade::setDataStudentComboBox);
-                disconnect(this, &MainWindow::sendTeacherList, gradeEditForm, &editGrade::setDataTeacherComboBox);
-                disconnect(this, &MainWindow::setDataEditForm, gradeEditForm, &editGrade::setData);
+                disconnect(this, &MainWindow::sendSubjectList, gradeEditForm, &gradeWindow::setDataSubjectComboBox);
+                disconnect(this, &MainWindow::sendStudentList, gradeEditForm, &gradeWindow::setDataStudentComboBox);
+                disconnect(this, &MainWindow::sendTeacherList, gradeEditForm, &gradeWindow::setDataTeacherComboBox);
+                disconnect(this, &MainWindow::setDataEditForm, gradeEditForm, &gradeWindow::setData);
                 gradeEditForm->show();
                 break;
             case 3:
-                connect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
-                connect(this, &MainWindow::sendTeacherList, groupEditForm, &editGroup::setDataCuratorComboBox);
-                connect(this, &MainWindow::sendStudentList, groupEditForm, &editGroup::setDataHeadManComboBox);
+                connect(this, &MainWindow::setDataEditForm, groupEditForm, &groupWindow::setData);
+                connect(this, &MainWindow::sendTeacherList, groupEditForm, &groupWindow::setDataCuratorComboBox);
+                connect(this, &MainWindow::sendStudentList, groupEditForm, &groupWindow::setDataHeadManComboBox);
 
                 emit sendTeacherList(getTeacherNames());
                 emit sendStudentList(getStudentNames());
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, groupEditForm, &editGroup::setData);
-                disconnect(this, &MainWindow::sendTeacherList, groupEditForm, &editGroup::setDataCuratorComboBox);
-                disconnect(this, &MainWindow::sendStudentList, groupEditForm, &editGroup::setDataHeadManComboBox);
+                disconnect(this, &MainWindow::setDataEditForm, groupEditForm, &groupWindow::setData);
+                disconnect(this, &MainWindow::sendTeacherList, groupEditForm, &groupWindow::setDataCuratorComboBox);
+                disconnect(this, &MainWindow::sendStudentList, groupEditForm, &groupWindow::setDataHeadManComboBox);
                 groupEditForm->show();
                 break;
             case 4:
-                connect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
+                connect(this, &MainWindow::setDataEditForm, subjectEditForm, &subjectWindow::setData);
                 emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
-                disconnect(this, &MainWindow::setDataEditForm, subjectEditForm, &editSubject::setData);
+                disconnect(this, &MainWindow::setDataEditForm, subjectEditForm, &subjectWindow::setData);
                 subjectEditForm->show();
                 break;
             }

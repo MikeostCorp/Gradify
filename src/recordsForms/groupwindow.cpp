@@ -1,12 +1,12 @@
-#include "editgroup.h"
-#include "ui_editgroup.h"
+#include "groupwindow.h"
+#include "ui_groupwindow.h"
 
 #include <QFile>
 #include <QMessageBox>
 
-editGroup::editGroup(QWidget *parent) :
+groupWindow::groupWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::editGroup)
+    ui(new Ui::groupWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -20,33 +20,33 @@ editGroup::editGroup(QWidget *parent) :
 }
 
 
-editGroup::~editGroup()
+groupWindow::~groupWindow()
 {
     delete ui;
 }
 
 
-void editGroup::setBlackUI()
+void groupWindow::setBlackUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/groupIco.png"));
-    QFile file(":/styles/black/editForms/editForms.qss");
+    QFile file(":/styles/black/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editGroup::setWhiteUI()
+void groupWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/groupIco.png"));
-    QFile file(":/styles/white/editForms/editForms.qss");
+    QFile file(":/styles/white/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editGroup::setSystemUI()
+void groupWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
@@ -63,7 +63,7 @@ void editGroup::setSystemUI()
 }
 
 
-void editGroup::setData(QString titleName, QStringList listData)
+void groupWindow::setData(QString titleName, QStringList listData)
 {
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
@@ -82,7 +82,7 @@ void editGroup::setData(QString titleName, QStringList listData)
 }
 
 
-void editGroup::setDataCuratorComboBox(QStringList list)
+void groupWindow::setDataCuratorComboBox(QStringList list)
 {
     ui->curatorComboBox->clear();
     ui->curatorComboBox->addItem("Оберіть куратора");
@@ -91,7 +91,7 @@ void editGroup::setDataCuratorComboBox(QStringList list)
 }
 
 
-void editGroup::setDataHeadManComboBox(QStringList list)
+void groupWindow::setDataHeadManComboBox(QStringList list)
 {
     ui->headManComboBox->clear();
     ui->headManComboBox->addItem("Оберіть старосту");
@@ -100,7 +100,7 @@ void editGroup::setDataHeadManComboBox(QStringList list)
 }
 
 
-void editGroup::setTheme(const QString style)
+void groupWindow::setTheme(const QString style)
 {
     if (style == "black")
     {
@@ -117,13 +117,13 @@ void editGroup::setTheme(const QString style)
 }
 
 
-void editGroup::on_cancelButton_clicked()
+void groupWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
 
-void editGroup::on_saveButton_clicked()
+void groupWindow::on_saveButton_clicked()
 {
     if (!ui->nameLineEdit->text().isEmpty() and
         ui->specialComboBox->currentIndex() != 0 and
@@ -156,13 +156,13 @@ void editGroup::on_saveButton_clicked()
 }
 
 
-void editGroup::on_startStudySpinBox_valueChanged(int arg1)
+void groupWindow::on_startStudySpinBox_valueChanged(int arg1)
 {
     ui->endStudySpinBox->setMinimum(arg1 + 1);
 }
 
 
-QStringList editGroup::getCurrentData()
+QStringList groupWindow::getCurrentData()
 {
     QStringList dataList;
 

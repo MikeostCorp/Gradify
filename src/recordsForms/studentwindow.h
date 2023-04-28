@@ -1,20 +1,20 @@
-#ifndef EDITSTUDENT_H
-#define EDITSTUDENT_H
+#ifndef STUDENTWINDOW_H
+#define STUDENTWINDOW_H
 
 #include <QWidget>
 #include <QValidator>
 
 namespace Ui {
-class editStudent;
+class studentWindow;
 }
 
-class editStudent : public QWidget
+class studentWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit editStudent(QWidget *parent = nullptr);
-    ~editStudent();
+    explicit studentWindow(QWidget *parent = nullptr);
+    ~studentWindow();
 
 private slots:
     void setBlackUI();
@@ -30,7 +30,7 @@ private slots:
 
 
 private:
-    Ui::editStudent *ui;
+    Ui::studentWindow *ui;
 
     int idRowEdit;
 
@@ -43,4 +43,4 @@ signals:
     void sendData(QStringList);
 };
 
-#endif // EDITSTUDENT_H
+#endif // STUDENTWINDOW_H

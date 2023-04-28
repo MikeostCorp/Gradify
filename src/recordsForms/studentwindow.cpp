@@ -1,55 +1,58 @@
-#include "editteacher.h"
-#include "ui_editteacher.h"
+#include "studentwindow.h"
+#include "ui_studentwindow.h"
 
 #include <QFile>
 #include <QMessageBox>
 
-editTeacher::editTeacher(QWidget *parent) :
+studentWindow::studentWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::editTeacher)
+    ui(new Ui::studentWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-    setWindowTitle("Редагування викладача (%teacherName%)");
+    setWindowTitle("Редагування студента (%studentPIB%)");
     setFixedSize(width(), height());
     idRowEdit = -1;
 
-    ui->categoryComboBox->insertSeparator(1);
-    ui->specialComboBox->insertSeparator(1);
+    ui->groupComboBox->insertSeparator(1);
 
     QRegularExpression numberRE("^\\+380\\d{9}");
     QValidator *numberValidator = new QRegularExpressionValidator(numberRE, this);
     ui->numberLineEdit->setValidator(numberValidator);
+
+    ui->passLineEdit->setValidator(getValidatorPass());
+    ui->nalogLineEdit->setValidator(getValidatorPass());
+
 }
 
 
-editTeacher::~editTeacher()
+studentWindow::~studentWindow()
 {
     delete ui;
 }
 
 
-void editTeacher::setBlackUI()
+void studentWindow::setBlackUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/teachersIco.png"));
-    QFile file(":/styles/black/editForms/editForms.qss");
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/studentsIco.png"));
+    QFile file(":/styles/black/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editTeacher::setWhiteUI()
+void studentWindow::setWhiteUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/teachersIco.png"));
-    QFile file(":/styles/white/editForms/editForms.qss");
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/studenstIco.png"));
+    QFile file(":/styles/white/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editTeacher::setSystemUI()
+void studentWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
@@ -66,13 +69,14 @@ void editTeacher::setSystemUI()
 }
 
 
-void editTeacher::setData(QString titleName, QStringList listData)
+void studentWindow::setData(QString titleName, QStringList listData)
 {
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
-    setWindowTitle("Редагування викладача (" + titleName +")");
+    setWindowTitle("Редагування студента (" + titleName +")");
 
     ui->lastNameLineEdit->setFocus();
+
     ui->lastNameLineEdit->setFocus();
     ui->lastNameLineEdit->setText(listData[1]);
     ui->nameLineEdit->setText(listData[2]);
@@ -81,14 +85,24 @@ void editTeacher::setData(QString titleName, QStringList listData)
     ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
     ui->addressLineEdit->setText(listData[6]);
 
-    ui->categoryComboBox->setCurrentText(listData[7]);
-    ui->specialComboBox->setCurrentText(listData[8]);
+    ui->passLineEdit->setText(listData[7]);
+    ui->groupComboBox->setCurrentText(listData[8]);
+    ui->nalogLineEdit->setText(listData[9]);
 
     ui->okLabel->setVisible(false);
 }
 
 
-void editTeacher::setTheme(const QString style)
+void studentWindow::setComboBox(QStringList groupList)
+{
+    ui->groupComboBox->clear();
+    ui->groupComboBox->addItem("Оберіть групу");
+    ui->groupComboBox->insertSeparator(1);
+    ui->groupComboBox->addItems(groupList);
+}
+
+
+void studentWindow::setTheme(const QString style)
 {
     if (style == "black")
     {
@@ -105,13 +119,13 @@ void editTeacher::setTheme(const QString style)
 }
 
 
-void editTeacher::on_cancelButton_clicked()
+void studentWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
 
-QString editTeacher::reverseDate(QString str)
+QString studentWindow::reverseDate(QString str)
 {
     QString newStrDate;
 
@@ -130,7 +144,15 @@ QString editTeacher::reverseDate(QString str)
 }
 
 
-QStringList editTeacher::getCurrentData()
+QValidator *studentWindow::getValidatorPass()
+{
+    QRegularExpression passRE("^\\d{9}");
+    QValidator *passValidator = new QRegularExpressionValidator(passRE, this);
+    return passValidator;
+}
+
+
+QStringList studentWindow::getCurrentData()
 {
     QStringList dataList;
 
@@ -140,17 +162,18 @@ QStringList editTeacher::getCurrentData()
     dataList << ui->surnameLineEdit->text();
     dataList << ui->numberLineEdit->text();
     dataList << QString::number(ui->birthDayDataEdit->date().year()) + "." +
-                QString::number(ui->birthDayDataEdit->date().month()) + "." +
-                QString::number(ui->birthDayDataEdit->date().day()) + ".";
+                    QString::number(ui->birthDayDataEdit->date().month()) + "." +
+                    QString::number(ui->birthDayDataEdit->date().day()) + ".";
     dataList << ui->addressLineEdit->text();
-    dataList << ui->categoryComboBox->currentText();
-    dataList << ui->specialComboBox->currentText();
+    dataList << ui->passLineEdit->text();
+    dataList << ui->groupComboBox->currentText();
+    dataList << ui->nalogLineEdit->text();
 
     return dataList;
 }
 
 
-void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
+void studentWindow::on_numberLineEdit_textChanged(const QString &arg1)
 {
     if (arg1.isEmpty())
     {
@@ -159,15 +182,16 @@ void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
 }
 
 
-void editTeacher::on_saveButton_clicked()
+void studentWindow::on_saveButton_clicked()
 {
     if (!ui->lastNameLineEdit->text().isEmpty() and
         !ui->nameLineEdit->text().isEmpty() and
         !ui->surnameLineEdit->text().isEmpty() and
          ui->numberLineEdit->text().length() == 13 and
         !ui->addressLineEdit->text().isEmpty() and
-         ui->categoryComboBox->currentIndex() != 0 and
-         ui->specialComboBox->currentIndex() != 0)
+        ui->passLineEdit->text().length() == 9 and
+        ui->nalogLineEdit->text().length() == 9 and
+         ui->groupComboBox->currentIndex() != 0)
     {
         ui->okLabel->setVisible(true);
         emit sendData(getCurrentData());
@@ -198,15 +222,19 @@ void editTeacher::on_saveButton_clicked()
         ui->addressLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть адресу проживання");
     }
-    else if (ui->categoryComboBox->currentIndex() == 0)
+    else if (ui->passLineEdit->text().length() != 9 )
     {
-        ui->categoryComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть категорію вчителя");
+        ui->passLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний номер паспорту студента");
     }
-    else if (ui->specialComboBox->currentIndex() == 0)
+    else if (ui->nalogLineEdit->text().length() != 9)
     {
-        ui->specialComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть спеціальність вчителя");
+        ui->nalogLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний ІНН студента");
+    }
+    else if (ui->groupComboBox->currentIndex() == 0)
+    {
+        ui->groupComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть групу студента");
     }
 }
-

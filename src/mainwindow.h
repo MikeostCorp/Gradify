@@ -23,11 +23,11 @@
 #include <aboutapp.h>
 #include <customWidgets/qsearchbar.h>
 
-#include <editForms/editgrade.h>
-#include <editForms/editgroup.h>
-#include <editForms/editstudent.h>
-#include <editForms/editsubject.h>
-#include <editForms/editteacher.h>
+#include <recordsForms/gradewindow.h>
+#include <recordsForms/groupwindow.h>
+#include <recordsForms/studentwindow.h>
+#include <recordsForms/subjectwindow.h>
+#include <recordsForms/teacherwindow.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -174,11 +174,11 @@ private:
     queryForm *queryWindow;
     aboutApp *aboutAppAction;
 
-    editGrade *gradeEditForm;
-    editGroup *groupEditForm;
-    editStudent *studentEditForm;
-    editSubject *subjectEditForm;
-    editTeacher *teacherEditForm;
+    gradeWindow *gradeEditForm;
+    groupWindow *groupEditForm;
+    studentWindow *studentEditForm;
+    subjectWindow *subjectEditForm;
+    teacherWindow *teacherEditForm;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;

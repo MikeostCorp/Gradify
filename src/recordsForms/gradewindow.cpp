@@ -1,12 +1,12 @@
-#include "editgrade.h"
-#include "ui_editgrade.h"
+#include "gradewindow.h"
+#include "ui_gradewindow.h"
 
 #include <QFile>
 #include <QMessageBox>
 
-editGrade::editGrade(QWidget *parent) :
+gradeWindow::gradeWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::editGrade)
+    ui(new Ui::gradeWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -20,33 +20,33 @@ editGrade::editGrade(QWidget *parent) :
 }
 
 
-editGrade::~editGrade()
+gradeWindow::~gradeWindow()
 {
     delete ui;
 }
 
 
-void editGrade::setBlackUI()
+void gradeWindow::setBlackUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/raitingIco.png"));
-    QFile file(":/styles/black/editForms/editForms.qss");
+    QFile file(":/styles/black/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editGrade::setWhiteUI()
+void gradeWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/raitingIco.png"));
-    QFile file(":/styles/white/editForms/editForms.qss");
+    QFile file(":/styles/white/recordsForms/recordsForms.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 }
 
 
-void editGrade::setSystemUI()
+void gradeWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
@@ -63,7 +63,7 @@ void editGrade::setSystemUI()
 }
 
 
-void editGrade::setData(QString titleName, QStringList listData)
+void gradeWindow::setData(QString titleName, QStringList listData)
 {
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
@@ -82,7 +82,7 @@ void editGrade::setData(QString titleName, QStringList listData)
 }
 
 
-void editGrade::setDataStudentComboBox(QStringList list)
+void gradeWindow::setDataStudentComboBox(QStringList list)
 {
     ui->whoTakeComboBox->clear();
     ui->whoTakeComboBox->addItem("Оберіть отримувача");
@@ -91,7 +91,7 @@ void editGrade::setDataStudentComboBox(QStringList list)
 }
 
 
-void editGrade::setDataTeacherComboBox(QStringList list)
+void gradeWindow::setDataTeacherComboBox(QStringList list)
 {
     ui->teacherComboBox->clear();
     ui->teacherComboBox->addItem("Оберіть хто виставив");
@@ -100,7 +100,7 @@ void editGrade::setDataTeacherComboBox(QStringList list)
 }
 
 
-void editGrade::setDataSubjectComboBox(QStringList list)
+void gradeWindow::setDataSubjectComboBox(QStringList list)
 {
     ui->subjectComboBox->clear();
     ui->subjectComboBox->addItem("Оберіть предмет");
@@ -109,7 +109,7 @@ void editGrade::setDataSubjectComboBox(QStringList list)
 }
 
 
-void editGrade::setTheme(const QString style)
+void gradeWindow::setTheme(const QString style)
 {
     if (style == "black")
     {
@@ -126,13 +126,13 @@ void editGrade::setTheme(const QString style)
 }
 
 
-void editGrade::on_cancelButton_clicked()
+void gradeWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
 
-QString editGrade::reverseDate(QString str)
+QString gradeWindow::reverseDate(QString str)
 {
     QString newStrDate;
 
@@ -151,7 +151,7 @@ QString editGrade::reverseDate(QString str)
 }
 
 
-QStringList editGrade::getCurrentData()
+QStringList gradeWindow::getCurrentData()
 {
     QStringList dataList;
 
@@ -170,7 +170,7 @@ QStringList editGrade::getCurrentData()
 }
 
 
-void editGrade::on_saveButton_clicked()
+void gradeWindow::on_saveButton_clicked()
 {
     if (ui->subjectComboBox->currentIndex() != 0 and
         ui->whoTakeComboBox->currentIndex() != 0 and

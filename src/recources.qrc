@@ -104,7 +104,7 @@
         <file>img/whiteActionsIcon/studentsIco.png</file>
         <file>img/whiteActionsIcon/subjectIco.png</file>
         <file>img/whiteActionsIcon/teachersIco.png</file>
-        <file>styles/white/editForms/editForms.qss</file>
-        <file>styles/black/editForms/editForms.qss</file>
+        <file>styles/white/recordsForms/recordsForms.qss</file>
+        <file>styles/black/recordsForms/recordsForms.qss</file>
     </qresource>
 </RCC>

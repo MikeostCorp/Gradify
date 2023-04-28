@@ -1,8 +1,8 @@
-editGrade,
-editGroup,
-editStudent,
-editSubject,
-editTeacher
+gradeWindow,
+groupWindow,
+studentWindow,
+subjectWindow,
+teacherWindow
 {
     background-color: rgb(41, 45, 48);
 }

@@ -14,16 +14,16 @@ SOURCES += \
     authorization.cpp \
     customWidgets/qlineeditwithbutton.cpp \
     customWidgets/qsearchbar.cpp \
-    editForms/editgrade.cpp \
-    editForms/editgroup.cpp \
-    editForms/editstudent.cpp \
-    editForms/editsubject.cpp \
-    editForms/editteacher.cpp \
     filterform.cpp \
     main.cpp \
     mainwindow.cpp \
     preloader.cpp \
-    queryform.cpp
+    queryform.cpp \
+    recordsForms/gradewindow.cpp \
+    recordsForms/groupwindow.cpp \
+    recordsForms/studentwindow.cpp \
+    recordsForms/subjectwindow.cpp \
+    recordsForms/teacherwindow.cpp
 
 HEADERS += \
     aboutapp.h \
@@ -31,29 +31,29 @@ HEADERS += \
     authorization.h \
     customWidgets/qlineeditwithbutton.h \
     customWidgets/qsearchbar.h \
-    editForms/editgrade.h \
-    editForms/editgroup.h \
-    editForms/editstudent.h \
-    editForms/editsubject.h \
-    editForms/editteacher.h \
     filterform.h \
     mainwindow.h \
     preloader.h \
-    queryform.h
+    queryform.h \
+    recordsForms/gradewindow.h \
+    recordsForms/groupwindow.h \
+    recordsForms/studentwindow.h \
+    recordsForms/subjectwindow.h \
+    recordsForms/teacherwindow.h
 
 FORMS += \
     aboutapp.ui \
     appsetting.ui \
     authorization.ui \
-    editForms/editgrade.ui \
-    editForms/editgroup.ui \
-    editForms/editstudent.ui \
-    editForms/editsubject.ui \
-    editForms/editteacher.ui \
     filterform.ui \
     mainwindow.ui \
     preloader.ui \
-    queryform.ui
+    queryform.ui \
+    recordsForms/gradewindow.ui \
+    recordsForms/groupwindow.ui \
+    recordsForms/studentwindow.ui \
+    recordsForms/subjectwindow.ui \
+    recordsForms/teacherwindow.ui
 
 TARGET = Gradify
 

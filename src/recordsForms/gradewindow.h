@@ -1,19 +1,19 @@
-#ifndef EDITSUBJECT_H
-#define EDITSUBJECT_H
+#ifndef GRADEWINDOW_H
+#define GRADEWINDOW_H
 
 #include <QWidget>
 
 namespace Ui {
-class editSubject;
+class gradeWindow;
 }
 
-class editSubject : public QWidget
+class gradeWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit editSubject(QWidget *parent = nullptr);
-    ~editSubject();
+    explicit gradeWindow(QWidget *parent = nullptr);
+    ~gradeWindow();
 
 private slots:
     void setBlackUI();
@@ -22,19 +22,22 @@ private slots:
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
 
+    QString reverseDate(QString str);
     QStringList getCurrentData();
 
 private:
-    Ui::editSubject *ui;
-
+    Ui::gradeWindow *ui;
     int idRowEdit;
 
 public slots:
     void setData(QString titleName, QStringList listData);
+    void setDataStudentComboBox(QStringList list);
+    void setDataTeacherComboBox(QStringList list);
+    void setDataSubjectComboBox(QStringList list);
     void setTheme(const QString style);
 
 signals:
     void sendData(QStringList);
 };
 
-#endif // EDITSUBJECT_H
+#endif // GRADEWINDOW_H
