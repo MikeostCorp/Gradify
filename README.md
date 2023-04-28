@@ -30,6 +30,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Search bar on the table
 - [X] Change the delete-row window
 - [ ] Add lookup field in tableView (comboBox delegate)
+- [ ] Add app user guide
 
 ## Bug report:
 - [X] Tables stop loading after a minute of inactivity :/
