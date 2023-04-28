@@ -125,6 +125,7 @@ void editGrade::setTheme(const QString style)
     }
 }
 
+
 void editGrade::on_cancelButton_clicked()
 {
     this->close();
@@ -150,6 +151,25 @@ QString editGrade::reverseDate(QString str)
 }
 
 
+QStringList editGrade::getCurrentData()
+{
+    QStringList dataList;
+
+    dataList << QString::number(idRowEdit);
+    dataList << ui->subjectComboBox->currentText();
+    dataList << ui->whoTakeComboBox->currentText();
+    dataList << ui->teacherComboBox->currentText();
+    dataList << QString::number(ui->gradeSpinBox->value());
+    dataList << ui->typeGradeComboBox->currentText();
+    dataList << QString::number(ui->takeDateEdit->date().year()) + "." +
+                    QString::number(ui->takeDateEdit->date().month()) + "." +
+                    QString::number(ui->takeDateEdit->date().day()) + ".";
+
+    return dataList;
+
+}
+
+
 void editGrade::on_saveButton_clicked()
 {
     if (ui->subjectComboBox->currentIndex() != 0 and
@@ -157,13 +177,8 @@ void editGrade::on_saveButton_clicked()
         ui->teacherComboBox->currentIndex() != 0 and
         ui->typeGradeComboBox->currentIndex() != 0)
     {
-
-
-        QMessageBox::information(this,"","saved!");
-
-        // ok save
-
         ui->okLabel->setVisible(true);
+        emit sendData(getCurrentData());
     }
     else if (ui->subjectComboBox->currentIndex() == 0)
     {

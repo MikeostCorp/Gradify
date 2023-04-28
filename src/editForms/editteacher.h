@@ -19,13 +19,13 @@ private slots:
     void setBlackUI();
     void setWhiteUI();
     void setSystemUI();
-
-    QString reverseDate(QString str);
-
     void on_cancelButton_clicked();
     void on_numberLineEdit_textChanged(const QString &arg1);
-
     void on_saveButton_clicked();
+
+    QString reverseDate(QString str);
+    QStringList getCurrentData();
+
 
 private:
     Ui::editTeacher *ui;
@@ -35,6 +35,9 @@ private:
 public slots:
     void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
+
+signals:
+    void sendData(QStringList);
 };
 
 #endif // EDITTEACHER_H

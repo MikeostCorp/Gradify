@@ -99,7 +99,7 @@ void MainWindow::mainWindowInit()
         if (button->objectName() != "filterButton" and button->objectName() != "queryButton"
             and button->objectName() != "filterPushButton" and button->objectName() != "succesStudentPushButton"
             and button->objectName() != "avgScorePushButton" and button->objectName() != "clearFilterPushButton"
-            and button->objectName() != "mySQLPushButton" and button->objectName() != "nameFreeButtonМенять!")
+            and button->objectName() != "mySQLPushButton" and button->objectName() != "Менять!")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
@@ -118,6 +118,12 @@ void MainWindow::mainWindowInit()
     // send list to edit form
     connect(this, &MainWindow::sendGroupList, studentEditForm, &editStudent::setComboBox);
 
+    // get data from edit form
+    connect(gradeEditForm, &editGrade::sendData, this, &MainWindow::setDataToModel);
+    connect(groupEditForm, &editGroup::sendData, this, &MainWindow::setDataToModel);
+    connect(studentEditForm, &editStudent::sendData, this, &MainWindow::setDataToModel);
+    connect(subjectEditForm, &editSubject::sendData, this, &MainWindow::setDataToModel);
+    connect(teacherEditForm, &editTeacher::sendData, this, &MainWindow::setDataToModel);
 
     // custom message box
     logoutMessageBox.setIcon(QMessageBox::Question);
@@ -779,9 +785,52 @@ void MainWindow::goSearch()
     {
         clearFilterForTable();
     }
+}
 
-    //QMessageBox::information(this,"", "надо искать!" + ui->searchLineEdit->text() +
-    //                         "\n" + model->tableName());
+
+void MainWindow::setDataToModel(QStringList dataList)
+{
+    QString queryEdit;
+
+    switch (currentSelectTable)
+    {
+    case 0:
+        queryEdit = "UPDATE `Студенти` SET";
+        break;
+    case 1:
+        queryEdit = "UPDATE `Викладачі` \nSET ";
+        break;
+    case 2:
+        queryEdit = "UPDATE `Оцінки` \nSET";
+        break;
+    case 3:
+        queryEdit = "UPDATE `Групи`\nSET";
+        break;
+    case 4:
+        queryEdit = "UPDATE `Предмети`\nSET";
+        break;
+    }
+
+    for (int i = 1; i < model->columnCount(); i++)
+    {
+        if (i != model->columnCount() - 1)
+        {
+            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() +"` = '" + dataList[i] + "', \n";
+        }
+        else
+        {
+            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "'";
+        }
+    }
+
+    queryEdit += "\nWHERE `Код` = '" + dataList[0] + "'";
+
+    QSqlQueryModel *sqlModel = new QSqlQueryModel();
+    sqlModel->setQuery(queryEdit);
+
+    model->select();
+
+    QMessageBox::information(this,"",queryEdit);
 }
 
 

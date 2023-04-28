@@ -152,6 +152,27 @@ QValidator *editStudent::getValidatorPass()
 }
 
 
+QStringList editStudent::getCurrentData()
+{
+    QStringList dataList;
+
+    dataList << QString::number(idRowEdit);
+    dataList << ui->lastNameLineEdit->text();
+    dataList << ui->nameLineEdit->text();
+    dataList << ui->surnameLineEdit->text();
+    dataList << ui->numberLineEdit->text();
+    dataList << QString::number(ui->birthDayDataEdit->date().year()) + "." +
+                    QString::number(ui->birthDayDataEdit->date().month()) + "." +
+                    QString::number(ui->birthDayDataEdit->date().day()) + ".";
+    dataList << ui->addressLineEdit->text();
+    dataList << ui->passLineEdit->text();
+    dataList << ui->groupComboBox->currentText();
+    dataList << ui->nalogLineEdit->text();
+
+    return dataList;
+}
+
+
 void editStudent::on_numberLineEdit_textChanged(const QString &arg1)
 {
     if (arg1.isEmpty())
@@ -172,13 +193,8 @@ void editStudent::on_saveButton_clicked()
         ui->nalogLineEdit->text().length() == 9 and
          ui->groupComboBox->currentIndex() != 0)
     {
-
-
-        QMessageBox::information(this,"","saved!");
-
-        // ok save
-
         ui->okLabel->setVisible(true);
+        emit sendData(getCurrentData());
     }
     else if (ui->lastNameLineEdit->text().isEmpty())
     {

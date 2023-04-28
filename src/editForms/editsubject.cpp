@@ -113,11 +113,8 @@ void editSubject::on_saveButton_clicked()
          ui->typeComboBox->currentIndex() != 0 and
          ui->controlComboBox->currentIndex() != 0)
     {
-        QMessageBox::information(this,"","saved!");
-
-        // ok save
-
         ui->okLabel->setVisible(true);
+        emit sendData(getCurrentData());
     }
     else if (ui->nameLineEdit->text().isEmpty())
     {
@@ -134,5 +131,24 @@ void editSubject::on_saveButton_clicked()
         ui->typeComboBox->setFocus();
         QMessageBox::critical(this,"","Оберіть семестровий контроль з предмету");
     }
+}
+
+
+QStringList editSubject::getCurrentData()
+{
+    QStringList dataList;
+
+    dataList << QString::number(idRowEdit);
+    dataList << ui->nameLineEdit->text();
+    dataList << ui->typeComboBox->currentText();
+    dataList << QString::number(ui->allTimeSpinBox->value());
+    dataList << QString::number(ui->lectureTimeSpinBox->value());
+    dataList << QString::number(ui->labTimeSpinBox->value());
+    dataList << QString::number(ui->seminarSpinBox->value());
+    dataList << QString::number(ui->soloWorkSpinBox->value());
+    dataList << QString::number(ui->semesrtLearnSpinBox->value());
+    dataList << ui->controlComboBox->currentText();
+
+    return dataList;
 }
 

@@ -20,13 +20,14 @@ private slots:
     void setBlackUI();
     void setWhiteUI();
     void setSystemUI();
-
     void on_cancelButton_clicked();
-    QString reverseDate(QString str);
-    QValidator *getValidatorPass();
-
     void on_numberLineEdit_textChanged(const QString &arg1);
     void on_saveButton_clicked();
+
+    QString reverseDate(QString str);
+    QValidator *getValidatorPass();
+    QStringList getCurrentData();
+
 
 private:
     Ui::editStudent *ui;
@@ -37,6 +38,9 @@ public slots:
     void setData(QString titleName, QStringList listData);
     void setComboBox(QStringList groupList);
     void setTheme(const QString style);
+
+signals:
+    void sendData(QStringList);
 };
 
 #endif // EDITSTUDENT_H

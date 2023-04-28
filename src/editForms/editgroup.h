@@ -19,22 +19,25 @@ private slots:
     void setBlackUI();
     void setWhiteUI();
     void setSystemUI();
+    void on_cancelButton_clicked();
+    void on_saveButton_clicked();
+    void on_startStudySpinBox_valueChanged(int arg1);
+
+    QStringList getCurrentData();
 
 private:
     Ui::editGroup *ui;
 
     int idRowEdit;
 
-private slots:
-    void on_cancelButton_clicked();
-    void on_saveButton_clicked();
-    void on_startStudySpinBox_valueChanged(int arg1);
-
 public slots:
     void setData(QString titleName, QStringList listData);
     void setDataCuratorComboBox(QStringList list);
     void setDataHeadManComboBox(QStringList list);
     void setTheme(const QString style);
+
+signals:
+    void sendData(QStringList);
 };
 
 #endif // EDITGROUP_H

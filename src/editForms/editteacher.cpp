@@ -130,6 +130,26 @@ QString editTeacher::reverseDate(QString str)
 }
 
 
+QStringList editTeacher::getCurrentData()
+{
+    QStringList dataList;
+
+    dataList << QString::number(idRowEdit);
+    dataList << ui->lastNameLineEdit->text();
+    dataList << ui->nameLineEdit->text();
+    dataList << ui->surnameLineEdit->text();
+    dataList << ui->numberLineEdit->text();
+    dataList << QString::number(ui->birthDayDataEdit->date().year()) + "." +
+                QString::number(ui->birthDayDataEdit->date().month()) + "." +
+                QString::number(ui->birthDayDataEdit->date().day()) + ".";
+    dataList << ui->addressLineEdit->text();
+    dataList << ui->categoryComboBox->currentText();
+    dataList << ui->specialComboBox->currentText();
+
+    return dataList;
+}
+
+
 void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
 {
     if (arg1.isEmpty())
@@ -149,11 +169,8 @@ void editTeacher::on_saveButton_clicked()
          ui->categoryComboBox->currentIndex() != 0 and
          ui->specialComboBox->currentIndex() != 0)
     {
-        QMessageBox::information(this,"","saved!");
-
-        // ok save
-
         ui->okLabel->setVisible(true);
+        emit sendData(getCurrentData());
     }
     else if (ui->lastNameLineEdit->text().isEmpty())
     {

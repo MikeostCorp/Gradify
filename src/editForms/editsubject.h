@@ -19,10 +19,10 @@ private slots:
     void setBlackUI();
     void setWhiteUI();
     void setSystemUI();
-
     void on_cancelButton_clicked();
-
     void on_saveButton_clicked();
+
+    QStringList getCurrentData();
 
 private:
     Ui::editSubject *ui;
@@ -32,6 +32,9 @@ private:
 public slots:
     void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
+
+signals:
+    void sendData(QStringList);
 };
 
 #endif // EDITSUBJECT_H

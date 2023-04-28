@@ -208,6 +208,7 @@ public slots:
     void setFilterForTable(const QString filterQuery, const QString currentColumnFilter);
     void clearFilterForTable();
     void goSearch();
+    void setDataToModel(QStringList dataList);
 
 signals:
     void setThemeSettingsUI(const QString);

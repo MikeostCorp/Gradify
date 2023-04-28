@@ -130,11 +130,8 @@ void editGroup::on_saveButton_clicked()
         ui->curatorComboBox->currentIndex() != 0 and
         ui->headManComboBox->currentIndex() != 0)
     {
-        QMessageBox::information(this,"","saved!");
-
-        // ok save
-
         ui->okLabel->setVisible(true);
+        emit sendData(getCurrentData());
     }
     else if (ui->nameLineEdit->text().isEmpty())
     {
@@ -162,5 +159,21 @@ void editGroup::on_saveButton_clicked()
 void editGroup::on_startStudySpinBox_valueChanged(int arg1)
 {
     ui->endStudySpinBox->setMinimum(arg1 + 1);
+}
+
+
+QStringList editGroup::getCurrentData()
+{
+    QStringList dataList;
+
+    dataList << QString::number(idRowEdit);
+    dataList << ui->nameLineEdit->text();
+    dataList << ui->specialComboBox->currentText();
+    dataList << ui->startStudySpinBox->text();
+    dataList << ui->endStudySpinBox->text();
+    dataList << ui->curatorComboBox->currentText();
+    dataList << ui->headManComboBox->currentText();
+
+    return dataList;
 }
 
