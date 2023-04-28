@@ -263,7 +263,7 @@
     </rect>
    </property>
    <property name="maxLength">
-    <number>10</number>
+    <number>9</number>
    </property>
   </widget>
   <widget class="QLabel" name="nalogLabel">
@@ -289,7 +289,7 @@
     </rect>
    </property>
    <property name="maxLength">
-    <number>10</number>
+    <number>9</number>
    </property>
   </widget>
   <widget class="QLabel" name="mainImage">
@@ -325,6 +325,22 @@
    </property>
    <property name="maxLength">
     <number>13</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="okLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>125</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Запис збережено</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

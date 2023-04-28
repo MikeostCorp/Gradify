@@ -605,3 +605,12 @@ QInputDialog QPushButton
     color: white;
 }
 
+QMessageBox
+{
+    background-color: rgb(41, 45, 48);
+}
+
+QMessageBox QLabel
+{
+    color: white;
+}

@@ -78,7 +78,9 @@ void editSubject::setData(QString titleName, QStringList listData)
     ui->seminarSpinBox->setValue(listData[6].toInt());
     ui->soloWorkSpinBox->setValue(listData[7].toInt());
     ui->semesrtLearnSpinBox->setValue(listData[8].toInt());
+    ui->controlComboBox->setCurrentText(listData[9]);
 
+    ui->okLabel->setVisible(false);
 }
 
 
@@ -102,5 +104,35 @@ void editSubject::setTheme(const QString style)
 void editSubject::on_cancelButton_clicked()
 {
     this->close();
+}
+
+
+void editSubject::on_saveButton_clicked()
+{
+    if (!ui->nameLineEdit->text().isEmpty() and
+         ui->typeComboBox->currentIndex() != 0 and
+         ui->controlComboBox->currentIndex() != 0)
+    {
+        QMessageBox::information(this,"","saved!");
+
+        // ok save
+
+        ui->okLabel->setVisible(true);
+    }
+    else if (ui->nameLineEdit->text().isEmpty())
+    {
+        ui->nameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть назву предмета");
+    }
+    else if (ui->typeComboBox->currentIndex() == 0)
+    {
+        ui->typeComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть тип предмету");
+    }
+    else if (ui->controlComboBox->currentIndex() == 0)
+    {
+        ui->typeComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть семестровий контроль з предмету");
+    }
 }
 

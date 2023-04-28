@@ -85,3 +85,13 @@ QPushButton#acceptAccountSetting:hover
 {
     background-color: rgb(120, 122, 124);
 }
+
+QMessageBox
+{
+    background-color: rgb(41, 45, 48);
+}
+
+QMessageBox QLabel
+{
+    color: white;
+}

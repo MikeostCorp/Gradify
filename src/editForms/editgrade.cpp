@@ -77,6 +77,8 @@ void editGrade::setData(QString titleName, QStringList listData)
     ui->gradeSpinBox->setValue(listData[4].toInt());
     ui->typeGradeComboBox->setCurrentText(listData[5]);
     ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[6]), "dd/MM/yyyy"));
+
+    ui->okLabel->setVisible(false);
 }
 
 
@@ -147,5 +149,41 @@ QString editGrade::reverseDate(QString str)
     return newStrDate;
 }
 
-//Оберіть хто виставив
+
+void editGrade::on_saveButton_clicked()
+{
+    if (ui->subjectComboBox->currentIndex() != 0 and
+        ui->whoTakeComboBox->currentIndex() != 0 and
+        ui->teacherComboBox->currentIndex() != 0 and
+        ui->typeGradeComboBox->currentIndex() != 0)
+    {
+
+
+        QMessageBox::information(this,"","saved!");
+
+        // ok save
+
+        ui->okLabel->setVisible(true);
+    }
+    else if (ui->subjectComboBox->currentIndex() == 0)
+    {
+        ui->subjectComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть з якого предмету оцінка");
+    }
+    else if (ui->whoTakeComboBox->currentIndex() == 0)
+    {
+        ui->whoTakeComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть хто отримав оцінку");
+    }
+    else if (ui->teacherComboBox->currentIndex() == 0)
+    {
+        ui->teacherComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть хто виставив оцінку");
+    }
+    else if (ui->typeGradeComboBox->currentIndex() == 0)
+    {
+        ui->typeGradeComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть тип оцінки");
+    }
+}
 

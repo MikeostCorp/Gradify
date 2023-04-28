@@ -80,3 +80,13 @@ QCheckBox#rememberCheckBox::indicator:checked
     background-color: qlineargradient(spread:pad, x1:0.519608, y1:1, x2:0.52451, y2:0,
         stop:0 rgba(0, 112, 213, 255), stop:1 rgba(0, 123, 233, 255));
 }
+
+QMessageBox
+{
+    background-color: white;
+}
+
+QMessageBox QLabel
+{
+    color: rgb(71, 71, 72);
+}

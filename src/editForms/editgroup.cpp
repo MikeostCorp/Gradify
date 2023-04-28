@@ -77,6 +77,8 @@ void editGroup::setData(QString titleName, QStringList listData)
     ui->endStudySpinBox->setValue(listData[4].toInt());
     ui->curatorComboBox->setCurrentText(listData[5]);
     ui->headManComboBox->setCurrentText(listData[6]);
+
+    ui->okLabel->setVisible(false);
 }
 
 
@@ -123,7 +125,37 @@ void editGroup::on_cancelButton_clicked()
 
 void editGroup::on_saveButton_clicked()
 {
-    // проверка на заполненость данных
+    if (!ui->nameLineEdit->text().isEmpty() and
+        ui->specialComboBox->currentIndex() != 0 and
+        ui->curatorComboBox->currentIndex() != 0 and
+        ui->headManComboBox->currentIndex() != 0)
+    {
+        QMessageBox::information(this,"","saved!");
+
+        // ok save
+
+        ui->okLabel->setVisible(true);
+    }
+    else if (ui->nameLineEdit->text().isEmpty())
+    {
+        ui->nameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть назву групи");
+    }
+    else if (ui->specialComboBox->currentIndex() == 0)
+    {
+        ui->specialComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть спеціальність групи");
+    }
+    else if (ui->curatorComboBox->currentIndex() == 0)
+    {
+        ui->curatorComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть куратора групи");
+    }
+    else if (ui->headManComboBox->currentIndex() == 0)
+    {
+        ui->headManComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть старосту групи");
+    }
 }
 
 

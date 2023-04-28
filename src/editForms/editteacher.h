@@ -25,6 +25,8 @@ private slots:
     void on_cancelButton_clicked();
     void on_numberLineEdit_textChanged(const QString &arg1);
 
+    void on_saveButton_clicked();
+
 private:
     Ui::editTeacher *ui;
 

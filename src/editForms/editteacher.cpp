@@ -83,6 +83,8 @@ void editTeacher::setData(QString titleName, QStringList listData)
 
     ui->categoryComboBox->setCurrentText(listData[7]);
     ui->specialComboBox->setCurrentText(listData[8]);
+
+    ui->okLabel->setVisible(false);
 }
 
 
@@ -133,6 +135,61 @@ void editTeacher::on_numberLineEdit_textChanged(const QString &arg1)
     if (arg1.isEmpty())
     {
         ui->numberLineEdit->setText("+380");
+    }
+}
+
+
+void editTeacher::on_saveButton_clicked()
+{
+    if (!ui->lastNameLineEdit->text().isEmpty() and
+        !ui->nameLineEdit->text().isEmpty() and
+        !ui->surnameLineEdit->text().isEmpty() and
+         ui->numberLineEdit->text().length() == 13 and
+        !ui->addressLineEdit->text().isEmpty() and
+         ui->categoryComboBox->currentIndex() != 0 and
+         ui->specialComboBox->currentIndex() != 0)
+    {
+        QMessageBox::information(this,"","saved!");
+
+        // ok save
+
+        ui->okLabel->setVisible(true);
+    }
+    else if (ui->lastNameLineEdit->text().isEmpty())
+    {
+        ui->lastNameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть прізвище");
+    }
+    else if (ui->nameLineEdit->text().isEmpty())
+    {
+        ui->nameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть ім'я");
+    }
+    else if (ui->surnameLineEdit->text().isEmpty())
+    {
+        ui->surnameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть по батькові");
+    }
+    else if (ui->numberLineEdit->text().length() != 13)
+    {
+        ui->numberLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний номер телефону у форматі:\n"
+                                        "(+3800000000000)");
+    }
+    else if (ui->addressLineEdit->text().isEmpty())
+    {
+        ui->addressLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть адресу проживання");
+    }
+    else if (ui->categoryComboBox->currentIndex() == 0)
+    {
+        ui->categoryComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть категорію вчителя");
+    }
+    else if (ui->specialComboBox->currentIndex() == 0)
+    {
+        ui->specialComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть спеціальність вчителя");
     }
 }
 

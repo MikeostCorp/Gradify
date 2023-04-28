@@ -24,6 +24,8 @@ private slots:
 
     QString reverseDate(QString str);
 
+    void on_saveButton_clicked();
+
 private:
     Ui::editGrade *ui;
 

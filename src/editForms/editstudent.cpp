@@ -19,6 +19,10 @@ editStudent::editStudent(QWidget *parent) :
     QRegularExpression numberRE("^\\+380\\d{9}");
     QValidator *numberValidator = new QRegularExpressionValidator(numberRE, this);
     ui->numberLineEdit->setValidator(numberValidator);
+
+    ui->passLineEdit->setValidator(getValidatorPass());
+    ui->nalogLineEdit->setValidator(getValidatorPass());
+
 }
 
 
@@ -84,6 +88,8 @@ void editStudent::setData(QString titleName, QStringList listData)
     ui->passLineEdit->setText(listData[7]);
     ui->groupComboBox->setCurrentText(listData[8]);
     ui->nalogLineEdit->setText(listData[9]);
+
+    ui->okLabel->setVisible(false);
 }
 
 
@@ -138,6 +144,14 @@ QString editStudent::reverseDate(QString str)
 }
 
 
+QValidator *editStudent::getValidatorPass()
+{
+    QRegularExpression passRE("^\\d{9}");
+    QValidator *passValidator = new QRegularExpressionValidator(passRE, this);
+    return passValidator;
+}
+
+
 void editStudent::on_numberLineEdit_textChanged(const QString &arg1)
 {
     if (arg1.isEmpty())
@@ -146,3 +160,65 @@ void editStudent::on_numberLineEdit_textChanged(const QString &arg1)
     }
 }
 
+
+void editStudent::on_saveButton_clicked()
+{
+    if (!ui->lastNameLineEdit->text().isEmpty() and
+        !ui->nameLineEdit->text().isEmpty() and
+        !ui->surnameLineEdit->text().isEmpty() and
+         ui->numberLineEdit->text().length() == 13 and
+        !ui->addressLineEdit->text().isEmpty() and
+        ui->passLineEdit->text().length() == 9 and
+        ui->nalogLineEdit->text().length() == 9 and
+         ui->groupComboBox->currentIndex() != 0)
+    {
+
+
+        QMessageBox::information(this,"","saved!");
+
+        // ok save
+
+        ui->okLabel->setVisible(true);
+    }
+    else if (ui->lastNameLineEdit->text().isEmpty())
+    {
+        ui->lastNameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть прізвище");
+    }
+    else if (ui->nameLineEdit->text().isEmpty())
+    {
+        ui->nameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть ім'я");
+    }
+    else if (ui->surnameLineEdit->text().isEmpty())
+    {
+        ui->surnameLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть по батькові");
+    }
+    else if (ui->numberLineEdit->text().length() != 13)
+    {
+        ui->numberLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний номер телефону у форматі:\n"
+                                        "(+3800000000000)");
+    }
+    else if (ui->addressLineEdit->text().isEmpty())
+    {
+        ui->addressLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть адресу проживання");
+    }
+    else if (ui->passLineEdit->text().length() != 9 )
+    {
+        ui->passLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний номер паспорту студента");
+    }
+    else if (ui->nalogLineEdit->text().length() != 9)
+    {
+        ui->nalogLineEdit->setFocus();
+        QMessageBox::critical(this,"","Введіть коректний ІНН студента");
+    }
+    else if (ui->groupComboBox->currentIndex() == 0)
+    {
+        ui->groupComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть групу студента");
+    }
+}

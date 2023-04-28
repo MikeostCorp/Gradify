@@ -2,6 +2,7 @@
 #define EDITSTUDENT_H
 
 #include <QWidget>
+#include <QValidator>
 
 namespace Ui {
 class editStudent;
@@ -22,8 +23,10 @@ private slots:
 
     void on_cancelButton_clicked();
     QString reverseDate(QString str);
+    QValidator *getValidatorPass();
 
     void on_numberLineEdit_textChanged(const QString &arg1);
+    void on_saveButton_clicked();
 
 private:
     Ui::editStudent *ui;
