@@ -1,5 +1,5 @@
-#ifndef authorizationFormFORM_H
-#define authorizationFormFORM_H
+#ifndef AUTHORIZATIONFORM_H
+#define AUTHORIZATIONFORM_H
 
 #include <QWidget>
 #include <QSqlDatabase>
@@ -37,7 +37,7 @@ private slots:
 private:
     Ui::authorizationForm *ui;
 
-    QSqlDatabase authorizationFormDB;
+    QSqlDatabase authorizationDB;
 
     bool isPasswordHidden;
 
@@ -51,4 +51,4 @@ signals:
     void signalLogin(const QString);
 };
 
-#endif // authorizationFormFORM_H
+#endif // AUTHORIZATIONFORM_H

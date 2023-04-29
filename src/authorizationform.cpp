@@ -126,14 +126,14 @@ void authorizationForm::on_loginButton_clicked()
         //
 
 
-        authorizationFormDB = QSqlDatabase::addDatabase("QMYSQL");
+        authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
-        authorizationFormDB.setHostName("141.136.44.252");
-        authorizationFormDB.setUserName("GradifyAdmin");
-        authorizationFormDB.setPassword("P433w0rD!");
-        authorizationFormDB.setDatabaseName("accounts_db");
+        authorizationDB.setHostName("141.136.44.252");
+        authorizationDB.setUserName("GradifyAdmin");
+        authorizationDB.setPassword("P433w0rD!");
+        authorizationDB.setDatabaseName("accounts_db");
 
-        if (!authorizationFormDB.open())
+        if (!authorizationDB.open())
         {
             QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
             return;
@@ -169,8 +169,8 @@ void authorizationForm::on_loginButton_clicked()
                 settingsConfig.remove("userlogin");
             }
 
-            authorizationFormDB.close();
-            QSqlDatabase::removeDatabase(authorizationFormDB.connectionName());
+            authorizationDB.close();
+            QSqlDatabase::removeDatabase(authorizationDB.connectionName());
             emit signalLogin(login);
             close();
         }
