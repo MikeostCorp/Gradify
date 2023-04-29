@@ -1,5 +1,5 @@
-#ifndef AUTHORIZATION_H
-#define AUTHORIZATION_H
+#ifndef authorizationFormFORM_H
+#define authorizationFormFORM_H
 
 #include <QWidget>
 #include <QSqlDatabase>
@@ -8,16 +8,16 @@
 #include <QSettings>
 
 namespace Ui {
-class authorization;
+class authorizationForm;
 }
 
-class authorization : public QWidget
+class authorizationForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit authorization(QWidget *parent = nullptr);
-    ~authorization();
+    explicit authorizationForm(QWidget *parent = nullptr);
+    ~authorizationForm();
 
 private slots:
     void setBlackUI();
@@ -35,20 +35,20 @@ private slots:
     void on_loginButton_clicked();
 
 private:
-    Ui::authorization *ui;
+    Ui::authorizationForm *ui;
 
-    QSqlDatabase authorizationDB;
+    QSqlDatabase authorizationFormDB;
 
     bool isPasswordHidden;
 
     QString styleType;
 
 public slots:
-    void setThemeAuthorUI(const QString style);
+    void setTheme(const QString &style);
     void startAuthozation();
 
 signals:
     void signalLogin(const QString);
 };
 
-#endif // AUTHORIZATION_H
+#endif // authorizationFormFORM_H

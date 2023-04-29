@@ -17,11 +17,11 @@ preloader::preloader(QWidget *parent) :
 
     setWindowTitle("Preloader");
     setFocus();
-    setFixedSize(this->width(), this->height());
+    setFixedSize(width(), height());
     ui->loadStatusLabel->setText("<strong>LOADING</strong> user interface");
 
     QPoint pointToCenter = QGuiApplication::primaryScreen()->geometry().center();
-    pointToCenter.setX(pointToCenter.x() - (this->width()/2));
+    pointToCenter.setX(pointToCenter.x() - (width() / 2));
     pointToCenter.setY(190);
     move(pointToCenter);
 
@@ -76,6 +76,6 @@ void preloader::updateProgressBar()
         mainMenu = new MainWindow;
         mainMenu->show();
         delete(timer);
-        this->close();
+        close();
     }
 }

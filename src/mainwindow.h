@@ -17,7 +17,7 @@
 #include <QTableView>
 
 #include <appsetting.h>
-#include <authorization.h>
+#include <authorizationform.h>
 #include <filterform.h>
 #include <queryform.h>
 #include <aboutapp.h>
@@ -93,11 +93,11 @@ private slots:
 
     void closeAllEditForm();
 
-    void setEnabledButtons(bool status);
+    void setEnabledButtons(const bool &status);
 
-    void setEnabledActions(bool status);
+    void setEnabledActions(const bool &status);
 
-    void setEnabledEditButton(bool status);
+    void setEnabledEditButton(const bool &status);
 
     void on_addRowAction_triggered();
 
@@ -157,22 +157,22 @@ private slots:
 
     QStringList getRowData(const int &row);
 
-    QStringList getGroupNames();
+    QStringList getGroupsNames();
 
-    QStringList getStudentNames();
+    QStringList getStudentsNames();
 
-    QStringList getTeacherNames();
+    QStringList getTeachersNames();
 
-    QStringList getSubjectNames();
+    QStringList getSubjectsNames();
 
 private:
     Ui::MainWindow *ui;
 
     appSetting *settingWindow;
-    authorization *authorizationWindow;
+    authorizationForm *authorizationWindow;
     filterForm *filterWindow;
     queryForm *queryWindow;
-    aboutApp *aboutAppAction;
+    aboutApp *aboutAppWindow;
 
     gradeWindow *gradeForm;
     groupWindow *groupForm;
@@ -203,9 +203,9 @@ private:
     bool isLogin;
 
 public slots:
-    void setThemeUI(const QString style);
-    void succesfullyAuthorization(const QString login);
-    void setFilterForTable(const QString filterQuery, const QString currentColumnFilter);
+    void setTheme(const QString &style);
+    void authorization(const QString &login);
+    void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
     void clearFilterForTable();
     void goSearch();
     void setDataToModel(QStringList dataList);
@@ -215,9 +215,9 @@ signals:
     void statusAuthorization(const bool);
     void setTableForFilter(const QMap<QString, QString>);
     void setDataEditForm(QString, QStringList);
-    void sendGroupList(QStringList);
-    void sendTeacherList(QStringList);
-    void sendStudentList(QStringList);
-    void sendSubjectList(QStringList);
+    void sendGroupsList(QStringList);
+    void sendTeachersList(QStringList);
+    void sendStudentsList(QStringList);
+    void sendSubjectsList(QStringList);
 };
 #endif // MAINWINDOW_H

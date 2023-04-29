@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QMessageBox>
 #include <QApplication>
 #include <QDir>
 #include <QInputDialog>
@@ -28,12 +27,12 @@ void MainWindow::mainWindowInit()
 {
     setWindowTitle("Gradify");
 
-    // new windows
+    // init obj's of windows classes
     settingWindow = new appSetting();
-    authorizationWindow = new authorization();
+    authorizationWindow = new authorizationForm();
     filterWindow = new filterForm(this);
     queryWindow = new queryForm(this);
-    aboutAppAction = new aboutApp();
+    aboutAppWindow = new aboutApp();
 
     gradeForm = new gradeWindow();
     groupForm = new groupWindow();
@@ -41,9 +40,11 @@ void MainWindow::mainWindowInit()
     subjectForm = new subjectWindow();
     teacherForm = new teacherWindow();
 
+    // pop-up windows graphics settings
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
+    // default inactive state on main window
     currentSelectTable = -1;
     setEnabledButtons(false);
     setEnabledActions(false);
@@ -54,48 +55,52 @@ void MainWindow::mainWindowInit()
     ui->tableView->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
 
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
-    ui->authorizationButton->setFocus();
 
-    connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setThemeSettingUI);
-    connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorization::setThemeAuthorUI);
-    connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
-    connect(this, &MainWindow::setThemeSettingsUI, aboutAppAction, &aboutApp::setThemeSettingUI);
+    // theme change after config init
+    connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorizationForm::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, aboutAppWindow, &aboutApp::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, gradeForm, &gradeWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, groupForm, &groupWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, studentForm, &studentWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, subjectForm, &subjectWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, teacherForm, &teacherWindow::setTheme);
-    connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
+    // config initialization
     configInit();
 
+    // login/logout
+    connect(authorizationWindow, &authorizationForm::signalLogin, this, &MainWindow::authorization);
     connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
-    connect(authorizationWindow, &authorization::signalLogin, this, &MainWindow::succesfullyAuthorization);
 
-    connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setThemeUI);
-    connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorization::setThemeAuthorUI);
-    connect(settingWindow, &appSetting::changeThemeApp, aboutAppAction, &aboutApp::setThemeSettingUI);
+    // theme change in settings window
+    connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorizationForm::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, aboutAppWindow, &aboutApp::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, gradeForm, &gradeWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, groupForm, &groupWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, studentForm, &studentWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, subjectForm, &subjectWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, teacherForm, &teacherWindow::setTheme);
 
+    // filters
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
+    connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
 
+    // clear searchbar & filter
     connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
 
-    // close popup windows on click tableView (need fix empty space)
+    // close pop-up windows on click tableView (need fix empty space)
     connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->tableView, &QTableView::clicked, this, &MainWindow::closeAllPopUpWindow);
 
-    // close popup windows on click any buttons
+    // close pop-up windows on click any buttons
     for (QPushButton* button : findChildren<QPushButton*>())
     {
-        // Добавлять в условие название кнопок форм привязаных к главном у окну
+        // Добавлять в условие название кнопок форм привязаных к главному окну
         if (button->objectName() != "filterButton" and button->objectName() != "queryButton"
             and button->objectName() != "filterPushButton" and button->objectName() != "succesStudentPushButton"
             and button->objectName() != "avgScorePushButton" and button->objectName() != "clearFilterPushButton"
@@ -116,7 +121,7 @@ void MainWindow::mainWindowInit()
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
     // send list to edit form
-    connect(this, &MainWindow::sendGroupList, studentForm, &studentWindow::setComboBox);
+    connect(this, &MainWindow::sendGroupsList, studentForm, &studentWindow::setComboBox);
 
     // get data from edit form
     connect(gradeForm, &gradeWindow::sendData, this, &MainWindow::setDataToModel);
@@ -130,7 +135,6 @@ void MainWindow::mainWindowInit()
     yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
     logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
     logoutMessageBox.setDefaultButton(yesButton);
-
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
 }
@@ -177,7 +181,7 @@ void MainWindow::configInit()
     }
     if (settingsConfig.contains("userlogin"))
     {
-        succesfullyAuthorization(settingsConfig.value("userlogin").toString());
+        authorization(settingsConfig.value("userlogin").toString());
     }
 }
 
@@ -388,7 +392,7 @@ void MainWindow::closeAllEditForm()
 }
 
 
-void MainWindow::setEnabledButtons(bool status)
+void MainWindow::setEnabledButtons(const bool &status)
 {
     ui->subjectsReportButton->setEnabled(status);
     ui->gradesReportButton->setEnabled(status);
@@ -405,7 +409,7 @@ void MainWindow::setEnabledButtons(bool status)
 }
 
 
-void MainWindow::setEnabledActions(bool status)
+void MainWindow::setEnabledActions(const bool &status)
 {
     ui->openGradesTabAction->setEnabled(status);
     ui->openGroupTabAction->setEnabled(status);
@@ -422,7 +426,7 @@ void MainWindow::setEnabledActions(bool status)
 }
 
 
-void MainWindow::setEnabledEditButton(bool status)
+void MainWindow::setEnabledEditButton(const bool &status)
 {
     ui->addRowAction->setEnabled(status);
     ui->editRowAction->setEnabled(status);
@@ -453,7 +457,7 @@ void MainWindow::clearStyleButtonTable()
 }
 
 
-void MainWindow::setThemeUI(const QString style)
+void MainWindow::setTheme(const QString &style)
 {
     QString theme;
     if (style == "black")
@@ -476,12 +480,10 @@ void MainWindow::setThemeUI(const QString style)
 }
 
 
-void MainWindow::succesfullyAuthorization(const QString login)
+void MainWindow::authorization(const QString &login)
 {
-
     QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
 
-    // Может быть стоит перенести в отдельный метод
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
     db.setHostName(settingsConfig.value("hostname").toString());
@@ -499,7 +501,6 @@ void MainWindow::succesfullyAuthorization(const QString login)
     model = new QSqlTableModel(this, db);
     queryModel = new QSqlQueryModel(this);
 
-    isLogin = true;
     setEnabledButtons(true);
     setEnabledActions(true);
 
@@ -507,15 +508,17 @@ void MainWindow::succesfullyAuthorization(const QString login)
 
     ui->authorizationButton->setText(" Привіт, " + login + "!");
     ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
+
+    isLogin = true;
 }
 
 
-void MainWindow::setFilterForTable(const QString filterQuery, const QString currentColumnFilter)
+void MainWindow::setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter)
 {
     model->setFilter(filterQuery);
     ui->tableView->setModel(model);
 
-    for(int i = 0; i < ui->tableView->model()->columnCount(); i++)
+    for(int i = 0; i < ui->tableView->model()->columnCount(); ++i)
     {
         if (ui->tableView->model()->headerData(i, Qt::Horizontal).toString() == currentColumnFilter)
         {
@@ -600,7 +603,7 @@ void MainWindow::on_deleteRowButton_clicked()
     }
     else
     {
-        QMessageBox::critical(this,"","Не знайдено записів для видалення!");
+        QMessageBox::critical(this, "", "Не знайдено записів для видалення!");
     }
 }
 
@@ -625,8 +628,8 @@ void MainWindow::on_editRowButton_clicked()
             case 0:
                 connect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
 
-                emit sendGroupList(getGroupNames());
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit sendGroupsList(getGroupsNames());
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.QString::left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
                 studentForm->show();
@@ -641,33 +644,33 @@ void MainWindow::on_editRowButton_clicked()
                 break;
             case 2:
                 connect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
-                connect(this, &MainWindow::sendStudentList, gradeForm, &gradeWindow::setDataStudentComboBox);
-                connect(this, &MainWindow::sendTeacherList, gradeForm, &gradeWindow::setDataTeacherComboBox);
-                connect(this, &MainWindow::sendSubjectList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+                connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+                connect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
+                connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
 
-                emit sendSubjectList(getSubjectNames());
-                emit sendStudentList(getStudentNames());
-                emit sendTeacherList(getTeacherNames());
+                emit sendSubjectsList(getSubjectsNames());
+                emit sendStudentsList(getStudentsNames());
+                emit sendTeachersList(getTeachersNames());
                 emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::sendSubjectList, gradeForm, &gradeWindow::setDataSubjectComboBox);
-                disconnect(this, &MainWindow::sendStudentList, gradeForm, &gradeWindow::setDataStudentComboBox);
-                disconnect(this, &MainWindow::sendTeacherList, gradeForm, &gradeWindow::setDataTeacherComboBox);
+                disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+                disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+                disconnect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
                 gradeForm->show();
                 break;
             case 3:
                 connect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
-                connect(this, &MainWindow::sendTeacherList, groupForm, &groupWindow::setDataCuratorComboBox);
-                connect(this, &MainWindow::sendStudentList, groupForm, &groupWindow::setDataHeadManComboBox);
+                connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
+                connect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
 
-                emit sendTeacherList(getTeacherNames());
-                emit sendStudentList(getStudentNames());
+                emit sendTeachersList(getTeachersNames());
+                emit sendStudentsList(getStudentsNames());
                 emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
-                disconnect(this, &MainWindow::sendTeacherList, groupForm, &groupWindow::setDataCuratorComboBox);
-                disconnect(this, &MainWindow::sendStudentList, groupForm, &groupWindow::setDataHeadManComboBox);
+                disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
+                disconnect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
                 groupForm->show();
                 break;
             case 4:
@@ -681,7 +684,7 @@ void MainWindow::on_editRowButton_clicked()
     }
     else
     {
-        QMessageBox::critical(this,"","Не знайдено записів для редагування!");
+        QMessageBox::critical(this, "", "Не знайдено записів для редагування!");
     }
 }
 
@@ -730,10 +733,10 @@ void MainWindow::goSearch()
     {
         QString searchString;
 
-        for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+        for (int i = 0; i < ui->tableView->model()->columnCount(); ++i)
         {
             searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
-                    "'%" + ui->searchLineEdit->text() + "%'";
+                            "'%" + ui->searchLineEdit->text() + "%'";
 
             if (i != ui->tableView->model()->columnCount() - 1)
             {
@@ -774,11 +777,11 @@ void MainWindow::setDataToModel(QStringList dataList)
         break;
     }
 
-    for (int i = 1; i < model->columnCount(); i++)
+    for (int i = 1; i < model->columnCount(); ++i)
     {
         if (i != model->columnCount() - 1)
         {
-            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() +"` = '" + dataList[i] + "', \n";
+            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "', \n";
         }
         else
         {
@@ -793,7 +796,7 @@ void MainWindow::setDataToModel(QStringList dataList)
 
     model->select();
 
-    QMessageBox::information(this,"",queryEdit);
+    QMessageBox::information(this, "", queryEdit);
 }
 
 
@@ -887,7 +890,7 @@ QStringList MainWindow::getRowData(const int &row)
 }
 
 
-QStringList MainWindow::getStudentNames()
+QStringList MainWindow::getStudentsNames()
 {
     QStringList studentList;
     QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
@@ -909,7 +912,7 @@ QStringList MainWindow::getStudentNames()
 }
 
 
-QStringList MainWindow::getTeacherNames()
+QStringList MainWindow::getTeachersNames()
 {
     QStringList teacherList;
     QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
@@ -931,7 +934,7 @@ QStringList MainWindow::getTeacherNames()
 }
 
 
-QStringList MainWindow::getSubjectNames()
+QStringList MainWindow::getSubjectsNames()
 {
     QStringList subjectList;
     QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
@@ -951,7 +954,7 @@ QStringList MainWindow::getSubjectNames()
 }
 
 
-QStringList MainWindow::getGroupNames()
+QStringList MainWindow::getGroupsNames()
 {
     QStringList groupList;
     QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
@@ -1239,7 +1242,7 @@ void MainWindow::on_openSubjTabAction_triggered()
 
 void MainWindow::on_openManual_triggered()
 {
-    QMessageBox::information(this,"","ОКРЫТИЕ ДОВИДКИ");
+    QMessageBox::information(this, "", "ОКРЫТИЕ ДОВИДКИ");
     // КОД РЕАЛИЗАЦИИ ОТКРЫТИЯ ДОВИДКИ
 }
 
@@ -1282,5 +1285,5 @@ void MainWindow::on_currentTableReportAction_triggered()
 
 void MainWindow::on_about_triggered()
 {
-    aboutAppAction->show();
+    aboutAppWindow->show();
 }

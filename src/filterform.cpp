@@ -43,7 +43,7 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
             ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
         }
     }
-    else if (event->type() == QEvent::FocusOut and !this->hasFocus())
+    else if (event->type() == QEvent::FocusOut and !hasFocus())
     {
         ui->conditionComboBox->setGraphicsEffect(nullptr);
         ui->tableComboBox->setGraphicsEffect(nullptr);
@@ -53,11 +53,11 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
 }
 
 
-void filterForm::setListTable(const QMap<QString, QString> tableNameType)
+void filterForm::setListTable(const QMap<QString, QString> colsNameAndType)
 {
     ui->clearFilterPushButton->setEnabled(false);
     ui->conditionComboBox->setEnabled(false);
-    QStringList columnList = tableNameType.keys();
+    QStringList columnList = colsNameAndType.keys();
 
     ui->tableComboBox->clear();
     ui->conditionLineEdit->clear();
@@ -68,7 +68,7 @@ void filterForm::setListTable(const QMap<QString, QString> tableNameType)
     ui->tableComboBox->addItems(columnList);
     ui->conditionComboBox->setCurrentIndex(0);
 
-    typeColumnsMap = tableNameType;
+    typeColumnsMap = colsNameAndType;
 
     ui->conditionLineEdit->setPlaceholderText("Текст");
     ui->conditionLineEdit->setValidator(nullptr);
@@ -97,14 +97,14 @@ void filterForm::on_filterPushButton_clicked()
             }
             else if (ui->conditionComboBox->currentText() == "between" and ui->conditionLineEdit_2->text().isEmpty())
             {
-                QMessageBox::critical(this,"","Введіть значення умови фільтрування!");
+                QMessageBox::critical(this, "", "Введіть значення умови фільтрування!");
                 ui->conditionLineEdit_2->setFocus();
                 return;
             }
             else if (ui->conditionComboBox->currentText() == "between"
                      and ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
             {
-                QMessageBox::critical(this,"","Перше значення повине бути меншим за друге!");
+                QMessageBox::critical(this, "", "Перше значення повине бути меншим за друге!");
                 ui->conditionLineEdit->setFocus();
                 return;
             }
@@ -145,19 +145,19 @@ void filterForm::on_filterPushButton_clicked()
     }
     else if (ui->tableComboBox->currentIndex() == 0)
     {
-        QMessageBox::critical(this,"","Оберіть потрібну колонку!");
+        QMessageBox::critical(this, "", "Оберіть потрібну колонку!");
         ui->tableComboBox->setFocus();
         show();
     }
     else if (ui->conditionComboBox->currentIndex() == 0)
     {
-        QMessageBox::critical(this,"","Оберіть умову!");
+        QMessageBox::critical(this, "", "Оберіть умову!");
         ui->conditionComboBox->setFocus();
         show();
     }
     else
     {
-        QMessageBox::critical(this,"","Введіть значення умови фільтрування");
+        QMessageBox::critical(this, "", "Введіть значення умови фільтрування");
         ui->conditionLineEdit->setFocus();
         show();
     }

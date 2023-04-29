@@ -1,14 +1,14 @@
-#include "authorization.h"
-#include "ui_authorization.h"
+#include "authorizationform.h"
+#include "ui_authorizationform.h"
 
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
 #include <QDir>
 
-authorization::authorization(QWidget *parent) :
+authorizationForm::authorizationForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::authorization)
+    ui(new Ui::authorizationForm)
 {
     ui->setupUi(this);
     setWindowTitle("Авторизація");
@@ -16,12 +16,12 @@ authorization::authorization(QWidget *parent) :
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
-    connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
-    connect(ui->loginLineEdit, &QLineEditWithButton::buttonClicked, this, &authorization::loginClearButtonCliked);
+    connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorizationForm::startAuthozation);
+    connect(ui->loginLineEdit, &QLineEditWithButton::buttonClicked, this, &authorizationForm::loginClearButtonCliked);
 
     connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
-    connect(ui->passwordLineEdit, &QLineEdit::returnPressed, this, &authorization::startAuthozation);
-    connect(ui->passwordLineEdit, &QLineEditWithButton::buttonClicked, this, &authorization::passwordVisibilityButtonClicked);
+    connect(ui->passwordLineEdit, &QLineEdit::returnPressed, this, &authorizationForm::startAuthozation);
+    connect(ui->passwordLineEdit, &QLineEditWithButton::buttonClicked, this, &authorizationForm::passwordVisibilityButtonClicked);
 
     show();
     close();
@@ -33,32 +33,32 @@ authorization::authorization(QWidget *parent) :
 }
 
 
-authorization::~authorization()
+authorizationForm::~authorizationForm()
 {
     delete ui;
 }
 
 
-void authorization::startAuthozation()
+void authorizationForm::startAuthozation()
 {
     on_loginButton_clicked();
 }
 
 
-void authorization::on_forgotPasswordButton_clicked()
+void authorizationForm::on_forgotPasswordButton_clicked()
 {
     QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
                                             "\nsupport@gradify.online");
 }
 
 
-void authorization::loginClearButtonCliked()
+void authorizationForm::loginClearButtonCliked()
 {
     ui->loginLineEdit->clear();
 }
 
 
-void authorization::passwordVisibilityButtonClicked()
+void authorizationForm::passwordVisibilityButtonClicked()
 {
     if (!isPasswordHidden)
     {
@@ -89,7 +89,7 @@ void authorization::passwordVisibilityButtonClicked()
 }
 
 
-void authorization::setThemeAuthorUI(const QString style)
+void authorizationForm::setTheme(const QString &style)
 {
     if (style == "black")
     {
@@ -108,7 +108,7 @@ void authorization::setThemeAuthorUI(const QString style)
 }
 
 
-void authorization::on_loginButton_clicked()
+void authorizationForm::on_loginButton_clicked()
 {
     if (ui->loginLineEdit->text().isEmpty())
     {
@@ -126,14 +126,14 @@ void authorization::on_loginButton_clicked()
         //
 
 
-        authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
+        authorizationFormDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
-        authorizationDB.setHostName("141.136.44.252");
-        authorizationDB.setUserName("GradifyAdmin");
-        authorizationDB.setPassword("P433w0rD!");
-        authorizationDB.setDatabaseName("accounts_db");
+        authorizationFormDB.setHostName("141.136.44.252");
+        authorizationFormDB.setUserName("GradifyAdmin");
+        authorizationFormDB.setPassword("P433w0rD!");
+        authorizationFormDB.setDatabaseName("accounts_db");
 
-        if (!authorizationDB.open())
+        if (!authorizationFormDB.open())
         {
             QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
             return;
@@ -169,8 +169,8 @@ void authorization::on_loginButton_clicked()
                 settingsConfig.remove("userlogin");
             }
 
-            authorizationDB.close();
-            QSqlDatabase::removeDatabase(authorizationDB.connectionName());
+            authorizationFormDB.close();
+            QSqlDatabase::removeDatabase(authorizationFormDB.connectionName());
             emit signalLogin(login);
             close();
         }
@@ -182,9 +182,9 @@ void authorization::on_loginButton_clicked()
 }
 
 
-void authorization::setBlackUI()
+void authorizationForm::setBlackUI()
 {
-    QFile file(":/styles/black/authorization/authorization.qss");
+    QFile file(":/styles/black/authorizationForm/authorizationForm.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
@@ -202,9 +202,9 @@ void authorization::setBlackUI()
 }
 
 
-void authorization::setWhiteUI()
+void authorizationForm::setWhiteUI()
 {
-    QFile file(":/styles/white/authorization/authorization.qss");
+    QFile file(":/styles/white/authorizationForm/authorizationForm.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
@@ -222,7 +222,7 @@ void authorization::setWhiteUI()
 }
 
 
-void authorization::setSystemUI()
+void authorizationForm::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();

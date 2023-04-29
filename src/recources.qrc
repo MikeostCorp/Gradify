@@ -42,11 +42,9 @@
         <file>img/whiteMenuIcon/watchPass.png</file>
         <file>img/AppIcon.icns</file>
         <file>styles/black/appSetting/appSetting.qss</file>
-        <file>styles/black/authorization/authorization.qss</file>
         <file>styles/black/mainWindow/mainWindow.qss</file>
         <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
         <file>styles/white/appSetting/appSetting.qss</file>
-        <file>styles/white/authorization/authorization.qss</file>
         <file>styles/white/mainWindow/mainWindow.qss</file>
         <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
         <file>img/blueMenuIcon/filterIco.png</file>
@@ -106,5 +104,7 @@
         <file>img/whiteActionsIcon/teachersIco.png</file>
         <file>styles/white/recordsForms/recordsForms.qss</file>
         <file>styles/black/recordsForms/recordsForms.qss</file>
+        <file>styles/white/authorizationForm/authorizationForm.qss</file>
+        <file>styles/black/authorizationForm/authorizationForm.qss</file>
     </qresource>
 </RCC>

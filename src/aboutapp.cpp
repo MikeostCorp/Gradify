@@ -68,7 +68,7 @@ void aboutApp::setSystemUI()
 }
 
 
-void aboutApp::setThemeSettingUI(const QString style)
+void aboutApp::setTheme(const QString &style)
 {
     if (style == "black")
     {

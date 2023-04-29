@@ -21,7 +21,7 @@ queryForm::~queryForm()
 
 void queryForm::on_mySQLPushButton_clicked()
 {
-    QMessageBox::information(this,"","hello negr!\nIt's test!");
+    QMessageBox::information(this, "", "hello vinegret!\nIt's test!");
     ui->mySQLPushButton->setFocus();
     show();
 }

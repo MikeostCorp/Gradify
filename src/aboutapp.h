@@ -27,7 +27,7 @@ private:
     Ui::aboutApp *ui;
 
 public slots:
-    void setThemeSettingUI(const QString style);
+    void setTheme(const QString &style);
 
 };
 

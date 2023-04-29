@@ -136,7 +136,7 @@ void appSetting::on_selectSystemUIRadioButton_clicked()
 }
 
 
-void appSetting::setThemeSettingUI(const QString style)
+void appSetting::setTheme(const QString &style)
 {
     if (style == "black")
     {
