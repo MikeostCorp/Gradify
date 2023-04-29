@@ -151,11 +151,11 @@ private slots:
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
-    QMap<QString, QString> getColumnsAndDatatypes(const QString &tableName);
+    QMap<QString, QString> getColumnsNamesAndDatatypes(const QString &tableName);
 
     QStringList getCurrentItemTable();
 
-    QStringList getRowDate(int row);
+    QStringList getRowData(const int &row);
 
     QStringList getGroupNames();
 

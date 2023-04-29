@@ -252,7 +252,7 @@ void MainWindow::on_studentsTableButton_clicked()
 
     ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
 
-    emit setTableForFilter(getColumnsAndDatatypes("Студенти"));
+    emit setTableForFilter(getColumnsNamesAndDatatypes("Студенти"));
 }
 
 
@@ -280,7 +280,7 @@ void MainWindow::on_teachersTableButton_clicked()
 
     ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
 
-    emit setTableForFilter(getColumnsAndDatatypes("Викладачі"));
+    emit setTableForFilter(getColumnsNamesAndDatatypes("Викладачі"));
 }
 
 
@@ -303,7 +303,7 @@ void MainWindow::on_gradesTableButton_clicked()
 
     ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/raitingIco.png"));
 
-    emit setTableForFilter(getColumnsAndDatatypes("Оцінки"));
+    emit setTableForFilter(getColumnsNamesAndDatatypes("Оцінки"));
 }
 
 
@@ -331,7 +331,7 @@ void MainWindow::on_groupsTableButton_clicked()
 
     ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupIco.png"));
 
-    emit setTableForFilter(getColumnsAndDatatypes("Групи"));
+    emit setTableForFilter(getColumnsNamesAndDatatypes("Групи"));
 }
 
 
@@ -359,7 +359,7 @@ void MainWindow::on_subjectsTableButton_clicked()
 
     ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectIco.png"));
 
-    emit setTableForFilter(getColumnsAndDatatypes("Предмети"));
+    emit setTableForFilter(getColumnsNamesAndDatatypes("Предмети"));
 }
 
 
@@ -626,7 +626,7 @@ void MainWindow::on_editRowButton_clicked()
                 connect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
 
                 emit sendGroupList(getGroupNames());
-                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
                 studentForm->show();
@@ -634,7 +634,7 @@ void MainWindow::on_editRowButton_clicked()
             case 1:
                 connect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
 
-                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
                 teacherForm->show();
@@ -648,7 +648,7 @@ void MainWindow::on_editRowButton_clicked()
                 emit sendSubjectList(getSubjectNames());
                 emit sendStudentList(getStudentNames());
                 emit sendTeacherList(getTeacherNames());
-                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::sendSubjectList, gradeForm, &gradeWindow::setDataSubjectComboBox);
                 disconnect(this, &MainWindow::sendStudentList, gradeForm, &gradeWindow::setDataStudentComboBox);
@@ -663,7 +663,7 @@ void MainWindow::on_editRowButton_clicked()
 
                 emit sendTeacherList(getTeacherNames());
                 emit sendStudentList(getStudentNames());
-                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
                 disconnect(this, &MainWindow::sendTeacherList, groupForm, &groupWindow::setDataCuratorComboBox);
@@ -672,7 +672,7 @@ void MainWindow::on_editRowButton_clicked()
                 break;
             case 4:
                 connect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
-                emit setDataEditForm(selectedItem, getRowDate(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
                 disconnect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
                 subjectForm->show();
                 break;
@@ -815,7 +815,7 @@ QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
 }
 
 
-QMap<QString, QString> MainWindow::getColumnsAndDatatypes(const QString &tableName)
+QMap<QString, QString> MainWindow::getColumnsNamesAndDatatypes(const QString &tableName)
 {
     QMap<QString,QString> headerListMap;
 
@@ -851,7 +851,7 @@ QStringList MainWindow::getCurrentItemTable()
     {
     case 0:
     case 1:
-        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
         {
             str << QString::number(i + 1) +  ". "
                    + ui->tableView->model()->data(model->index(i, 1)).toString() + " "
@@ -862,7 +862,7 @@ QStringList MainWindow::getCurrentItemTable()
     case 2:
     case 3:
     case 4:
-        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
         {
             str << QString::number(i + 1) +  ". "
                    + ui->tableView->model()->data(model->index(i, 1)).toString();
@@ -874,16 +874,16 @@ QStringList MainWindow::getCurrentItemTable()
 }
 
 
-QStringList MainWindow::getRowDate(int row)
+QStringList MainWindow::getRowData(const int &row)
 {
-    QStringList listDate;
+    QStringList listData;
 
-    for (int j = 0; j < model->columnCount(); j++)
+    for (int j = 0; j < model->columnCount(); ++j)
     {
-        listDate << model->data(model->index(row - 1, j)).toString();
+        listData << model->data(model->index(row - 1, j)).toString();
     }
 
-    return listDate;
+    return listData;
 }
 
 
@@ -894,7 +894,7 @@ QStringList MainWindow::getStudentNames()
     QTableView *virtualTable = new QTableView(this);
 
     virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                         "FROM `Студенти`");
+                               "FROM `Студенти`");
 
     virtualTable->setModel(virualQueryModel);
 
@@ -958,7 +958,7 @@ QStringList MainWindow::getGroupNames()
     QTableView *virtualTable = new QTableView(this);
 
     virualQueryModel->setQuery("SELECT `Назва`"
-                         "FROM `Групи`");
+                               "FROM `Групи`");
 
     virtualTable->setModel(virualQueryModel);
 
@@ -1284,5 +1284,3 @@ void MainWindow::on_about_triggered()
 {
     aboutAppAction->show();
 }
-
-
