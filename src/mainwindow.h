@@ -174,11 +174,11 @@ private:
     queryForm *queryWindow;
     aboutApp *aboutAppAction;
 
-    gradeWindow *gradeEditForm;
-    groupWindow *groupEditForm;
-    studentWindow *studentEditForm;
-    subjectWindow *subjectEditForm;
-    teacherWindow *teacherEditForm;
+    gradeWindow *gradeForm;
+    groupWindow *groupForm;
+    studentWindow *studentForm;
+    subjectWindow *subjectForm;
+    teacherWindow *teacherForm;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;
