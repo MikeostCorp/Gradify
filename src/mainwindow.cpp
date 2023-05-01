@@ -796,7 +796,7 @@ void MainWindow::setDataToModel(QStringList dataList)
 
     model->select();
 
-    QMessageBox::information(this, "", queryEdit);
+    //QMessageBox::information(this, "", queryEdit);
 }
 
 

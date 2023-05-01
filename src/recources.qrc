@@ -7,7 +7,6 @@
         <file>img/blackMenuIcon/groupIco.png</file>
         <file>img/blackMenuIcon/noWatchPass.png</file>
         <file>img/blackMenuIcon/raitingIco.png</file>
-        <file>img/blackMenuIcon/studenstIco.png</file>
         <file>img/blackMenuIcon/subjectIco.png</file>
         <file>img/blackMenuIcon/teachersIco.png</file>
         <file>img/blackMenuIcon/watchPass.png</file>
@@ -36,7 +35,6 @@
         <file>img/whiteMenuIcon/noWatchPass.png</file>
         <file>img/whiteMenuIcon/raitingIco.png</file>
         <file>img/whiteMenuIcon/settingIco.png</file>
-        <file>img/whiteMenuIcon/studentsIco.png</file>
         <file>img/whiteMenuIcon/subjectIco.png</file>
         <file>img/whiteMenuIcon/teachersIco.png</file>
         <file>img/whiteMenuIcon/watchPass.png</file>
@@ -106,5 +104,7 @@
         <file>styles/black/recordsForms/recordsForms.qss</file>
         <file>styles/white/authorizationForm/authorizationForm.qss</file>
         <file>styles/black/authorizationForm/authorizationForm.qss</file>
+        <file>img/blackMenuIcon/studentsIco.png</file>
+        <file>img/whiteMenuIcon/studentsIco.png</file>
     </qresource>
 </RCC>
