@@ -137,7 +137,7 @@ void subjectWindow::on_cancelButton_clicked()
 
 void subjectWindow::on_saveButton_clicked()
 {
-    if (!ui->nameLineEdit->text().isEmpty() and
+    if (not ui->nameLineEdit->text().isEmpty() and
          ui->typeComboBox->currentIndex() not_eq 0 and
          ui->controlComboBox->currentIndex() not_eq 0)
     {

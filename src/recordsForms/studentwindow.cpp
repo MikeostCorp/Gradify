@@ -206,11 +206,11 @@ void studentWindow::on_numberLineEdit_textChanged(const QString &arg1)
 
 void studentWindow::on_saveButton_clicked()
 {
-    if (!ui->lastNameLineEdit->text().isEmpty() and
-        !ui->nameLineEdit->text().isEmpty() and
-        !ui->surnameLineEdit->text().isEmpty() and
+    if (not ui->lastNameLineEdit->text().isEmpty() and
+        not ui->nameLineEdit->text().isEmpty() and
+        not ui->surnameLineEdit->text().isEmpty() and
          ui->numberLineEdit->text().length() == 13 and
-        !ui->addressLineEdit->text().isEmpty() and
+        not ui->addressLineEdit->text().isEmpty() and
         ui->passLineEdit->text().length() == 9 and
         ui->nalogLineEdit->text().length() == 9 and
          ui->groupComboBox->currentIndex() not_eq 0)

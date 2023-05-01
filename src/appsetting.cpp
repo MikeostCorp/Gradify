@@ -44,7 +44,7 @@ void appSetting::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
     if (event->type() == QEvent::ActivationChange)
     {
-        if (!isActiveWindow())
+        if (not isActiveWindow())
         {
             ui->succSaveSettings->setVisible(false);
         }

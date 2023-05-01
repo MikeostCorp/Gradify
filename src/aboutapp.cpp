@@ -25,7 +25,7 @@ void aboutApp::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
     if (event->type() == QEvent::ActivationChange)
     {
-        if (!isActiveWindow())
+        if (not isActiveWindow())
         {
             close();
         }

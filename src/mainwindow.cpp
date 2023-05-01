@@ -224,11 +224,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton and filterWindow->isVisible() and !filterWindow->underMouse())
+    if (event->button() == Qt::LeftButton and filterWindow->isVisible() and not filterWindow->underMouse())
     {
         filterWindow->close();
     }
-    else if (event->button() == Qt::LeftButton and queryWindow->isVisible() and !queryWindow->underMouse())
+    else if (event->button() == Qt::LeftButton and queryWindow->isVisible() and not queryWindow->underMouse())
     {
         queryWindow->close();
     }
@@ -493,7 +493,7 @@ void MainWindow::authorization(const QString &login)
     db.setPassword(settingsConfig.value("password").toString());
     db.setDatabaseName(settingsConfig.value("databasename").toString());
 
-    if (!db.open())
+    if (not db.open())
     {
         QMessageBox::critical(this, "Помилка з'єднання", "Перевірте статус серверу або параметри серверу в налаштуваннях!");
         return;
@@ -565,7 +565,7 @@ void MainWindow::userLogout()
 
 void MainWindow::on_authorizationButton_clicked()
 {
-    if (!isLogin)
+    if (not isLogin)
     {
         authorizationWindow->show();
     }
@@ -797,7 +797,7 @@ void MainWindow::on_queryButton_clicked()
 
 void MainWindow::goSearch()
 {
-    if (!ui->searchLineEdit->text().isEmpty())
+    if (not ui->searchLineEdit->text().isEmpty())
     {
         QString searchString;
 
@@ -970,7 +970,7 @@ QMap<QString, QString> MainWindow::getColumnsNamesAndDatatypes(const QString &ta
 {
     QMap<QString,QString> headerListMap;
 
-    if (!tableName.isEmpty())
+    if (not tableName.isEmpty())
     {
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
         QTableView *tableView = new QTableView(this);

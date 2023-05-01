@@ -143,7 +143,7 @@ void groupWindow::on_cancelButton_clicked()
 
 void groupWindow::on_saveButton_clicked()
 {
-    if (!ui->nameLineEdit->text().isEmpty() and
+    if (not ui->nameLineEdit->text().isEmpty() and
         ui->specialComboBox->currentIndex() not_eq 0 and
         ui->curatorComboBox->currentIndex() not_eq 0 and
         ui->headManComboBox->currentIndex() not_eq 0)

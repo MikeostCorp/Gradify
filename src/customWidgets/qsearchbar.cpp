@@ -34,7 +34,7 @@ void QSearchBar::resizeEvent(QResizeEvent *event)
     int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
     clearButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
 
-    if (!hasFocus())
+    if (not hasFocus())
     {
         searchButton->move(width()/2 - font->horizontalAdvance(placeholderText()) - 6, 2);
     }
@@ -68,7 +68,7 @@ void QSearchBar::focusOutEvent(QFocusEvent *event)
 
 void QSearchBar::updateClearButton(const QString &text)
 {
-    clearButton->setVisible(!text.isEmpty());
+    clearButton->setVisible(not text.isEmpty());
     buttonClick();
 }
 
@@ -87,7 +87,7 @@ void QSearchBar::clearText()
 
 void QSearchBar::playAnimationSearchButton()
 {
-    if (hasFocus() or !text().isEmpty())
+    if (hasFocus() or not text().isEmpty())
     {
         animationSearchButton->setDuration(this->width() / 1.85);
         animationSearchButton->setStartValue(searchButton->geometry());

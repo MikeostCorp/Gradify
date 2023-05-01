@@ -43,7 +43,7 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
             ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
         }
     }
-    else if (event->type() == QEvent::FocusOut and !hasFocus())
+    else if (event->type() == QEvent::FocusOut and not hasFocus())
     {
         ui->conditionComboBox->setGraphicsEffect(nullptr);
         ui->tableComboBox->setGraphicsEffect(nullptr);
@@ -79,18 +79,18 @@ void filterForm::on_filterPushButton_clicked()
 {
     if (ui->tableComboBox->currentIndex() > 0
         and ui->conditionComboBox->currentIndex() > 0
-        and !ui->conditionLineEdit->text().isEmpty()
-        and currentPlaceHolderText != "Дата")
+        and not ui->conditionLineEdit->text().isEmpty()
+        and currentPlaceHolderText not_eq "Дата")
     {
         strSqlFilter = "`" + ui->tableComboBox->currentText() + "` ";
 
         if (currentPlaceHolderText == "Число")
         {
-            if (ui->conditionComboBox->currentText() != "between")
+            if (ui->conditionComboBox->currentText() not_eq "between")
             {
                 strSqlFilter += ui->conditionComboBox->currentText() + " " + ui->conditionLineEdit->text();
             }
-            else if (ui->conditionComboBox->currentText() == "between" and !ui->conditionLineEdit_2->text().isEmpty()
+            else if (ui->conditionComboBox->currentText() == "between" and not ui->conditionLineEdit_2->text().isEmpty()
                      and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
             {
                 strSqlFilter += "BETWEEN " + ui->conditionLineEdit->text() + " AND " + ui->conditionLineEdit_2->text();
@@ -168,7 +168,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
 {
     ui->conditionComboBox->clearFocus();
 
-    if (ui->conditionComboBox->currentText() == "between" and currentPlaceHolderText != "Дата")
+    if (ui->conditionComboBox->currentText() == "between" and currentPlaceHolderText not_eq "Дата")
     {
         ui->conditionLineEdit_2->setVisible(true);
 
@@ -188,7 +188,7 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
                                         ui->conditionLineEdit->height());
 
     }
-    else if (currentPlaceHolderText != "Дата")
+    else if (currentPlaceHolderText not_eq "Дата")
     {
         ui->conditionComboBox->resize(QSize(160, 21));
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
@@ -210,15 +210,15 @@ void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
 
-    if ((typeColumnsMap.value(arg1) == "text" or typeColumnsMap.value(arg1) == "set") and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
+    if ((typeColumnsMap.value(arg1) == "text" or typeColumnsMap.value(arg1) == "set") and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
     {
         setStringTypeComboBox();
     }
-    else if (typeColumnsMap.value(arg1) == "int" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
+    else if (typeColumnsMap.value(arg1) == "int" and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
     {
         setIntTypeComboBox();
     }
-    else if (typeColumnsMap.value(arg1) == "date" and typeColumnsMap.value(oldColumnSelect) != typeColumnsMap.value(arg1))
+    else if (typeColumnsMap.value(arg1) == "date" and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
     {
         setDateTypeComboBox();
     }
@@ -250,11 +250,11 @@ void filterForm::setIntTypeComboBox()
     currentPlaceHolderText = "Число";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
-    if (!ui->conditionLineEdit->text().toInt())
+    if (not ui->conditionLineEdit->text().toInt())
     {
         ui->conditionLineEdit->clear();
     }
-    else if (!ui->conditionLineEdit_2->text().toInt())
+    else if (not ui->conditionLineEdit_2->text().toInt())
     {
         ui->conditionLineEdit_2->clear();
     }

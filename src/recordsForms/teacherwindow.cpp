@@ -184,11 +184,11 @@ void teacherWindow::on_numberLineEdit_textChanged(const QString &arg1)
 
 void teacherWindow::on_saveButton_clicked()
 {
-    if (!ui->lastNameLineEdit->text().isEmpty() and
-        !ui->nameLineEdit->text().isEmpty() and
-        !ui->surnameLineEdit->text().isEmpty() and
+    if (not ui->lastNameLineEdit->text().isEmpty() and
+        not ui->nameLineEdit->text().isEmpty() and
+        not ui->surnameLineEdit->text().isEmpty() and
          ui->numberLineEdit->text().length() == 13 and
-        !ui->addressLineEdit->text().isEmpty() and
+        not ui->addressLineEdit->text().isEmpty() and
          ui->categoryComboBox->currentIndex() not_eq 0 and
          ui->specialComboBox->currentIndex() not_eq 0)
     {

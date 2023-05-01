@@ -60,7 +60,7 @@ void authorizationForm::loginClearButtonCliked()
 
 void authorizationForm::passwordVisibilityButtonClicked()
 {
-    if (!isPasswordHidden)
+    if (not isPasswordHidden)
     {
         isPasswordHidden = true;
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
@@ -133,7 +133,7 @@ void authorizationForm::on_loginButton_clicked()
         authorizationDB.setPassword("P433w0rD!");
         authorizationDB.setDatabaseName("accounts_db");
 
-        if (!authorizationDB.open())
+        if (not authorizationDB.open())
         {
             QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
             return;
