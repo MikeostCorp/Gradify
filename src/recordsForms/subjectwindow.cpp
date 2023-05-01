@@ -138,8 +138,8 @@ void subjectWindow::on_cancelButton_clicked()
 void subjectWindow::on_saveButton_clicked()
 {
     if (!ui->nameLineEdit->text().isEmpty() and
-         ui->typeComboBox->currentIndex() != 0 and
-         ui->controlComboBox->currentIndex() != 0)
+         ui->typeComboBox->currentIndex() not_eq 0 and
+         ui->controlComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {

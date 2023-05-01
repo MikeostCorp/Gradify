@@ -194,10 +194,10 @@ QStringList gradeWindow::getCurrentData()
 
 void gradeWindow::on_saveButton_clicked()
 {
-    if (ui->subjectComboBox->currentIndex() != 0 and
-        ui->whoTakeComboBox->currentIndex() != 0 and
-        ui->teacherComboBox->currentIndex() != 0 and
-        ui->typeGradeComboBox->currentIndex() != 0)
+    if (ui->subjectComboBox->currentIndex() not_eq 0 and
+        ui->whoTakeComboBox->currentIndex() not_eq 0 and
+        ui->teacherComboBox->currentIndex() not_eq 0 and
+        ui->typeGradeComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {

@@ -102,16 +102,16 @@ void MainWindow::mainWindowInit()
     for (QPushButton* button : findChildren<QPushButton*>())
     {
         // Добавлять в условие название кнопок форм привязаных к главному окну
-        if (button->objectName() != "filterButton" and button->objectName() != "queryButton"
-            and button->objectName() != "filterPushButton" and button->objectName() != "succesStudentPushButton"
-            and button->objectName() != "avgScorePushButton" and button->objectName() != "clearFilterPushButton"
-            and button->objectName() != "mySQLPushButton" and button->objectName() != "Менять!")
+        if (button->objectName() not_eq "filterButton" and button->objectName() not_eq "queryButton"
+            and button->objectName() not_eq "filterPushButton" and button->objectName() not_eq "succesStudentPushButton"
+            and button->objectName() not_eq "avgScorePushButton" and button->objectName() not_eq "clearFilterPushButton"
+            and button->objectName() not_eq "mySQLPushButton" and button->objectName() not_eq "Менять!")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
-        if (button->objectName() != "editRowButton"
-            and button->objectName() != "settingsButton"
-            and button->objectName() != "addRowButton")
+        if (button->objectName() not_eq "editRowButton"
+            and button->objectName() not_eq "settingsButton"
+            and button->objectName() not_eq "addRowButton")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
         }
@@ -806,7 +806,7 @@ void MainWindow::goSearch()
             searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
                             "'%" + ui->searchLineEdit->text() + "%'";
 
-            if (i != ui->tableView->model()->columnCount() - 1)
+            if (i not_eq ui->tableView->model()->columnCount() - 1)
             {
                 searchString += " OR ";
             }
@@ -865,7 +865,7 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 0; i < model->columnCount(); ++i)
         {
-            if (i != model->columnCount() - 1)
+            if (i not_eq model->columnCount() - 1)
             {
                 newRow += "`" + model->headerData(i, Qt::Horizontal).toString() + "`, ";
             }
@@ -879,7 +879,7 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 1; i < model->columnCount(); ++i)
         {
-            if (i != model->columnCount() - 1)
+            if (i not_eq model->columnCount() - 1)
             {
                 newRow += "'" + dataList[i] + "', ";
             }
@@ -919,7 +919,7 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 1; i < model->columnCount(); ++i)
         {
-            if (i != model->columnCount() - 1)
+            if (i not_eq model->columnCount() - 1)
             {
                 queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "', \n";
             }

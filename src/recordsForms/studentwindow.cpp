@@ -213,7 +213,7 @@ void studentWindow::on_saveButton_clicked()
         !ui->addressLineEdit->text().isEmpty() and
         ui->passLineEdit->text().length() == 9 and
         ui->nalogLineEdit->text().length() == 9 and
-         ui->groupComboBox->currentIndex() != 0)
+         ui->groupComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {
@@ -243,7 +243,7 @@ void studentWindow::on_saveButton_clicked()
         ui->surnameLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть по батькові");
     }
-    else if (ui->numberLineEdit->text().length() != 13)
+    else if (ui->numberLineEdit->text().length() not_eq 13)
     {
         ui->numberLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть коректний номер телефону у форматі:\n"
@@ -254,12 +254,12 @@ void studentWindow::on_saveButton_clicked()
         ui->addressLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть адресу проживання");
     }
-    else if (ui->passLineEdit->text().length() != 9 )
+    else if (ui->passLineEdit->text().length() not_eq 9 )
     {
         ui->passLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть коректний номер паспорту студента");
     }
-    else if (ui->nalogLineEdit->text().length() != 9)
+    else if (ui->nalogLineEdit->text().length() not_eq 9)
     {
         ui->nalogLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть коректний ІНН студента");

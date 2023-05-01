@@ -144,9 +144,9 @@ void groupWindow::on_cancelButton_clicked()
 void groupWindow::on_saveButton_clicked()
 {
     if (!ui->nameLineEdit->text().isEmpty() and
-        ui->specialComboBox->currentIndex() != 0 and
-        ui->curatorComboBox->currentIndex() != 0 and
-        ui->headManComboBox->currentIndex() != 0)
+        ui->specialComboBox->currentIndex() not_eq 0 and
+        ui->curatorComboBox->currentIndex() not_eq 0 and
+        ui->headManComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {

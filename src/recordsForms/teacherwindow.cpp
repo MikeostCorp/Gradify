@@ -189,8 +189,8 @@ void teacherWindow::on_saveButton_clicked()
         !ui->surnameLineEdit->text().isEmpty() and
          ui->numberLineEdit->text().length() == 13 and
         !ui->addressLineEdit->text().isEmpty() and
-         ui->categoryComboBox->currentIndex() != 0 and
-         ui->specialComboBox->currentIndex() != 0)
+         ui->categoryComboBox->currentIndex() not_eq 0 and
+         ui->specialComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {
@@ -220,7 +220,7 @@ void teacherWindow::on_saveButton_clicked()
         ui->surnameLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть по батькові");
     }
-    else if (ui->numberLineEdit->text().length() != 13)
+    else if (ui->numberLineEdit->text().length() not_eq 13)
     {
         ui->numberLineEdit->setFocus();
         QMessageBox::critical(this,"","Введіть коректний номер телефону у форматі:\n"
