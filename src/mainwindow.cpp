@@ -108,7 +108,9 @@ void MainWindow::mainWindowInit()
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
-        if (button->objectName() != "editRowButton" and button->objectName() != "settingsButton")
+        if (button->objectName() != "editRowButton"
+            and button->objectName() != "settingsButton"
+            and button->objectName() != "addRowButton")
         {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
         }
@@ -534,6 +536,11 @@ void MainWindow::setFilterForTable(const QString &filterQuery, const QString &cu
 void MainWindow::on_settingsButton_clicked()
 {
     settingWindow->show();
+
+    if (settingWindow->isVisible())
+    {
+        settingWindow->raise();
+    }
 }
 
 void MainWindow::userLogout()
@@ -574,10 +581,72 @@ void MainWindow::on_authorizationButton_clicked()
 
 void MainWindow::on_addRowButton_clicked()
 {
-    model->insertRow(model->rowCount());
+    /* model->insertRow(model->rowCount());
     ui->tableView->scrollToBottom();
     ui->tableView->selectRow(model->rowCount() - 1);
-    ui->searchLineEdit->clearFocus();
+    ui->searchLineEdit->clearFocus(); */
+
+    createNewRow();
+
+    switch (currentSelectTable)
+    {
+    case 0:
+        connect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
+
+        emit sendGroupsList(getGroupsNames());
+        emit createNewRow();
+
+        disconnect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
+        studentForm->show();
+        break;
+    case 1:
+        connect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
+
+        emit createNewRow();
+
+        disconnect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
+        teacherForm->show();
+        break;
+    case 2:
+        connect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
+        connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+        connect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
+        connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+
+        emit sendSubjectsList(getSubjectsNames());
+        emit sendStudentsList(getStudentsNames());
+        emit sendTeachersList(getTeachersNames());
+        emit createNewRow();
+
+        disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+        disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+        disconnect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
+        disconnect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
+        gradeForm->show();
+        break;
+    case 3:
+        connect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
+        connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
+        connect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+
+        emit createNewRow();
+        emit sendTeachersList(getTeachersNames());
+        emit sendStudentsList(getStudentsNames());
+
+        disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
+        disconnect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+        disconnect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
+        groupForm->show();
+        break;
+    case 4:
+        connect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
+
+        emit createNewRow();
+
+        disconnect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
+        subjectForm->show();
+        break;
+    }
 }
 
 
@@ -621,7 +690,6 @@ void MainWindow::on_editRowButton_clicked()
 
         if (ok)
         {
-            // tut red
             switch (currentSelectTable)
             {
             case 0:
@@ -753,49 +821,119 @@ void MainWindow::goSearch()
 }
 
 
-void MainWindow::setDataToModel(QStringList dataList)
+void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 {
-    QString queryEdit;
-
-    switch (currentSelectTable)
+    if (isNewRow)
     {
-    case 0:
-        queryEdit = "UPDATE `Студенти` SET";
-        break;
-    case 1:
-        queryEdit = "UPDATE `Викладачі` \nSET ";
-        break;
-    case 2:
-        queryEdit = "UPDATE `Оцінки` \nSET";
-        break;
-    case 3:
-        queryEdit = "UPDATE `Групи`\nSET";
-        break;
-    case 4:
-        queryEdit = "UPDATE `Предмети`\nSET";
-        break;
-    }
+        QString newRow = "INSERT INTO ";
+        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+        QTableView *tableView = new QTableView(this);
 
-    for (int i = 1; i < model->columnCount(); ++i)
+        switch (currentSelectTable)
+        {
+        case 0:
+            newRow += "`Студенти`";
+            queryModel->setQuery("SELECT MAX(`Код`) "
+                                 "FROM Студенти");
+            break;
+        case 1:
+            newRow += "`Викладачі` ";
+            queryModel->setQuery("SELECT MAX(`Код`) "
+                                 "FROM Викладачі");
+            break;
+        case 2:
+            newRow += "`Оцінки` ";
+            queryModel->setQuery("SELECT MAX(`Код`) "
+                                 "FROM Оцінки");
+            break;
+        case 3:
+            newRow += "`Групи` ";
+            queryModel->setQuery("SELECT MAX(`Код`) "
+                                 "FROM Групи");
+            break;
+        case 4:
+            newRow += "`Предмети` ";
+            queryModel->setQuery("SELECT MAX(`Код`) "
+                                 "FROM Предмети");
+            break;
+        }
+
+        tableView->setModel(queryModel);
+
+        newRow += "(";
+
+        for (int i = 0; i < model->columnCount(); ++i)
+        {
+            if (i != model->columnCount() - 1)
+            {
+                newRow += "`" + model->headerData(i, Qt::Horizontal).toString() + "`, ";
+            }
+            else
+            {
+                newRow += "`" + model->headerData(i, Qt::Horizontal).toString() + "`)";
+            }
+        }
+
+        newRow += "\nVALUES ('" + QString::number(tableView->model()->index(0, 0).data().toInt() + 1) + "',";
+
+        for (int i = 1; i < model->columnCount(); ++i)
+        {
+            if (i != model->columnCount() - 1)
+            {
+                newRow += "'" + dataList[i] + "', ";
+            }
+            else
+            {
+                newRow += "'" + dataList[i] + "')";
+            }
+        }
+
+        QSqlQueryModel *sqlModel = new QSqlQueryModel();
+        sqlModel->setQuery(newRow);
+        model->select();
+    }
+    else
     {
-        if (i != model->columnCount() - 1)
+        QString queryEdit = "UPDATE ";
+
+        switch (currentSelectTable)
         {
-            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "', \n";
+        case 0:
+            queryEdit += "`Студенти`";
+            break;
+        case 1:
+            queryEdit += "`Викладачі` ";
+            break;
+        case 2:
+            queryEdit += "`Оцінки`";
+            break;
+        case 3:
+            queryEdit += "`Групи`";
+            break;
+        case 4:
+            queryEdit += "`Предмети`";
+            break;
         }
-        else
+        queryEdit += " \nSET";
+
+        for (int i = 1; i < model->columnCount(); ++i)
         {
-            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "'";
+            if (i != model->columnCount() - 1)
+            {
+                queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "', \n";
+            }
+            else
+            {
+                queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "'";
+            }
         }
+
+        queryEdit += "\nWHERE `Код` = '" + dataList[0] + "'";
+
+        QSqlQueryModel *sqlModel = new QSqlQueryModel();
+        sqlModel->setQuery(queryEdit);
+        model->select();
     }
-
-    queryEdit += "\nWHERE `Код` = '" + dataList[0] + "'";
-
-    QSqlQueryModel *sqlModel = new QSqlQueryModel();
-    sqlModel->setQuery(queryEdit);
-
-    model->select();
-
-    //QMessageBox::information(this, "", queryEdit);
 }
 
 

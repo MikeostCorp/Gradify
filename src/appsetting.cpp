@@ -11,7 +11,7 @@ appSetting::appSetting(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Налаштування");
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+    //setWindowFlags(Qt::WindowStaysOnTopHint);
 
     show();
     close();

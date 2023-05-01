@@ -208,7 +208,7 @@ public slots:
     void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
     void clearFilterForTable();
     void goSearch();
-    void setDataToModel(QStringList dataList);
+    void setDataToModel(QStringList dataList, bool isNewRow);
 
 signals:
     void setThemeSettingsUI(const QString);
@@ -219,5 +219,6 @@ signals:
     void sendTeachersList(QStringList);
     void sendStudentsList(QStringList);
     void sendSubjectsList(QStringList);
+    void createNewRow();
 };
 #endif // MAINWINDOW_H

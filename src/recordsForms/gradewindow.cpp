@@ -17,6 +17,8 @@ gradeWindow::gradeWindow(QWidget *parent) :
     ui->subjectComboBox->insertSeparator(1);
     ui->typeGradeComboBox->insertSeparator(1);
     ui->whoTakeComboBox->insertSeparator(1);
+    ui->okLabel->setVisible(false);
+    isNewRow = false;
 }
 
 
@@ -65,6 +67,8 @@ void gradeWindow::setSystemUI()
 
 void gradeWindow::setData(QString titleName, QStringList listData)
 {
+    isNewRow = false;
+
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування оцінки (" + titleName +")");
@@ -126,6 +130,24 @@ void gradeWindow::setTheme(const QString style)
 }
 
 
+void gradeWindow::newRow()
+{
+    isNewRow = true;
+    idRowEdit = -1;
+    ui->okLabel->setVisible(false);
+
+    ui->subjectComboBox->setCurrentIndex(0);
+    ui->whoTakeComboBox->setCurrentIndex(0);
+    ui->teacherComboBox->setCurrentIndex(0);
+    ui->gradeSpinBox->setValue(2);
+    ui->typeGradeComboBox->setCurrentIndex(0);
+    ui->takeDateEdit->setDate(QDate::fromString("23/09/2001", "dd/MM/yyyy"));
+    QString::number(ui->takeDateEdit->date().year()) + "." +
+                    QString::number(ui->takeDateEdit->date().month()) + "." +
+                    QString::number(ui->takeDateEdit->date().day()) + ".";
+}
+
+
 void gradeWindow::on_cancelButton_clicked()
 {
     this->close();
@@ -177,8 +199,18 @@ void gradeWindow::on_saveButton_clicked()
         ui->teacherComboBox->currentIndex() != 0 and
         ui->typeGradeComboBox->currentIndex() != 0)
     {
-        ui->okLabel->setVisible(true);
-        emit sendData(getCurrentData());
+        if (isNewRow)
+        {
+            ui->okLabel->setText("Запис додано");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), true);
+        }
+        else
+        {
+            ui->okLabel->setText("Запис збережено");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), false);
+        }
     }
     else if (ui->subjectComboBox->currentIndex() == 0)
     {

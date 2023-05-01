@@ -27,6 +27,9 @@ private slots:
 
 private:
     Ui::gradeWindow *ui;
+
+    bool isNewRow;
+
     int idRowEdit;
 
 public slots:
@@ -35,9 +38,10 @@ public slots:
     void setDataTeacherComboBox(QStringList list);
     void setDataSubjectComboBox(QStringList list);
     void setTheme(const QString style);
+    void newRow();
 
 signals:
-    void sendData(QStringList);
+    void sendData(QStringList, bool);
 };
 
 #endif // GRADEWINDOW_H

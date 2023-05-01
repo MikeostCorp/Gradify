@@ -30,14 +30,17 @@ private slots:
 private:
     Ui::teacherWindow *ui;
 
+    bool isNewRow;
+
     int idRowEdit;
 
 public slots:
     void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
+    void newRow();
 
 signals:
-    void sendData(QStringList);
+    void sendData(QStringList, bool);
 };
 
 #endif // TEACHERWINDOW_H

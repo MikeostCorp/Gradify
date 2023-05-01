@@ -17,6 +17,8 @@ groupWindow::groupWindow(QWidget *parent) :
     ui->curatorComboBox->insertSeparator(1);
     ui->specialComboBox->insertSeparator(1);
     ui->headManComboBox->insertSeparator(1);
+    ui->okLabel->setVisible(false);
+    isNewRow = false;
 }
 
 
@@ -65,6 +67,8 @@ void groupWindow::setSystemUI()
 
 void groupWindow::setData(QString titleName, QStringList listData)
 {
+    isNewRow = false;
+
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування групи (" + titleName +")");
@@ -116,6 +120,20 @@ void groupWindow::setTheme(const QString style)
     }
 }
 
+void groupWindow::newRow()
+{
+    isNewRow = true;
+    idRowEdit = -1;
+    ui->okLabel->setVisible(false);
+
+    ui->nameLineEdit->clear();
+    ui->specialComboBox->setCurrentIndex(0);
+    ui->startStudySpinBox->setValue(2000);
+    ui->endStudySpinBox->setValue(2001);
+    ui->curatorComboBox->setCurrentIndex(0);
+    ui->headManComboBox->setCurrentIndex(0);
+}
+
 
 void groupWindow::on_cancelButton_clicked()
 {
@@ -130,8 +148,18 @@ void groupWindow::on_saveButton_clicked()
         ui->curatorComboBox->currentIndex() != 0 and
         ui->headManComboBox->currentIndex() != 0)
     {
-        ui->okLabel->setVisible(true);
-        emit sendData(getCurrentData());
+        if (isNewRow)
+        {
+            ui->okLabel->setText("Запис додано");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), true);
+        }
+        else
+        {
+            ui->okLabel->setText("Запис збережено");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), false);
+        }
     }
     else if (ui->nameLineEdit->text().isEmpty())
     {

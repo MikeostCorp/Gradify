@@ -32,15 +32,18 @@ private slots:
 private:
     Ui::studentWindow *ui;
 
+    bool isNewRow;
+
     int idRowEdit;
 
 public slots:
     void setData(QString titleName, QStringList listData);
     void setComboBox(QStringList groupList);
     void setTheme(const QString style);
+    void newRow();
 
 signals:
-    void sendData(QStringList);
+    void sendData(QStringList, bool);
 };
 
 #endif // STUDENTWINDOW_H

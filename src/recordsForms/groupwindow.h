@@ -28,6 +28,8 @@ private slots:
 private:
     Ui::groupWindow *ui;
 
+    bool isNewRow;
+
     int idRowEdit;
 
 public slots:
@@ -35,9 +37,10 @@ public slots:
     void setDataCuratorComboBox(QStringList list);
     void setDataHeadManComboBox(QStringList list);
     void setTheme(const QString style);
+    void newRow();
 
 signals:
-    void sendData(QStringList);
+    void sendData(QStringList, bool);
 };
 
 #endif // GROUPWINDOW_H

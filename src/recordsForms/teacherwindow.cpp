@@ -16,10 +16,13 @@ teacherWindow::teacherWindow(QWidget *parent) :
 
     ui->categoryComboBox->insertSeparator(1);
     ui->specialComboBox->insertSeparator(1);
+    ui->okLabel->setVisible(false);
 
     QRegularExpression numberRE("^\\+380\\d{9}");
     QValidator *numberValidator = new QRegularExpressionValidator(numberRE, this);
     ui->numberLineEdit->setValidator(numberValidator);
+
+    isNewRow = false;
 }
 
 
@@ -68,6 +71,8 @@ void teacherWindow::setSystemUI()
 
 void teacherWindow::setData(QString titleName, QStringList listData)
 {
+    isNewRow = false;
+
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування викладача (" + titleName +")");
@@ -85,6 +90,7 @@ void teacherWindow::setData(QString titleName, QStringList listData)
     ui->specialComboBox->setCurrentText(listData[8]);
 
     ui->okLabel->setVisible(false);
+    ui->lastNameLineEdit->setFocus();
 }
 
 
@@ -102,6 +108,23 @@ void teacherWindow::setTheme(const QString style)
     {
         setSystemUI();
     }
+}
+
+
+void teacherWindow::newRow()
+{
+    isNewRow = true;
+    idRowEdit = -1;
+    ui->okLabel->setVisible(false);
+
+    ui->lastNameLineEdit->clear();
+    ui->nameLineEdit->clear();
+    ui->surnameLineEdit->clear();
+    ui->numberLineEdit->clear();
+    ui->birthDayDataEdit->setDate(QDate::fromString("01/01/1950", "dd/MM/yyyy"));
+    ui->addressLineEdit->clear();
+    ui->categoryComboBox->setCurrentIndex(0);
+    ui->specialComboBox->setCurrentIndex(0);
 }
 
 
@@ -169,8 +192,18 @@ void teacherWindow::on_saveButton_clicked()
          ui->categoryComboBox->currentIndex() != 0 and
          ui->specialComboBox->currentIndex() != 0)
     {
-        ui->okLabel->setVisible(true);
-        emit sendData(getCurrentData());
+        if (isNewRow)
+        {
+            ui->okLabel->setText("Запис додано");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), true);
+        }
+        else
+        {
+            ui->okLabel->setText("Запис збережено");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), false);
+        }
     }
     else if (ui->lastNameLineEdit->text().isEmpty())
     {

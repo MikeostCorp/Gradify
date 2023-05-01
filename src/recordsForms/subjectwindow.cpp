@@ -16,6 +16,14 @@ subjectWindow::subjectWindow(QWidget *parent) :
 
     ui->controlComboBox->insertSeparator(1);
     ui->typeComboBox->insertSeparator(1);
+    ui->allTimeSpinBox->setReadOnly(true);
+    ui->okLabel->setVisible(false);
+    isNewRow = false;
+
+    connect(ui->lectureTimeSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
+    connect(ui->labTimeSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
+    connect(ui->seminarSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
+    connect(ui->soloWorkSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
 }
 
 
@@ -64,6 +72,8 @@ void subjectWindow::setSystemUI()
 
 void subjectWindow::setData(QString titleName, QStringList listData)
 {
+    isNewRow = false;
+
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
     setWindowTitle("Редагування предмета (" + titleName +")");
@@ -101,6 +111,24 @@ void subjectWindow::setTheme(const QString style)
 }
 
 
+void subjectWindow::newRow()
+{
+    isNewRow = true;
+    idRowEdit = -1;
+    ui->okLabel->setVisible(false);
+
+    ui->nameLineEdit->clear();
+    ui->typeComboBox->setCurrentIndex(0);
+    ui->allTimeSpinBox->setValue(4);
+    ui->lectureTimeSpinBox->setValue(1);
+    ui->labTimeSpinBox->setValue(1);
+    ui->seminarSpinBox->setValue(1);
+    ui->soloWorkSpinBox->setValue(1);
+    ui->semesrtLearnSpinBox->setValue(1);
+    ui->controlComboBox->setCurrentIndex(0);
+}
+
+
 void subjectWindow::on_cancelButton_clicked()
 {
     this->close();
@@ -113,8 +141,18 @@ void subjectWindow::on_saveButton_clicked()
          ui->typeComboBox->currentIndex() != 0 and
          ui->controlComboBox->currentIndex() != 0)
     {
-        ui->okLabel->setVisible(true);
-        emit sendData(getCurrentData());
+        if (isNewRow)
+        {
+            ui->okLabel->setText("Запис додано");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), true);
+        }
+        else
+        {
+            ui->okLabel->setText("Запис збережено");
+            ui->okLabel->setVisible(true);
+            emit sendData(getCurrentData(), false);
+        }
     }
     else if (ui->nameLineEdit->text().isEmpty())
     {
@@ -131,6 +169,15 @@ void subjectWindow::on_saveButton_clicked()
         ui->typeComboBox->setFocus();
         QMessageBox::critical(this,"","Оберіть семестровий контроль з предмету");
     }
+}
+
+
+void subjectWindow::setCurrentAllTime()
+{
+    ui->allTimeSpinBox->setValue(ui->lectureTimeSpinBox->value()
+                                 + ui->labTimeSpinBox->value()
+                                 + ui->seminarSpinBox->value()
+                                 + ui->soloWorkSpinBox->value());
 }
 
 
@@ -151,4 +198,5 @@ QStringList subjectWindow::getCurrentData()
 
     return dataList;
 }
+
 

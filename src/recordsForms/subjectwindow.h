@@ -21,20 +21,24 @@ private slots:
     void setSystemUI();
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
+    void setCurrentAllTime();
 
     QStringList getCurrentData();
 
 private:
     Ui::subjectWindow *ui;
 
+    bool isNewRow;
+
     int idRowEdit;
 
 public slots:
     void setData(QString titleName, QStringList listData);
     void setTheme(const QString style);
+    void newRow();
 
 signals:
-    void sendData(QStringList);
+    void sendData(QStringList, bool);
 };
 
 #endif // SUBJECTWINDOW_H
