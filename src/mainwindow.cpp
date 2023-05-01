@@ -459,7 +459,6 @@ void MainWindow::clearStyleButtonTable()
 
 void MainWindow::setTheme(const QString &style)
 {
-    QString theme;
     if (style == "black")
     {
         theme = "black";
@@ -863,6 +862,15 @@ QStringList MainWindow::getCurrentItemTable()
         }
         break;
     case 2:
+        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
+        {
+            str << QString::number(i + 1) +  ". "
+                       + ui->tableView->model()->data(model->index(i, 2)).toString() + " - "
+                       + ui->tableView->model()->data(model->index(i, 1)).toString() + ", "
+                       + ui->tableView->model()->data(model->index(i, 4)).toString() + " ("
+                       + ui->tableView->model()->data(model->index(i, 6)).toString() + ")";
+        }
+        break;
     case 3:
     case 4:
         for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
@@ -1166,23 +1174,48 @@ void MainWindow::setSystemUI()
 
 void MainWindow::setCurrentIconAction()
 {
+    QPalette basePalette;
+    QColor baseColor = basePalette.base().color();
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
 
-    ui->openStudTabAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/studenstIco.png"));
-    ui->openTeachTabAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/subjectIco.png"));
+    if (newBase.name() == "#000000")
+    {
+        ui->openStudTabAction->setIcon(QIcon(":/img/blackActionsIcon/studentsIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/blackActionsIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/blackActionsIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/blackActionsIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/blackActionsIcon/subjectIco.png"));
 
-    ui->addRowAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/newRecord.png"));
-    ui->deleteRowAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/deleteRecord.png"));
-    ui->editRowAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/editRecord.png"));
+        ui->addRowAction->setIcon(QIcon(":/img/blackActionsIcon/newRecord.png"));
+        ui->deleteRowAction->setIcon(QIcon(":/img/blackActionsIcon/deleteRecord.png"));
+        ui->editRowAction->setIcon(QIcon(":/img/blackActionsIcon/editRecord.png"));
 
-    ui->currentTableReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportCurrentTable.png"));
-    ui->studentsReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportStudent.png"));
-    ui->teachersReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportTeachers.png"));
-    ui->gradesReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportRaiting.png"));
-    ui->groupsReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportGroup.png"));
-    ui->subjectsReportAction->setIcon(QIcon(":/img/" + theme + "ActionsIcon/reportItem.png"));
+        ui->currentTableReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportCurrentTable.png"));
+        ui->studentsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportStudent.png"));
+        ui->teachersReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportTeachers.png"));
+        ui->gradesReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportRaiting.png"));
+        ui->groupsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportGroup.png"));
+        ui->subjectsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportItem.png"));
+    }
+    else
+    {
+        ui->openStudTabAction->setIcon(QIcon(":/img/whiteActionsIcon/studentsIco.png"));
+        ui->openTeachTabAction->setIcon(QIcon(":/img/whiteActionsIcon/teachersIco.png"));
+        ui->openGradesTabAction->setIcon(QIcon(":/img/whiteActionsIcon/raitingIco.png"));
+        ui->openGroupTabAction->setIcon(QIcon(":/img/whiteActionsIcon/groupIco.png"));
+        ui->openSubjTabAction->setIcon(QIcon(":/img/whiteActionsIcon/subjectIco.png"));
+
+        ui->addRowAction->setIcon(QIcon(":/img/whiteActionsIcon/newRecord.png"));
+        ui->deleteRowAction->setIcon(QIcon(":/img/whiteActionsIcon/deleteRecord.png"));
+        ui->editRowAction->setIcon(QIcon(":/img/whiteActionsIcon/editRecord.png"));
+
+        ui->currentTableReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportCurrentTable.png"));
+        ui->studentsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportStudent.png"));
+        ui->teachersReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportTeachers.png"));
+        ui->gradesReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportRaiting.png"));
+        ui->groupsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportGroup.png"));
+        ui->subjectsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportItem.png"));
+    }
 }
 
 

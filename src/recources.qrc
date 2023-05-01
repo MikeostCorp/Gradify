@@ -83,7 +83,6 @@
         <file>img/blackActionsIcon/reportRaiting.png</file>
         <file>img/blackActionsIcon/reportStudent.png</file>
         <file>img/blackActionsIcon/reportTeachers.png</file>
-        <file>img/blackActionsIcon/studenstIco.png</file>
         <file>img/blackActionsIcon/subjectIco.png</file>
         <file>img/blackActionsIcon/teachersIco.png</file>
         <file>img/whiteActionsIcon/deleteRecord.png</file>
@@ -97,14 +96,15 @@
         <file>img/whiteActionsIcon/reportRaiting.png</file>
         <file>img/whiteActionsIcon/reportStudent.png</file>
         <file>img/whiteActionsIcon/reportTeachers.png</file>
-        <file>img/whiteActionsIcon/studentsIco.png</file>
         <file>img/whiteActionsIcon/subjectIco.png</file>
         <file>img/whiteActionsIcon/teachersIco.png</file>
         <file>styles/white/recordsForms/recordsForms.qss</file>
         <file>styles/black/recordsForms/recordsForms.qss</file>
         <file>styles/white/authorizationForm/authorizationForm.qss</file>
         <file>styles/black/authorizationForm/authorizationForm.qss</file>
-        <file>img/blackMenuIcon/studentsIco.png</file>
         <file>img/whiteMenuIcon/studentsIco.png</file>
+        <file>img/blackActionsIcon/studentsIco.png</file>
+        <file>img/whiteActionsIcon/studentsIco.png</file>
+        <file>img/blackMenuIcon/studentsIco.png</file>
     </qresource>
 </RCC>
