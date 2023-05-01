@@ -209,6 +209,7 @@ public slots:
     void clearFilterForTable();
     void goSearch();
     void setDataToModel(QStringList dataList, bool isNewRow);
+    void setQueryForTable(QString query);
 
 signals:
     void setThemeSettingsUI(const QString);

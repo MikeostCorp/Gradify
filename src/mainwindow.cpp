@@ -83,10 +83,11 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, subjectForm, &subjectWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, teacherForm, &teacherWindow::setTheme);
 
-    // filters
+    // filters and requests
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
+    connect(queryWindow, &queryForm::sendQuery, this, &MainWindow::setQueryForTable);
 
     // clear searchbar & filter
     connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
@@ -934,6 +935,16 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
         sqlModel->setQuery(queryEdit);
         model->select();
     }
+}
+
+
+void MainWindow::setQueryForTable(QString query)
+{
+    queryModel->setQuery(query);
+    ui->tableView->setModel(queryModel);
+
+
+    //QMessageBox::information(this,"",query);
 }
 
 

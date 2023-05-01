@@ -72,7 +72,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>По успішності студента</string>
+     <string>По успішності групи</string>
     </property>
    </widget>
    <widget class="QPushButton" name="freePushButton">

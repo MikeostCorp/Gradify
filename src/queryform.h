@@ -18,9 +18,13 @@ public:
 private slots:
     void on_mySQLPushButton_clicked();
 
+    void on_succesStudentPushButton_clicked();
+
 private:
     Ui::queryForm *ui;
 
+signals:
+    void sendQuery(QString);
 };
 
 #endif // QUERYFORM_H
