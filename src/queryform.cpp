@@ -88,6 +88,13 @@ void queryForm::on_succesStudentPushButton_clicked()
 
                // WHERE grupa = grupa
 
+                strSqlQuery = "SELECT `Студенти`.`Прізвище`, `Студенти`.`Ім'я`, `Студенти`.`По батькові`,  `Предмети`.`Назва`, AVG(g.grade) as `Середня оцінка`"
+                "FROM `Студенти`"
+                "JOIN `Групи` ON `Студенти`.`Група` = `Групи`.`Назва`"
+                "WHERE  `Групи`.`Назва` = `Студенти`.`Група`"
+                "GROUP BY `Студенти`.`Прізвище`, `Студенти`.`Ім'я`, `Студенти`.`По батькові`,  `Предмети`.`Назва`"
+                "HAVING COUNT(*) = (SELECT COUNT(*) FROM `Предемти`)";
+
 
                 QMessageBox::information(this,"",strSqlQuery);
                 //strSqlQuery += "LIKE '%" + ui->conditionLineEdit->text() + "'";

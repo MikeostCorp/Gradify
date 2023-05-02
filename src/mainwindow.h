@@ -149,6 +149,10 @@ private slots:
 
     void on_queryButton_clicked();
 
+    void printDocumentToPDF(QString path, QString html);
+
+    void printDocumentToHTML(QString path, QString html);
+
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
     QMap<QString, QString> getColumnsNamesAndDatatypes(const QString &tableName);

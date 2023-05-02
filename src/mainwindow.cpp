@@ -4,9 +4,13 @@
 #include <QApplication>
 #include <QDir>
 #include <QInputDialog>
+#include <QFileDialog>
+#include <QStandardPaths>
 #include <QGraphicsDropShadowEffect>
 #include <QKeyEvent>
-
+#include <QTextDocument>
+#include <QPrinter>
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -795,6 +799,53 @@ void MainWindow::on_queryButton_clicked()
 }
 
 
+void MainWindow::printDocumentToPDF(QString path, QString html)
+{
+    QTextDocument document;
+    document.setHtml(html);
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    //printer.setPaperSource(QPrinter::Auto);
+
+    printer.setColorMode(QPrinter::Color);
+    //document.setPageSize(QSizeF(510, 598));
+    //printer.setFullPage(true);
+    //printer.setPageMargins(QMarginsF(10.0,10.0,10.0,10.0), QPrinter::Millimeter);
+
+    //printer.setPaperSize(QPrinter::A4);
+
+    // !!!
+    //printer.setPageMargins(QMarginsF(15, 15, 15, 15));
+    printer.setOutputFileName(path + "/reportGradify.pdf");
+
+    //document.setPageSize(QSizeF(210, 297));
+    //document.setPageSize(printer.pageRect().size());
+    document.print(&printer);
+
+    QDesktopServices::openUrl(QUrl(path + "reportGradify.pdf", QUrl::TolerantMode));
+}
+
+
+void MainWindow::printDocumentToHTML(QString path, QString html)
+{
+    QFile outputFile(path + "/reportGradify.html");
+    outputFile.open(QIODevice::WriteOnly);
+
+    if(!outputFile.isOpen())
+    {
+        QMessageBox::critical(this,"","Не вдалося зберегти звіт");
+    }
+
+    QTextStream outStream(&outputFile);
+    outStream.setGenerateByteOrderMark(true);
+    outStream << html;
+    outputFile.close();
+
+    QDesktopServices::openUrl(QUrl(path + "reportGradify.html", QUrl::TolerantMode));
+}
+
+
 void MainWindow::goSearch()
 {
     if (not ui->searchLineEdit->text().isEmpty())
@@ -1166,6 +1217,114 @@ void MainWindow::on_gradesReportButton_clicked()
 
 void MainWindow::on_groupsReportButton_clicked()
 {
+    bool ok;
+
+    QString selectedGroup = QInputDialog::getItem(this, tr("Звіт по групі"),
+                                                  tr("Оберіть групу:"), getGroupsNames(),
+                                                  0, false, &ok);
+    if (ok)
+    {
+        QString typeOutputReport = QInputDialog::getItem(this, tr("Звіт по групі"),
+                                                         tr("Оберіть формат звіту:"), {"html", "pdf"},
+                                                         0, false, &ok);
+        if (ok)
+        {
+            QString pathToSave = QFileDialog::getExistingDirectory(this, tr("Оберіть папку"),
+                                                               "/Users/" + qgetenv("USER") + "/Desktop",
+                                                               QFileDialog::ShowDirsOnly);
+
+            if (!pathToSave.isEmpty())
+            {
+                QString strSqlQuery;
+                QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+                QTableView *tableView = new QTableView(this);
+
+                queryModel->setQuery("SELECT * "
+                                     "FROM `Студенти`"
+                                     "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
+                tableView->setModel(queryModel);
+
+                QString textHTML = "<!DOCTYPE html>\n"
+                                     "<html>\n"
+                                     "<head>\n"
+                                     "<style>"
+                                     "table, th, td {"
+                                     "border:1px solid #e8e8e8;"
+                                     "border-collapse: collapse;"
+                                     "padding: 3px;"
+                                     "font-size: 12px;"
+                                     "font-family: -apple-system, BlinkMacSystemFont, sans-serif;"
+                                     "background-color: white;"
+                                     "padding-top: 6px;"
+                                     "padding-bottom: 6px;}"
+                                     "th {color: white; "
+                                     "background-color: #0e4870;"
+                                     "text-align: left;}"
+                                     "td.la {background-color: #f2f2f2;}"
+                                     "td.info {border: 0p; background-color: #e1e1e1}"
+                                     "h1, h2, h3 ,h4{font-family: -apple-system, BlinkMacSystemFont, sans-serif}"
+                                     "</style>"
+                                     "<title>Звіт</title>\n</head>\n"
+                                     "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
+
+                for (int i = 0; i < tableView->model()->columnCount(); i++)
+                {
+                    textHTML += "<th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>";
+                }
+
+                for (int i = 0; i < tableView->model()->rowCount(); i++)
+                {
+                    textHTML += "<tr>\n";
+                    for (int j = 0; j < tableView->model()->columnCount(); j++)
+                    {
+                        if (i % 2 != 0)
+                        {
+                            textHTML += "<td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                        }
+                        else
+                        {
+                            textHTML += "<td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                        }
+                    }
+                    textHTML += "</tr>\n";
+                }
+
+                queryModel->setQuery("SELECT `Куратор`,`Староста`"
+                                     "FROM `Групи`"
+                                     "WHERE `Групи`.`Назва` = '" + selectedGroup + "'");
+                tableView->setModel(queryModel);
+
+                textHTML += "<tr><td class='info'>Куратор</td>";
+
+
+                QString bufStr = tableView->model()->index(0, 0) .data().toString();
+                textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+                bufStr.remove(0, bufStr.indexOf(' '));
+                textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+                bufStr.remove(0, bufStr.lastIndexOf(' '));
+                textHTML += "<td>" + bufStr + "</td></tr>\n";
+
+                // tut red
+                bufStr = tableView->model()->index(0, 1) .data().toString();
+                textHTML += "<tr><td class='info'>Староста</td>";
+                textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+                bufStr.remove(0, bufStr.indexOf(' '));
+                textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+                bufStr.remove(0, bufStr.lastIndexOf(' '));
+                textHTML += "<td>" + bufStr + "</td></tr>\n";
+
+                if (typeOutputReport == "html")
+                {
+                    printDocumentToHTML(pathToSave, textHTML);
+                }
+                else if (typeOutputReport == "pdf")
+                {
+                    printDocumentToPDF(pathToSave, textHTML);
+                }
+
+            }
+        }
+    }
 }
 
 
