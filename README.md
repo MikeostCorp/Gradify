@@ -25,7 +25,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] User remembering during authorization
 - [X] Separate forms for editing posts
 - [X] Filter buttons in the table
-- [ ] Ability to save the report in .pdf format, with a choice of saving path
+- [X] Ability to save the report in .pdf format, with a choice of saving path
 - [X] Search bar on the table
 - [X] Change the delete-row window
 - [ ] Add lookup field in tableView (comboBox delegate)
