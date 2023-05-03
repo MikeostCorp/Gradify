@@ -802,83 +802,39 @@ void MainWindow::on_queryButton_clicked()
 
 void MainWindow::printDocumentToPDF(const QString path, const QString html)
 {
-    QTextDocument document;
-    document.setHtml(html);
-
-    //document.setPageSize(QSize(595, 842));
-    //document.setPageSize(QPageSize(QPageSize::A4);
+    QTextDocument *document = new QTextDocument();
+    document->setHtml(html);
 
     QPrinter printer(QPrinter::PrinterResolution);
+
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setColorMode(QPrinter::Color);
-
     printer.setResolution(666);
     printer.setPageSize(QPageSize(QPageSize::A4));
-
     printer.setPageMargins(QMarginsF(20, 10, 0, 10), QPageLayout::Millimeter);
+    printer.setOutputFileName(path);
 
+    document->setPageSize(QSizeF(927, 1402.5));
+    document->print(&printer);
 
-    // Создание QPagedPaintDevice для отрисовки содержимого
-    //QRectF printRect(0, 0, pageSize.width(), pageSize.height());
-    //QPagedPaintDevice pd(printer);
-    //pd.setMargins({0, 0, 0, 0});
-    //pd.setPageSizeMM({static_cast<int>(pageSize.width() / 4), static_cast<int>(pageSize.height() / 4)});
+    /*QTextDocument document;
+    document.setHtml(html);
 
-    // Создание QPainter
-    //QPainter painter(&pd);
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(path);
 
-    // Рендеринг страницы с помощью QPainter
-    //page.setViewportSize(pageSize.toSize());
-    //page.mainFrame()->render(&painter, printRect, QRectF(0, 0, pageSize.width(), pageSize.height()));
+    //document.setPageSize(QSizeF(10,20));
+    document.print(&printer);*/
 
-    // Сохранение содержимого
-    //painter.end();
-
-
-
-    //printer.setPageMargins(QMarginsF(15, 15, 15, 15));
-    //printer.setPageOrientation(QPrinter::Portrait);
-
-    //printer.setPaperSize(QPrinter::A4);
-    //printer.setPageSize(QPrinter::A4);
-
-    // printer.setPageMargins(15,15,15,15,QPrinter::Millimeter);
-    //printer.setFullPage(true);
-
-    //printer.setPaperSource(QPrinter::Auto);
-
-    //printer.setPaperSource(QPrinter::Envelope);
-    //document.setPageSize(QSizeF(510, 598));
-    //printer.setFullPage(true);
-    //printer.setPageMargins(QMarginsF(10.0,10.0,10.0,10.0), QPrinter::Millimeter);
-
-    //printer.setPaperSize(QPrinter::A4);
-
-    // !!!
-    //printer.setPageMargins(QMarginsF(15, 15, 15, 15));
-
-    //document.setPageSize(QSizeF(printer.paperRect(paperSize(QPrinter::Point)));
-
-    //document.setPageSize(QSize(595, 842));
-
-    printer.setOutputFileName(path + "/звіт.pdf");
-
-    //QSizeF pageSize = printer.pageRect(QPrinter::DevicePixel).size();
-    //4450 6735
-    document.setPageSize(QSizeF(927, 1402.5));
-
-    //QMessageBox::information(this,"",QString::number(pageSize.width()) + " " + QString::number(pageSize.height()));
-    //document.setPageSize(QSizeF(210, 297));
-    //document.setPageSize(printer.pageRect().size());
-    document.print(&printer);
-
-    QDesktopServices::openUrl(QUrl("file://" + path + "/звіт.pdf", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
 
 
 void MainWindow::printDocumentToHTML(const QString path, const QString html)
 {
-    QFile outputFile(path + "/звіт.html");
+    QFile outputFile(path);
     outputFile.open(QIODevice::WriteOnly);
 
     if(!outputFile.isOpen())
@@ -892,7 +848,7 @@ void MainWindow::printDocumentToHTML(const QString path, const QString html)
     outStream << html;
     outputFile.close();
 
-    QDesktopServices::openUrl(QUrl("file://" + path + "/звіт.html", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
 
 
@@ -904,6 +860,7 @@ QString MainWindow::getHeaderHTML()
                  "<html>\n"
                  "<head>\n"
                  "<style>"
+                 "table {width: 100%;}"
                  "table, th, td {"
                  "border:1px solid #e8e8e8;"
                  "border-collapse: collapse;"
@@ -1304,83 +1261,78 @@ void MainWindow::on_groupsReportButton_clicked()
                                                   0, false, &ok);
     if (ok)
     {
-        QString typeOutputReport = QInputDialog::getItem(this, tr("Звіт по групі"),
-                                                         tr("Оберіть формат звіту:"), {"html", "pdf"},
-                                                         0, false, &ok);
-        if (ok)
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
         {
-            QString pathToSave = QFileDialog::getExistingDirectory(this, tr("Оберіть папку"),
-                                                               "/Users/" + qgetenv("USER") + "/Desktop",
-                                                               QFileDialog::ShowDirsOnly);
+            QString strSqlQuery;
+            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+            QTableView *tableView = new QTableView(this);
 
-            if (!pathToSave.isEmpty())
+            queryModel->setQuery("SELECT * "
+                                 "FROM `Студенти`"
+                                 "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
+            tableView->setModel(queryModel);
+
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
+
+            for (int i = 0; i < tableView->model()->columnCount(); i++)
             {
-                QString strSqlQuery;
-                QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-                QTableView *tableView = new QTableView(this);
+                textHTML += "<th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>";
+            }
 
-                queryModel->setQuery("SELECT * "
-                                     "FROM `Студенти`"
-                                     "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
-                tableView->setModel(queryModel);
-
-                QString textHTML = getHeaderHTML();
-                textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
-
-                for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+                for (int j = 0; j < tableView->model()->columnCount(); j++)
                 {
-                    textHTML += "<th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>";
-                }
-
-                for (int i = 0; i < tableView->model()->rowCount(); i++)
-                {
-                    textHTML += "<tr>\n";
-                    for (int j = 0; j < tableView->model()->columnCount(); j++)
+                    if (i % 2 != 0)
                     {
-                        if (i % 2 != 0)
-                        {
-                            textHTML += "<td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                        }
-                        else
-                        {
-                            textHTML += "<td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                        }
+                        textHTML += "<td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
-                    textHTML += "</tr>\n";
+                    else
+                    {
+                    textHTML += "<td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
                 }
+                textHTML += "</tr>\n";
+            }
 
-                queryModel->setQuery("SELECT `Куратор`,`Староста`"
-                                     "FROM `Групи`"
-                                     "WHERE `Групи`.`Назва` = '" + selectedGroup + "'");
-                tableView->setModel(queryModel);
+            queryModel->setQuery("SELECT `Куратор`,`Староста`"
+                                        "FROM `Групи`"
+                                        "WHERE `Групи`.`Назва` = '" + selectedGroup + "'");
+            tableView->setModel(queryModel);
 
-                textHTML += "<tr><td class='info'>Куратор</td>";
+            textHTML += "<tr><td class='info'>Куратор</td>";
 
 
-                QString bufStr = tableView->model()->index(0, 0) .data().toString();
-                textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
-                bufStr.remove(0, bufStr.indexOf(' '));
-                textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
-                bufStr.remove(0, bufStr.lastIndexOf(' '));
-                textHTML += "<td>" + bufStr + "</td></tr>\n";
+            QString bufStr = tableView->model()->index(0, 0) .data().toString();
+            textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+            bufStr.remove(0, bufStr.indexOf(' '));
+            textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+            bufStr.remove(0, bufStr.lastIndexOf(' '));
+            textHTML += "<td>" + bufStr + "</td></tr>\n";
 
-                bufStr = tableView->model()->index(0, 1) .data().toString();
-                textHTML += "<tr><td class='info'>Староста</td>";
-                textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
-                bufStr.remove(0, bufStr.indexOf(' '));
-                textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
-                bufStr.remove(0, bufStr.lastIndexOf(' '));
-                textHTML += "<td>" + bufStr + "</td></tr></table>\n";
+            bufStr = tableView->model()->index(0, 1) .data().toString();
+            textHTML += "<tr><td class='info'>Староста</td>";
+            textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+            bufStr.remove(0, bufStr.indexOf(' '));
+            textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+            bufStr.remove(0, bufStr.lastIndexOf(' '));
+            textHTML += "<td>" + bufStr + "</td></tr></table>\n";
 
-                if (typeOutputReport == "html")
-                {
-                    printDocumentToHTML(pathToSave, textHTML);
-                }
-                else if (typeOutputReport == "pdf")
-                {
-                    printDocumentToPDF(pathToSave, textHTML);
-                }
-
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
             }
         }
     }
