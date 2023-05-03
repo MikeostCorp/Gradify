@@ -1189,6 +1189,48 @@ QStringList MainWindow::getSubjectsNames()
 }
 
 
+QStringList MainWindow::getSubjectsTypes()
+{
+    QStringList categoryList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Тип`"
+                               "FROM `Предмети`"
+                               "GROUP BY `Тип`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        categoryList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    return categoryList;
+}
+
+
+QStringList MainWindow::getCategoryTeachers()
+{
+    QStringList categoryList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Категорія`"
+                               "FROM `Викладачі`"
+                               "GROUP BY `Категорія`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        categoryList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    return categoryList;
+}
+
+
 QStringList MainWindow::getGroupsNames()
 {
     QStringList groupList;
@@ -1196,7 +1238,9 @@ QStringList MainWindow::getGroupsNames()
     QTableView *virtualTable = new QTableView(this);
 
     virualQueryModel->setQuery("SELECT `Назва`"
-                               "FROM `Групи`");
+                               "FROM `Групи`"
+                               "GROUP BY `Категорія`");
+
 
     virtualTable->setModel(virualQueryModel);
 
@@ -1206,6 +1250,27 @@ QStringList MainWindow::getGroupsNames()
     }
 
     return groupList;
+}
+
+
+QStringList MainWindow::getGroupsSpecial()
+{
+    QStringList groupSpecialList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Спеціальність`"
+                               "FROM `Групи`"
+                               "GROUP BY `Спеціальність`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        groupSpecialList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    return groupSpecialList;
 }
 
 
@@ -1224,29 +1289,66 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 
 void MainWindow::on_currentTableReportButton_clicked()
 {
+    if (model->rowCount() > 0)
+    {
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
+        {
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Звіт Gradify</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+            for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+            {
+                textHTML += "   <th>" + ui->tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+            }
+
+            textHTML += "</tr>\n";
+
+            for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+
+                for (int j = 0; j < ui->tableView->model()->columnCount(); j++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        textHTML += "   <td class='la'>" + ui->tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                    else
+                    {
+                        textHTML += "   <td>" + ui->tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                }
+                textHTML += "</tr>\n";
+            }
+
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
+            }
+        }
+    }
+    else
+    {
+        QMessageBox::information(this,"","У таблиці не знайдено записів!");
+    }
 }
 
 
 void MainWindow::on_studentsReportButton_clicked()
 {
-}
-
-
-void MainWindow::on_teachersReportButton_clicked()
-{
-}
-
-
-void MainWindow::on_gradesReportButton_clicked()
-{
-}
-
-
-void MainWindow::on_groupsReportButton_clicked()
-{
     bool ok;
 
-    QString selectedGroup = QInputDialog::getItem(this, tr("Звіт по групі"),
+    QString selectedGroup = QInputDialog::getItem(this, tr("Звіт за студентами групи"),
                                                   tr("Оберіть групу:"), getGroupsNames(),
                                                   0, false, &ok);
     if (ok)
@@ -1259,7 +1361,6 @@ void MainWindow::on_groupsReportButton_clicked()
                                                           &typeFile);
         if (!pathToSave.isEmpty())
         {
-            QString strSqlQuery;
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
 
@@ -1269,7 +1370,7 @@ void MainWindow::on_groupsReportButton_clicked()
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт за студентами групи «" + selectedGroup + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             for (int i = 0; i < tableView->model()->columnCount(); i++)
             {
@@ -1331,8 +1432,264 @@ void MainWindow::on_groupsReportButton_clicked()
 }
 
 
+void MainWindow::on_teachersReportButton_clicked()
+{
+    bool ok;
+
+    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по групі"),
+                                                  tr("Оберіть групу:"), getCategoryTeachers(),
+                                                  0, false, &ok);
+    if (ok)
+    {
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
+        {
+            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+            QTableView *tableView = new QTableView(this);
+
+            queryModel->setQuery("SELECT * "
+                                 "FROM `Викладачі`"
+                                 "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "'");
+            tableView->setModel(queryModel);
+
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            {
+                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+            }
+
+            textHTML += "</tr>\n";
+
+            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                    else
+                    {
+                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                }
+                textHTML += "</tr>\n";
+            }
+
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
+            }
+        }
+    }
+
+}
+
+
+void MainWindow::on_gradesReportButton_clicked()
+{
+    bool ok;
+
+    QString selectedStudent = QInputDialog::getItem(this, tr("Звіт по оцінкам"),
+                                                  tr("Оберіть отримувача оцінок:"), getStudentsNames(),
+                                                  0, false, &ok);
+    if (ok)
+    {
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
+        {
+            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+            QTableView *tableView = new QTableView(this);
+
+            queryModel->setQuery("SELECT * "
+                                 "FROM `Оцінки`"
+                                 "WHERE `Оцінки`.`Отримувач` = '" + selectedStudent + "'");
+            tableView->setModel(queryModel);
+
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Звіт за оцінками студента «" + selectedStudent + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            {
+                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+            }
+
+            textHTML += "</tr>\n";
+
+            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                    else
+                    {
+                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                }
+                textHTML += "</tr>\n";
+            }
+
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_groupsReportButton_clicked()
+{
+    bool ok;
+
+    QString selectedTypeSubject = QInputDialog::getItem(this, tr("Звіт за спеціальностями груп"),
+                                                  tr("Оберіть спеціальність групи:"), getGroupsSpecial(),
+                                                  0, false, &ok);
+    if (ok)
+    {
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
+        {
+            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+            QTableView *tableView = new QTableView(this);
+
+            queryModel->setQuery("SELECT * "
+                                 "FROM `Групи`"
+                                 "WHERE `Групи`.`Спеціальність` = '" + selectedTypeSubject + "'");
+            tableView->setModel(queryModel);
+
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Звіт за спеціальністю «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            {
+                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+            }
+
+            textHTML += "</tr>\n";
+
+            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                    else
+                    {
+                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                }
+                textHTML += "</tr>\n";
+            }
+
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
+            }
+        }
+    }
+}
+
+
 void MainWindow::on_subjectsReportButton_clicked()
 {
+    bool ok;
+
+    QString selectedTypeSubject = QInputDialog::getItem(this, tr("Звіт за предметами"),
+                                                  tr("Оберіть тип предмету:"), getSubjectsTypes(),
+                                                  0, false, &ok);
+    if (ok)
+    {
+        QString typeFile;
+        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                          tr("Збереження звіту"),
+                                                          "/Users/" + qgetenv("USER") + "/Desktop",
+                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                          &typeFile);
+        if (!pathToSave.isEmpty())
+        {
+            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+            QTableView *tableView = new QTableView(this);
+
+            queryModel->setQuery("SELECT * "
+                                 "FROM `Предмети`"
+                                 "WHERE `Предмети`.`Тип` = '" + selectedTypeSubject + "'");
+            tableView->setModel(queryModel);
+
+            QString textHTML = getHeaderHTML();
+            textHTML += "<h2 align='center'>Звіт за типом предмета «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            {
+                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+            }
+
+            textHTML += "</tr>\n";
+
+            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            {
+                textHTML += "<tr>\n";
+                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                    else
+                    {
+                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    }
+                }
+                textHTML += "</tr>\n";
+            }
+
+            if (typeFile == "HTML формат (*.html)")
+            {
+                printDocumentToHTML(pathToSave, textHTML);
+            }
+            else if (typeFile == "PDF формат (*.pdf)")
+            {
+                printDocumentToPDF(pathToSave, textHTML);
+            }
+        }
+    }
 }
 
 

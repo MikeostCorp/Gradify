@@ -165,11 +165,17 @@ private slots:
 
     QStringList getGroupsNames();
 
+    QStringList getGroupsSpecial();
+
     QStringList getStudentsNames();
 
     QStringList getTeachersNames();
 
     QStringList getSubjectsNames();
+
+    QStringList getSubjectsTypes();
+
+    QStringList getCategoryTeachers();
 
 private:
     Ui::MainWindow *ui;
