@@ -811,22 +811,11 @@ void MainWindow::printDocumentToPDF(const QString path, const QString html)
     printer.setColorMode(QPrinter::Color);
     printer.setResolution(666);
     printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(20, 10, 0, 10), QPageLayout::Millimeter);
+    printer.setPageMargins(QMarginsF(5, 5, 5, 5), QPageLayout::Millimeter);
     printer.setOutputFileName(path);
 
     document->setPageSize(QSizeF(927, 1402.5));
     document->print(&printer);
-
-    /*QTextDocument document;
-    document.setHtml(html);
-
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(path);
-
-    //document.setPageSize(QSizeF(10,20));
-    document.print(&printer);*/
 
     QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
@@ -860,23 +849,24 @@ QString MainWindow::getHeaderHTML()
                  "<html>\n"
                  "<head>\n"
                  "<style>"
-                 "table {width: 100%;}"
-                 "table, th, td {"
-                 "border:1px solid #e8e8e8;"
-                 "border-collapse: collapse;"
-                 "padding: 3px;"
-                 "font-size: 12px;"
-                 "font-family: -apple-system, BlinkMacSystemFont, sans-serif;"
-                 "background-color: white;"
-                 "padding-top: 6px;"
-                 "padding-bottom: 6px;}"
-                 "th {color: white; "
-                 "background-color: #0e4870;"
-                 "text-align: left;}"
-                 "td.la {background-color: #f2f2f2;}"
-                 "td.info {border: 0p; background-color: #e1e1e1}"
-                 "h1, h2, h3 ,h4{font-family: -apple-system, BlinkMacSystemFont, sans-serif}"
-                 "</style>"
+                 "table {\n width: 100%;\n padding-top: 120px;\n}\n"
+                 "table, th, td {\n"
+                 "  border:1px solid #e8e8e8;\n"
+                 "  border-collapse: collapse;\n"
+                 "  padding: 3px;\n"
+                 "  font-size: 12px;\n"
+                 "  font-family: -apple-system, BlinkMacSystemFont, sans-serif;\n"
+                 "  background-color: white;\n"
+                 "  padding-top: 6px;\n"
+                 "  padding-bottom: 6px;\n}\n"
+                 "th {\n    color: white;\n"
+                 "  background-color: #0e4870;\n"
+                 "  text-align: left;\n}\n"
+                 "td.la {\n background-color: #f2f2f2;\n}\n"
+                 "td.info {\n   border: 0px;\n  background-color: #e1e1e1;\n}\n"
+                 "h1, h2, h3 ,h4{\n font-family: -apple-system, BlinkMacSystemFont, sans-serif\n}\n"
+                 "#transpert {\ncolor: white;\n}\n"
+                 "</style>\n"
                  "<title>Звіт</title>\n</head>\n";
 
     return htmlHeader;
@@ -1279,12 +1269,14 @@ void MainWindow::on_groupsReportButton_clicked()
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
+            textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             for (int i = 0; i < tableView->model()->columnCount(); i++)
             {
-                textHTML += "<th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>";
+                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
+
+            textHTML += "</tr>\n";
 
             for (int i = 0; i < tableView->model()->rowCount(); i++)
             {
@@ -1293,11 +1285,11 @@ void MainWindow::on_groupsReportButton_clicked()
                 {
                     if (i % 2 != 0)
                     {
-                        textHTML += "<td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
                     else
                     {
-                    textHTML += "<td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
                 }
                 textHTML += "</tr>\n";
@@ -1308,23 +1300,23 @@ void MainWindow::on_groupsReportButton_clicked()
                                         "WHERE `Групи`.`Назва` = '" + selectedGroup + "'");
             tableView->setModel(queryModel);
 
-            textHTML += "<tr><td class='info'>Куратор</td>";
+            textHTML += "<tr>\n <td class='info'>Куратор</td>";
 
 
             QString bufStr = tableView->model()->index(0, 0) .data().toString();
-            textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+            textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.indexOf(' '));
-            textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+            textHTML += "\n <td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.lastIndexOf(' '));
-            textHTML += "<td>" + bufStr + "</td></tr>\n";
+            textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n";
 
             bufStr = tableView->model()->index(0, 1) .data().toString();
-            textHTML += "<tr><td class='info'>Староста</td>";
-            textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
+            textHTML += "\n<tr>\n   <td class='info'>Староста</td>";
+            textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.indexOf(' '));
-            textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
+            textHTML += "\n <td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.lastIndexOf(' '));
-            textHTML += "<td>" + bufStr + "</td></tr></table>\n";
+            textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n</table>\n";
 
             if (typeFile == "HTML формат (*.html)")
             {
