@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 #include <QTextDocument>
 #include <QPrinter>
+#include <QPageSize>
 #include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -799,16 +800,54 @@ void MainWindow::on_queryButton_clicked()
 }
 
 
-void MainWindow::printDocumentToPDF(QString path, QString html)
+void MainWindow::printDocumentToPDF(const QString path, const QString html)
 {
     QTextDocument document;
     document.setHtml(html);
 
+    //document.setPageSize(QSize(595, 842));
+    //document.setPageSize(QPageSize(QPageSize::A4);
+
     QPrinter printer(QPrinter::PrinterResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setColorMode(QPrinter::Color);
+
+    printer.setResolution(666);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+
+    printer.setPageMargins(QMarginsF(20, 10, 0, 10), QPageLayout::Millimeter);
+
+
+    // Создание QPagedPaintDevice для отрисовки содержимого
+    //QRectF printRect(0, 0, pageSize.width(), pageSize.height());
+    //QPagedPaintDevice pd(printer);
+    //pd.setMargins({0, 0, 0, 0});
+    //pd.setPageSizeMM({static_cast<int>(pageSize.width() / 4), static_cast<int>(pageSize.height() / 4)});
+
+    // Создание QPainter
+    //QPainter painter(&pd);
+
+    // Рендеринг страницы с помощью QPainter
+    //page.setViewportSize(pageSize.toSize());
+    //page.mainFrame()->render(&painter, printRect, QRectF(0, 0, pageSize.width(), pageSize.height()));
+
+    // Сохранение содержимого
+    //painter.end();
+
+
+
+    //printer.setPageMargins(QMarginsF(15, 15, 15, 15));
+    //printer.setPageOrientation(QPrinter::Portrait);
+
+    //printer.setPaperSize(QPrinter::A4);
+    //printer.setPageSize(QPrinter::A4);
+
+    // printer.setPageMargins(15,15,15,15,QPrinter::Millimeter);
+    //printer.setFullPage(true);
+
     //printer.setPaperSource(QPrinter::Auto);
 
-    printer.setColorMode(QPrinter::Color);
+    //printer.setPaperSource(QPrinter::Envelope);
     //document.setPageSize(QSizeF(510, 598));
     //printer.setFullPage(true);
     //printer.setPageMargins(QMarginsF(10.0,10.0,10.0,10.0), QPrinter::Millimeter);
@@ -817,24 +856,35 @@ void MainWindow::printDocumentToPDF(QString path, QString html)
 
     // !!!
     //printer.setPageMargins(QMarginsF(15, 15, 15, 15));
-    printer.setOutputFileName(path + "/reportGradify.pdf");
 
+    //document.setPageSize(QSizeF(printer.paperRect(paperSize(QPrinter::Point)));
+
+    //document.setPageSize(QSize(595, 842));
+
+    printer.setOutputFileName(path + "/звіт.pdf");
+
+    //QSizeF pageSize = printer.pageRect(QPrinter::DevicePixel).size();
+    //4450 6735
+    document.setPageSize(QSizeF(927, 1402.5));
+
+    //QMessageBox::information(this,"",QString::number(pageSize.width()) + " " + QString::number(pageSize.height()));
     //document.setPageSize(QSizeF(210, 297));
     //document.setPageSize(printer.pageRect().size());
     document.print(&printer);
 
-    QDesktopServices::openUrl(QUrl(path + "reportGradify.pdf", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("file://" + path + "/звіт.pdf", QUrl::TolerantMode));
 }
 
 
-void MainWindow::printDocumentToHTML(QString path, QString html)
+void MainWindow::printDocumentToHTML(const QString path, const QString html)
 {
-    QFile outputFile(path + "/reportGradify.html");
+    QFile outputFile(path + "/звіт.html");
     outputFile.open(QIODevice::WriteOnly);
 
     if(!outputFile.isOpen())
     {
         QMessageBox::critical(this,"","Не вдалося зберегти звіт");
+        return;
     }
 
     QTextStream outStream(&outputFile);
@@ -842,7 +892,37 @@ void MainWindow::printDocumentToHTML(QString path, QString html)
     outStream << html;
     outputFile.close();
 
-    QDesktopServices::openUrl(QUrl(path + "reportGradify.html", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("file://" + path + "/звіт.html", QUrl::TolerantMode));
+}
+
+
+QString MainWindow::getHeaderHTML()
+{
+    QString htmlHeader;
+
+    htmlHeader = "<!DOCTYPE html>\n"
+                 "<html>\n"
+                 "<head>\n"
+                 "<style>"
+                 "table, th, td {"
+                 "border:1px solid #e8e8e8;"
+                 "border-collapse: collapse;"
+                 "padding: 3px;"
+                 "font-size: 12px;"
+                 "font-family: -apple-system, BlinkMacSystemFont, sans-serif;"
+                 "background-color: white;"
+                 "padding-top: 6px;"
+                 "padding-bottom: 6px;}"
+                 "th {color: white; "
+                 "background-color: #0e4870;"
+                 "text-align: left;}"
+                 "td.la {background-color: #f2f2f2;}"
+                 "td.info {border: 0p; background-color: #e1e1e1}"
+                 "h1, h2, h3 ,h4{font-family: -apple-system, BlinkMacSystemFont, sans-serif}"
+                 "</style>"
+                 "<title>Звіт</title>\n</head>\n";
+
+    return htmlHeader;
 }
 
 
@@ -1244,28 +1324,8 @@ void MainWindow::on_groupsReportButton_clicked()
                                      "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
                 tableView->setModel(queryModel);
 
-                QString textHTML = "<!DOCTYPE html>\n"
-                                     "<html>\n"
-                                     "<head>\n"
-                                     "<style>"
-                                     "table, th, td {"
-                                     "border:1px solid #e8e8e8;"
-                                     "border-collapse: collapse;"
-                                     "padding: 3px;"
-                                     "font-size: 12px;"
-                                     "font-family: -apple-system, BlinkMacSystemFont, sans-serif;"
-                                     "background-color: white;"
-                                     "padding-top: 6px;"
-                                     "padding-bottom: 6px;}"
-                                     "th {color: white; "
-                                     "background-color: #0e4870;"
-                                     "text-align: left;}"
-                                     "td.la {background-color: #f2f2f2;}"
-                                     "td.info {border: 0p; background-color: #e1e1e1}"
-                                     "h1, h2, h3 ,h4{font-family: -apple-system, BlinkMacSystemFont, sans-serif}"
-                                     "</style>"
-                                     "<title>Звіт</title>\n</head>\n"
-                                     "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
+                QString textHTML = getHeaderHTML();
+                textHTML += "<h2 align='center'>Звіт за групою " + selectedGroup + "</h2>\n<table ALIGN = 'center'>";
 
                 for (int i = 0; i < tableView->model()->columnCount(); i++)
                 {
@@ -1304,14 +1364,13 @@ void MainWindow::on_groupsReportButton_clicked()
                 bufStr.remove(0, bufStr.lastIndexOf(' '));
                 textHTML += "<td>" + bufStr + "</td></tr>\n";
 
-                // tut red
                 bufStr = tableView->model()->index(0, 1) .data().toString();
                 textHTML += "<tr><td class='info'>Староста</td>";
                 textHTML += "<td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
                 bufStr.remove(0, bufStr.indexOf(' '));
                 textHTML += "<td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
                 bufStr.remove(0, bufStr.lastIndexOf(' '));
-                textHTML += "<td>" + bufStr + "</td></tr>\n";
+                textHTML += "<td>" + bufStr + "</td></tr></table>\n";
 
                 if (typeOutputReport == "html")
                 {

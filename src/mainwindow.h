@@ -149,9 +149,11 @@ private slots:
 
     void on_queryButton_clicked();
 
-    void printDocumentToPDF(QString path, QString html);
+    void printDocumentToPDF(const QString path, const QString html);
 
-    void printDocumentToHTML(QString path, QString html);
+    void printDocumentToHTML(const QString path, const QString html);
+
+    QString getHeaderHTML();
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
