@@ -113,6 +113,7 @@ void subjectWindow::setTheme(const QString style)
 
 void subjectWindow::newRow()
 {
+    setWindowTitle("Додавання предмета");
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);

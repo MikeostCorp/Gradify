@@ -113,6 +113,7 @@ void teacherWindow::setTheme(const QString style)
 
 void teacherWindow::newRow()
 {
+    setWindowTitle("Додавання викладача");
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);

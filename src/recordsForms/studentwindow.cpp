@@ -125,6 +125,7 @@ void studentWindow::setTheme(const QString style)
 
 void studentWindow::newRow()
 {
+    setWindowTitle("Додавання студента");
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);

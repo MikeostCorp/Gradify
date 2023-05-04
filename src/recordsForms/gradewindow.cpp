@@ -132,6 +132,7 @@ void gradeWindow::setTheme(const QString style)
 
 void gradeWindow::newRow()
 {
+    setWindowTitle("Додавання оцінки");
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);

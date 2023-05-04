@@ -122,6 +122,7 @@ void groupWindow::setTheme(const QString style)
 
 void groupWindow::newRow()
 {
+    setWindowTitle("Додавання групи");
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);

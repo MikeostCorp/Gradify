@@ -261,6 +261,7 @@ void MainWindow::on_studentsTableButton_clicked()
     setEnabledEditButton(true);
 
     ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->searchLineEdit->clear();
 
     ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
 
@@ -289,6 +290,7 @@ void MainWindow::on_teachersTableButton_clicked()
     setEnabledEditButton(true);
 
     ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->searchLineEdit->clear();
 
     ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
 
@@ -312,6 +314,7 @@ void MainWindow::on_gradesTableButton_clicked()
     setEnabledEditButton(true);
 
     ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->searchLineEdit->clear();
 
     ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/raitingIco.png"));
 
@@ -340,6 +343,7 @@ void MainWindow::on_groupsTableButton_clicked()
     setEnabledEditButton(true);
 
     ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->searchLineEdit->clear();
 
     ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupIco.png"));
 
@@ -368,6 +372,7 @@ void MainWindow::on_subjectsTableButton_clicked()
     setEnabledEditButton(true);
 
     ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+    ui->searchLineEdit->clear();
 
     ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectIco.png"));
 
@@ -1020,9 +1025,6 @@ void MainWindow::setQueryForTable(QString query)
 {
     queryModel->setQuery(query);
     ui->tableView->setModel(queryModel);
-
-
-    //QMessageBox::information(this,"",query);
 }
 
 
@@ -1238,8 +1240,7 @@ QStringList MainWindow::getGroupsNames()
     QTableView *virtualTable = new QTableView(this);
 
     virualQueryModel->setQuery("SELECT `Назва`"
-                               "FROM `Групи`"
-                               "GROUP BY `Категорія`");
+                               "FROM `Групи`");
 
 
     virtualTable->setModel(virualQueryModel);
