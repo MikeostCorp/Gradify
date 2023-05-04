@@ -137,7 +137,7 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Версія: 2.2 (closed beta)</string>
+     <string>Версія: 2.3 (closed beta)</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

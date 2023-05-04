@@ -60,7 +60,7 @@ void queryForm::on_succesStudentPushButton_clicked()
                       "FROM `Оцінки`, `Студенти`"
                       "WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
                       "GROUP BY `Отримувач`"
-                      "ORDER BY AVG(`Оцінка`) DESC";
+                      "ORDER BY AVG(`Оцінка`) DESC;";
 
         emit sendQuery(strSqlQuery);
     }

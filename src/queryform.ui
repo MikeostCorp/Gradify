@@ -116,7 +116,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>Свій SQL-запит</string>
+     <string>Відмінити запит</string>
     </property>
    </widget>
    <widget class="QLabel" name="queryLineLabel">
