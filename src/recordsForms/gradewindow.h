@@ -21,6 +21,8 @@ private slots:
     void setSystemUI();
     void on_cancelButton_clicked();
     void on_saveButton_clicked();
+    void on_groupComboBox_currentIndexChanged(int index);
+    void setGroupComboBox();
 
     QString reverseDate(QString str);
     QStringList getCurrentData();

@@ -13,6 +13,7 @@
 #include <QPageSize>
 #include <QDesktopServices>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -1407,17 +1408,17 @@ void MainWindow::on_studentsReportButton_clicked()
 
             QString bufStr = tableView->model()->index(0, 0) .data().toString();
             textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
-            bufStr.remove(0, bufStr.indexOf(' '));
+            bufStr.remove(0, bufStr.indexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
-            bufStr.remove(0, bufStr.lastIndexOf(' '));
+            bufStr.remove(0, bufStr.lastIndexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n";
 
             bufStr = tableView->model()->index(0, 1) .data().toString();
             textHTML += "\n<tr>\n   <td class='info'>Староста</td>";
             textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
-            bufStr.remove(0, bufStr.indexOf(' '));
+            bufStr.remove(0, bufStr.indexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
-            bufStr.remove(0, bufStr.lastIndexOf(' '));
+            bufStr.remove(0, bufStr.lastIndexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n</table>\n";
 
             if (typeFile == "HTML формат (*.html)")
@@ -1437,8 +1438,8 @@ void MainWindow::on_teachersReportButton_clicked()
 {
     bool ok;
 
-    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по групі"),
-                                                  tr("Оберіть групу:"), getCategoryTeachers(),
+    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по викладачас"),
+                                                  tr("Оберіть категорію викладача:"), getCategoryTeachers(),
                                                   0, false, &ok);
     if (ok)
     {

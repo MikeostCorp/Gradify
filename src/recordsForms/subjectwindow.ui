@@ -415,7 +415,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Запис збережено</string>
+    <string>%status_label%</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

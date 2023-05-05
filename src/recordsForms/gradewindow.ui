@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>450</height>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>290</y>
+     <y>340</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -49,7 +49,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>340</y>
+     <y>390</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -62,7 +62,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>340</y>
+     <y>390</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -88,7 +88,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>190</y>
+     <y>240</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>410</y>
+     <y>470</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -114,7 +114,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>310</y>
+     <y>360</y>
      <width>320</width>
      <height>21</height>
     </rect>
@@ -159,7 +159,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>360</y>
+     <y>410</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -181,7 +181,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>410</y>
+     <y>470</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -229,7 +229,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>260</y>
      <width>320</width>
      <height>21</height>
     </rect>
@@ -264,7 +264,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>360</y>
+     <y>410</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -297,7 +297,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>240</y>
+     <y>290</y>
      <width>161</width>
      <height>16</height>
     </rect>
@@ -310,7 +310,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>260</y>
+     <y>310</y>
      <width>320</width>
      <height>21</height>
     </rect>
@@ -351,10 +351,58 @@
     </rect>
    </property>
    <property name="text">
-    <string>Запис збережено</string>
+    <string>%status_label%</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="groupComboBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>210</y>
+     <width>320</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Оберіть групу отримувача</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>rew</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>wrewr</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>wer</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>wer</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="subjectLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>190</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Група отримувача&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <zorder>saveButton</zorder>
@@ -373,6 +421,8 @@
   <zorder>teacherLabel</zorder>
   <zorder>teacherComboBox</zorder>
   <zorder>okLabel</zorder>
+  <zorder>groupComboBox</zorder>
+  <zorder>subjectLabel_2</zorder>
  </widget>
  <resources/>
  <connections/>
