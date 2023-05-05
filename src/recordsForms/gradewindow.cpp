@@ -101,10 +101,6 @@ void gradeWindow::setData(QString titleName, QStringList listData)
 
     queryModel->setQuery(queryMy);
     tableView->setModel(queryModel);
-
-    QMessageBox::information(this,"", queryMy + "\n\nOutput:" + tableView->model()->index(0, 0).data().toString());
-
-
     ui->groupComboBox->setCurrentText(tableView->model()->index(0, 0).data().toString());
 
     ui->whoTakeComboBox->setCurrentText(listData[2]);
