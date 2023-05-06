@@ -1084,6 +1084,9 @@
            <property name="styleSheet">
             <string notr="true"/>
            </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
            <property name="tabKeyNavigation">
             <bool>true</bool>
            </property>

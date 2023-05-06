@@ -171,20 +171,7 @@ void MainWindow::configInit()
 
     if (settingsConfig.contains("theme"))
     {
-        theme = settingsConfig.value("theme").toString();
-
-        if (theme == "white")
-        {
-            setWhiteUI();
-        }
-        else if (theme == "black")
-        {
-            setBlackUI();
-        }
-        else if (theme == "system")
-        {
-            setSystemUI();
-        }
+        setTheme(settingsConfig.value("theme").toString());
 
         emit setThemeSettingsUI(theme);
     }
@@ -598,8 +585,6 @@ void MainWindow::on_addRowButton_clicked()
     ui->tableView->selectRow(model->rowCount() - 1);
     ui->searchLineEdit->clearFocus(); */
 
-    createNewRow();
-
     switch (currentSelectTable)
     {
     case 0:
@@ -832,7 +817,7 @@ void MainWindow::printDocumentToHTML(const QString path, const QString html)
     QFile outputFile(path);
     outputFile.open(QIODevice::WriteOnly);
 
-    if(!outputFile.isOpen())
+    if(not outputFile.isOpen())
     {
         QMessageBox::critical(this,"","Не вдалося зберегти звіт");
         return;
@@ -949,13 +934,15 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 0; i < model->columnCount(); ++i)
         {
+            newRow += "`" + model->headerData(i, Qt::Horizontal).toString();
+
             if (i not_eq model->columnCount() - 1)
             {
-                newRow += "`" + model->headerData(i, Qt::Horizontal).toString() + "`, ";
+                newRow += "`, ";
             }
             else
             {
-                newRow += "`" + model->headerData(i, Qt::Horizontal).toString() + "`)";
+                newRow += "`)";
             }
         }
 
@@ -963,13 +950,15 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 1; i < model->columnCount(); ++i)
         {
+            newRow += "'" + dataList[i];
+
             if (i not_eq model->columnCount() - 1)
             {
-                newRow += "'" + dataList[i] + "', ";
+                newRow += "', ";
             }
             else
             {
-                newRow += "'" + dataList[i] + "')";
+                newRow += "')";
             }
         }
 
@@ -1003,13 +992,15 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
         for (int i = 1; i < model->columnCount(); ++i)
         {
+            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i];
+
             if (i not_eq model->columnCount() - 1)
             {
-                queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "', \n";
+                queryEdit += "', \n";
             }
             else
             {
-                queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i] + "'";
+                queryEdit += "'";
             }
         }
 
@@ -1104,10 +1095,10 @@ QStringList MainWindow::getCurrentItemTable()
         for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
         {
             str << QString::number(i + 1) +  ". "
-                       + ui->tableView->model()->data(model->index(i, 2)).toString() + " - "
-                       + ui->tableView->model()->data(model->index(i, 1)).toString() + ", "
-                       + ui->tableView->model()->data(model->index(i, 4)).toString() + " ("
-                       + ui->tableView->model()->data(model->index(i, 6)).toString() + ")";
+                   + ui->tableView->model()->data(model->index(i, 2)).toString() + " - "
+                   + ui->tableView->model()->data(model->index(i, 1)).toString() + ", "
+                   + ui->tableView->model()->data(model->index(i, 4)).toString() + " ("
+                   + ui->tableView->model()->data(model->index(i, 6)).toString() + ")";
         }
         break;
     case 3:
@@ -1308,25 +1299,25 @@ void MainWindow::on_currentTableReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт Gradify</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < ui->tableView->model()->columnCount(); i++)
+            for (int i = 0; i < ui->tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + ui->tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+            for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
 
-                for (int j = 0; j < ui->tableView->model()->columnCount(); j++)
+                for (int j = 0; j < ui->tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + ui->tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1370,7 +1361,7 @@ void MainWindow::on_studentsReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
@@ -1383,19 +1374,19 @@ void MainWindow::on_studentsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за студентами групи «" + selectedGroup + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                for (int j = 0; j < tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1458,7 +1449,7 @@ void MainWindow::on_teachersReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
@@ -1471,19 +1462,19 @@ void MainWindow::on_teachersReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                for (int j = 0; j < tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1524,7 +1515,7 @@ void MainWindow::on_gradesReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
@@ -1537,19 +1528,19 @@ void MainWindow::on_gradesReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за оцінками студента «" + selectedStudent + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                for (int j = 0; j < tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1589,7 +1580,7 @@ void MainWindow::on_groupsReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
@@ -1602,19 +1593,19 @@ void MainWindow::on_groupsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за спеціальністю «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                for (int j = 0; j < tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1654,7 +1645,7 @@ void MainWindow::on_subjectsReportButton_clicked()
                                                           "/Users/" + qgetenv("USER") + "/Desktop",
                                                           "PDF формат (*.pdf);;HTML формат (*.html)",
                                                           &typeFile);
-        if (!pathToSave.isEmpty())
+        if (not pathToSave.isEmpty())
         {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
@@ -1667,19 +1658,19 @@ void MainWindow::on_subjectsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за типом предмета «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); i++)
+            for (int i = 0; i < tableView->model()->columnCount(); ++i)
             {
                 textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
             }
 
             textHTML += "</tr>\n";
 
-            for (int i = 0; i < tableView->model()->rowCount(); i++)
+            for (int i = 0; i < tableView->model()->rowCount(); ++i)
             {
                 textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); j++)
+                for (int j = 0; j < tableView->model()->columnCount(); ++j)
                 {
-                    if (i % 2 != 0)
+                    if (i % 2 not_eq 0)
                     {
                         textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
                     }
@@ -1857,44 +1848,24 @@ void MainWindow::setCurrentIconAction()
     QColor baseColor = basePalette.base().color();
     QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
-        ui->openStudTabAction->setIcon(QIcon(":/img/blackActionsIcon/studentsIco.png"));
-        ui->openTeachTabAction->setIcon(QIcon(":/img/blackActionsIcon/teachersIco.png"));
-        ui->openGradesTabAction->setIcon(QIcon(":/img/blackActionsIcon/raitingIco.png"));
-        ui->openGroupTabAction->setIcon(QIcon(":/img/blackActionsIcon/groupIco.png"));
-        ui->openSubjTabAction->setIcon(QIcon(":/img/blackActionsIcon/subjectIco.png"));
+    QString iconColor = newBase.name() == "#000000" ? "black" : "white";
 
-        ui->addRowAction->setIcon(QIcon(":/img/blackActionsIcon/newRecord.png"));
-        ui->deleteRowAction->setIcon(QIcon(":/img/blackActionsIcon/deleteRecord.png"));
-        ui->editRowAction->setIcon(QIcon(":/img/blackActionsIcon/editRecord.png"));
+    ui->openStudTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/studentsIco.png"));
+    ui->openTeachTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/teachersIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/raitingIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/groupIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/subjectIco.png"));
 
-        ui->currentTableReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportCurrentTable.png"));
-        ui->studentsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportStudent.png"));
-        ui->teachersReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportTeachers.png"));
-        ui->gradesReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportRaiting.png"));
-        ui->groupsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportGroup.png"));
-        ui->subjectsReportAction->setIcon(QIcon(":/img/blackActionsIcon/reportItem.png"));
-    }
-    else
-    {
-        ui->openStudTabAction->setIcon(QIcon(":/img/whiteActionsIcon/studentsIco.png"));
-        ui->openTeachTabAction->setIcon(QIcon(":/img/whiteActionsIcon/teachersIco.png"));
-        ui->openGradesTabAction->setIcon(QIcon(":/img/whiteActionsIcon/raitingIco.png"));
-        ui->openGroupTabAction->setIcon(QIcon(":/img/whiteActionsIcon/groupIco.png"));
-        ui->openSubjTabAction->setIcon(QIcon(":/img/whiteActionsIcon/subjectIco.png"));
+    ui->addRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/newRecord.png"));
+    ui->deleteRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/deleteRecord.png"));
+    ui->editRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/editRecord.png"));
 
-        ui->addRowAction->setIcon(QIcon(":/img/whiteActionsIcon/newRecord.png"));
-        ui->deleteRowAction->setIcon(QIcon(":/img/whiteActionsIcon/deleteRecord.png"));
-        ui->editRowAction->setIcon(QIcon(":/img/whiteActionsIcon/editRecord.png"));
-
-        ui->currentTableReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportCurrentTable.png"));
-        ui->studentsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportStudent.png"));
-        ui->teachersReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportTeachers.png"));
-        ui->gradesReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportRaiting.png"));
-        ui->groupsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportGroup.png"));
-        ui->subjectsReportAction->setIcon(QIcon(":/img/whiteActionsIcon/reportItem.png"));
-    }
+    ui->currentTableReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportCurrentTable.png"));
+    ui->studentsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportStudent.png"));
+    ui->teachersReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportTeachers.png"));
+    ui->gradesReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportRaiting.png"));
+    ui->groupsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportGroup.png"));
+    ui->subjectsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportItem.png"));
 }
 
 
