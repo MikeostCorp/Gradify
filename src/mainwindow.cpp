@@ -812,7 +812,6 @@ void MainWindow::printDocumentToPDF(const QString path, const QString html)
     document->setHtml(html);
 
     QPrinter printer(QPrinter::PrinterResolution);
-
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setColorMode(QPrinter::Color);
     printer.setResolution(666);
@@ -820,7 +819,8 @@ void MainWindow::printDocumentToPDF(const QString path, const QString html)
     printer.setPageMargins(QMarginsF(5, 5, 5, 5), QPageLayout::Millimeter);
     printer.setOutputFileName(path);
 
-    document->setPageSize(QSizeF(927, 1402.5));
+    //document->setPageSize(QSizeF(927, 1402.5));
+    document->setPageSize(QSizeF(920, 1300));
     document->print(&printer);
 
     QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
