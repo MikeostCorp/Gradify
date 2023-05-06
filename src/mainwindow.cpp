@@ -1024,8 +1024,17 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 
 void MainWindow::setQueryForTable(QString query)
 {
-    queryModel->setQuery(query);
-    ui->tableView->setModel(queryModel);
+    if (query == "NULL")
+    {
+        ui->tableView->setModel(model);
+        ui->tableView->resizeColumnsToContents();
+        ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+    }
+    else
+    {
+        queryModel->setQuery(query);
+        ui->tableView->setModel(queryModel);
+    }
 }
 
 

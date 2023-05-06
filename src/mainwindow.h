@@ -48,109 +48,67 @@ protected:
 
 private slots:
     void on_studentsTableButton_clicked();
-
     void on_teachersTableButton_clicked();
-
     void on_gradesTableButton_clicked();
-
     void on_groupsTableButton_clicked();
-
     void clearStyleButtonTable();
-
     void on_settingsButton_clicked();
 
     void setBlackUI();
-
     void setWhiteUI();
-
     void setSystemUI();
 
     void setCurrentIconAction();
-
     void mainWindowInit();
-
     void configDefault();
-
     void configInit();
-
     void configWrite(const QString &key, const QVariant &value);
-
     void userLogout();
 
     void on_authorizationButton_clicked();
-
     void on_addRowButton_clicked();
-
     void on_deleteRowButton_clicked();
-
     void on_tableView_clicked(const QModelIndex &index);
-
     void on_subjectsTableButton_clicked();
 
     void clearSelectTable();
-
     void closeAllPopUpWindow();
-
     void closeAllEditForm();
 
     void setEnabledButtons(const bool &status);
-
     void setEnabledActions(const bool &status);
-
     void setEnabledEditButton(const bool &status);
 
     void on_addRowAction_triggered();
-
     void on_deleteRowAction_triggered();
-
     void on_editRowAction_triggered();
-
     void on_editRowButton_clicked();
-
     void on_openStudTabAction_triggered();
-
     void on_openTeachTabAction_triggered();
-
     void on_openGradesTabAction_triggered();
-
     void on_openGroupTabAction_triggered();
-
     void on_openSubjTabAction_triggered();
-
     void on_studentsReportButton_clicked();
-
     void on_teachersReportButton_clicked();
-
     void on_gradesReportButton_clicked();
-
     void on_groupsReportButton_clicked();
-
     void on_subjectsReportButton_clicked();
 
     void on_openManual_triggered();
 
     void on_studentsReportAction_triggered();
-
     void on_teachersReportAction_triggered();
-
     void on_groupsReportAction_triggered();
-
     void on_gradesReportAction_triggered();
-
     void on_subjectsReportAction_triggered();
-
     void on_currentTableReportAction_triggered();
-
     void on_currentTableReportButton_clicked();
 
     void on_about_triggered();
-
     void on_filterButton_clicked();
-
     void on_queryButton_clicked();
 
     void printDocumentToPDF(const QString path, const QString html);
-
     void printDocumentToHTML(const QString path, const QString html);
 
     QString getHeaderHTML();
@@ -160,21 +118,13 @@ private slots:
     QMap<QString, QString> getColumnsNamesAndDatatypes(const QString &tableName);
 
     QStringList getCurrentItemTable();
-
     QStringList getRowData(const int &row);
-
     QStringList getGroupsNames();
-
     QStringList getGroupsSpecial();
-
     QStringList getStudentsNames();
-
     QStringList getTeachersNames();
-
     QStringList getSubjectsNames();
-
     QStringList getSubjectsTypes();
-
     QStringList getCategoryTeachers();
 
 private:

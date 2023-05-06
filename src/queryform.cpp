@@ -25,9 +25,9 @@ queryForm::~queryForm()
 
 void queryForm::on_mySQLPushButton_clicked()
 {
-    QMessageBox::information(this, "", "hello vinegret!\nIt's test!"); // когда это поменялось??
     ui->mySQLPushButton->setFocus();
     show();
+    emit sendQuery("NULL");
 }
 
 
@@ -57,8 +57,13 @@ void queryForm::on_succesStudentPushButton_clicked()
     if (ok)
     {
         strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал'"
-                      "FROM `Оцінки`, `Студенти`"
-                      "WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
+                      "FROM `Оцінки`"
+                      "JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup+ "'"
+
+                      //JOIN table-2 ON table-1.parameter=table-2.parameter
+
+                      //"WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
+
                       "GROUP BY `Отримувач`"
                       "ORDER BY AVG(`Оцінка`) DESC;";
 
