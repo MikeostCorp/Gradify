@@ -580,11 +580,6 @@ void MainWindow::on_authorizationButton_clicked()
 
 void MainWindow::on_addRowButton_clicked()
 {
-    /* model->insertRow(model->rowCount());
-    ui->tableView->scrollToBottom();
-    ui->tableView->selectRow(model->rowCount() - 1);
-    ui->searchLineEdit->clearFocus(); */
-
     switch (currentSelectTable)
     {
     case 0:
@@ -624,14 +619,14 @@ void MainWindow::on_addRowButton_clicked()
     case 3:
         connect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
         connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-        connect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+        connect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
 
         emit createNewRow();
         emit sendTeachersList(getTeachersNames());
-        emit sendStudentsList(getStudentsNames());
+        emit sendCurrentGroup("NULL");
 
         disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-        disconnect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+        disconnect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
         disconnect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
         groupForm->show();
         break;
@@ -726,15 +721,15 @@ void MainWindow::on_editRowButton_clicked()
             case 3:
                 connect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
                 connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-                connect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+                connect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
 
                 emit sendTeachersList(getTeachersNames());
-                emit sendStudentsList(getStudentsNames());
+                emit sendCurrentGroup(selectedItem);
                 emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
                 disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-                disconnect(this, &MainWindow::sendStudentsList, groupForm, &groupWindow::setDataHeadManComboBox);
+                disconnect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
                 groupForm->show();
                 break;
             case 4:

@@ -181,6 +181,7 @@ signals:
     void sendGroupsList(QStringList);
     void sendTeachersList(QStringList);
     void sendStudentsList(QStringList);
+    void sendCurrentGroup(QString);
     void sendSubjectsList(QStringList);
     void createNewRow();
 };

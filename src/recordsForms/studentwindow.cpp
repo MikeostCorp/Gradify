@@ -97,7 +97,7 @@ void studentWindow::setData(QString titleName, QStringList listData)
 }
 
 
-void studentWindow::setComboBox(QStringList groupList)
+void studentWindow::setComboBox(const QStringList groupList)
 {
     ui->groupComboBox->clear();
     ui->groupComboBox->addItem("Оберіть групу");

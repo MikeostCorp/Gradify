@@ -38,7 +38,7 @@ private:
 
 public slots:
     void setData(QString titleName, QStringList listData);
-    void setComboBox(QStringList groupList);
+    void setComboBox(const QStringList groupList);
     void setTheme(const QString style);
     void newRow();
 

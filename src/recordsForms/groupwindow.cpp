@@ -3,6 +3,8 @@
 
 #include <QFile>
 #include <QMessageBox>
+#include <QSqlQueryModel>
+#include <QTableView>
 
 groupWindow::groupWindow(QWidget *parent) :
     QWidget(parent),
@@ -86,7 +88,7 @@ void groupWindow::setData(QString titleName, QStringList listData)
 }
 
 
-void groupWindow::setDataCuratorComboBox(QStringList list)
+void groupWindow::setDataCuratorComboBox(const QStringList list)
 {
     ui->curatorComboBox->clear();
     ui->curatorComboBox->addItem("Оберіть куратора");
@@ -95,12 +97,49 @@ void groupWindow::setDataCuratorComboBox(QStringList list)
 }
 
 
-void groupWindow::setDataHeadManComboBox(QStringList list)
+void groupWindow::setDataHeadManComboBox(QString group)
 {
-    ui->headManComboBox->clear();
-    ui->headManComboBox->addItem("Оберіть старосту");
-    ui->headManComboBox->insertSeparator(1);
-    ui->headManComboBox->addItems(list);
+    if (group == "NULL")
+    {
+        ui->headManComboBox->clear();
+        ui->headManComboBox->addItem("Оберіть старосту");
+        ui->headManComboBox->insertSeparator(1);
+        ui->headManComboBox->addItem("Студентів поки що нема");
+        ui->headManComboBox->setCurrentIndex(2);
+    }
+    else
+    {
+        ui->headManComboBox->clear();
+        ui->headManComboBox->addItem("Оберіть старосту");
+        ui->headManComboBox->insertSeparator(1);
+
+        group.remove(0, group.indexOf('.') + 2);
+
+        QMessageBox::information(this,"",group);
+
+
+        QStringList studentList;
+        QSqlQueryModel *virualQueryModel = new QSqlQueryModel;
+        QTableView *virtualTable = new QTableView;
+
+        virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
+                                   "FROM `Студенти`"
+                                   "WHERE `Студенти`.`Група` = '" + group + "'");
+
+
+        virtualTable->setModel(virualQueryModel);
+
+        for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+        {
+            studentList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
+                               virtualTable->model()->index(row, 1).data().toString() + " " +
+                               virtualTable->model()->index(row, 2).data().toString());
+        }
+
+
+
+        ui->headManComboBox->addItems(studentList);
+    }
 }
 
 

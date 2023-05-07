@@ -148,6 +148,11 @@
    </item>
    <item>
     <property name="text">
+     <string>Фізико-технічне</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Технічні науки</string>
     </property>
    </item>

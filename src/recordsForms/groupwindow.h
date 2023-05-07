@@ -34,8 +34,8 @@ private:
 
 public slots:
     void setData(QString titleName, QStringList listData);
-    void setDataCuratorComboBox(QStringList list);
-    void setDataHeadManComboBox(QStringList list);
+    void setDataCuratorComboBox(const QStringList list);
+    void setDataHeadManComboBox(const QString list);
     void setTheme(const QString style);
     void newRow();
 

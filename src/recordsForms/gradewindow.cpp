@@ -113,7 +113,7 @@ void gradeWindow::setData(QString titleName, QStringList listData)
 }
 
 
-void gradeWindow::setDataStudentComboBox(QStringList list)
+void gradeWindow::setDataStudentComboBox(const QStringList list)
 {
     ui->whoTakeComboBox->clear();
     ui->whoTakeComboBox->addItem("Оберіть отримувача");
@@ -122,7 +122,7 @@ void gradeWindow::setDataStudentComboBox(QStringList list)
 }
 
 
-void gradeWindow::setDataTeacherComboBox(QStringList list)
+void gradeWindow::setDataTeacherComboBox(const QStringList list)
 {
     ui->teacherComboBox->clear();
     ui->teacherComboBox->addItem("Оберіть хто виставив");
@@ -131,7 +131,7 @@ void gradeWindow::setDataTeacherComboBox(QStringList list)
 }
 
 
-void gradeWindow::setDataSubjectComboBox(QStringList list)
+void gradeWindow::setDataSubjectComboBox(const QStringList list)
 {
     ui->subjectComboBox->clear();
     ui->subjectComboBox->addItem("Оберіть предмет");
