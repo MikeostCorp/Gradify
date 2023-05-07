@@ -20,7 +20,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] New preloader.
 - [X] User Authorization.
 - [X] Authorization on server(input fields for any ip, db names e.t.c.)
-- [ ] SQL Query constructor.
+- [ ] SQL Query.
 - [X] Report constructor.
 - [X] User remembering during authorization
 - [X] Separate forms for editing posts
@@ -28,7 +28,6 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Ability to save the report in .pdf format, with a choice of saving path
 - [X] Search bar on the table
 - [X] Change the delete-row window
-- [ ] Add lookup field in tableView (comboBox delegate)
 - [ ] Add data statistics with graphs and diagrams
 - [ ] Add app user guide
 
