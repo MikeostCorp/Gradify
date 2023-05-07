@@ -110,6 +110,7 @@ void gradeWindow::setData(QString titleName, QStringList listData)
     ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[6]), "dd/MM/yyyy"));
 
     ui->okLabel->setVisible(false);
+    ui->saveButton->setEnabled(true);
 }
 
 
@@ -165,6 +166,7 @@ void gradeWindow::newRow()
     idRowEdit = -1;
     ui->okLabel->setVisible(false);
     ui->whoTakeComboBox->setEnabled(false);
+    ui->saveButton->setEnabled(true);
 
     ui->subjectComboBox->setCurrentIndex(0);
     ui->whoTakeComboBox->setCurrentIndex(0);
@@ -233,6 +235,7 @@ void gradeWindow::on_saveButton_clicked()
         {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
+            ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
         }
         else

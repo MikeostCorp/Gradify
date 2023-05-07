@@ -83,6 +83,9 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string>Скасувати</string>
    </property>
@@ -121,6 +124,9 @@
      <width>100</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>Зберегти</string>

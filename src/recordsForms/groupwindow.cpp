@@ -85,6 +85,7 @@ void groupWindow::setData(QString titleName, QStringList listData)
     ui->headManComboBox->setCurrentText(listData[6]);
 
     ui->okLabel->setVisible(false);
+    ui->saveButton->setEnabled(true);
 }
 
 
@@ -99,34 +100,27 @@ void groupWindow::setDataCuratorComboBox(const QStringList list)
 
 void groupWindow::setDataHeadManComboBox(QString group)
 {
-    if (group == "NULL")
+    ui->headManComboBox->clear();
+    ui->headManComboBox->addItem("Оберіть старосту");
+    ui->headManComboBox->insertSeparator(1);
+
+    group.remove(0, group.indexOf('.') + 2);
+
+    QStringList studentList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel;
+    QTableView *virtualTable = new QTableView;
+
+    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
+                               "FROM `Студенти`"
+                               "WHERE `Студенти`.`Група` = '" + group + "'");
+
+    if (virualQueryModel->rowCount() <= 0 )
     {
-        ui->headManComboBox->clear();
-        ui->headManComboBox->addItem("Оберіть старосту");
-        ui->headManComboBox->insertSeparator(1);
         ui->headManComboBox->addItem("Студентів поки що нема");
         ui->headManComboBox->setCurrentIndex(2);
     }
     else
     {
-        ui->headManComboBox->clear();
-        ui->headManComboBox->addItem("Оберіть старосту");
-        ui->headManComboBox->insertSeparator(1);
-
-        group.remove(0, group.indexOf('.') + 2);
-
-        QMessageBox::information(this,"",group);
-
-
-        QStringList studentList;
-        QSqlQueryModel *virualQueryModel = new QSqlQueryModel;
-        QTableView *virtualTable = new QTableView;
-
-        virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                                   "FROM `Студенти`"
-                                   "WHERE `Студенти`.`Група` = '" + group + "'");
-
-
         virtualTable->setModel(virualQueryModel);
 
         for (int row = 0; row < virualQueryModel->rowCount(); ++row)
@@ -135,8 +129,6 @@ void groupWindow::setDataHeadManComboBox(QString group)
                                virtualTable->model()->index(row, 1).data().toString() + " " +
                                virtualTable->model()->index(row, 2).data().toString());
         }
-
-
 
         ui->headManComboBox->addItems(studentList);
     }
@@ -165,6 +157,7 @@ void groupWindow::newRow()
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);
+    ui->saveButton->setEnabled(true);
 
     ui->nameLineEdit->clear();
     ui->specialComboBox->setCurrentIndex(0);
@@ -192,6 +185,7 @@ void groupWindow::on_saveButton_clicked()
         {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
+            ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
         }
         else
