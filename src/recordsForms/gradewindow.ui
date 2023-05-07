@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>510</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>340</y>
+     <y>290</y>
      <width>141</width>
      <height>16</height>
     </rect>
@@ -49,7 +49,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>390</y>
+     <y>340</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -62,7 +62,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>390</y>
+     <y>340</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>470</y>
+     <y>410</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -117,7 +117,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>360</y>
+     <y>310</y>
      <width>320</width>
      <height>21</height>
     </rect>
@@ -125,16 +125,6 @@
    <item>
     <property name="text">
      <string>Оберіть тип оцінки</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Контрольна робота</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Самостійна робота</string>
     </property>
    </item>
    <item>
@@ -149,7 +139,22 @@
    </item>
    <item>
     <property name="text">
-     <string>Звичайна</string>
+     <string>Модульна</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Семінар</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Поточна</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Екзамен</string>
     </property>
    </item>
    <item>
@@ -157,12 +162,17 @@
      <string>Іспит</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>Річна</string>
+    </property>
+   </item>
   </widget>
   <widget class="QSpinBox" name="gradeSpinBox">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>410</y>
+     <y>360</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -184,7 +194,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>470</y>
+     <y>410</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -270,7 +280,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>410</y>
+     <y>360</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -298,54 +308,6 @@
    <property name="displayFormat">
     <string>dd.MM.yyyy</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="teacherLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>290</y>
-     <width>161</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Викладач котрий виставив&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="teacherComboBox">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>310</y>
-     <width>320</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Оберіть хто виставив</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>rew</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>wrewr</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>wer</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>wer</string>
-    </property>
-   </item>
   </widget>
   <widget class="QLabel" name="okLabel">
    <property name="geometry">
@@ -424,8 +386,6 @@
   <zorder>subjectComboBox</zorder>
   <zorder>whoTakeComboBox</zorder>
   <zorder>takeDateEdit</zorder>
-  <zorder>teacherLabel</zorder>
-  <zorder>teacherComboBox</zorder>
   <zorder>okLabel</zorder>
   <zorder>groupComboBox</zorder>
   <zorder>subjectLabel_2</zorder>

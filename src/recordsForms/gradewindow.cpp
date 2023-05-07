@@ -104,7 +104,7 @@ void gradeWindow::setData(QString titleName, QStringList listData)
     ui->groupComboBox->setCurrentText(tableView->model()->index(0, 0).data().toString());
 
     ui->whoTakeComboBox->setCurrentText(listData[2]);
-    ui->teacherComboBox->setCurrentText(listData[3]);
+    //ui->teacherComboBox->setCurrentText(listData[3]);
     ui->gradeSpinBox->setValue(listData[4].toInt());
     ui->typeGradeComboBox->setCurrentText(listData[5]);
     ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[6]), "dd/MM/yyyy"));
@@ -122,14 +122,6 @@ void gradeWindow::setDataStudentComboBox(const QStringList list)
     ui->whoTakeComboBox->addItems(list);
 }
 
-
-void gradeWindow::setDataTeacherComboBox(const QStringList list)
-{
-    ui->teacherComboBox->clear();
-    ui->teacherComboBox->addItem("Оберіть хто виставив");
-    ui->teacherComboBox->insertSeparator(1);
-    ui->teacherComboBox->addItems(list);
-}
 
 
 void gradeWindow::setDataSubjectComboBox(const QStringList list)
@@ -170,7 +162,7 @@ void gradeWindow::newRow()
 
     ui->subjectComboBox->setCurrentIndex(0);
     ui->whoTakeComboBox->setCurrentIndex(0);
-    ui->teacherComboBox->setCurrentIndex(0);
+    //ui->teacherComboBox->setCurrentIndex(0);
     ui->gradeSpinBox->setValue(2);
     ui->typeGradeComboBox->setCurrentIndex(0);
     ui->takeDateEdit->setDate(QDate::currentDate());
@@ -212,7 +204,7 @@ QStringList gradeWindow::getCurrentData()
     dataList << QString::number(idRowEdit);
     dataList << ui->subjectComboBox->currentText();
     dataList << ui->whoTakeComboBox->currentText();
-    dataList << ui->teacherComboBox->currentText();
+    //dataList << ui->teacherComboBox->currentText();
     dataList << QString::number(ui->gradeSpinBox->value());
     dataList << ui->typeGradeComboBox->currentText();
     dataList << QString::number(ui->takeDateEdit->date().year()) + "." +
@@ -228,7 +220,7 @@ void gradeWindow::on_saveButton_clicked()
 {
     if (ui->subjectComboBox->currentIndex() not_eq 0 and
         ui->whoTakeComboBox->currentIndex() not_eq 0 and
-        ui->teacherComboBox->currentIndex() not_eq 0 and
+        //ui->teacherComboBox->currentIndex() not_eq 0 and
         ui->typeGradeComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
@@ -259,11 +251,6 @@ void gradeWindow::on_saveButton_clicked()
     {
         ui->whoTakeComboBox->setFocus();
         QMessageBox::critical(this,"","Оберіть хто отримав оцінку");
-    }
-    else if (ui->teacherComboBox->currentIndex() == 0)
-    {
-        ui->teacherComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть хто виставив оцінку");
     }
     else if (ui->typeGradeComboBox->currentIndex() == 0)
     {

@@ -34,6 +34,7 @@ private:
 
 public slots:
     void setData(QString titleName, QStringList listData);
+    void setTeacherComboBox(const QStringList teacherList);
     void setTheme(const QString style);
     void newRow();
 

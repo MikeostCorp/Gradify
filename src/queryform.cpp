@@ -57,13 +57,10 @@ void queryForm::on_succesStudentPushButton_clicked()
     if (ok)
     {
         strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал'"
-                      "FROM `Оцінки`"
-                      "JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup + "'"
-
-
-
+                      "FROM `Оцінки`, `Студенти`"
+                      //"JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup + "'"
                       //"WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
-
+                      "WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
                       "GROUP BY `Отримувач`"
                       "ORDER BY AVG(`Оцінка`) DESC;";
 

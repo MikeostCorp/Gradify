@@ -602,7 +602,6 @@ void MainWindow::on_addRowButton_clicked()
     case 2:
         connect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
         connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-        connect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
         connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
 
         emit sendSubjectsList(getSubjectsNames());
@@ -612,7 +611,6 @@ void MainWindow::on_addRowButton_clicked()
 
         disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
         disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-        disconnect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
         disconnect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
         gradeForm->show();
         break;
@@ -704,17 +702,14 @@ void MainWindow::on_editRowButton_clicked()
             case 2:
                 connect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
                 connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-                connect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
                 connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
 
                 emit sendSubjectsList(getSubjectsNames());
                 emit sendStudentsList(getStudentsNames());
-                emit sendTeachersList(getTeachersNames());
                 emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
                 disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-                disconnect(this, &MainWindow::sendTeachersList, gradeForm, &gradeWindow::setDataTeacherComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
                 gradeForm->show();
                 break;
@@ -734,7 +729,12 @@ void MainWindow::on_editRowButton_clicked()
                 break;
             case 4:
                 connect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
+                connect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
+
+                emit sendTeachersList(getTeachersNames());
                 emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+
+                disconnect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
                 subjectForm->show();
                 break;

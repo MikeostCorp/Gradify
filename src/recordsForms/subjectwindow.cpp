@@ -16,6 +16,7 @@ subjectWindow::subjectWindow(QWidget *parent) :
 
     ui->controlComboBox->insertSeparator(1);
     ui->typeComboBox->insertSeparator(1);
+    ui->teacherComboBox->insertSeparator(1);
     ui->allTimeSpinBox->setReadOnly(true);
     ui->okLabel->setVisible(false);
     isNewRow = false;
@@ -82,16 +83,26 @@ void subjectWindow::setData(QString titleName, QStringList listData)
 
     ui->nameLineEdit->setText(listData[1]);
     ui->typeComboBox->setCurrentText(listData[2]);
-    ui->allTimeSpinBox->setValue(listData[3].toInt());
-    ui->lectureTimeSpinBox->setValue(listData[4].toInt());
-    ui->labTimeSpinBox->setValue(listData[5].toInt());
-    ui->seminarSpinBox->setValue(listData[6].toInt());
-    ui->soloWorkSpinBox->setValue(listData[7].toInt());
-    ui->semesrtLearnSpinBox->setValue(listData[8].toInt());
-    ui->controlComboBox->setCurrentText(listData[9]);
+    ui->teacherComboBox->setCurrentText(listData[3]);
+    ui->allTimeSpinBox->setValue(listData[4].toInt());
+    ui->lectureTimeSpinBox->setValue(listData[5].toInt());
+    ui->labTimeSpinBox->setValue(listData[6].toInt());
+    ui->seminarSpinBox->setValue(listData[7].toInt());
+    ui->soloWorkSpinBox->setValue(listData[8].toInt());
+    ui->semesrtLearnSpinBox->setValue(listData[9].toInt());
+    ui->controlComboBox->setCurrentText(listData[10]);
 
     ui->okLabel->setVisible(false);
     ui->saveButton->setEnabled(true);
+}
+
+
+void subjectWindow::setTeacherComboBox(const QStringList teacherList)
+{
+    ui->teacherComboBox->clear();
+    ui->teacherComboBox->addItem("Оберіть викладача");
+    ui->teacherComboBox->insertSeparator(1);
+    ui->teacherComboBox->addItems(teacherList);
 }
 
 
@@ -122,6 +133,7 @@ void subjectWindow::newRow()
 
     ui->nameLineEdit->clear();
     ui->typeComboBox->setCurrentIndex(0);
+    ui->teacherComboBox->setCurrentIndex(0);
     ui->allTimeSpinBox->setValue(4);
     ui->lectureTimeSpinBox->setValue(1);
     ui->labTimeSpinBox->setValue(1);
@@ -168,6 +180,11 @@ void subjectWindow::on_saveButton_clicked()
         ui->typeComboBox->setFocus();
         QMessageBox::critical(this,"","Оберіть тип предмету");
     }
+    else if (ui->teacherComboBox->currentIndex() == 0)
+    {
+        ui->teacherComboBox->setFocus();
+        QMessageBox::critical(this,"","Оберіть викладача предмету");
+    }
     else if (ui->controlComboBox->currentIndex() == 0)
     {
         ui->controlComboBox->setFocus();
@@ -192,6 +209,7 @@ QStringList subjectWindow::getCurrentData()
     dataList << QString::number(idRowEdit);
     dataList << ui->nameLineEdit->text();
     dataList << ui->typeComboBox->currentText();
+    dataList << ui->teacherComboBox->currentText();
     dataList << QString::number(ui->allTimeSpinBox->value());
     dataList << QString::number(ui->lectureTimeSpinBox->value());
     dataList << QString::number(ui->labTimeSpinBox->value());
