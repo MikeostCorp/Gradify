@@ -113,6 +113,11 @@
    </item>
    <item>
     <property name="text">
+     <string>Суспільно-Історичнй предмет</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Фізична культура і здоровя</string>
     </property>
    </item>
@@ -133,7 +138,7 @@
    </item>
    <item>
     <property name="text">
-     <string>Комп’ютерні наукі</string>
+     <string>Комп’ютерні науки</string>
     </property>
    </item>
    <item>
@@ -159,6 +164,11 @@
    <item>
     <property name="text">
      <string>Космологія</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Економіка</string>
     </property>
    </item>
   </widget>
