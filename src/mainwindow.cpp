@@ -630,9 +630,12 @@ void MainWindow::on_addRowButton_clicked()
         break;
     case 4:
         connect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
+        connect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
 
+        emit sendTeachersList(getTeachersNames());
         emit createNewRow();
 
+        disconnect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
         disconnect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
         subjectForm->show();
         break;

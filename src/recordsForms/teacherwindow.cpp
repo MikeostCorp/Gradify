@@ -2,6 +2,7 @@
 #include "ui_teacherwindow.h"
 
 #include <QFile>
+#include <QTimer>
 #include <QMessageBox>
 
 teacherWindow::teacherWindow(QWidget *parent) :
@@ -190,10 +191,10 @@ void teacherWindow::on_saveButton_clicked()
     if (not ui->lastNameLineEdit->text().isEmpty() and
         not ui->nameLineEdit->text().isEmpty() and
         not ui->surnameLineEdit->text().isEmpty() and
-         ui->numberLineEdit->text().length() == 13 and
+        ui->numberLineEdit->text().length() == 13 and
         not ui->addressLineEdit->text().isEmpty() and
-         ui->categoryComboBox->currentIndex() not_eq 0 and
-         ui->specialComboBox->currentIndex() not_eq 0)
+        ui->categoryComboBox->currentIndex() not_eq 0 and
+        ui->specialComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
         {
@@ -201,6 +202,38 @@ void teacherWindow::on_saveButton_clicked()
             ui->okLabel->setVisible(true);
             ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
+
+            QTimer *timer = new QTimer(this);
+            timer->start(35);
+
+            connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
+
+            QTimer::singleShot(0, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [3 сек]");
+                               });
+
+            QTimer::singleShot(1000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [2 сек]");
+                               });
+
+            QTimer::singleShot(2000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [1 сек]");
+                               });
+            QTimer::singleShot(3000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [0 сек]");
+                               });
+            QTimer::singleShot(3500, [this]
+                               {
+                                   this->close();
+                               });
         }
         else
         {

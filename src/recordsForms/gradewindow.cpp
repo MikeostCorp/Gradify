@@ -2,10 +2,10 @@
 #include "ui_gradewindow.h"
 
 #include <QFile>
-#include <QMessageBox>
+#include <QTimer>
 #include <QTableView>
+#include <QMessageBox>
 #include <QSqlQueryModel>
-
 
 gradeWindow::gradeWindow(QWidget *parent) :
     QWidget(parent),
@@ -229,6 +229,38 @@ void gradeWindow::on_saveButton_clicked()
             ui->okLabel->setVisible(true);
             ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
+
+            QTimer *timer = new QTimer(this);
+            timer->start(35);
+
+            connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
+
+            QTimer::singleShot(0, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [3 сек]");
+                               });
+
+            QTimer::singleShot(1000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [2 сек]");
+                               });
+
+            QTimer::singleShot(2000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [1 сек]");
+                               });
+            QTimer::singleShot(3000, [this]
+                               {
+                                   ui->okLabel->setText("Запис додано\n"
+                                                        "Вікно автоматично закриється через [0 сек]");
+                               });
+            QTimer::singleShot(3500, [this]
+                               {
+                                   this->close();
+                               });
         }
         else
         {
@@ -314,4 +346,5 @@ void gradeWindow::setGroupComboBox()
 
     ui->groupComboBox->addItems(listGroup);
 }
+
 
