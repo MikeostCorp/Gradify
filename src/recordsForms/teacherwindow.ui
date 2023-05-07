@@ -78,6 +78,16 @@
      <string>Соціально-політичні науки</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>Фізико-технічна</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Технічна</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="catogoriaLabel">
    <property name="geometry">

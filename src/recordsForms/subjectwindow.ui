@@ -118,17 +118,22 @@
    </item>
    <item>
     <property name="text">
-     <string>Навчальний предмет</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>Антропологічні науки</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>Суспільствознавство</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Навчальний предмет</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Комп’ютерні наукі</string>
     </property>
    </item>
    <item>

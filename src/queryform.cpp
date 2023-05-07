@@ -58,9 +58,9 @@ void queryForm::on_succesStudentPushButton_clicked()
     {
         strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал'"
                       "FROM `Оцінки`"
-                      "JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup+ "'"
+                      "JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup + "'"
 
-                      //JOIN table-2 ON table-1.parameter=table-2.parameter
+
 
                       //"WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
 

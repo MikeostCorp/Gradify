@@ -167,7 +167,7 @@ void subjectWindow::on_saveButton_clicked()
     }
     else if (ui->controlComboBox->currentIndex() == 0)
     {
-        ui->typeComboBox->setFocus();
+        ui->controlComboBox->setFocus();
         QMessageBox::critical(this,"","Оберіть семестровий контроль з предмету");
     }
 }
