@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>480</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>430</y>
+     <y>410</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -33,7 +33,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>430</y>
+     <y>410</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -49,10 +49,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>180</y>
+     <y>160</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="maxLength">
     <number>55</number>
@@ -62,10 +62,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>160</y>
+     <y>140</y>
      <width>58</width>
      <height>16</height>
-    </rect>
+    </rect>  
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Назва&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -75,10 +75,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>190</y>
      <width>101</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Спеціальність&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -88,10 +88,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>360</y>
+     <y>340</y>
      <width>141</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Рік початку навчання&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>360</y>
+     <y>340</y>
      <width>151</width>
      <height>16</height>
     </rect>
@@ -114,10 +114,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>260</y>
+     <y>240</y>
      <width>141</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Куратор&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -127,10 +127,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>310</y>
+     <y>290</y>
      <width>141</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Староста&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -140,10 +140,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>280</y>
+     <y>260</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <item>
     <property name="text">
@@ -175,10 +175,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>330</y>
+     <y>310</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <item>
     <property name="text">
@@ -190,10 +190,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>380</y>
+     <y>360</y>
      <width>135</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -209,10 +209,10 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>380</y>
+     <y>360</y>
      <width>135</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -247,10 +247,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>230</y>
+     <y>210</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <item>
     <property name="text">
@@ -276,13 +276,13 @@
   <widget class="QLabel" name="okLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>130</x>
      <y>125</y>
-     <width>360</width>
-     <height>30</height>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text"> 
     <string>%status_label%</string>
    </property>
    <property name="alignment">

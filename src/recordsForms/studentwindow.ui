@@ -7,20 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>570</height>
+    <height>550</height>
    </rect>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle"> 
    <string>Form</string>
   </property>
   <widget class="QLabel" name="addressLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>360</y>
+     <y>340</y>
      <width>121</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Адрес проживання&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -30,10 +30,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>480</y>
+     <y>460</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <item>
     <property name="text">
@@ -65,10 +65,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>230</y>
+     <y>210</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="maxLength">
     <number>50</number>
@@ -78,10 +78,10 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>530</y>
+     <y>510</y>
      <width>100</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
@@ -94,10 +94,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>310</y>
+     <y>290</y>
      <width>111</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Номер телефона&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -107,10 +107,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>160</y>
+     <y>140</y>
      <width>61</width>
      <height>16</height>
-    </rect>
+    </rect>  
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Прізвище&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -120,7 +120,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>530</y>
+     <y>510</y>
      <width>100</width>
      <height>21</height>
     </rect>
@@ -136,7 +136,7 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>330</y>
+     <y>310</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -159,10 +159,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>460</y>
+     <y>440</y>
      <width>141</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Група&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -172,10 +172,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>190</y>
      <width>101</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Ім'я&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -185,10 +185,10 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>310</y>
+     <y>290</y>
      <width>111</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Дата народження&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -198,7 +198,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>260</y>
+     <y>240</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -211,7 +211,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>180</y>
+     <y>160</y>
      <width>320</width>
      <height>21</height>
     </rect>
@@ -224,10 +224,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>380</y>
+     <y>360</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="maxLength">
     <number>75</number>
@@ -237,10 +237,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>280</y>
+     <y>260</y>
      <width>320</width>
      <height>21</height>
-    </rect>
+    </rect> 
    </property>
    <property name="maxLength">
     <number>50</number>
@@ -250,10 +250,10 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>410</y>
+     <y>390</y>
      <width>121</width>
      <height>16</height>
-    </rect>
+    </rect> 
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700;&quot;&gt;Номер паспорту&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -263,7 +263,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>430</y>
+     <y>410</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -276,7 +276,7 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>410</y>
+     <y>390</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -289,7 +289,7 @@
    <property name="geometry">
     <rect>
      <x>205</x>
-     <y>430</y>
+     <y>410</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -321,7 +321,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>330</y>
+     <y>310</y>
      <width>135</width>
      <height>21</height>
     </rect>
@@ -336,10 +336,10 @@
   <widget class="QLabel" name="okLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>120</x>
      <y>125</y>
-     <width>360</width>
-     <height>30</height>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
