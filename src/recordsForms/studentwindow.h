@@ -28,7 +28,6 @@ private slots:
     QValidator *getValidatorPass();
     QStringList getCurrentData();
 
-
 private:
     Ui::studentWindow *ui;
 

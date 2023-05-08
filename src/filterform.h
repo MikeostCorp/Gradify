@@ -19,24 +19,18 @@ public:
 
 private slots:
     void on_filterPushButton_clicked();
-
     void on_tableComboBox_currentTextChanged(const QString &arg1);
-
     void on_conditionComboBox_currentTextChanged(const QString &arg1);
-
     void on_conditionLineEdit_editingFinished();
 
     void setIntTypeComboBox();
-
     void setStringTypeComboBox();
-
     void setDateTypeComboBox();
-
     void setDisabledComboBox();
 
-    QGraphicsDropShadowEffect *paintDropRedShadowEffect();
-
     void on_clearFilterPushButton_clicked();
+
+    QGraphicsDropShadowEffect *paintDropRedShadowEffect();
 
 private:
     Ui::filterForm *ui;

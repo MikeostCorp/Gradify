@@ -17,14 +17,18 @@ public:
 
 private slots:
     void on_mySQLPushButton_clicked();
-
     void on_succesStudentPushButton_clicked();
+    void on_searchGradeStudentButton_clicked();
+
+    QString getDateWithDialog();
 
 private:
     Ui::queryForm *ui;
 
 signals:
-    void sendQuery(QString);
+    void sendQuery(const QString);
+    void sendFilter(const QString, const QString);
+    void clearFilter();
 };
 
 #endif // QUERYFORM_H

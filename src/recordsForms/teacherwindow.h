@@ -26,7 +26,6 @@ private slots:
     QString reverseDate(QString str);
     QStringList getCurrentData();
 
-
 private:
     Ui::teacherWindow *ui;
 

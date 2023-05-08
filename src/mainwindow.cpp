@@ -94,6 +94,8 @@ void MainWindow::mainWindowInit()
     connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
     connect(queryWindow, &queryForm::sendQuery, this, &MainWindow::setQueryForTable);
+    connect(queryWindow, &queryForm::sendFilter, this, &MainWindow::setFilterForTable);
+    connect(queryWindow, &queryForm::clearFilter, this, &MainWindow::clearFilterForTable);
 
     // clear searchbar & filter
     connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
@@ -111,8 +113,8 @@ void MainWindow::mainWindowInit()
         if (button->objectName() not_eq "filterButton" and button->objectName() not_eq "queryButton"
             and button->objectName() not_eq "filterPushButton" and button->objectName() not_eq "succesStudentPushButton"
             and button->objectName() not_eq "avgScorePushButton" and button->objectName() not_eq "clearFilterPushButton"
-            and button->objectName() not_eq "mySQLPushButton" and button->objectName() not_eq "Менять!")
-        {
+            and button->objectName() not_eq "mySQLPushButton" and button->objectName() not_eq "searchGradeStudentButton")
+        { // ето тебе нада
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
         if (button->objectName() not_eq "editRowButton"
@@ -1077,8 +1079,6 @@ QStringList MainWindow::getCurrentItemTable()
 {
     QStringList str;
 
-    // tut red
-
     switch (currentSelectTable)
     {
     case 0:
@@ -1742,7 +1742,7 @@ void MainWindow::setBlackUI()
     {
     case 0:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studenstIco.png"));
+        ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studentsIco.png"));
         break;
     case 1:
         ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);

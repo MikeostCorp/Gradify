@@ -75,7 +75,7 @@
      <string>По успішності групи</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="freePushButton">
+   <widget class="QPushButton" name="searchGradeStudentButton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -94,7 +94,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
-     <string>по Free porn</string>
+     <string>За датою оцінки студента</string>
     </property>
    </widget>
    <widget class="QPushButton" name="mySQLPushButton">

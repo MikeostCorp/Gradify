@@ -379,7 +379,7 @@ QFrame#queryMainFrame
 QPushButton#filterPushButton,
 QPushButton#succesStudentPushButton,
 QPushButton#avgScorePushButton,
-QPushButton#freePushButton,
+QPushButton#searchGradeStudentButton,
 QPushButton#mySQLPushButton,
 QPushButton#clearFilterPushButton
 {
@@ -391,7 +391,7 @@ QPushButton#clearFilterPushButton
 QPushButton#filterPushButton:hover,
 QPushButton#succesStudentPushButton:hover,
 QPushButton#avgScorePushButton:hover,
-QPushButton#freePushButton:hover,
+QPushButton#searchGradeStudentButton:hover,
 QPushButton#mySQLPushButton:hover,
 QPushButton#clearFilterPushButton:hover
 {
@@ -488,13 +488,6 @@ QComboBox#conditionComboBox QAbstractItemView
   background-color: white;
   border: none;
   border-radius: 6px;
-}
-
-QDateEdit#conditionDataEdit
-{
-    color: rgb(71, 71, 72);
-    background-color: rgb(225, 225, 225);
-    padding-left: 5px;
 }
 
 QDateEdit#conditionDataEdit
@@ -611,3 +604,54 @@ QMessageBox QLabel
 {
     color: rgb(71, 71, 72);
 }
+
+QDialog
+{
+    background-color: rgb(240, 240, 240);
+    border: 0px;
+}
+
+QDialog QLabel
+{
+    color: black;
+}
+
+QDialog QPushButton
+{
+    color: black;
+}
+
+QDialog QDateEdit
+{
+    color: rgb(71, 71, 72);
+    background-color: rgb(225, 225, 225);
+    padding-left: 5px;
+    border-radius: 6px;
+    border: 2px solid rgb(225, 225, 225);
+}
+
+QDialog QDateEdit:focus
+{
+    border-color: rgb(65, 105, 225);
+}
+
+QDialog QDateEdit::up-button
+{
+    subcontrol-position: top right;
+    background-color: rgb(253, 253, 253);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    width: 14px;
+    image: url(:/img/blackMenuIcon/upArrow.png);
+}
+
+QDialog QDateEdit::down-button
+{
+    subcontrol-position: bottom right;
+    background-color: rgb(253, 253, 253);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width: 14px;
+    image: url(:/img/blackMenuIcon/downArrow.png);
+}
+
