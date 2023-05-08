@@ -120,12 +120,6 @@ void authorizationForm::on_loginButton_clicked()
     }
     else
     {
-        //
-        // Код для проверки правильности введения и в случае чего высвечивать надпись
-        // про ошибку ввода пароля
-        //
-
-
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
         authorizationDB.setHostName("141.136.44.252");

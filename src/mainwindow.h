@@ -167,7 +167,8 @@ private:
 public slots:
     void setTheme(const QString &style);
     void authorization(const QString &login);
-    void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
+    void setFilterForTable(const QString &filterQuery,
+                           const QString &currentColumnFilter);
     void clearFilterForTable();
     void goSearch();
     void setDataToModel(QStringList dataList, bool isNewRow);
@@ -176,6 +177,7 @@ public slots:
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
+    void changedGradeTable(const int);
     void setTableForFilter(const QMap<QString, QString>);
     void setDataEditForm(QString, QStringList);
     void sendGroupsList(QStringList);

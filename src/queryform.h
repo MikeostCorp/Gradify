@@ -25,6 +25,11 @@ private slots:
 private:
     Ui::queryForm *ui;
 
+    int changedGradeTable;
+
+public slots:
+    void selectedGradeTable(int status);
+
 signals:
     void sendQuery(const QString);
     void sendFilter(const QString, const QString);

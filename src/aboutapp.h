@@ -18,9 +18,7 @@ public:
 
 private slots:
     void setBlackUI();
-
     void setWhiteUI();
-
     void setSystemUI();
 
 private:

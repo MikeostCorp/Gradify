@@ -96,6 +96,7 @@ void MainWindow::mainWindowInit()
     connect(queryWindow, &queryForm::sendQuery, this, &MainWindow::setQueryForTable);
     connect(queryWindow, &queryForm::sendFilter, this, &MainWindow::setFilterForTable);
     connect(queryWindow, &queryForm::clearFilter, this, &MainWindow::clearFilterForTable);
+    connect(this, &MainWindow::changedGradeTable, queryWindow, &queryForm::selectedGradeTable);
 
     // clear searchbar & filter
     connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
@@ -256,6 +257,7 @@ void MainWindow::on_studentsTableButton_clicked()
     ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
 
     emit setTableForFilter(getColumnsNamesAndDatatypes("Студенти"));
+    emit changedGradeTable(0);
 }
 
 
@@ -285,6 +287,7 @@ void MainWindow::on_teachersTableButton_clicked()
     ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
 
     emit setTableForFilter(getColumnsNamesAndDatatypes("Викладачі"));
+    emit changedGradeTable(1);
 }
 
 
@@ -309,6 +312,7 @@ void MainWindow::on_gradesTableButton_clicked()
     ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/raitingIco.png"));
 
     emit setTableForFilter(getColumnsNamesAndDatatypes("Оцінки"));
+    emit changedGradeTable(2);
 }
 
 
@@ -338,6 +342,7 @@ void MainWindow::on_groupsTableButton_clicked()
     ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupIco.png"));
 
     emit setTableForFilter(getColumnsNamesAndDatatypes("Групи"));
+    emit changedGradeTable(3);
 }
 
 
@@ -367,6 +372,7 @@ void MainWindow::on_subjectsTableButton_clicked()
     ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectIco.png"));
 
     emit setTableForFilter(getColumnsNamesAndDatatypes("Предмети"));
+    emit changedGradeTable(4);
 }
 
 
@@ -1438,7 +1444,7 @@ void MainWindow::on_teachersReportButton_clicked()
 {
     bool ok;
 
-    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по викладачас"),
+    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по викладачам"),
                                                   tr("Оберіть категорію викладача:"), getCategoryTeachers(),
                                                   0, false, &ok);
     if (ok)

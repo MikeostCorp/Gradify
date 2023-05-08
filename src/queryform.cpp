@@ -18,6 +18,8 @@ queryForm::queryForm(QWidget *parent) :
     setWindowFlag(Qt::FramelessWindowHint, true);
     setFixedSize(width(), height());
     close();
+
+    changedGradeTable = -1;
 }
 
 
@@ -75,57 +77,64 @@ void queryForm::on_succesStudentPushButton_clicked()
 
 void queryForm::on_searchGradeStudentButton_clicked()
 {
-    bool ok;
-
-    QString strSqlQuery;
-    QStringList listGroup;
-
-    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-    QTableView *tableView = new QTableView(this);
-
-    queryModel->setQuery("SELECT `Назва`"
-                         "FROM `Групи`");
-    tableView->setModel(queryModel);
-
-    for (int row = 0; row < queryModel->rowCount(); ++row)
+    if (changedGradeTable == 2)
     {
-        listGroup.append(tableView->model()->index(row,0).data().toString());
-    }
+        bool ok;
 
-    QString selectedGroup = QInputDialog::getItem(this, tr("Оберіть групу студента"),
-                                                  tr("Оберіть групу:"), listGroup,
-                                                  0, false, &ok);
+        QString strSqlQuery;
+        QStringList listGroup;
 
-    if (ok)
-    {
-        QStringList studentList;
+        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
+        QTableView *tableView = new QTableView(this);
 
-        queryModel->setQuery("SELECT `Прізвище`, `Ім\'я` ,`По батькові`"
-                             "FROM `Студенти`"
-                             "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
+        queryModel->setQuery("SELECT `Назва`"
+                             "FROM `Групи`");
         tableView->setModel(queryModel);
 
         for (int row = 0; row < queryModel->rowCount(); ++row)
         {
-            studentList.append(tableView->model()->index(row, 0).data().toString() + " "
-                               + tableView->model()->index(row, 1).data().toString() + " "
-                               + tableView->model()->index(row, 2).data().toString());
+            listGroup.append(tableView->model()->index(row,0).data().toString());
         }
 
-        QString selectedStudent = QInputDialog::getItem(this, tr("Оберіть студента"),
-                                                      tr("Оберіть студента для запиту:"), studentList,
+        QString selectedGroup = QInputDialog::getItem(this, tr("Оберіть групу студента"),
+                                                      tr("Оберіть групу:"), listGroup,
                                                       0, false, &ok);
+
         if (ok)
         {
-            QString dateStr = getDateWithDialog();
+            QStringList studentList;
 
-            if (dateStr != "NULL")
+            queryModel->setQuery("SELECT `Прізвище`, `Ім\'я` ,`По батькові`"
+                                 "FROM `Студенти`"
+                                 "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
+            tableView->setModel(queryModel);
+
+            for (int row = 0; row < queryModel->rowCount(); ++row)
             {
-                strSqlQuery = "`Оцінки`.`Отримувач` = '" + selectedStudent + "' "
-                              "AND `Оцінки`.`Дата виставлення` = '" + dateStr + "'";
-                emit sendFilter(strSqlQuery, "Дата виставлення");
+                studentList.append(tableView->model()->index(row, 0).data().toString() + " "
+                                   + tableView->model()->index(row, 1).data().toString() + " "
+                                   + tableView->model()->index(row, 2).data().toString());
+            }
+
+            QString selectedStudent = QInputDialog::getItem(this, tr("Оберіть студента"),
+                                                          tr("Оберіть студента для запиту:"), studentList,
+                                                          0, false, &ok);
+            if (ok)
+            {
+                QString dateStr = getDateWithDialog();
+
+                if (dateStr not_eq "NULL")
+                {
+                    strSqlQuery = "`Оцінки`.`Отримувач` = '" + selectedStudent + "' "
+                                  "AND `Оцінки`.`Дата виставлення` = '" + dateStr + "'";
+                    emit sendFilter(strSqlQuery, "Дата виставлення");
+                }
             }
         }
+    }
+    else
+    {
+        QMessageBox::information(this,"","Для цього запиту потрібно\nвідкрити таблицю оцінок");
     }
 }
 
@@ -177,4 +186,10 @@ QString queryForm::getDateWithDialog()
     {
         return "NULL";
     }
+}
+
+
+void queryForm::selectedGradeTable(int status)
+{
+    changedGradeTable = status;
 }
