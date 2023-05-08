@@ -1077,6 +1077,8 @@ QStringList MainWindow::getCurrentItemTable()
 {
     QStringList str;
 
+    // tut red
+
     switch (currentSelectTable)
     {
     case 0:
@@ -1096,7 +1098,7 @@ QStringList MainWindow::getCurrentItemTable()
                    + ui->tableView->model()->data(model->index(i, 2)).toString() + " - "
                    + ui->tableView->model()->data(model->index(i, 1)).toString() + ", "
                    + ui->tableView->model()->data(model->index(i, 4)).toString() + " ("
-                   + ui->tableView->model()->data(model->index(i, 6)).toString() + ")";
+                   + ui->tableView->model()->data(model->index(i, 3)).toString() + ")";
         }
         break;
     case 3:

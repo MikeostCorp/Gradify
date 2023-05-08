@@ -103,10 +103,9 @@ void gradeWindow::setData(QString titleName, QStringList listData)
     ui->groupComboBox->setCurrentText(tableView->model()->index(0, 0).data().toString());
 
     ui->whoTakeComboBox->setCurrentText(listData[2]);
-    //ui->teacherComboBox->setCurrentText(listData[3]);
-    ui->gradeSpinBox->setValue(listData[4].toInt());
-    ui->typeGradeComboBox->setCurrentText(listData[5]);
-    ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[6]), "dd/MM/yyyy"));
+    ui->gradeSpinBox->setValue(listData[3].toInt());
+    ui->typeGradeComboBox->setCurrentText(listData[4]);
+    ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
 
     ui->okLabel->setVisible(false);
     ui->saveButton->setEnabled(true);
@@ -219,7 +218,6 @@ void gradeWindow::on_saveButton_clicked()
 {
     if (ui->subjectComboBox->currentIndex() not_eq 0 and
         ui->whoTakeComboBox->currentIndex() not_eq 0 and
-        //ui->teacherComboBox->currentIndex() not_eq 0 and
         ui->typeGradeComboBox->currentIndex() not_eq 0)
     {
         if (isNewRow)
