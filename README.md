@@ -30,6 +30,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Change the delete-row window
 - [ ] Add data statistics with graphs and diagrams
 - [ ] Add app user guide
+- [ ] Statistics for each table
 
 ## Bug report:
 - [X] Tables stop loading after a minute of inactivity :/
