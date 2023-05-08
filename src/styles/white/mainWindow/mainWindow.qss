@@ -62,7 +62,8 @@ QPushButton#deleteRowButton,
 QPushButton#addRowButton,
 QPushButton#editRowButton,
 QPushButton#filterButton,
-QPushButton#queryButton
+QPushButton#queryButton,
+QPushButton#statisticsButton
 {
     border-radius: 6px;
     background-color: rgb(225, 225, 225);
@@ -73,7 +74,8 @@ QPushButton#deleteRowButton:hover,
 QPushButton#addRowButton:hover,
 QPushButton#editRowButton:hover,
 QPushButton#filterButton:hover,
-QPushButton#queryButton:hover
+QPushButton#queryButton:hover,
+QPushButton#statisticsButton:hover
 {
     background-color: rgb(215, 215, 215);
 }
@@ -82,7 +84,8 @@ QPushButton#deleteRowButton:disabled,
 QPushButton#addRowButton:disabled,
 QPushButton#editRowButton:disabled,
 QPushButton#filterButton:disabled,
-QPushButton#queryButton:disabled
+QPushButton#queryButton:disabled,
+QPushButton#statisticsButton:disabled
 {
     background-color: rgb(239, 239, 239);
     color: #989898;

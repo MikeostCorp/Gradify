@@ -23,7 +23,12 @@ SOURCES += \
     recordsForms/groupwindow.cpp \
     recordsForms/studentwindow.cpp \
     recordsForms/subjectwindow.cpp \
-    recordsForms/teacherwindow.cpp
+    recordsForms/teacherwindow.cpp \
+    statisticsForms/gradestatistics.cpp \
+    statisticsForms/groupstatistics.cpp \
+    statisticsForms/studentstatistics.cpp \
+    statisticsForms/subjectstatistics.cpp \
+    statisticsForms/teacherstatistics.cpp
 
 HEADERS += \
     aboutapp.h \
@@ -39,7 +44,12 @@ HEADERS += \
     recordsForms/groupwindow.h \
     recordsForms/studentwindow.h \
     recordsForms/subjectwindow.h \
-    recordsForms/teacherwindow.h
+    recordsForms/teacherwindow.h \
+    statisticsForms/gradestatistics.h \
+    statisticsForms/groupstatistics.h \
+    statisticsForms/studentstatistics.h \
+    statisticsForms/subjectstatistics.h \
+    statisticsForms/teacherstatistics.h
 
 FORMS += \
     aboutapp.ui \
@@ -53,7 +63,12 @@ FORMS += \
     recordsForms/groupwindow.ui \
     recordsForms/studentwindow.ui \
     recordsForms/subjectwindow.ui \
-    recordsForms/teacherwindow.ui
+    recordsForms/teacherwindow.ui \
+    statisticsForms/gradestatistics.ui \
+    statisticsForms/groupstatistics.ui \
+    statisticsForms/studentstatistics.ui \
+    statisticsForms/subjectstatistics.ui \
+    statisticsForms/teacherstatistics.ui
 
 TARGET = Gradify
 

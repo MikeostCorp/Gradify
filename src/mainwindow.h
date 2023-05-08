@@ -29,6 +29,12 @@
 #include <recordsForms/subjectwindow.h>
 #include <recordsForms/teacherwindow.h>
 
+#include <statisticsForms/gradestatistics.h>
+#include <statisticsForms/groupstatistics.h>
+#include <statisticsForms/studentstatistics.h>
+#include <statisticsForms/subjectstatistics.h>
+#include <statisticsForms/teacherstatistics.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -74,6 +80,7 @@ private slots:
     void clearSelectTable();
     void closeAllPopUpWindow();
     void closeAllEditForm();
+    void closeAllStatisticsForm();
 
     void setEnabledButtons(const bool &status);
     void setEnabledActions(const bool &status);
@@ -127,6 +134,8 @@ private slots:
     QStringList getSubjectsTypes();
     QStringList getCategoryTeachers();
 
+    void on_statisticsButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -141,6 +150,12 @@ private:
     studentWindow *studentForm;
     subjectWindow *subjectForm;
     teacherWindow *teacherForm;
+
+    gradeStatistics *gradeStat;
+    groupStatistics *groupStat;
+    studentStatistics *studentStat;
+    subjectStatistics *subjectStat;
+    teacherStatistics *teacherStat;
 
     QString selectButtonTableStyle;
     QString selectButtonAuthStyle;

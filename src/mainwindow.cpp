@@ -46,6 +46,12 @@ void MainWindow::mainWindowInit()
     subjectForm = new subjectWindow();
     teacherForm = new teacherWindow();
 
+    gradeStat = new gradeStatistics();
+    groupStat = new groupStatistics();
+    studentStat = new studentStatistics();
+    subjectStat = new subjectStatistics();
+    teacherStat = new teacherStatistics();
+
     // pop-up windows graphics settings
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
@@ -401,6 +407,16 @@ void MainWindow::closeAllEditForm()
 }
 
 
+void MainWindow::closeAllStatisticsForm()
+{
+    gradeStat->close();
+    groupStat->close();
+    studentStat->close();
+    subjectStat->close();
+    teacherStat->close();
+}
+
+
 void MainWindow::setEnabledButtons(const bool &status)
 {
     ui->subjectsReportButton->setEnabled(status);
@@ -447,6 +463,7 @@ void MainWindow::setEnabledEditButton(const bool &status)
     ui->filterButton->setEnabled(status);
     ui->searchLineEdit->setEnabled(status);
     ui->queryButton->setEnabled(status);
+    ui->statisticsButton->setEnabled(status);
 }
 
 
@@ -1976,3 +1993,29 @@ void MainWindow::on_about_triggered()
 {
     aboutAppWindow->show();
 }
+
+
+void MainWindow::on_statisticsButton_clicked()
+{
+    closeAllStatisticsForm();
+
+    switch (currentSelectTable)
+    {
+    case 0:
+        studentStat->show();
+        break;
+    case 1:
+        teacherStat->show();
+        break;
+    case 2:
+        gradeStat->show();
+        break;
+    case 3:
+        groupStat->show();
+        break;
+    case 4:
+        subjectStat->show();
+        break;
+    }
+}
+

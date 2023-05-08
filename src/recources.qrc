@@ -106,5 +106,6 @@
         <file>img/blackActionsIcon/studentsIco.png</file>
         <file>img/whiteActionsIcon/studentsIco.png</file>
         <file>img/blackMenuIcon/studentsIco.png</file>
+        <file>img/blueMenuIcon/statisticsIcon.png</file>
     </qresource>
 </RCC>
