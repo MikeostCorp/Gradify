@@ -62,12 +62,11 @@ void queryForm::on_succesStudentPushButton_clicked()
 
     if (ok)
     {
-        strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал'"
-                      "FROM `Оцінки`, `Студенти`"
-                      //"JOIN `Студенти` ON `Студенти`.`Група` = '" + selectedGroup + "'"
-                      //"WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
-                      "WHERE `Студенти`.`Група` = '" + selectedGroup + "'"
-                      "GROUP BY `Отримувач`"
+        strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал', `Група` "
+                      "FROM `Оцінки`, `Студенти` "
+                      "WHERE `Студенти`.`Прізвище` = SUBSTRING_INDEX(`Отримувач`, ' ', 1) "
+                      "AND `Студенти`.`Група` = '" + selectedGroup + "' "
+                      "GROUP BY `Отримувач` "
                       "ORDER BY AVG(`Оцінка`) DESC;";
 
         emit sendQuery(strSqlQuery);
