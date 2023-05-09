@@ -1311,6 +1311,34 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 //
 //=========================================================
 
+void MainWindow::fillHTMLTable(QString& textHTML, QTableView* tableView){
+    for (int i = 0; i < tableView->model()->columnCount(); ++i)
+    {
+        textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+    }
+
+    textHTML += "</tr>\n";
+
+    for (int i = 0; i < tableView->model()->rowCount(); ++i)
+    {
+        textHTML += "<tr>\n";
+
+        for (int j = 0; j < tableView->model()->columnCount(); ++j)
+        {
+            if (i % 2 not_eq 0)
+            {
+                textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+            }
+            else
+            {
+                textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+            }
+        }
+        textHTML += "</tr>\n";
+    }
+
+}
+
 
 void MainWindow::on_currentTableReportButton_clicked()
 {
@@ -1327,30 +1355,7 @@ void MainWindow::on_currentTableReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт Gradify</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < ui->tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + ui->tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-
-                for (int j = 0; j < ui->tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + ui->tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                        textHTML += "   <td>" + ui->tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, ui->tableView);
 
             if (typeFile == "HTML формат (*.html)")
             {
@@ -1397,29 +1402,7 @@ void MainWindow::on_studentsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за студентами групи «" + selectedGroup + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, tableView);
 
             queryModel->setQuery("SELECT `Куратор`,`Староста`"
                                         "FROM `Групи`"
@@ -1485,29 +1468,7 @@ void MainWindow::on_teachersReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, tableView);
 
             if (typeFile == "HTML формат (*.html)")
             {
@@ -1551,29 +1512,7 @@ void MainWindow::on_gradesReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за оцінками студента «" + selectedStudent + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, tableView);
 
             if (typeFile == "HTML формат (*.html)")
             {
@@ -1616,29 +1555,7 @@ void MainWindow::on_groupsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за спеціальністю «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, tableView);
 
             if (typeFile == "HTML формат (*.html)")
             {
@@ -1681,29 +1598,7 @@ void MainWindow::on_subjectsReportButton_clicked()
             QString textHTML = getHeaderHTML();
             textHTML += "<h2 align='center'>Звіт за типом предмета «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-            for (int i = 0; i < tableView->model()->columnCount(); ++i)
-            {
-                textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
-            }
-
-            textHTML += "</tr>\n";
-
-            for (int i = 0; i < tableView->model()->rowCount(); ++i)
-            {
-                textHTML += "<tr>\n";
-                for (int j = 0; j < tableView->model()->columnCount(); ++j)
-                {
-                    if (i % 2 not_eq 0)
-                    {
-                        textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                    else
-                    {
-                    textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-                    }
-                }
-                textHTML += "</tr>\n";
-            }
+            fillHTMLTable(textHTML, tableView);
 
             if (typeFile == "HTML формат (*.html)")
             {

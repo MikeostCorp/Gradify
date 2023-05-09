@@ -119,6 +119,7 @@ private slots:
     void printDocumentToHTML(const QString path, const QString html);
 
     QString getHeaderHTML();
+    void fillHTMLTable(QString& textHTML, QTableView* tableView);
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
