@@ -6,3 +6,76 @@ teacherStatistics
 {
     background-color: rgb(231, 224, 223);
 }
+
+QFrame
+{
+    border-radius: 12px;
+    background-color: white;
+    color: rgb(71, 71, 72);
+}
+
+QComboBox
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(71, 71, 72);
+    border: 2px solid rgb(225, 225, 225);
+    border-radius: 6px;
+}
+
+QComboBox:disabled
+{
+    color: #989898;
+}
+
+QComboBox:editable
+{
+    background-color: rgb(225, 225, 225);
+}
+
+QComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox::drop-down
+{
+    background-color: rgb(225, 225, 225);
+    color: rgb(71, 71, 72);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox::separator
+{
+    background-color: rgb(181, 185, 188);
+    height: 2px;
+    border: 8px solid white;
+}
+
+QComboBox::focus
+{
+    border-color: rgb(210, 4, 45);
+}
+
+QComboBox::down-arrow
+{
+   image:url(:/img/blackMenuIcon/downArrow.png);
+   width: 12px;
+   height: 12px;
+}
+
+QComboBox::down-arrow:disabled
+{
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView
+{
+  color: rgb(71, 71, 72);
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+}

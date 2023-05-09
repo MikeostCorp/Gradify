@@ -85,6 +85,8 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, subjectStat, &subjectStatistics::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, teacherStat, &teacherStatistics::setTheme);
 
+    // update statistics
+    connect(this, &MainWindow::updateStatisticsSignal, studentStat, &studentStatistics::updateGroupComboBox);
 
     // config initialization
     configInit();
@@ -1928,4 +1930,6 @@ void MainWindow::on_statisticsButton_clicked()
         subjectStat->show();
         break;
     }
+
+    emit updateStatisticsSignal();
 }

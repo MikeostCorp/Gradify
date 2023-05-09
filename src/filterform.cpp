@@ -336,8 +336,8 @@ QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
     effect->setColor(QColor(196, 30, 58));
     effect->setOffset(QPointF(0, 0));
     return effect;
-
 }
+
 
 void filterForm::on_clearFilterPushButton_clicked()
 {

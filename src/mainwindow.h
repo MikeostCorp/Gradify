@@ -202,5 +202,6 @@ signals:
     void sendCurrentGroup(QString);
     void sendSubjectsList(QStringList);
     void createNewRow();
+    void updateStatisticsSignal();
 };
 #endif // MAINWINDOW_H

@@ -8,13 +8,15 @@
 #include <QChartView>
 #include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QSqlQueryModel>
+#include <QTableView>
 
 studentStatistics::studentStatistics(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::studentStatistics)
 {
     ui->setupUi(this);
-    setWindowTitle("Статистика студентів");
+    setWindowTitle("Статистика студента");
 
     QBarSet *set0 = new QBarSet("Jane");
     QBarSet *set1 = new QBarSet("John");
@@ -22,10 +24,11 @@ studentStatistics::studentStatistics(QWidget *parent) :
     QBarSet *set3 = new QBarSet("Mary");
     QBarSet *set4 = new QBarSet("Samantha");
 
-
-
-
-    set4->setSelectedColor(QColor(122,122,250));
+    set0->setColor(QColor(70, 0, 255));
+    set1->setColor(QColor(136, 91, 255));
+    set2->setColor(QColor(254, 202, 100));
+    set3->setColor(QColor(255, 95, 95));
+    set4->setColor(QColor(1, 209, 255));
 
     *set0 << 1 << 2 << 3 << 4 << 5 << 6;
     *set1 << 5 << 0 << 0 << 4 << 0 << 7;
@@ -42,7 +45,7 @@ studentStatistics::studentStatistics(QWidget *parent) :
 
     QChart *chart = new QChart();
     chart->addSeries(series);
-    chart->setTitle("Тайтл текст");
+    chart->setTitle("");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setAnimationDuration(450);
 
@@ -61,24 +64,13 @@ studentStatistics::studentStatistics(QWidget *parent) :
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignRight);
 
-    QChartView *chartView = new QChartView(chart);
+    chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-
-    //chartView->setBackgroundBrush(QBrush(QColor(76,76,241)));
-    //chart->setBackgroundBrush(QBrush(Qt::darkGray));
-    //chart->setTitleBrush(QBrush(QColor(228,121,121)));
-
-    chartView->chart()->setTheme(QChart::ChartThemeDark);
-    chartView->chart()->setBackgroundBrush(QColor (123,52, 234));
-    //QChart::ChartThemeDark
-    //QChart::ChartThemeLight
-
-    ui->specialChart->addWidget(chartView);// -> add to window */
+    ui->specialChart->addWidget(chartView);
 
 
-
-    /* Pie chart
-     * QPieSeries *series1 = new QPieSeries();
+    /*
+    QPieSeries *series1 = new QPieSeries();
     series1->append("Jane", 1);
     series1->append("Joe", 2);
     series1->append("Andy", 3);
@@ -90,17 +82,12 @@ studentStatistics::studentStatistics(QWidget *parent) :
 
     QChartView *chartView1 = new QChartView(charts);
     //chartView->setBackgroundBrush(Qt::red);
-    chartView->setRenderHint(QPainter::Antialiasing); */
+    chartView1->setRenderHint(QPainter::Antialiasing);
+    //ui->specialChart_2->addWidget(chartView1);
 
     //setCentralWidget(chartView1);
+    */
 
-
-    //printer.setOutputFileName(path);
-
-    //document->setPageSize(QSizeF(927, 1402.5));
-    //document->print(&printer);
-
-    //QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
 
 
@@ -116,6 +103,9 @@ void studentStatistics::setBlackUI()
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
+
+    chartView->chart()->setTheme(QChart::ChartThemeDark);
+    chartView->chart()->setBackgroundBrush(QColor (49, 51, 52));
 }
 
 
@@ -125,6 +115,9 @@ void studentStatistics::setWhiteUI()
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
+
+    chartView->chart()->setTheme(QChart::ChartThemeLight);
+    chartView->chart()->setBackgroundBrush(QColor (255, 255, 255));
 }
 
 
@@ -160,3 +153,92 @@ void studentStatistics::setTheme(const QString &style)
         setSystemUI();
     }
 }
+
+
+void studentStatistics::updateGroupComboBox()
+{
+    QStringList groupList;
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel();
+    QTableView *virtualTable = new QTableView();
+
+    virualQueryModel->setQuery("SELECT `Назва`"
+                               "FROM `Групи`");
+
+    virtualTable->setModel(virualQueryModel);
+
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+    {
+        groupList.append(virtualTable->model()->index(row, 0).data().toString());
+    }
+
+    ui->groupComboBox->clear();
+    ui->groupComboBox->addItem("Оберіть групу", 0);
+    ui->groupComboBox->insertSeparator(1);
+    ui->groupComboBox->addItems(groupList);
+
+}
+
+
+void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
+{
+    if (index == 0)
+    {
+        ui->studentComboBox->setEnabled(false);
+        ui->studentComboBox->clear();
+        ui->studentComboBox->addItem("Студенти групи відсутні", 0);
+    }
+    else
+    {
+        ui->studentComboBox->setEnabled(true);
+
+        QStringList studentList;
+        QSqlQueryModel *virualQueryModel = new QSqlQueryModel();
+        QTableView *virtualTable = new QTableView();
+
+        virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
+                                   "FROM `Студенти`"
+                                   "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'");
+
+        virtualTable->setModel(virualQueryModel);
+
+        if (virualQueryModel->rowCount() > 0)
+        {
+            for (int row = 0; row < virualQueryModel->rowCount(); ++row)
+            {
+                studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
+                                   + virtualTable->model()->index(row, 1).data().toString() + " "
+                                   + virtualTable->model()->index(row, 2).data().toString());
+            }
+
+            ui->studentComboBox->clear();
+            ui->studentComboBox->addItem("Оберіть студента", 0);
+            ui->studentComboBox->insertSeparator(1);
+            ui->studentComboBox->addItems(studentList);
+        }
+        else
+        {
+            ui->studentComboBox->clear();
+            ui->studentComboBox->addItem("Студенти групи відсутні", 0);
+        }
+    }
+
+    setWindowTitle("Статистика студента");
+}
+
+
+void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
+{
+    if (index == 0)
+    {
+        ui->nameLabel->setText("Статистика за:");
+        setWindowTitle("Статистика студента");
+    }
+    else
+    {
+        ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText()
+                               + " [" + ui->groupComboBox->currentText() + "]");
+        setWindowTitle("Статистика " + ui->studentComboBox->currentText());
+    }
+}
+
+

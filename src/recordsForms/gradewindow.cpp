@@ -91,7 +91,6 @@ void gradeWindow::setData(QString titleName, QStringList listData)
     cutStr.remove(0, cutStr.lastIndexOf(' ') + 1);
     FIOStr.append(cutStr);
 
-
     QString queryMy = "SELECT `Група`"
                       "\nFROM `Студенти`"
                       "\nWHERE `Студенти`.`Прізвище` = '" + FIOStr[0] + "'" +
@@ -202,7 +201,6 @@ QStringList gradeWindow::getCurrentData()
     dataList << QString::number(idRowEdit);
     dataList << ui->subjectComboBox->currentText();
     dataList << ui->whoTakeComboBox->currentText();
-    //dataList << ui->teacherComboBox->currentText();
     dataList << QString::number(ui->gradeSpinBox->value());
     dataList << ui->typeGradeComboBox->currentText();
     dataList << QString::number(ui->takeDateEdit->date().year()) + "." +

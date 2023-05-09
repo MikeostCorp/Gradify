@@ -23,13 +23,13 @@ QPushButton#forgotPasswordButton:hover
 QPushButton#loginButton
 {
     border-radius: 8px;
-    background-color: rgb(251, 244, 243);
-    color: rgb(61, 60, 59);
+    background-color: rgb(75, 125, 245);
+    color: black;
 }
 
 QPushButton#loginButton:hover
 {
-    background-color: rgb(246, 239, 238);
+    background-color: rgb(95, 145, 255);
 }
 
 QLineEdit#loginLineEdit,
