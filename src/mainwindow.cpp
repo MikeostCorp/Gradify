@@ -72,11 +72,19 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorizationForm::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppWindow, &aboutApp::setTheme);
+
     connect(this, &MainWindow::setThemeSettingsUI, gradeForm, &gradeWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, groupForm, &groupWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, studentForm, &studentWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, subjectForm, &subjectWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, teacherForm, &teacherWindow::setTheme);
+
+    connect(this, &MainWindow::setThemeSettingsUI, gradeStat, &gradeStatistics::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, groupStat, &groupStatistics::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, studentStat, &studentStatistics::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, subjectStat, &subjectStatistics::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, teacherStat, &teacherStatistics::setTheme);
+
 
     // config initialization
     configInit();
@@ -89,11 +97,19 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorizationForm::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, aboutAppWindow, &aboutApp::setTheme);
+
     connect(settingWindow, &appSetting::changeThemeApp, gradeForm, &gradeWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, groupForm, &groupWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, studentForm, &studentWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, subjectForm, &subjectWindow::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, teacherForm, &teacherWindow::setTheme);
+
+    connect(settingWindow, &appSetting::changeThemeApp, gradeStat, &gradeStatistics::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, groupStat, &groupStatistics::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, studentStat, &studentStatistics::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, subjectStat, &subjectStatistics::setTheme);
+    connect(settingWindow, &appSetting::changeThemeApp, teacherStat, &teacherStatistics::setTheme);
+
 
     // filters and requests
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
@@ -1913,4 +1929,3 @@ void MainWindow::on_statisticsButton_clicked()
         break;
     }
 }
-

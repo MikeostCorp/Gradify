@@ -1,0 +1,8 @@
+gradeStatistics,
+groupStatistics,
+studentStatistics,
+subjectStatistics,
+teacherStatistics
+{
+    background-color: rgb(231, 224, 223);
+}

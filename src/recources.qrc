@@ -107,5 +107,7 @@
         <file>img/whiteActionsIcon/studentsIco.png</file>
         <file>img/blackMenuIcon/studentsIco.png</file>
         <file>img/blueMenuIcon/statisticsIcon.png</file>
+        <file>styles/black/statisticsForms/statisticsForms.qss</file>
+        <file>styles/white/statisticsForms/statisticsForms.qss</file>
     </qresource>
 </RCC>

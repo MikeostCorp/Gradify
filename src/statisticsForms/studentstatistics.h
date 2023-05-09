@@ -15,8 +15,16 @@ public:
     explicit studentStatistics(QWidget *parent = nullptr);
     ~studentStatistics();
 
+private slots:
+    void setBlackUI();
+    void setWhiteUI();
+    void setSystemUI();
+
 private:
     Ui::studentStatistics *ui;
+
+public slots:
+    void setTheme(const QString &style);
 };
 
 #endif // STUDENTSTATISTICS_H
