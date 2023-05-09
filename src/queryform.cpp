@@ -62,7 +62,7 @@ void queryForm::on_succesStudentPushButton_clicked()
 
     if (ok)
     {
-        strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал', `Група` "
+        strSqlQuery = "SELECT `Отримувач`, AVG(`Оцінка`) AS 'Середній бал' "
                       "FROM `Оцінки`, `Студенти` "
                       "WHERE `Студенти`.`Прізвище` = SUBSTRING_INDEX(`Отримувач`, ' ', 1) "
                       "AND `Студенти`.`Група` = '" + selectedGroup + "' "
