@@ -28,9 +28,10 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Ability to save the report in .pdf and .html format, with a choice of saving path
 - [X] Search bar on the table
 - [X] Change the delete-row window
-- [ ] Add data statistics with graphs and diagrams
-- [ ] Add app user guide
+- [ ] Data statistics with graphs and diagrams
 - [ ] Statistics for each table
+- [ ] Logs
+- [ ] App user guide
 
 ## Bug report:
 - [X] Tables stop loading after a minute of inactivity :/
