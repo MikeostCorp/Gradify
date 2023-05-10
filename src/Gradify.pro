@@ -1,4 +1,4 @@
-QT       += core gui sql printsupport charts
+QT       += core gui sql printsupport charts opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

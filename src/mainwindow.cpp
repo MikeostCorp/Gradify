@@ -12,6 +12,7 @@
 #include <QPrinter>
 #include <QPageSize>
 #include <QDesktopServices>
+#include <QOpenGLWidget>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -1354,7 +1355,7 @@ void MainWindow::fillHTMLTable(QString& textHTML, QTableView* tableView){
         }
         textHTML += "</tr>\n";
     }
-
+    textHTML+= "</tbody></table>";
 }
 
 
@@ -1460,41 +1461,143 @@ void MainWindow::on_studentsReportButton_clicked()
 
 void MainWindow::on_teachersReportButton_clicked()
 {
+    // bool flag for get events status
     bool ok;
 
+    // select teachers category
     QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по викладачам"),
                                                   tr("Оберіть категорію викладача:"), getCategoryTeachers(),
                                                   0, false, &ok);
+
     if (ok)
     {
-        QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
+        // create teachers list
+        QStringList teachersList;
+        QSqlQueryModel *virtualQueryModel = new QSqlQueryModel(this);
+        QTableView *virtualTable = new QTableView(this);
+
+        virtualQueryModel->setQuery("SELECT `Прізвище`"
+                                    "FROM `Викладачі` "
+                                    "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "';");
+
+        virtualTable->setModel(virtualQueryModel);
+
+        if (virtualQueryModel->rowCount() > 0)
         {
-            QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-            QTableView *tableView = new QTableView(this);
-
-            queryModel->setQuery("SELECT * "
-                                 "FROM `Викладачі`"
-                                 "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "'");
-            tableView->setModel(queryModel);
-
-            QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
-
-            fillHTMLTable(textHTML, tableView);
-
-            if (typeFile == "HTML формат (*.html)")
+            teachersList.append("Всі викладачі");
+            for (int row = 0; row < virtualQueryModel->rowCount(); ++row)
             {
-                printDocumentToHTML(pathToSave, textHTML);
+                teachersList.append(virtualTable->model()->index(row, 0).data().toString());
             }
-            else if (typeFile == "PDF формат (*.pdf)")
+        }
+        else
+        {
+            QMessageBox::information(this, "Помилка", "Викладачів даної категорії немає!");
+            return;
+        }
+
+        // string choice teacher
+        QString optionChoice = QInputDialog::getItem(this, tr("Звіт по викладачам"),
+                                                     tr("Оберіть викладача:"), teachersList,
+                                                     0, false, &ok);
+
+        if (ok)
+        {
+            // get path to report save
+            QString typeFile;
+            QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                              tr("Збереження звіту"),
+                                                              "/Users/" + qgetenv("USER") + "/Desktop",
+                                                              "PDF формат (*.pdf);;HTML формат (*.html)",
+                                                              &typeFile);
+            if (not pathToSave.isEmpty())
             {
-                printDocumentToPDF(pathToSave, textHTML);
+                QSqlQueryModel *virtualQueryModel = new QSqlQueryModel(this);
+                QTableView *virtualTableView = new QTableView(this);
+
+                QString textHTML = getHeaderHTML();
+
+                if (optionChoice == "Всі викладачі")
+                {
+                    virtualQueryModel->setQuery("SELECT * "
+                                                "FROM `Викладачі`"
+                                                "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "';");
+                    textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+                }
+                else
+                {
+                    virtualQueryModel->setQuery("SELECT * "
+                                                "FROM `Викладачі` "
+                                                "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "' "
+                                                "AND `Викладачі`.`Прізвище` = '" + optionChoice + "';");
+                    textHTML += "<h2 align='center'>Викладач з категорією «" + selectedCategory + "» " + optionChoice +"</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+
+                }
+
+                virtualTableView->setModel(virtualQueryModel);
+
+                fillHTMLTable(textHTML, virtualTableView);
+
+                // statistics chart
+
+                if (optionChoice != "Всі викладачі")
+                {
+                    virtualQueryModel->setQuery("SELECT `Предмети`.`Назва`, COUNT(`Оцінки`.`Оцінка`)"
+                                                "FROM `Оцінки`, `Предмети`, `Викладачі`"
+                                                "WHERE SUBSTRING_INDEX(`Предмети`.`Викладач`, ' ', 1) = '" + optionChoice + "'"
+                                                "AND `Предмети`.`Назва` = `Оцінки`.`Предмет`"
+                                                "GROUP BY(`Предмети`.`Назва`);");
+
+                    if (virtualQueryModel->rowCount() > 0){
+                        // fill pie series
+                        virtualTable->setModel(virtualQueryModel);
+
+                        QPieSeries *pieSeries = new QPieSeries();
+
+                        for (int row = 0; row < virtualQueryModel->rowCount(); ++row){
+                            pieSeries->append(virtualTable->model()->index(row, 0).data().toString(),
+                                              virtualTable->model()->index(row, 1).data().toInt() / 21);
+                        }
+
+                        pieSeries->setLabelsVisible(true);
+
+                        // create chart
+                        QChart *chart = new QChart();
+                        chart->addSeries(pieSeries);
+                        chart->setTitle("Статистика оцінок по предметам");
+                        chart->legend()->setVisible(true);
+
+
+                        QChartView *chartView = new QChartView(chart);
+                        chartView->setRenderHint(QPainter::Antialiasing);
+
+                        // chart to png file
+                        QPixmap pixmap = chartView->grab();
+                        QOpenGLWidget *openGLWidget = chartView->findChild<QOpenGLWidget*>();
+                        if (openGLWidget)
+                        {
+                            QPainter painter(&pixmap);
+                            QPoint d = openGLWidget->mapToGlobal(QPoint()) - chartView->mapToGlobal(QPoint());
+                            painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+                            painter.drawImage(d, openGLWidget->grabFramebuffer());
+                            painter.end();
+                        }
+
+                        pixmap.save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
+
+                        textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png" + "></center>";
+                    }
+                }
+
+                if (typeFile == "HTML формат (*.html)")
+                {
+                    printDocumentToHTML(pathToSave, textHTML);
+                }
+                else if (typeFile == "PDF формат (*.pdf)")
+                {
+                    printDocumentToPDF(pathToSave, textHTML);
+                }
             }
         }
     }
