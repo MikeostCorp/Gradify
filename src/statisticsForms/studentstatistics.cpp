@@ -286,6 +286,7 @@ void studentStatistics::setCurrentChart()
     int sum1 = 0;
     int sum2 = 0;
     int sum3 = 0;
+    int maxCount = 0;
 
     for (int i = 0; i < 12; ++i)
     {
@@ -295,21 +296,41 @@ void studentStatistics::setCurrentChart()
                 and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
             {
                 sum0++;
+
+                if (sum0 > maxCount)
+                {
+                    maxCount = sum0;
+                }
             }
             else if (virtualTable->model()->index(j, 0).data().toInt() == 3
                      and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
             {
                 sum1++;
+
+                if (sum1 > maxCount)
+                {
+                    maxCount = sum1;
+                }
             }
             else if (virtualTable->model()->index(j, 0).data().toInt() == 4
                      and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
             {
                 sum2++;
+
+                if (sum2 > maxCount)
+                {
+                    maxCount = sum2;
+                }
             }
             else if (virtualTable->model()->index(j, 0).data().toInt() == 5
                      and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
             {
                 sum3++;
+
+                if (sum3 > maxCount)
+                {
+                    maxCount = sum3;
+                }
             }
         }
         *set0 << sum0;
@@ -328,7 +349,7 @@ void studentStatistics::setCurrentChart()
                                "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
                                " AND  YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
     virtualTable->setModel(virualQueryModel);
-    chart->axes(Qt::Vertical).first()->setRange(0, virtualTable->model()->index(0, 0).data().toInt() + 4);
+    chart->axes(Qt::Vertical).first()->setRange(0, maxCount + 1);
 }
 
 
