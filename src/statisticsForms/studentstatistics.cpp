@@ -232,11 +232,12 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
 
 void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
 {
+    clearChartSets();
+
     if (index == 0)
     {
         ui->nameLabel->setText("Статистика за:");
         setWindowTitle("Статистика студента");
-        clearChartSets();
     }
     else if (index > 0)
     {
