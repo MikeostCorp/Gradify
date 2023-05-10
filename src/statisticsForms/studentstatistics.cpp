@@ -10,6 +10,7 @@
 #include <QBarCategoryAxis>
 #include <QSqlQueryModel>
 #include <QTableView>
+#include <QMessageBox>
 
 studentStatistics::studentStatistics(QWidget *parent) :
     QWidget(parent),
@@ -18,51 +19,45 @@ studentStatistics::studentStatistics(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Статистика студента");
 
-    QBarSet *set0 = new QBarSet("Jane");
-    QBarSet *set1 = new QBarSet("John");
-    QBarSet *set2 = new QBarSet("Axel");
-    QBarSet *set3 = new QBarSet("Mary");
-    QBarSet *set4 = new QBarSet("Samantha");
+    set0 = new QBarSet("Незадовільно");
+    set1 = new QBarSet("Задовільно");
+    set2 = new QBarSet("Добре");
+    set3 = new QBarSet("Відмінно");
+    clearChartSets();
 
-    set0->setColor(QColor(70, 0, 255));
-    set1->setColor(QColor(136, 91, 255));
-    set2->setColor(QColor(254, 202, 100));
-    set3->setColor(QColor(255, 95, 95));
-    set4->setColor(QColor(1, 209, 255));
-
-    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
-    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
-    *set2 << 3 << 5 << 8 << 13 << 8 << 5;
-    *set3 << 5 << 6 << 7 << 3 << 4 << 5;
-    *set4 << 9 << 7 << 5 << 3 << 1 << 2;
-
-    QBarSeries *series = new QBarSeries();
+    series = new QBarSeries();
     series->append(set0);
     series->append(set1);
     series->append(set2);
     series->append(set3);
-    series->append(set4);
 
-    QChart *chart = new QChart();
+    chart = new QChart();
     chart->addSeries(series);
     chart->setTitle("");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setAnimationDuration(450);
+    chartView = new QChartView(chart);
+
 
     QStringList categories;
-    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+    categories << "Вересень" << "Жовтень" << "Листопад"
+               << "Грудень" << "Січень" << "Лютий"
+               << "Березень" << "Квітень" << "Травень"
+               << "Червень"  << "Липень"  << "Серпень";
+
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,15);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignRight);
+
+    chart->axes(Qt::Vertical).first()->setRange(0, 30);
 
     chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -87,7 +82,6 @@ studentStatistics::studentStatistics(QWidget *parent) :
 
     //setCentralWidget(chartView1);
     */
-
 }
 
 
@@ -106,6 +100,11 @@ void studentStatistics::setBlackUI()
 
     chartView->chart()->setTheme(QChart::ChartThemeDark);
     chartView->chart()->setBackgroundBrush(QColor (49, 51, 52));
+
+    set0->setColor(QColor(255, 95, 95));
+    set1->setColor(QColor(254, 202, 100));
+    set2->setColor(QColor(28, 211, 163));
+    set3->setColor(QColor(136, 91, 255));
 }
 
 
@@ -118,6 +117,11 @@ void studentStatistics::setWhiteUI()
 
     chartView->chart()->setTheme(QChart::ChartThemeLight);
     chartView->chart()->setBackgroundBrush(QColor (255, 255, 255));
+
+    set0->setColor(QColor(255, 102, 152));
+    set1->setColor(QColor(245, 179, 67));
+    set2->setColor(QColor(40, 208, 71));
+    set3->setColor(QColor(170, 114, 192));
 }
 
 
@@ -186,6 +190,8 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
         ui->studentComboBox->setEnabled(false);
         ui->studentComboBox->clear();
         ui->studentComboBox->addItem("Студенти групи відсутні", 0);
+
+        clearChartSets();
     }
     else
     {
@@ -232,13 +238,66 @@ void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
     {
         ui->nameLabel->setText("Статистика за:");
         setWindowTitle("Статистика студента");
+        clearChartSets();
     }
-    else
+    else if (index > 0)
     {
         ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText()
                                + " [" + ui->groupComboBox->currentText() + "]");
         setWindowTitle("Статистика " + ui->studentComboBox->currentText());
+
+        QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+        QTableView *virtualTable = new QTableView(this);
+
+        //virualQueryModel->setQuery("SELECT MONTH(`Дата виставлення`), СOUNT(`Оцінка`)"
+        //                           " FROM `Оцінки`"
+        //                           " WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
+        //                           " GROUP BY MONTH(`Дата виставлення`), `Оцінка`");
+
+
+        virualQueryModel->setQuery("SELECT `Оцінка`, MONTH(`Дата виставлення`)"
+                                   "FROM `Оцінки`"
+                                   "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'");
+        virtualTable->setModel(virualQueryModel);
+
+
+        //ui->tableView->setModel(virualQueryModel);
+
+        QVector<int> grades(12);
+
+        int maxValue = 0;
+
+        for (int i = 0; i < 12; ++i)
+        {
+            for (int j = 0; j < virualQueryModel->rowCount(); ++j)
+            {
+                if (virtualTable->model()->index(j, 0).data().toInt() == 2
+                    and (virtualTable->model()->index(j, 1).data().toInt() + 1) == i)
+                {
+
+                }
+            }
+        }
+
+
+        // for example
+        *set0 << 15 << 5 << 0 << 0 << 10 << 15 << 0 << 0 << 0 << 6 << 0 << 0;
+        *set1 << 8 << 2 << 7 << 0 << 0 << 0 << 40 << 0 << 2 << 0 << 0 << 0;
+        *set2 << 5 << 3 << 5 << 0 << 0 << 30 << 0 << 5 << 0 << 2 << 0 << 0;
+        *set3 << 7 << 3 << 0 << 26 << 0 << 23 << 0 << 0 << 4 << 0 << 0 << 12;
+
+        maxValue = 40; // задавать за макисмальным количеством оценки
+        chart->axes(Qt::Vertical).first()->setRange(0, maxValue +  2);
+
+
     }
 }
 
+void studentStatistics::clearChartSets()
+{
+    set0->remove(0 , 12);
+    set1->remove(0 , 12);
+    set2->remove(0 , 12);
+    set3->remove(0 , 12);
+}
 

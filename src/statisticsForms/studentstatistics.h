@@ -5,6 +5,8 @@
 #include <QChart>
 #include <QChartView>
 #include <QPieSeries>
+#include <QBarSet>
+#include <QBarSeries>
 
 namespace Ui {
 class studentStatistics;
@@ -25,12 +27,22 @@ private slots:
 
     void on_groupComboBox_currentIndexChanged(int index);
     void on_studentComboBox_currentIndexChanged(int index);
+    void clearChartSets();
 
 
 private:
     Ui::studentStatistics *ui;
 
     QChartView *chartView;
+
+    QChart *chart;
+
+    QBarSeries *series;
+
+    QBarSet *set0;
+    QBarSet *set1;
+    QBarSet *set2;
+    QBarSet *set3;
 
 public slots:
     void setTheme(const QString &style);
