@@ -38,7 +38,6 @@ studentStatistics::studentStatistics(QWidget *parent) :
     chart->setAnimationDuration(450);
     chartView = new QChartView(chart);
 
-
     QStringList categories;
     categories << "Вересень" << "Жовтень" << "Листопад"
                << "Грудень" << "Січень" << "Лютий"
@@ -179,7 +178,6 @@ void studentStatistics::updateGroupComboBox()
     ui->groupComboBox->addItem("Оберіть групу", 0);
     ui->groupComboBox->insertSeparator(1);
     ui->groupComboBox->addItems(groupList);
-
 }
 
 
@@ -260,44 +258,62 @@ void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
                                    "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'");
         virtualTable->setModel(virualQueryModel);
 
-
-        //ui->tableView->setModel(virualQueryModel);
-
-        QVector<int> grades(12);
-
-        int maxValue = 0;
+        int sum0 = 0;
+        int sum1 = 0;
+        int sum2 = 0;
+        int sum3 = 0;
 
         for (int i = 0; i < 12; ++i)
         {
             for (int j = 0; j < virualQueryModel->rowCount(); ++j)
             {
                 if (virtualTable->model()->index(j, 0).data().toInt() == 2
-                    and (virtualTable->model()->index(j, 1).data().toInt() + 1) == i)
+                    and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
                 {
-
+                    sum0++;
+                }
+                else if (virtualTable->model()->index(j, 0).data().toInt() == 3
+                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+                {
+                    sum1++;
+                }
+                else if (virtualTable->model()->index(j, 0).data().toInt() == 4
+                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+                {
+                    sum2++;
+                }
+                else if (virtualTable->model()->index(j, 0).data().toInt() == 5
+                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+                {
+                    sum3++;
                 }
             }
+
+            *set0 << sum0;
+            *set1 << sum1;
+            *set2 << sum2;
+            *set3 << sum3;
+
+            sum0 = 0;
+            sum1 = 0;
+            sum2 = 0;
+            sum3 = 0;
         }
 
-
-        // for example
-        *set0 << 15 << 5 << 0 << 0 << 10 << 15 << 0 << 0 << 0 << 6 << 0 << 0;
-        *set1 << 8 << 2 << 7 << 0 << 0 << 0 << 40 << 0 << 2 << 0 << 0 << 0;
-        *set2 << 5 << 3 << 5 << 0 << 0 << 30 << 0 << 5 << 0 << 2 << 0 << 0;
-        *set3 << 7 << 3 << 0 << 26 << 0 << 23 << 0 << 0 << 4 << 0 << 0 << 12;
-
-        maxValue = 40; // задавать за макисмальным количеством оценки
-        chart->axes(Qt::Vertical).first()->setRange(0, maxValue +  2);
-
-
+        virualQueryModel->setQuery("SELECT MAX(`Оцінка`)"
+                                   "FROM `Оцінки`"
+                                   "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'");
+        virtualTable->setModel(virualQueryModel);
+        chart->axes(Qt::Vertical).first()->setRange(0, virtualTable->model()->index(0, 0).data().toInt() +  2);
     }
 }
 
+
 void studentStatistics::clearChartSets()
 {
-    set0->remove(0 , 12);
-    set1->remove(0 , 12);
-    set2->remove(0 , 12);
-    set3->remove(0 , 12);
+    set0->remove(0 , set0->count());
+    set1->remove(0 , set1->count());
+    set2->remove(0 , set2->count());
+    set3->remove(0 , set3->count());
 }
 
