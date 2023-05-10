@@ -25,10 +25,12 @@ private slots:
     void setWhiteUI();
     void setSystemUI();
 
+    void on_yearSpinBox_valueChanged(int arg1);
     void on_groupComboBox_currentIndexChanged(int index);
     void on_studentComboBox_currentIndexChanged(int index);
     void clearChartSets();
 
+    void setCurrentChart();
 
 private:
     Ui::studentStatistics *ui;

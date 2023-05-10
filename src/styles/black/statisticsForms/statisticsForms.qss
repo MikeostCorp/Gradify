@@ -66,7 +66,7 @@ QComboBox::down-arrow
    height: 12px;
 }
 
-QComboBox::down-arrow:disabled,
+QComboBox::down-arrow:disabled
 {
     image:url(:/img/blackMenuIcon/downArrowDisabled.png);
     width: 12px;
@@ -79,4 +79,19 @@ QComboBox QAbstractItemView
   background-color: rgb(50, 50, 50);
   border: none;
   border-radius: 6px;
+}
+
+QSpinBox
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    background-color: rgb(39, 41, 42);
+    border: 1px solid rgb(139, 141, 142);
+    border-radius: 8px;
+}
+
+QSpinBox:focus
+{
+    border: 2px solid rgb(85, 135, 235);
 }

@@ -99,13 +99,13 @@
           <widget class="QFrame" name="leftUpFrame">
            <property name="minimumSize">
             <size>
-             <width>470</width>
+             <width>560</width>
              <height>80</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>470</width>
+             <width>560</width>
              <height>80</height>
             </size>
            </property>
@@ -135,9 +135,12 @@
              <rect>
               <x>20</x>
               <y>10</y>
-              <width>361</width>
+              <width>401</width>
               <height>21</height>
              </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-weight: bold</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Статистика за:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -157,6 +160,38 @@
               <string>group stud</string>
              </property>
             </item>
+           </widget>
+           <widget class="QLabel" name="nameLabel_2">
+            <property name="geometry">
+             <rect>
+              <x>450</x>
+              <y>10</y>
+              <width>100</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Рік статистики&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="yearSpinBox">
+            <property name="geometry">
+             <rect>
+              <x>450</x>
+              <y>30</y>
+              <width>100</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="minimum">
+             <number>2000</number>
+            </property>
+            <property name="maximum">
+             <number>2010</number>
+            </property>
            </widget>
           </widget>
          </item>

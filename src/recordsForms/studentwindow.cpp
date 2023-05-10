@@ -93,7 +93,6 @@ void studentWindow::setData(QString titleName, QStringList listData)
     ui->nalogLineEdit->setText(listData[9]);
 
     ui->okLabel->setVisible(false);
-    ui->saveButton->setEnabled(true);
     ui->lastNameLineEdit->setFocus();
 }
 
@@ -130,7 +129,6 @@ void studentWindow::newRow()
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);
-    ui->saveButton->setEnabled(true);
 
     ui->lastNameLineEdit->clear();
     ui->nameLineEdit->clear();
@@ -222,7 +220,6 @@ void studentWindow::on_saveButton_clicked()
         {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
-            ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
         }
         else

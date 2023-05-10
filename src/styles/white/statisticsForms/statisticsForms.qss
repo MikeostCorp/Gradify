@@ -79,3 +79,18 @@ QComboBox QAbstractItemView
   border: none;
   border-radius: 6px;
 }
+
+QSpinBox
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(71, 71, 72);
+    background-color: rgb(235, 235, 235);
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 8px;
+}
+
+QSpinBox:focus
+{
+    border: 2px solid rgb(65, 105, 225);
+}

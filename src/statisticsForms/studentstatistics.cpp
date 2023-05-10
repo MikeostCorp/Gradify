@@ -50,6 +50,8 @@ studentStatistics::studentStatistics(QWidget *parent) :
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
+    axisY->setTickCount(5);
+    axisY->setLabelFormat("%.0f");
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -224,6 +226,16 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
             ui->studentComboBox->clear();
             ui->studentComboBox->addItem("Студенти групи відсутні", 0);
         }
+
+        virualQueryModel->setQuery("SELECT `Рік початку навчання`, `Рік закінчення навчання`"
+                                   "FROM `Групи`"
+                                   "WHERE `Групи`.`Назва` = '" + ui->groupComboBox->currentText() + "'");
+
+        virtualTable->setModel(virualQueryModel);
+
+        ui->yearSpinBox->setMinimum(virtualTable->model()->index(0, 0).data().toInt());
+        ui->yearSpinBox->setValue(virtualTable->model()->index(0, 0).data().toInt());
+        ui->yearSpinBox->setMaximum(virtualTable->model()->index(0, 1).data().toInt());
     }
 
     setWindowTitle("Статистика студента");
@@ -232,8 +244,6 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
 
 void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
 {
-    clearChartSets();
-
     if (index == 0)
     {
         ui->nameLabel->setText("Статистика за:");
@@ -241,71 +251,7 @@ void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
     }
     else if (index > 0)
     {
-        ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText()
-                               + " [" + ui->groupComboBox->currentText() + "]");
-        setWindowTitle("Статистика " + ui->studentComboBox->currentText());
-
-        QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-        QTableView *virtualTable = new QTableView(this);
-
-        //virualQueryModel->setQuery("SELECT MONTH(`Дата виставлення`), СOUNT(`Оцінка`)"
-        //                           " FROM `Оцінки`"
-        //                           " WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
-        //                           " GROUP BY MONTH(`Дата виставлення`), `Оцінка`");
-
-
-        virualQueryModel->setQuery("SELECT `Оцінка`, MONTH(`Дата виставлення`)"
-                                   "FROM `Оцінки`"
-                                   "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'");
-        virtualTable->setModel(virualQueryModel);
-
-        int sum0 = 0;
-        int sum1 = 0;
-        int sum2 = 0;
-        int sum3 = 0;
-
-        for (int i = 0; i < 12; ++i)
-        {
-            for (int j = 0; j < virualQueryModel->rowCount(); ++j)
-            {
-                if (virtualTable->model()->index(j, 0).data().toInt() == 2
-                    and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-                {
-                    sum0++;
-                }
-                else if (virtualTable->model()->index(j, 0).data().toInt() == 3
-                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-                {
-                    sum1++;
-                }
-                else if (virtualTable->model()->index(j, 0).data().toInt() == 4
-                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-                {
-                    sum2++;
-                }
-                else if (virtualTable->model()->index(j, 0).data().toInt() == 5
-                         and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-                {
-                    sum3++;
-                }
-            }
-
-            *set0 << sum0;
-            *set1 << sum1;
-            *set2 << sum2;
-            *set3 << sum3;
-
-            sum0 = 0;
-            sum1 = 0;
-            sum2 = 0;
-            sum3 = 0;
-        }
-
-        virualQueryModel->setQuery("SELECT MAX(`Оцінка`)"
-                                   "FROM `Оцінки`"
-                                   "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'");
-        virtualTable->setModel(virualQueryModel);
-        chart->axes(Qt::Vertical).first()->setRange(0, virtualTable->model()->index(0, 0).data().toInt() +  2);
+        setCurrentChart();
     }
 }
 
@@ -316,5 +262,81 @@ void studentStatistics::clearChartSets()
     set1->remove(0 , set1->count());
     set2->remove(0 , set2->count());
     set3->remove(0 , set3->count());
+}
+
+
+void studentStatistics::setCurrentChart()
+{
+    clearChartSets();
+
+    ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText()
+                           + " [" + ui->groupComboBox->currentText() + "]");
+    setWindowTitle("Статистика " + ui->studentComboBox->currentText());
+
+    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
+    QTableView *virtualTable = new QTableView(this);
+
+    virualQueryModel->setQuery("SELECT `Оцінка`, MONTH(`Дата виставлення`)"
+                               "FROM `Оцінки`"
+                               "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
+                               " AND YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
+    virtualTable->setModel(virualQueryModel);
+
+    int sum0 = 0;
+    int sum1 = 0;
+    int sum2 = 0;
+    int sum3 = 0;
+
+    for (int i = 0; i < 12; ++i)
+    {
+        for (int j = 0; j < virualQueryModel->rowCount(); ++j)
+        {
+            if (virtualTable->model()->index(j, 0).data().toInt() == 2
+                and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+            {
+                sum0++;
+            }
+            else if (virtualTable->model()->index(j, 0).data().toInt() == 3
+                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+            {
+                sum1++;
+            }
+            else if (virtualTable->model()->index(j, 0).data().toInt() == 4
+                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+            {
+                sum2++;
+            }
+            else if (virtualTable->model()->index(j, 0).data().toInt() == 5
+                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
+            {
+                sum3++;
+            }
+        }
+        *set0 << sum0;
+        *set1 << sum1;
+        *set2 << sum2;
+        *set3 << sum3;
+
+        sum0 = 0;
+        sum1 = 0;
+        sum2 = 0;
+        sum3 = 0;
+    }
+
+    virualQueryModel->setQuery("SELECT MAX(`Оцінка`)"
+                               "FROM `Оцінки`"
+                               "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
+                               " AND  YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
+    virtualTable->setModel(virualQueryModel);
+    chart->axes(Qt::Vertical).first()->setRange(0, virtualTable->model()->index(0, 0).data().toInt() + 4);
+}
+
+
+void studentStatistics::on_yearSpinBox_valueChanged(int arg1)
+{
+    if (ui->studentComboBox->currentIndex() > 0)
+    {
+        setCurrentChart();
+    }
 }
 

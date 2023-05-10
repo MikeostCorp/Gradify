@@ -85,7 +85,6 @@ void groupWindow::setData(QString titleName, QStringList listData)
     ui->headManComboBox->setCurrentText(listData[6]);
 
     ui->okLabel->setVisible(false);
-    ui->saveButton->setEnabled(true);
 }
 
 
@@ -157,7 +156,6 @@ void groupWindow::newRow()
     isNewRow = true;
     idRowEdit = -1;
     ui->okLabel->setVisible(false);
-    ui->saveButton->setEnabled(true);
 
     ui->nameLineEdit->clear();
     ui->specialComboBox->setCurrentIndex(0);
@@ -185,7 +183,6 @@ void groupWindow::on_saveButton_clicked()
         {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
-            ui->saveButton->setEnabled(false);
             emit sendData(getCurrentData(), true);
         }
         else
