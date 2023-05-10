@@ -99,14 +99,14 @@
           <widget class="QFrame" name="leftUpFrame">
            <property name="minimumSize">
             <size>
-             <width>400</width>
+             <width>470</width>
              <height>80</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>370</width>
-             <height>16777215</height>
+             <width>470</width>
+             <height>80</height>
             </size>
            </property>
            <property name="frameShape">
@@ -120,7 +120,7 @@
              <rect>
               <x>180</x>
               <y>35</y>
-              <width>211</width>
+              <width>251</width>
               <height>21</height>
              </rect>
             </property>

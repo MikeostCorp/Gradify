@@ -39,10 +39,10 @@ studentStatistics::studentStatistics(QWidget *parent) :
     chartView = new QChartView(chart);
 
     QStringList categories;
-    categories << "Вересень" << "Жовтень" << "Листопад"
-               << "Грудень" << "Січень" << "Лютий"
-               << "Березень" << "Квітень" << "Травень"
-               << "Червень"  << "Липень"  << "Серпень";
+    categories << "Січень" << "Лютий"  << "Березень"
+               << "Квітень" << "Травень" << "Червень"
+               << "Липень" << "Серпень" << "Вересень"
+               << "Жовтень" << "Листопад" << "Грудень";
 
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
