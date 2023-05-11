@@ -2011,6 +2011,7 @@ void MainWindow::on_statisticsButton_clicked()
         studentStat->show();
         break;
     case 1:
+        teacherStat->fillChart();
         teacherStat->show();
         break;
     case 2:

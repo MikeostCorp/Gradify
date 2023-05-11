@@ -23,7 +23,7 @@ private slots:
     void setWhiteUI();
     void setSystemUI();
 
-    void updateTeaceherComboBox();
+    void updateTeacherComboBox();
     void clearTeacherComboBox();
     void clearSubjectComboBox();
 
