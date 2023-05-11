@@ -126,7 +126,7 @@
            <string>  Оцінки</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/raitingIco.png</normaloff>:/img/blueMenuIcon/raitingIco.png</iconset>
           </property>
           <property name="iconSize">
@@ -195,7 +195,7 @@
            <string>  Студенти</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/studentsIco.png</normaloff>:/img/blueMenuIcon/studentsIco.png</iconset>
           </property>
           <property name="iconSize">
@@ -245,7 +245,7 @@
            <string>  Викладачі</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/teachersIco.png</normaloff>:/img/blueMenuIcon/teachersIco.png</iconset>
           </property>
           <property name="iconSize">
@@ -292,7 +292,7 @@
            <string>  Групи</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/groupIco.png</normaloff>:/img/blueMenuIcon/groupIco.png</iconset>
           </property>
           <property name="iconSize">
@@ -368,7 +368,7 @@
            <string>  Предмети</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/blueMenuIcon/subjectIco.png</normaloff>:/img/blueMenuIcon/subjectIco.png</iconset>
           </property>
           <property name="iconSize">
@@ -437,7 +437,7 @@
            <string>  По предметам </string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportItem.png</normaloff>:/img/reportsIcon/reportItem.png</iconset>
           </property>
           <property name="iconSize">
@@ -484,7 +484,7 @@
            <string>  По викладачам</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportTeachers.png</normaloff>:/img/reportsIcon/reportTeachers.png</iconset>
           </property>
           <property name="iconSize">
@@ -531,7 +531,7 @@
            <string>  По оцінкам</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportRaiting.png</normaloff>:/img/reportsIcon/reportRaiting.png</iconset>
           </property>
           <property name="iconSize">
@@ -578,7 +578,7 @@
            <string>  По групам</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
           </property>
           <property name="iconSize">
@@ -625,7 +625,7 @@
            <string>  По студентам </string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportStudent.png</normaloff>:/img/reportsIcon/reportStudent.png</iconset>
           </property>
           <property name="iconSize">
@@ -675,7 +675,7 @@
            <string>  По поточній таблиці</string>
           </property>
           <property name="icon">
-           <iconset resource="recources.qrc">
+           <iconset>
             <normaloff>:/img/reportsIcon/reportCurrentTable.png</normaloff>:/img/reportsIcon/reportCurrentTable.png</iconset>
           </property>
           <property name="iconSize">
@@ -714,7 +714,7 @@
           <string>  Налаштування</string>
          </property>
          <property name="icon">
-          <iconset resource="recources.qrc">
+          <iconset>
            <normaloff>:/img/blueMenuIcon/settingIco.png</normaloff>:/img/blueMenuIcon/settingIco.png</iconset>
          </property>
          <property name="iconSize">
@@ -836,7 +836,7 @@
                <string>  Додати запис</string>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/newRecord.png</normaloff>:/img/blueMenuIcon/newRecord.png</iconset>
               </property>
               <property name="iconSize">
@@ -880,7 +880,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/editRecord.png</normaloff>:/img/blueMenuIcon/editRecord.png</iconset>
               </property>
               <property name="iconSize">
@@ -921,7 +921,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/deleteRecord.png</normaloff>:/img/blueMenuIcon/deleteRecord.png</iconset>
               </property>
               <property name="iconSize">
@@ -962,7 +962,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/filterIco.png</normaloff>:/img/blueMenuIcon/filterIco.png</iconset>
               </property>
               <property name="iconSize">
@@ -1003,7 +1003,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/queryIco.png</normaloff>:/img/blueMenuIcon/queryIco.png</iconset>
               </property>
               <property name="iconSize">
@@ -1044,7 +1044,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="recources.qrc">
+               <iconset>
                 <normaloff>:/img/blueMenuIcon/statisticsIcon.png</normaloff>:/img/blueMenuIcon/statisticsIcon.png</iconset>
               </property>
               <property name="iconSize">
@@ -1166,13 +1166,14 @@
    </property>
    <widget class="QMenu" name="menuTables">
     <property name="title">
-     <string>Таблиці</string>
+     <string>Перегляд</string>
     </property>
     <addaction name="openStudTabAction"/>
     <addaction name="openTeachTabAction"/>
     <addaction name="openGradesTabAction"/>
     <addaction name="openGroupTabAction"/>
     <addaction name="openSubjTabAction"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuReport">
     <property name="title">
@@ -1184,14 +1185,6 @@
     <addaction name="gradesReportAction"/>
     <addaction name="groupsReportAction"/>
     <addaction name="subjectsReportAction"/>
-   </widget>
-   <widget class="QMenu" name="menuWork">
-    <property name="title">
-     <string>Дії</string>
-    </property>
-    <addaction name="addRowAction"/>
-    <addaction name="deleteRowAction"/>
-    <addaction name="editRowAction"/>
    </widget>
    <widget class="QMenu" name="menuManual">
     <property name="title">
@@ -1205,7 +1198,30 @@
     </property>
     <addaction name="about"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <widget class="QMenu" name="menu_2">
+     <property name="title">
+      <string>Экспортувати як</string>
+     </property>
+     <addaction name="actionCSV"/>
+     <addaction name="actionTXT"/>
+    </widget>
+    <addaction name="menu_2"/>
+   </widget>
+   <widget class="QMenu" name="menuWork">
+    <property name="title">
+     <string>Редагування</string>
+    </property>
+    <addaction name="addRowAction"/>
+    <addaction name="deleteRowAction"/>
+    <addaction name="editRowAction"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuGeneral"/>
+   <addaction name="menu"/>
    <addaction name="menuWork"/>
    <addaction name="menuTables"/>
    <addaction name="menuReport"/>
@@ -1345,6 +1361,16 @@
     <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
+  <action name="actionCSV">
+   <property name="text">
+    <string>CSV...</string>
+   </property>
+  </action>
+  <action name="actionTXT">
+   <property name="text">
+    <string>TXT...</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1353,8 +1379,6 @@
    <header>qsearchbar.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="recources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

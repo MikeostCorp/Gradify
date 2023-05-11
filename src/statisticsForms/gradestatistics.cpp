@@ -28,12 +28,15 @@ gradeStatistics::gradeStatistics(QWidget *parent) :
     chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
+    chart->legend()->setVisible(true);
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setAnimationDuration(450);
 
     ui->specialChart->addWidget(chartView);
-
     ui->categoryComboBox->insertSeparator(1);
+
+    ui->teacherComboBox->setEnabled(false);
+    ui->subjectComboBox->setEnabled(false);
 
     clearTeacherComboBox();
     clearSubjectComboBox();

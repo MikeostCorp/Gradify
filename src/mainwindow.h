@@ -137,6 +137,10 @@ private slots:
 
     void on_statisticsButton_clicked();
 
+    void on_actionCSV_triggered();
+
+    void on_actionTXT_triggered();
+
 private:
     Ui::MainWindow *ui;
 

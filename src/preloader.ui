@@ -133,11 +133,16 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>.AppleSystemUIFont</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Версія: 2.6 (closed beta)</string>
+     <string>Версія: 2.7 (closed beta)</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

@@ -1554,7 +1554,8 @@ void MainWindow::on_teachersReportButton_clicked()
 
                         QPieSeries *pieSeries = new QPieSeries();
 
-                        for (int row = 0; row < virtualQueryModel->rowCount(); ++row){
+                        for (int row = 0; row < virtualQueryModel->rowCount(); ++row)
+                        {
                             pieSeries->append(virtualTable->model()->index(row, 0).data().toString(),
                                               virtualTable->model()->index(row, 1).data().toInt() / 21);
                         }
@@ -1566,7 +1567,6 @@ void MainWindow::on_teachersReportButton_clicked()
                         chart->addSeries(pieSeries);
                         chart->setTitle("Статистика оцінок по предметам");
                         chart->legend()->setVisible(true);
-
 
                         QChartView *chartView = new QChartView(chart);
                         chartView->setRenderHint(QPainter::Antialiasing);
@@ -2027,3 +2027,16 @@ void MainWindow::on_statisticsButton_clicked()
 
     emit updateStatisticsSignal();
 }
+
+
+void MainWindow::on_actionCSV_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionTXT_triggered()
+{
+
+}
+
