@@ -1577,8 +1577,7 @@ void MainWindow::on_teachersReportButton_clicked()
                         chartView->grab().save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
 
                         textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png"
-                                  + " style=\"width: 600px; height:400px;\""
-                                  + "></center>";
+                                  + " width=\"640\" height=\"480\"></center>";
                     }
                 }
 
