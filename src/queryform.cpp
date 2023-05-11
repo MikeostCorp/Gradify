@@ -192,3 +192,15 @@ void queryForm::selectedGradeTable(int status)
 {
     changedGradeTable = status;
 }
+
+void queryForm::on_avgScorePushButton_clicked()
+{
+    QString query = "SELECT `Групи`.`Назва`, ROUND(AVG(CAST(`Оцінки`.`Оцінка` as float)), 2) as `Середня оцінка`"
+                    "FROM `Групи`, `Студенти`, `Оцінки`"
+                    "WHERE `Групи`.`Назва` = `Студенти`.`Група`"
+                    "AND SUBSTRING_INDEX(`Оцінки`.`Отримувач`, ' ', 1) = `Студенти`.`Прізвище`"
+                    "GROUP BY(`Групи`.`Назва`)";
+
+    emit sendQuery(query);
+}
+

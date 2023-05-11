@@ -22,6 +22,8 @@ private slots:
 
     QString getDateWithDialog();
 
+    void on_avgScorePushButton_clicked();
+
 private:
     Ui::queryForm *ui;
 
