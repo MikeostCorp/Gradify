@@ -2,6 +2,11 @@
 #define SUBJECTSTATISTICS_H
 
 #include <QWidget>
+#include <QChart>
+#include <QChartView>
+#include <QPieSeries>
+#include <QTableView>
+#include <QSqlQueryModel>
 
 namespace Ui {
 class subjectStatistics;
@@ -15,6 +20,8 @@ public:
     explicit subjectStatistics(QWidget *parent = nullptr);
     ~subjectStatistics();
 
+    void fillChart();
+
 private slots:
     void setBlackUI();
     void setWhiteUI();
@@ -22,6 +29,10 @@ private slots:
 
 private:
     Ui::subjectStatistics *ui;
+
+    QChartView* chartView;
+    QChart* chart;
+    QPieSeries* series;
 
 public slots:
     void setTheme(const QString &style);

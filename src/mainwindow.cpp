@@ -2022,6 +2022,7 @@ void MainWindow::on_statisticsButton_clicked()
         emit updateStatisticsComboBoxSignal();
         break;
     case 4:
+        subjectStat->fillChart();
         subjectStat->show();
         break;
     }

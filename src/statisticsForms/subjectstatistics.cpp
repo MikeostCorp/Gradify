@@ -14,7 +14,21 @@ subjectStatistics::subjectStatistics(QWidget *parent) :
     ui(new Ui::subjectStatistics)
 {
     ui->setupUi(this);
-    setWindowTitle("Статистика предметів");
+    setWindowTitle("Статистика предметів по типам");
+
+    series = new QPieSeries();
+
+    chart = new QChart();
+    chart->addSeries(series);
+
+    chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    chart->legend()->setVisible(true);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setAnimationDuration(450);
+
+    ui->specialChart->addWidget(chartView);
 }
 
 
@@ -23,6 +37,24 @@ subjectStatistics::~subjectStatistics()
     delete ui;
 }
 
+void subjectStatistics::fillChart()
+{
+    QSqlQueryModel *virtualQueryModel = new QSqlQueryModel();
+    QTableView *virtualTableView = new QTableView();
+
+    virtualQueryModel->setQuery("SELECT `Предмети`.`Тип`, COUNT(*)"
+                                "FROM `Предмети`"
+                                "GROUP BY(`Предмети`.`Тип`);");
+
+    virtualTableView->setModel(virtualQueryModel);
+
+    for (int row = 0; row < virtualTableView->model()->rowCount(); ++row)
+    {
+        series->append(virtualTableView->model()->index(row, 0).data().toString(),
+                       virtualTableView->model()->index(row, 1).data().toInt());
+    }
+    series->setLabelsVisible(true);
+}
 
 void subjectStatistics::setBlackUI()
 {
@@ -31,6 +63,8 @@ void subjectStatistics::setBlackUI()
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 
+    chartView->chart()->setTheme(QChart::ChartThemeDark);
+    chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 }
 
 
@@ -41,6 +75,8 @@ void subjectStatistics::setWhiteUI()
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 
+    chartView->chart()->setTheme(QChart::ChartThemeLight);
+    chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 }
 
 
