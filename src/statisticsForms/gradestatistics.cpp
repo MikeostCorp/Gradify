@@ -92,6 +92,7 @@ void gradeStatistics::setSystemUI()
 
 void gradeStatistics::updateTeaceherComboBox()
 {
+    setWindowTitle("Статистика оцінок");
     ui->teacherComboBox->setEnabled(true);
 
     QStringList teacherList;
@@ -119,6 +120,7 @@ void gradeStatistics::updateTeaceherComboBox()
 
 void gradeStatistics::clearTeacherComboBox()
 {
+    setWindowTitle("Статистика оцінок");
     ui->teacherComboBox->clear();
     ui->teacherComboBox->addItem("Оберіть викладача");
 }
@@ -126,6 +128,7 @@ void gradeStatistics::clearTeacherComboBox()
 
 void gradeStatistics::clearSubjectComboBox()
 {
+    setWindowTitle("Статистика оцінок");
     ui->subjectComboBox->clear();
     ui->subjectComboBox->addItem("Оберіть предмет");
 }
@@ -133,6 +136,7 @@ void gradeStatistics::clearSubjectComboBox()
 
 void gradeStatistics::clearPieChart()
 {
+    setWindowTitle("Статистика оцінок");
     series->clear();
     series->append("Приклад", 1);
 }
@@ -223,6 +227,7 @@ void gradeStatistics::on_subjectComboBox_currentIndexChanged(int index)
     else if (index > 0)
     {
         series->clear();
+        setWindowTitle("Статистика оцінок - (" + ui->subjectComboBox->currentText() + ")");
 
         QStringList subjectList;
         QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);

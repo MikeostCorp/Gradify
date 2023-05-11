@@ -87,7 +87,7 @@ void MainWindow::mainWindowInit()
 
     // update statistics
     connect(this, &MainWindow::updateStatisticsSignal, studentStat, &studentStatistics::updateGroupComboBox);
-
+    connect(this, &MainWindow::updateStatisticsComboBoxSignal, groupStat, &groupStatistics::setGroupComboBox);
     // config initialization
     configInit();
 
@@ -111,7 +111,6 @@ void MainWindow::mainWindowInit()
     connect(settingWindow, &appSetting::changeThemeApp, studentStat, &studentStatistics::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, subjectStat, &subjectStatistics::setTheme);
     connect(settingWindow, &appSetting::changeThemeApp, teacherStat, &teacherStatistics::setTheme);
-
 
     // filters and requests
     connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
@@ -2019,6 +2018,7 @@ void MainWindow::on_statisticsButton_clicked()
         break;
     case 3:
         groupStat->show();
+        emit updateStatisticsComboBoxSignal();
         break;
     case 4:
         subjectStat->show();

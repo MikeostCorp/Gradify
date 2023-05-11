@@ -207,5 +207,6 @@ signals:
     void sendSubjectsList(QStringList);
     void createNewRow();
     void updateStatisticsSignal();
+    void updateStatisticsComboBoxSignal();
 };
 #endif // MAINWINDOW_H
