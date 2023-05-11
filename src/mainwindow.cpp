@@ -2028,15 +2028,67 @@ void MainWindow::on_statisticsButton_clicked()
     emit updateStatisticsSignal();
 }
 
+QString MainWindow::modelDataToString(QAbstractItemModel* model)
+{
+    QString textData;
+
+    for (int row = 0; row < model->rowCount(); ++row)
+    {
+        for (int col = 0; col < model->columnCount(); ++col)
+        {
+                textData += model->data(model->index(row, col)).toString();
+                textData += ", ";
+        }
+        textData += "\n";
+    }
+
+    return textData;
+}
 
 void MainWindow::on_actionCSV_triggered()
 {
+    if (model->rowCount() == 0)
+    {
+        QMessageBox::information(this, "Помилка", "Оберіть таблицю для експорту");
+        return;
+    }
 
+    QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                      tr("Експорт файлу:"),
+                                                      "/Users/" + qgetenv("USER") + "/Desktop",
+                                                      "CSV files (*.csv);;All files (*.*)", new QString("CSV file (*.csv)"));
+
+    QFile csvFile(pathToSave + ".csv");
+    if(csvFile.open(QIODevice::WriteOnly)) {
+
+        QTextStream out(&csvFile);
+        out << modelDataToString(model);
+        csvFile.close();
+        QMessageBox::information(this, "", "Файл збережено!");
+    }
 }
 
 
 void MainWindow::on_actionTXT_triggered()
 {
+    if (model->rowCount() == 0)
+    {
+        QMessageBox::information(this, "Помилка", "Оберіть таблицю для експорту");
+        return;
+    }
 
+    QString pathToSave = QFileDialog::getSaveFileName(nullptr,
+                                                      tr("Експорт файлу:"),
+                                                      "/Users/" + qgetenv("USER") + "/Desktop",
+                                                      "Text file (*.txt);;All files (*.*)", new QString("Text file (*.txt)"));
+
+    QFile txtFile(pathToSave);
+    if (txtFile.open(QIODevice::WriteOnly))
+    {
+        QTextStream out(&txtFile);
+        out << modelDataToString(model);
+        txtFile.close();
+        QMessageBox::information(this, "", "Файл збережено!");
+    }
 }
 
