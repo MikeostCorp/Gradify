@@ -1572,12 +1572,13 @@ void MainWindow::on_teachersReportButton_clicked()
                         chartView->setRenderHint(QPainter::Antialiasing);
 
                         // chart to png file
-                        QPixmap pixmap = chartView->grab().copy(QRect(20, 20, 600, 440));
+                        QPixmap pixmap = chartView->grab().copy(QRect(30, 30, chartView->width() - 50, chartView->height() - 50));
 
                         pixmap.save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
 
                         textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png"
-                                  + " style=\"width:\"580px\"; height:\"420px\"></center>";
+                                  + " style=\"width:\"600px\"; height:\"400px\""
+                                  + "></center>";
                     }
                 }
 
