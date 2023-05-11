@@ -137,7 +137,8 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
 
         virualQueryModel->setQuery("SELECT COUNT(*)"
                                     "FROM `Студенти`"
-                                    "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'");
+                                    "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'"
+                                    "GROUP BY `Студенти`.`Група`");
         virtualTable->setModel(virualQueryModel);
         int countCurrentGroupStudent = virtualTable->model()->index(0, 0).data().toInt();
 
@@ -148,8 +149,12 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
 
         if (allCountStudent not_eq 0 and countCurrentGroupStudent not_eq 0)
         {
-            series->append("Загальна кількість студентів", allCountStudent - countCurrentGroupStudent);
-            series->append("Кількість студентів групи " + ui->groupComboBox->currentText(), allCountStudent);
+            series->append("Кількість студентів інших груп ["
+                               + QString::number(allCountStudent - countCurrentGroupStudent) + "]",
+                               allCountStudent - countCurrentGroupStudent);
+
+            series->append("Кількість студентів групи " + ui->groupComboBox->currentText()
+                           + "[" + QString::number(countCurrentGroupStudent) + "]", countCurrentGroupStudent);
         }
         else if (allCountStudent not_eq 0 )
         {
