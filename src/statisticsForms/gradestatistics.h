@@ -2,6 +2,9 @@
 #define GRADESTATISTICS_H
 
 #include <QWidget>
+#include <QChart>
+#include <QChartView>
+#include <QPieSeries>
 
 namespace Ui {
 class gradeStatistics;
@@ -20,8 +23,23 @@ private slots:
     void setWhiteUI();
     void setSystemUI();
 
+    void updateTeaceherComboBox();
+    void clearTeacherComboBox();
+    void clearSubjectComboBox();
+
+    void clearPieChart();
+
+    void on_categoryComboBox_currentIndexChanged(int index);
+    void on_teacherComboBox_currentIndexChanged(int index);
+    void on_subjectComboBox_currentIndexChanged(int index);
+
 private:
     Ui::gradeStatistics *ui;
+
+    QChartView *chartView;
+    QChart *chart;
+
+    QPieSeries *series;
 
 public slots:
     void setTheme(const QString &style);

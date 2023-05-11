@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QChart>
 #include <QChartView>
-#include <QPieSeries>
 #include <QBarSet>
 #include <QBarSeries>
 
@@ -36,7 +35,6 @@ private:
     Ui::studentStatistics *ui;
 
     QChartView *chartView;
-
     QChart *chart;
 
     QBarSeries *series;

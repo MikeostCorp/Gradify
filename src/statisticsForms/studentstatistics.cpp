@@ -17,6 +17,7 @@ studentStatistics::studentStatistics(QWidget *parent) :
     ui(new Ui::studentStatistics)
 {
     ui->setupUi(this);
+
     setWindowTitle("Статистика студента");
 
     set0 = new QBarSet("Незадовільно");
@@ -63,26 +64,6 @@ studentStatistics::studentStatistics(QWidget *parent) :
     chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     ui->specialChart->addWidget(chartView);
-
-
-    /*
-    QPieSeries *series1 = new QPieSeries();
-    series1->append("Jane", 1);
-    series1->append("Joe", 2);
-    series1->append("Andy", 3);
-    series1->append("Barbara", 4);
-    series1->append("Axel", 5);
-
-    QChart *charts = new QChart();
-    charts->addSeries(series1);
-
-    QChartView *chartView1 = new QChartView(charts);
-    //chartView->setBackgroundBrush(Qt::red);
-    chartView1->setRenderHint(QPainter::Antialiasing);
-    //ui->specialChart_2->addWidget(chartView1);
-
-    //setCentralWidget(chartView1);
-    */
 }
 
 
