@@ -33,7 +33,7 @@ studentStatistics::studentStatistics(QWidget *parent) :
 
     chart = new QChart();
     chart->addSeries(series);
-    chart->setTitle("");
+    chart->setTitle("Кількість оцінок за рік");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setAnimationDuration(450);
     chartView = new QChartView(chart);
@@ -185,13 +185,14 @@ void studentStatistics::updateGroupComboBox()
 
 void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
 {
+    clearChartSets();
+    chart->setTitle("Кількість оцінок за рік");
+
     if (index == 0)
     {
         ui->studentComboBox->setEnabled(false);
         ui->studentComboBox->clear();
         ui->studentComboBox->addItem("Студенти групи відсутні", 0);
-
-        clearChartSets();
     }
     else
     {
@@ -246,6 +247,7 @@ void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
 {
     if (index == 0)
     {
+        clearChartSets();
         ui->nameLabel->setText("Статистика за:");
         setWindowTitle("Статистика студента");
     }
@@ -282,14 +284,15 @@ void studentStatistics::setCurrentChart()
                                " AND YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
     virtualTable->setModel(virualQueryModel);
 
-    int sum0 = 0;
-    int sum1 = 0;
-    int sum2 = 0;
-    int sum3 = 0;
     int maxCount = 0;
 
     for (int i = 0; i < 12; ++i)
     {
+        int sum0 = 0;
+        int sum1 = 0;
+        int sum2 = 0;
+        int sum3 = 0;
+
         for (int j = 0; j < virualQueryModel->rowCount(); ++j)
         {
             if (virtualTable->model()->index(j, 0).data().toInt() == 2
@@ -337,11 +340,6 @@ void studentStatistics::setCurrentChart()
         *set1 << sum1;
         *set2 << sum2;
         *set3 << sum3;
-
-        sum0 = 0;
-        sum1 = 0;
-        sum2 = 0;
-        sum3 = 0;
     }
 
     virualQueryModel->setQuery("SELECT MAX(`Оцінка`)"
@@ -350,6 +348,7 @@ void studentStatistics::setCurrentChart()
                                " AND  YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
     virtualTable->setModel(virualQueryModel);
     chart->axes(Qt::Vertical).first()->setRange(0, maxCount + 1);
+    chart->setTitle("Кількість оцінок за " + QString::number(ui->yearSpinBox->value())+ " рік");
 }
 
 
@@ -360,4 +359,3 @@ void studentStatistics::on_yearSpinBox_valueChanged(int arg1)
         setCurrentChart();
     }
 }
-
