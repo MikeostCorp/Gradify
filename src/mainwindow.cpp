@@ -12,7 +12,6 @@
 #include <QPrinter>
 #include <QPageSize>
 #include <QDesktopServices>
-#include <QOpenGLWidget>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -1573,20 +1572,12 @@ void MainWindow::on_teachersReportButton_clicked()
                         chartView->setRenderHint(QPainter::Antialiasing);
 
                         // chart to png file
-                        QPixmap pixmap = chartView->grab();
-                        QOpenGLWidget *openGLWidget = chartView->findChild<QOpenGLWidget*>();
-                        if (openGLWidget)
-                        {
-                            QPainter painter(&pixmap);
-                            QPoint d = openGLWidget->mapToGlobal(QPoint()) - chartView->mapToGlobal(QPoint());
-                            painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-                            painter.drawImage(d, openGLWidget->grabFramebuffer());
-                            painter.end();
-                        }
+                        QPixmap pixmap = chartView->grab().copy(QRect(20, 20, 600, 440));
 
                         pixmap.save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
 
-                        textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png" + "></center>";
+                        textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png"
+                                  + " style=\"width:\"580px\"; height:\"420px\"></center>";
                     }
                 }
 
