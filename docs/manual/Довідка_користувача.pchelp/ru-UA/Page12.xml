@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page12" pageName="Звіти" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Звіти</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">Програмний продукт має такі звіти: </content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">1. По поточній таблиці.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">2. По викладачам.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">3. По предметам.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">4. По студентам.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">5. По оцінкам.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">6. По групам.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">Виклик звітів здійснюється за допомогою кнопок:</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">- на головній панелі:</content>
+        </line>
+        <line Align="Center">
+            <image height="219.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="202.0" topMargin="0.0" imageId="reports.png"></image>
+        </line>
+        <line Align="Justify">
+            <content style="Custom">- в меню:</content>
+        </line>
+        <line Align="Center">
+            <image height="154.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="287.0" topMargin="0.0" imageId="reportsOnMenu.png"></image>
+        </line>
+        <line Align="Justify">
+            <content style="Custom">Також, як зображено на ілюстрації, є можливість відкривати таблиці, використовуючи гарячі клавіши.</content>
+        </line>
+    </contents>
+</page>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page11" pageName="Запити" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Запити</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">Програмний продукт має можливість використовувати вбудованні запити на вибірку інформації. </content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">Програма містить три запита:</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">1. По успішності групи.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">2. По середньому балу груп.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">3. За датою оцінки студента.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Custom">Для того, щоб вікрити форму запитів, треба натиснути на кнопку </content>
+            <image height="25.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="25.0" topMargin="0.0" imageId="queryIco.png"></image>
+            <content style="Custom"> «Запити» на панелі інструментів.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд форми фільтрації</content>
+        </line>
+        <line Align="Center">
+            <image height="137.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="216.0" topMargin="0.0" imageId="queryForm.png"></image>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+    </contents>
+</page>

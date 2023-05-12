@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page7" pageName="Налаштування програми" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Налаштування програми</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">	Програмний застосунок дозволяє налаштовувати свої параметри. Щоб відкрити вікно налаштувань, потрібно натиснути на кнопку </content>
+            <image height="20.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="20.0" topMargin="0.0" imageId="settingIco.png"></image>
+            <content style="Heading2"> «Налаштування», що знаходиться в лівому нижньому куту вікна.</content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд кнопки «Налаштування»</content>
+        </line>
+        <line Align="Center">
+            <image height="46.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="206.0" topMargin="0.0" imageId="settingsButton.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	Після натискання кнопки «Налаштування», відкривається вікно параметрів програми. Налаштування діляться на дві групи:</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2 italic">- Зовнішній вигляд - налаштування теми програмного застосунку (світла, темна, системна).</content>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <image height="145.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="681.0" topMargin="0.0" imageId="interfaceSettings.png"></image>
+        </line>
+        <line Align="Left">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2 italic">	- База даних - налаштування параметрів з’єднання з сервером, на якому розміщується БД.</content>
+        </line>
+        <line Align="Left">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <image height="192.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="679.0" topMargin="0.0" imageId="dbSettings.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд вікна «Налаштування»</content>
+        </line>
+        <line Align="Center">
+            <image height="602.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="728.0" topMargin="0.0" imageId="settingsWindow.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+    </contents>
+</page>

@@ -168,7 +168,7 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
 
 void groupStatistics::clearPieChart()
 {
-    setWindowTitle("Статистика оцінок");
+    setWindowTitle("Статистика груп");
     series->clear();
     series->append("Приклад", 1);
 }

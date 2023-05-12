@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page1" pageName="Глосарій" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Left">
+            <content style="Heading1">Глосарій</content>
+        </line>
+        <line Align="Justify">
+            <content style="Custom8">Визначення та опис основних термінів, які використовуються при роботі з автоматизованою інформаційною системою «Gradify».</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">1. БД - база даних.</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">2. АІС - автоматизована інформаційна система.</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">3. Запит - основний інструмент вибірки, оновлення та обробки даних у таблицях бази даних.</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">4. Звіт - об’єкт бази даних, що використовується при виведенні структурованої інформації на екран, принтер або в файл.</content>
+        </line>
+    </contents>
+</page>

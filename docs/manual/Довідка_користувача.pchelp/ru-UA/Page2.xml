@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page2" pageName="Перегляд таблиць" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Перегляд таблиць</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">Перегляд таблиць здійснюється за допомогою кнопок:</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">- на головній панелі:</content>
+        </line>
+        <line Align="Center">
+            <image height="188.357" style="Custom italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="184.027" topMargin="0.0" imageId="tables.png"></image>
+        </line>
+        <line Align="Left">
+            <content style="Custom">- в меню:</content>
+        </line>
+        <line Align="Center">
+            <image height="131.0" style="Custom italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="310.0" topMargin="0.0" imageId="menuTables.png"></image>
+        </line>
+        <line Align="Left">
+            <content style="Custom">Також, як зображено на ілюстрації, є можливість відкривати таблиці, використовуючи гарячі клавіши.</content>
+        </line>
+    </contents>
+</page>

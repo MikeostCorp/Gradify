@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page13" pageName="Статистика" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Статистика</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">На основі табличної інформації формується статистика, яка має графічне представлення у вигляді графіків та діаграм.</content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад статистики викладачів по категоріям</content>
+        </line>
+        <line Align="Center">
+            <image height="561.198" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="753.898" topMargin="0.0" imageId="teachersStat.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад статистики предметів по типам</content>
+        </line>
+        <line Align="Center">
+            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="793.934" topMargin="0.0" imageId="subjectsStat.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад статистики оцінок студента</content>
+        </line>
+        <line Align="Center">
+            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="850.145" topMargin="0.0" imageId="studentStat.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад статистики оцінок по предмету</content>
+        </line>
+        <line Align="Center">
+            <image height="664.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="892.0" topMargin="0.0" imageId="gradeStat.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад статистики по групі</content>
+        </line>
+        <line Align="Center">
+            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="771.364" topMargin="0.0" imageId="groupStat.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+    </contents>
+</page>

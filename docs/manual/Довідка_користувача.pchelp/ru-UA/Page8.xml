@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page8" pageName="Авторизація користувача у системі" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Авторизація користувача у системі</content>
+        </line>
+        <line Align="Left">
+            <content style="Heading2">	Для авторизації користувача у системі, потрібно натиснути кнопку </content>
+            <image height="25.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="25.0" topMargin="0.0" imageId="inLog.png"></image>
+            <content style="Heading2"> авторизації.</content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд кнопки авторизації</content>
+        </line>
+        <line Align="Center">
+            <image height="59.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="205.0" topMargin="0.0" imageId="authButton.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	Після натискання на кнопку авторизації, відкривається форма заповнення данних. Після введення логіну і паролю треба натиснути кнопку «Увійти», після чого користувач буде авторизован в системі. Можна обрати параметр «Запам’ятай мене» і при наступних входах, авторизація буде проходити автоматично. У випадку якщо ви забули пароль або логін зверніться по пошті: </content>
+            <content style="Heading2 bold">support@gradify.online</content>
+            <content style="Heading2">.</content>
+        </line>
+        <line Align="Left">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд вікна авторизації</content>
+        </line>
+        <line Align="Center">
+            <image height="290.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="334.0" topMargin="0.0" imageId="loginForm.png"></image>
+        </line>
+    </contents>
+</page>

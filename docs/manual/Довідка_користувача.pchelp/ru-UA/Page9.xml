@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page9" pageName="Пошук в таблицях" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Пошук в таблицях</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	Пошук в таблицях здійснюється за допомогою поля «пошук» на панелі інструментів.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд поля пошуку</content>
+        </line>
+        <line Align="Center">
+            <content style="Heading2"> </content>
+            <image height="70.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="175.0" topMargin="0.0" imageId="search.png"></image>
+        </line>
+        <line Align="Justify">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	При наборі тексту пошуку, в таблиці одразу з’являються результати, які містять шуканий рядок.</content>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Приклад пошуку</content>
+        </line>
+        <line Align="Center">
+            <image height="302.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="188.0" topMargin="0.0" imageId="searchExp.png"></image>
+        </line>
+    </contents>
+</page>

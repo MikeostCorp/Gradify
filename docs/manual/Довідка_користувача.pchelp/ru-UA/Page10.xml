@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page10" pageName="Фільтрація даних" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Фільтрація даних</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	Для кожної таблиці можна застосувати фільтр. Для того, щоб вікрити форму фільтрів, треба натиснути на кнопку </content>
+            <image height="20.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="20.0" topMargin="0.0" imageId="filterIco.png"></image>
+            <content style="Heading2"> «Фільтр» на панелі інструментів.</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	Форма фільтру має такі поля:</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	- Колонка за якою працюватиме фільтрація;</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2"> 	- Умова (в залежності від типу даних поля, є варіанті різних операцій порівняння);</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	- Текстове поле для вводу параметру порівняння;</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	- Кнопка «Фільтрувати» - застосування фільтру;</content>
+        </line>
+        <line Align="Justify">
+            <content style="Heading2">	- Кнопка «Скасувати фільтрацію» </content>
+            <image height="20.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="20.0" topMargin="0.0" imageId="clearFilterIco.png"></image>
+            <content style="Heading2">.</content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд форми фільтрації</content>
+        </line>
+        <line Align="Center">
+            <image height="153.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="258.0" topMargin="0.0" imageId="filterForm.png"></image>
+        </line>
+    </contents>
+</page>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page pageId="Page6" pageName="Видалення запису" title="">
+    <abstract></abstract>
+    <keywords></keywords>
+    <contents>
+        <line Style="Heading1" Align="Center">
+            <content style="Heading1">Видалення запису</content>
+        </line>
+        <line Align="Left">
+            <image height="56.0" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="56.0" topMargin="0.0" imageId="deleteRecord.png"></image>
+            <content style="Custom3">- Кнопка видалення запису (</content>
+            <content style="Custom0">⌘</content>
+            <content style="Custom1 bold italic">cmd + D</content>
+            <content style="Custom3">)</content>
+        </line>
+        <line Align="Left">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Custom">	Після натискання кнопки видалення запису, відкривається діалогове вікно, в якому потрібно обрати запис для видалення. </content>
+        </line>
+        <line Align="Left">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Center">
+            <content style="Custom bold italic">Зовнішній вигляд діалогового вікна</content>
+        </line>
+        <line Align="Center">
+            <image height="145.0" style="Custom italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="223.0" topMargin="0.0" imageId="dialogDelete.png"></image>
+        </line>
+        <line Align="Center">
+            <content style="Normal"></content>
+        </line>
+        <line Align="Justify">
+            <content style="Custom">	Після вибору запису і натискання кнопки «ОК», запис видаляється з таблиці.</content>
+        </line>
+    </contents>
+</page>
