@@ -4,21 +4,22 @@
     <keywords></keywords>
     <contents>
         <line Style="Heading1" Align="Center">
-            <content style="Heading1">Опис програмного продукту</content>
+            <content style="Heading1 bold">Опис програмного продукту</content>
+        </line>
+        <line Align="Center">
+            <image height="467.354" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="800.0" topMargin="0.0" imageId="beautifulGradify.png"></image>
         </line>
         <line Align="Justify">
-            <content style="Normal"></content>
-        </line>
-        <line Align="Justify">
-            <content style="Heading2">	Програмний продукт є автоматизованою інформаційною системою для обліку даних учбового закладу. Даними таблиць БД</content>
-            <content style="Heading2" linkTarget="helpcrafter://Page1">[1]</content>
-            <content style="Heading2"> можна вільно маніпулювати (додавати, редагувати та видаляти). АІС</content>
-            <content style="Heading2" linkTarget="helpcrafter://Page1">[2]</content>
-            <content style="Heading2"> дозволяє шукати, фільтрувати та сортувати записи таблиць. Також є можливість робити запити</content>
-            <content style="Heading2" linkTarget="helpcrafter://Page1">[3]</content>
-            <content style="Heading2">, створювати звіти</content>
-            <content style="Heading2" linkTarget="helpcrafter://Page1">[4]</content>
-            <content style="Heading2">. На основі табличної інформації формується статистика, яка має графічне представлення у вигляді графіків та діаграм.</content>
+            <content style="Heading2">	</content>
+            <content style="Custom2">Програмний продукт є автоматизованою інформаційною системою для обліку даних учбового закладу. Даними таблиць БД</content>
+            <content style="Custom2" linkTarget="helpcrafter://Page1">[1]</content>
+            <content style="Custom2"> можна вільно маніпулювати (додавати, редагувати та видаляти). АІС</content>
+            <content style="Custom2" linkTarget="helpcrafter://Page1">[2]</content>
+            <content style="Custom2"> дозволяє шукати, фільтрувати та сортувати записи таблиць. Також є можливість робити запити</content>
+            <content style="Custom2" linkTarget="helpcrafter://Page1">[3]</content>
+            <content style="Custom2">, створювати звіти</content>
+            <content style="Custom2" linkTarget="helpcrafter://Page1">[4]</content>
+            <content style="Custom2">. На основі табличної інформації формується статистика, яка має графічне представлення у вигляді графіків та діаграм.</content>
         </line>
         <line Align="Justify">
             <content style="Normal"></content>

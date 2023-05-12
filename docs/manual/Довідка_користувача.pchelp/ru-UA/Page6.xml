@@ -17,7 +17,7 @@
             <content style="Normal"></content>
         </line>
         <line Align="Justify">
-            <content style="Custom">	Після натискання кнопки видалення запису, відкривається діалогове вікно, в якому потрібно обрати запис для видалення. </content>
+            <content style="Custom bold italic">	Після натискання кнопки видалення запису, відкривається діалогове вікно, в якому потрібно обрати запис для видалення. </content>
         </line>
         <line Align="Left">
             <content style="Normal"></content>
@@ -29,7 +29,7 @@
             <image height="260.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="323.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.55.20.png"></image>
         </line>
         <line Align="Justify">
-            <content style="Custom">	Після вибору запису і натискання кнопки «ОК», запис видаляється з таблиці.</content>
+            <content style="Custom bold italic">	Після вибору запису і натискання кнопки «ОК», запис видаляється з таблиці.</content>
         </line>
     </contents>
 </page>
