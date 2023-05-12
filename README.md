@@ -20,7 +20,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] New preloader.
 - [X] User Authorization.
 - [X] Authorization on server(input fields for any ip, db names e.t.c.)
-- [ ] SQL Query.
+- [X] SQL Query.
 - [X] Report constructor.
 - [X] User remembering during authorization
 - [X] Separate forms for editing posts
