@@ -244,23 +244,37 @@ void gradeStatistics::on_subjectComboBox_currentIndexChanged(int index)
             switch (i)
             {
             case 2:
-                series->append("Незадовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                                                  virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
+                {
+                    series->append("Незадовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                                          virtualTable->model()->index(0, 0).data().toInt());
+                }
                 break;
             case 3:
-                series->append("Задовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                               virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
+                {
+                    series->append("Задовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                                        virtualTable->model()->index(0, 0).data().toInt());
+                }
                 break;
             case 4:
-                series->append("Добре [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                               virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
+                {
+                    series->append("Добре [" + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                   virtualTable->model()->index(0, 0).data().toInt());
+                }
                 break;
             case 5:
-                series->append("Відмінно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                               virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
+                {
+                    series->append("Відмінно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                    virtualTable->model()->index(0, 0).data().toInt());
+                }
                 break;
             }
         }
+
+        series->setLabelsVisible(true);
     }
 }
 

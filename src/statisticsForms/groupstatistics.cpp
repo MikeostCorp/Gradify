@@ -160,6 +160,8 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
         {
             series->append("Загальна кількість студентів", allCountStudent);
         }
+
+        series->setLabelsVisible(true);
     }
 }
 

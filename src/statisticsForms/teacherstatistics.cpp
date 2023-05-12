@@ -23,6 +23,7 @@ teacherStatistics::teacherStatistics(QWidget *parent) :
 
     chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->chart()->setTitle("Статистика викладачів по категоріям");
 
     chart->legend()->setVisible(true);
     chart->setAnimationOptions(QChart::SeriesAnimations);
