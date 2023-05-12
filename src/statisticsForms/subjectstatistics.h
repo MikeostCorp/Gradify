@@ -21,6 +21,7 @@ public:
     ~subjectStatistics();
 
     void fillChart();
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void setBlackUI();

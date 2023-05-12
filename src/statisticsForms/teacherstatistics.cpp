@@ -37,6 +37,14 @@ teacherStatistics::~teacherStatistics()
     delete ui;
 }
 
+void teacherStatistics::closeEvent(QCloseEvent *event)
+{
+    if (event->Close)
+    {
+        series->clear();
+    }
+}
+
 void teacherStatistics::fillChart()
 {
     QSqlQueryModel *virtualQueryModel = new QSqlQueryModel();

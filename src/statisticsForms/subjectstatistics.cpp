@@ -37,6 +37,14 @@ subjectStatistics::~subjectStatistics()
     delete ui;
 }
 
+void subjectStatistics::closeEvent(QCloseEvent *event)
+{
+    if (event->Close)
+    {
+        series->clear();
+    }
+}
+
 void subjectStatistics::fillChart()
 {
     QSqlQueryModel *virtualQueryModel = new QSqlQueryModel();
