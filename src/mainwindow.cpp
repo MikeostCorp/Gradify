@@ -2066,7 +2066,6 @@ void MainWindow::on_actionCSV_triggered()
         QTextStream out(&csvFile);
         out << modelDataToString(model);
         csvFile.close();
-        QMessageBox::information(this, "", "Файл збережено!");
     }
 }
 
@@ -2090,7 +2089,6 @@ void MainWindow::on_actionTXT_triggered()
         QTextStream out(&txtFile);
         out << modelDataToString(model);
         txtFile.close();
-        QMessageBox::information(this, "", "Файл збережено!");
     }
 }
 
