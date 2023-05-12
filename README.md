@@ -32,7 +32,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Statistics for each table
 - [ ] Logs
 - [ ] App user guide
-- [ ] Table Export
+- [X] Table Export
 
 ## Bug report:
 - [X] Tables stop loading after a minute of inactivity :/
