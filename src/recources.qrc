@@ -109,5 +109,6 @@
         <file>img/blueMenuIcon/statisticsIcon.png</file>
         <file>styles/black/statisticsForms/statisticsForms.qss</file>
         <file>styles/white/statisticsForms/statisticsForms.qss</file>
+        <file>../docs/manual/Довідка_користувача.pchelp</file>
     </qresource>
 </RCC>

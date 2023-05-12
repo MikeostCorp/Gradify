@@ -1954,8 +1954,7 @@ void MainWindow::on_openSubjTabAction_triggered()
 
 void MainWindow::on_openManual_triggered()
 {
-    QMessageBox::information(this, "", "ОКРЫТИЕ ДОВИДКИ");
-    // КОД РЕАЛИЗАЦИИ ОТКРЫТИЯ ДОВИДКИ
+    QDesktopServices::openUrl(QUrl("file://" + QDir::currentPath() + "/../../../../docs/manual/Довідка_користувача.pchelp", QUrl::TolerantMode));
 }
 
 
