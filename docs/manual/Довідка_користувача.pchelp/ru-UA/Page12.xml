@@ -37,16 +37,16 @@
             <content style="Heading2">- на головній панелі:</content>
         </line>
         <line Align="Center">
-            <image height="219.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="202.0" topMargin="0.0" imageId="reports.png"></image>
+            <image height="213.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="202.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.45.30.png"></image>
         </line>
         <line Align="Justify">
-            <content style="Custom">- в меню:</content>
+            <content style="Custom bold italic">- в меню:</content>
         </line>
         <line Align="Center">
-            <image height="154.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="287.0" topMargin="0.0" imageId="reportsOnMenu.png"></image>
+            <image height="168.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="282.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.45.14.png"></image>
         </line>
         <line Align="Justify">
-            <content style="Custom">Також, як зображено на ілюстрації, є можливість відкривати таблиці, використовуючи гарячі клавіши.</content>
+            <content style="Custom bold italic">Також, як зображено на ілюстрації, є можливість відкривати таблиці, використовуючи гарячі клавіши.</content>
         </line>
     </contents>
 </page>

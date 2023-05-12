@@ -15,7 +15,7 @@
             <content style="Custom bold italic">Зовнішній вигляд кнопки авторизації</content>
         </line>
         <line Align="Center">
-            <image height="59.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="205.0" topMargin="0.0" imageId="authButton.png"></image>
+            <image height="71.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="207.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.11.00.png"></image>
         </line>
         <line Align="Center">
             <content style="Normal"></content>
@@ -32,7 +32,7 @@
             <content style="Custom bold italic">Зовнішній вигляд вікна авторизації</content>
         </line>
         <line Align="Center">
-            <image height="290.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="334.0" topMargin="0.0" imageId="loginForm.png"></image>
+            <image height="446.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="476.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.11.19.png"></image>
         </line>
     </contents>
 </page>

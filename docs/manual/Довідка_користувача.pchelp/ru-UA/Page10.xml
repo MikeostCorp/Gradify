@@ -35,7 +35,7 @@
             <content style="Custom bold italic">Зовнішній вигляд форми фільтрації</content>
         </line>
         <line Align="Center">
-            <image height="153.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="258.0" topMargin="0.0" imageId="filterForm.png"></image>
+            <image height="151.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="259.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.55.45.png"></image>
         </line>
     </contents>
 </page>

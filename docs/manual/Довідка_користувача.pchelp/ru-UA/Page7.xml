@@ -15,7 +15,7 @@
             <content style="Custom bold italic">Зовнішній вигляд кнопки «Налаштування»</content>
         </line>
         <line Align="Center">
-            <image height="46.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="206.0" topMargin="0.0" imageId="settingsButton.png"></image>
+            <image height="36.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="199.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.57.36.png"></image>
         </line>
         <line Align="Center">
             <content style="Normal"></content>
@@ -30,7 +30,7 @@
             <content style="Normal"></content>
         </line>
         <line Align="Center">
-            <image height="145.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="681.0" topMargin="0.0" imageId="interfaceSettings.png"></image>
+            <image height="174.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="711.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.57.54.png"></image>
         </line>
         <line Align="Left">
             <content style="Normal"></content>
@@ -42,7 +42,7 @@
             <content style="Normal"></content>
         </line>
         <line Align="Center">
-            <image height="192.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="679.0" topMargin="0.0" imageId="dbSettings.png"></image>
+            <image height="223.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="711.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.58.20.png"></image>
         </line>
         <line Align="Center">
             <content style="Normal"></content>
@@ -51,10 +51,7 @@
             <content style="Custom bold italic">Зовнішній вигляд вікна «Налаштування»</content>
         </line>
         <line Align="Center">
-            <image height="602.0" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="728.0" topMargin="0.0" imageId="settingsWindow.png"></image>
-        </line>
-        <line Align="Center">
-            <content style="Normal"></content>
+            <image height="720.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="889.0" topMargin="0.0" imageId="Новый проект.png"></image>
         </line>
     </contents>
 </page>

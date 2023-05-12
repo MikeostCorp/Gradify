@@ -16,8 +16,7 @@
             <content style="Custom bold italic">Зовнішній вигляд поля пошуку</content>
         </line>
         <line Align="Center">
-            <content style="Heading2"> </content>
-            <image height="70.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="175.0" topMargin="0.0" imageId="search.png"></image>
+            <image height="71.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="178.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.56.20.png"></image>
         </line>
         <line Align="Justify">
             <content style="Normal"></content>
@@ -32,7 +31,7 @@
             <content style="Custom bold italic">Приклад пошуку</content>
         </line>
         <line Align="Center">
-            <image height="302.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="188.0" topMargin="0.0" imageId="searchExp.png"></image>
+            <image height="282.0" style="Heading2" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="193.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.56.56.png"></image>
         </line>
     </contents>
 </page>

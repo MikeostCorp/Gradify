@@ -25,9 +25,9 @@
             <content style="Normal"></content>
         </line>
         <line Align="Justify">
-            <content style="Custom">Для того, щоб вікрити форму запитів, треба натиснути на кнопку </content>
-            <image height="25.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="25.0" topMargin="0.0" imageId="queryIco.png"></image>
-            <content style="Custom"> «Запити» на панелі інструментів.</content>
+            <content style="Custom bold italic">Для того, щоб вікрити форму запитів, треба натиснути на кнопку </content>
+            <image height="25.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="25.0" topMargin="0.0" imageId="queryIco.png"></image>
+            <content style="Custom bold italic"> «Запити» на панелі інструментів.</content>
         </line>
         <line Align="Justify">
             <content style="Normal"></content>
@@ -36,7 +36,7 @@
             <content style="Custom bold italic">Зовнішній вигляд форми фільтрації</content>
         </line>
         <line Align="Center">
-            <image height="137.0" style="Custom" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="216.0" topMargin="0.0" imageId="queryForm.png"></image>
+            <image height="135.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="218.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 16.45.48.png"></image>
         </line>
         <line Align="Justify">
             <content style="Normal"></content>

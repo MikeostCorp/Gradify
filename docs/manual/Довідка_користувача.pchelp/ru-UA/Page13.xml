@@ -13,31 +13,31 @@
             <content style="Custom bold italic">Приклад статистики викладачів по категоріям</content>
         </line>
         <line Align="Center">
-            <image height="561.198" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="753.898" topMargin="0.0" imageId="teachersStat.png"></image>
+            <image height="586.838" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="772.949" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.14.07.png"></image>
         </line>
         <line Align="Center">
             <content style="Custom bold italic">Приклад статистики предметів по типам</content>
         </line>
         <line Align="Center">
-            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="793.934" topMargin="0.0" imageId="subjectsStat.png"></image>
+            <image height="573.543" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="774.742" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.15.22.png"></image>
         </line>
         <line Align="Center">
             <content style="Custom bold italic">Приклад статистики оцінок студента</content>
         </line>
         <line Align="Center">
-            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="850.145" topMargin="0.0" imageId="studentStat.png"></image>
+            <image height="633.219" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="848.363" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.16.53.png"></image>
         </line>
         <line Align="Center">
             <content style="Custom bold italic">Приклад статистики оцінок по предмету</content>
         </line>
         <line Align="Center">
-            <image height="664.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="892.0" topMargin="0.0" imageId="gradeStat.png"></image>
+            <image height="609.575" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="777.34" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.20.26.png"></image>
         </line>
         <line Align="Center">
             <content style="Custom bold italic">Приклад статистики по групі</content>
         </line>
         <line Align="Center">
-            <image height="591.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="771.364" topMargin="0.0" imageId="groupStat.png"></image>
+            <image height="699.0" style="Custom bold italic" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="850.0" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.21.14.png"></image>
         </line>
         <line Align="Center">
             <content style="Normal"></content>
