@@ -12,8 +12,9 @@
 
 int main(int argc, char *argv[])
 {
-#if Q_OS_MAC true && Q_OS_MACOS true && Q_OS_MAC64 true && Q_OS_MACX true
+#if defined(Q_OS_MAC) && defined(Q_OS_MACOS) && defined(Q_OS_MAC64) && defined(Q_OS_MACX)
     QApplication app(argc, argv);
+    qDebug() << "this macos";
     preloader window;
     window.show();
     return app.exec();
