@@ -22,29 +22,29 @@
         <table>
             <row>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <content style="Heading2 bold italic">Форма додавання викладача</content>
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <content style="Heading2 bold italic">Форма додавання студента</content>
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <content style="Heading2 bold italic">Форма додавання предмета</content>
                     </line>
                 </column>
             </row>
             <row>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <image height="483.474" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="321.855" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.23.17.png"></image>
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <image height="486.688" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="346.395" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.25.42.png"></image>
                     </line>
                     <line Align="Left">
@@ -52,7 +52,7 @@
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <image height="475.437" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="329.738" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.25.04.png"></image>
                     </line>
                 </column>
@@ -64,27 +64,24 @@
                     <line Align="Left">
                         <content style="Normal"></content>
                     </line>
-                    <line Align="Left">
+                    <line Align="Center">
                         <content style="Heading2 bold italic">Форма додавання оцінки</content>
-                    </line>
-                    <line Align="Left">
-                        <content style="Normal"></content>
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <content style="Heading2 bold italic">Форма додавання групи</content>
                     </line>
                 </column>
             </row>
             <row>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <image height="447.808" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="362.656" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.26.22.png"></image>
                     </line>
                 </column>
                 <column rowSpan="1" columnSpan="1" VerticalAlign="middle" color="#bfbfbf" background-color="transparent" borderWidth="0">
-                    <line Align="Left">
+                    <line Align="Center">
                         <image height="468.937" style="Heading2 bold" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="375.918" topMargin="0.0" imageId="Знімок екрана 2023-05-12 о 17.27.06.png"></image>
                     </line>
                 </column>
