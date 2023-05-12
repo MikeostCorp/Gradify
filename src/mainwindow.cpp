@@ -2034,6 +2034,12 @@ QString MainWindow::modelDataToString(QAbstractItemModel* model)
 {
     QString textData;
 
+    for (int col = 0; col < model->columnCount(); ++col)
+    {
+        textData += model->headerData(col, Qt::Horizontal).toString() + ", ";
+    }
+    textData += "\n";
+
     for (int row = 0; row < model->rowCount(); ++row)
     {
         for (int col = 0; col < model->columnCount(); ++col)
