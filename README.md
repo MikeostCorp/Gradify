@@ -30,7 +30,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] Change the delete-row window
 - [X] Data statistics with graphs and diagrams
 - [X] Statistics for each table
-- [ ] App user guide
+- [X] App user guide
 - [X] Table Export
 
 ## Bug report:
