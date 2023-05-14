@@ -1570,7 +1570,6 @@ void MainWindow::on_teachersReportButton_clicked()
                         QChartView *chartView = new QChartView(chart);
                         chartView->setRenderHint(QPainter::Antialiasing);
                         chartView->setBackgroundBrush(Qt::white);
-                        chartView->setFixedSize(600, 400);
 
 
                         chartView->grab().save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
