@@ -10,7 +10,6 @@
             <image height="467.354" style="Normal" leftMargin="0.0" bottomMargin="0.0" rightMargin="0.0" width="800.0" topMargin="0.0" imageId="beautifulGradify.png"></image>
         </line>
         <line Align="Justify">
-            <content style="Heading2">	</content>
             <content style="Custom2">Програмний продукт є автоматизованою інформаційною системою для обліку даних учбового закладу. Даними таблиць БД</content>
             <content style="Custom2" linkTarget="helpcrafter://Page1">[1]</content>
             <content style="Custom2"> можна вільно маніпулювати (додавати, редагувати та видаляти). АІС</content>

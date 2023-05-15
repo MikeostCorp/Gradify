@@ -140,7 +140,6 @@ private slots:
     QString modelDataToString(QAbstractItemModel* model);
 
     void on_actionCSV_triggered();
-
     void on_actionTXT_triggered();
 
 private:
