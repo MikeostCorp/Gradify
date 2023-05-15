@@ -177,7 +177,7 @@ void MainWindow::mainWindowInit()
 
 void MainWindow::configDefault()
 {
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
     settingsConfig.setValue("theme", "system");
 
     settingsConfig.setValue("hostname", "141.136.44.252");
@@ -188,7 +188,7 @@ void MainWindow::configDefault()
 
 void MainWindow::configInit()
 {
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
 
     if (settingsConfig.allKeys().empty())
     {
@@ -210,7 +210,7 @@ void MainWindow::configInit()
 
 void MainWindow::configWrite(const QString &key, const QVariant &value)
 {
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
     settingsConfig.setValue(key, value);
 }
 
@@ -524,7 +524,8 @@ void MainWindow::setTheme(const QString &style)
 
 void MainWindow::authorization(const QString &login)
 {
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+
 
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
@@ -599,7 +600,7 @@ void MainWindow::userLogout()
     ui->authorizationButton->setText("Авторизація");
     ui->authorizationButton->setStyleSheet("");
 
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
     settingsConfig.remove("userlogin");
 }
 

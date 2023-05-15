@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
-#include <QDir>
 
 authorizationForm::authorizationForm(QWidget *parent) :
     QWidget(parent),
@@ -154,12 +153,12 @@ void authorizationForm::on_loginButton_clicked()
 
             if (ui->rememberCheckBox->isChecked())
             {
-                QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
                 settingsConfig.setValue("userlogin", login);
             }
             else
             {
-                QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
                 settingsConfig.remove("userlogin");
             }
 

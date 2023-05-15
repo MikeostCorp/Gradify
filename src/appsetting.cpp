@@ -20,7 +20,7 @@ appSetting::appSetting(QWidget *parent) :
 
     ui->succSaveSettings->setVisible(false);
 
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
     if (settingsConfig.contains("hostname") and
         settingsConfig.contains("username") and
         settingsConfig.contains("password") and
@@ -179,7 +179,7 @@ void appSetting::on_saveDBSettings_clicked()
         return;
     }
 
-    QSettings settingsConfig(QDir::currentPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
     settingsConfig.setValue("hostname", ui->dbhostnameLineEdit->text());
     settingsConfig.setValue("username", ui->dbloginLineEdit->text());
     settingsConfig.setValue("password", ui->dbpasswordLineEdit->text());
