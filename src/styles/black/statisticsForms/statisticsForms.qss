@@ -14,7 +14,6 @@ QFrame
     background-color: rgb(49, 51, 52);
 }
 
-
 QComboBox
 {
     background-color: rgb(81, 85, 88);

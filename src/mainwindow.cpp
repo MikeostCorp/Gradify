@@ -465,6 +465,8 @@ void MainWindow::setEnabledActions(const bool &status)
     ui->studentsReportAction->setEnabled(status);
     ui->teachersReportAction->setEnabled(status);
     ui->subjectsReportAction->setEnabled(status);
+
+    ui->menu_2->setEnabled(status);
 }
 
 

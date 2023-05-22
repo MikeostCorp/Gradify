@@ -3,8 +3,6 @@
 #include <QStyle>
 #include <QToolButton>
 
-#include <QMessageBox>
-
 QLineEditWithButton::QLineEditWithButton(QWidget *parent)
     : QLineEdit{parent}
 {

@@ -28,3 +28,4 @@ signals:
 };
 
 #endif // QLINEEDITWITHBUTTON_H
+
