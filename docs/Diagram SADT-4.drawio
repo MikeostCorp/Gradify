@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-23T13:38:35.641Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0" etag="fs7XCcUo_xw2jLT4Bogf" version="21.3.3" type="device">
+<mxfile host="app.diagrams.net" modified="2023-05-23T13:45:53.107Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0" etag="CC2JJSrbjEr9pkQ2eL7N" version="21.3.3" type="device">
   <diagram name="Сторінка-1" id="kl36Wdh-Y95LG7sr6SF0">
-    <mxGraphModel dx="2441" dy="1652" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1850" dy="1269" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -219,6 +219,15 @@
         </mxCell>
         <mxCell id="0Z3TNYrJnA42NZEzYTIk-66" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;Правила додання&amp;nbsp;&lt;/div&gt;викладачів, студентів,&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;груп, предметів&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;та оцінок&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=12;spacingTop=0;" parent="1" vertex="1">
           <mxGeometry x="467" y="29" width="136" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="7nkUoFVn7O0FeUKu1nBj-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="940" y="498.69" as="sourcePoint" />
+            <mxPoint x="980" y="498.69" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7nkUoFVn7O0FeUKu1nBj-2" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;Звіти для адміністрації&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=12;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="982" y="484" width="110" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
