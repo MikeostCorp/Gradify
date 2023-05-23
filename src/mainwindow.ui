@@ -1204,7 +1204,7 @@
     </property>
     <widget class="QMenu" name="menu_2">
      <property name="title">
-      <string>Экспортувати як</string>
+      <string>Експортувати як</string>
      </property>
      <addaction name="actionCSV"/>
      <addaction name="actionTXT"/>

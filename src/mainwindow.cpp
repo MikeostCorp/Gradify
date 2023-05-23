@@ -178,13 +178,14 @@ void MainWindow::mainWindowInit()
 void MainWindow::configDefault()
 {
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
-    settingsConfig.setValue("theme", "system");
 
+    settingsConfig.setValue("theme", "system");
     settingsConfig.setValue("hostname", "141.136.44.252");
     settingsConfig.setValue("username", "teacher");
     settingsConfig.setValue("password", "P433w0rD!");
     settingsConfig.setValue("databasename", "Gradify");
 }
+
 
 void MainWindow::configInit()
 {
