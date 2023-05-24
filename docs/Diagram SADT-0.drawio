@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-23T17:27:05.548Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0" etag="2D_KXlw1n3WaklHLoJ9-" version="21.3.3" type="device">
+<mxfile host="app.diagrams.net" modified="2023-05-24T12:07:36.907Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0" etag="BokZbYEtZC6KRgZv1IN5" version="21.3.3" type="device">
   <diagram name="Сторінка-1" id="L3hvuV_j_w6WOY5KmdmO">
-    <mxGraphModel dx="454" dy="295" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="545" dy="354" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,12 +66,12 @@
         </mxCell>
         <mxCell id="XEKBR_4rA_A51tV6gFA4-20" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="373" y="361" as="sourcePoint" />
-            <mxPoint x="373" y="400" as="targetPoint" />
+            <mxPoint x="427" y="361" as="sourcePoint" />
+            <mxPoint x="427" y="400" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="XEKBR_4rA_A51tV6gFA4-21" value="&lt;div style=&quot;&quot;&gt;Інструкція&lt;/div&gt;&lt;div style=&quot;&quot;&gt;викладача&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=9;spacingTop=0;" parent="1" vertex="1">
-          <mxGeometry x="350" y="332" width="56" height="30" as="geometry" />
+          <mxGeometry x="404" y="332" width="56" height="30" as="geometry" />
         </mxCell>
         <mxCell id="XEKBR_4rA_A51tV6gFA4-25" value="АІС для обліку роботи&lt;br&gt;навчального закладу&lt;br style=&quot;font-size: 9px;&quot;&gt;&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" parent="1" vertex="1">
           <mxGeometry x="255" y="420" width="220" height="100" as="geometry" />
@@ -84,6 +84,24 @@
         </mxCell>
         <mxCell id="H4ASW1AbjdCLJvAhlm7o-2" value="&lt;div style=&quot;&quot;&gt;Звіти для адміністрації&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=9;spacingTop=0;" parent="1" vertex="1">
           <mxGeometry x="512" y="447" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MF-h1RN0f7WdWrlvE5BI-1" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="303" y="361" as="sourcePoint" />
+            <mxPoint x="303" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MF-h1RN0f7WdWrlvE5BI-2" value="Державні стандарти" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=9;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="332" width="56" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MF-h1RN0f7WdWrlvE5BI-3" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="364" y="361" as="sourcePoint" />
+            <mxPoint x="364" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MF-h1RN0f7WdWrlvE5BI-4" value="Правила оформлення докуметації" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;fontStyle=0;html=1;fontSize=9;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="341" y="332" width="56" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
