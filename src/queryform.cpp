@@ -56,7 +56,7 @@ void queryForm::on_succesStudentPushButton_clicked()
         listGroup.append(tableView->model()->index(row, 0).data().toString());
     }
 
-    QString selectedGroup = QInputDialog::getItem(this, tr("Запит по успіншості групи"),
+    QString selectedGroup = QInputDialog::getItem(this, tr("Запит по успішності групи"),
                                                      tr("Оберіть групу:"), listGroup,
                                                      0, false, &ok);
 
