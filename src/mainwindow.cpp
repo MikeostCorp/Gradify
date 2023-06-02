@@ -1957,7 +1957,7 @@ void MainWindow::on_openSubjTabAction_triggered()
 
 void MainWindow::on_openManual_triggered()
 {
-    QDesktopServices::openUrl(QUrl("file://" + QDir::currentPath() + "/../../../../docs/manual/Довідка_користувача.pchelp", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("https://gradify.online/Посібник_користувача.pdf", QUrl::TolerantMode));
 }
 
 
