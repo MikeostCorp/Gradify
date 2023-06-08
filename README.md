@@ -38,7 +38,7 @@ Gradify also provides quick access to student information through a user-friendl
 - [X] (Only on OSX 10.15). Sometimes after restarting appears "ghost" logged user and causes an error[segfault]
 
 ## idea for future updates:
-- [] Adding a language changer to the application settings.
+- [ ] Adding a language changer to the application settings.
 - [] The ability to add and edit photos for the forms for editing table entries.
 - [] Make it possible to scroll the left menu of the main window.
 - [] Reworking the appearance of the application.
