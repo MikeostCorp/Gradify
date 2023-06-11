@@ -43,4 +43,5 @@ Gradify also provides quick access to student information through a user-friendl
 - [ ] Make it possible to scroll the left menu of the main window.
 - [ ] Reworking the appearance of the application.
 - [ ] Transferring icons from png to svg format.
+- [ ] Update main app icon.
 
