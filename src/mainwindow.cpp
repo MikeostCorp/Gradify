@@ -31,6 +31,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::mainWindowInit()
 {
+    // example of translate
+    // idk why you paste 2 spaces bro
+    ui->settingsButton->setText(tr("  Налаштування"));
+
+
     setWindowTitle("Gradify");
 
     // init obj's of windows classes
@@ -229,6 +234,10 @@ void MainWindow::changeEvent(QEvent *event)
         {
             setWindowOpacity(0.97);
         }
+    }
+    else if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);
     }
 }
 
@@ -2099,4 +2108,20 @@ void MainWindow::on_actionTXT_triggered()
         txtFile.close();
     }
 }
+
+
+void MainWindow::on_actionEnglish_Translate_triggered()
+{
+    qDebug() << "Switching to English (United States)...";
+    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+    qDebug() << "Current locale:" << QLocale::system().name();
+
+    translator.load(":/translations/Gradify_en_US.qm");
+    if (qApp->installTranslator(&translator)) {
+        qDebug() << "Translation installed successfully.";
+    } else {
+        qDebug() << "Failed to install translation.";
+    }
+}
+
 

@@ -16,6 +16,8 @@
 #include <QSettings>
 #include <QTableView>
 
+#include <QTranslator>
+
 #include <appsetting.h>
 #include <authorizationform.h>
 #include <filterform.h>
@@ -142,8 +144,12 @@ private slots:
     void on_actionCSV_triggered();
     void on_actionTXT_triggered();
 
+    void on_actionEnglish_Translate_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    QTranslator translator;
 
     appSetting *settingWindow;
     authorizationForm *authorizationWindow;

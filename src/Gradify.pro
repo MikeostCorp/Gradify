@@ -70,6 +70,9 @@ FORMS += \
     statisticsForms/subjectstatistics.ui \
     statisticsForms/teacherstatistics.ui
 
+TRANSLATIONS =
+    translations/Gradify_en_US.ts
+
 TARGET = Gradify
 
 # Default rules for deployment.
@@ -81,4 +84,3 @@ RESOURCES += \
     recources.qrc
 
 ICON = img/AppIcon.icns
-
