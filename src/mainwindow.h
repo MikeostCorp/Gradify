@@ -146,6 +146,8 @@ private slots:
 
     void on_actionEnglish_Translate_triggered();
 
+    void on_actionUkrainian_Translate_triggered();
+
 private:
     Ui::MainWindow *ui;
 

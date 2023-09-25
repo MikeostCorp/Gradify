@@ -72,6 +72,7 @@ FORMS += \
 
 TRANSLATIONS =
     translations/Gradify_en_US.ts
+    translations/Gradify_ua_UA.ts
 
 TARGET = Gradify
 

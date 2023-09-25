@@ -2125,3 +2125,18 @@ void MainWindow::on_actionEnglish_Translate_triggered()
 }
 
 
+
+void MainWindow::on_actionUkrainian_Translate_triggered()
+{
+    qDebug() << "Switching to Ukrainian (Ukraine)...";
+    QLocale::setDefault(QLocale(QLocale::Ukrainian, QLocale::Ukraine));
+    qDebug() << "Current locale:" << QLocale::system().name();
+
+    translator.load(":/translations/Gradify_ua_UA.qm");
+    if (qApp->installTranslator(&translator)) {
+        qDebug() << "Translation installed successfully.";
+    } else {
+        qDebug() << "Failed to install translation.";
+    }
+}
+

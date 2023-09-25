@@ -1201,6 +1201,7 @@
     </property>
     <addaction name="about"/>
     <addaction name="actionEnglish_Translate"/>
+    <addaction name="actionUkrainian_Translate"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
@@ -1378,6 +1379,11 @@
   <action name="actionEnglish_Translate">
    <property name="text">
     <string>English Translate</string>
+   </property>
+  </action>
+  <action name="actionUkrainian_Translate">
+   <property name="text">
+    <string>Ukrainian Translate</string>
    </property>
   </action>
  </widget>
