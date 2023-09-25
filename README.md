@@ -16,3 +16,5 @@ In Gradify, you can easily add, edit, and delete student records, including thei
 Gradify also provides quick access to student information through a user-friendly interface. You can quickly search for a student by name, group, or other criteria, and filter the data by various criteria.
 
 ----
+
+Just wait.
