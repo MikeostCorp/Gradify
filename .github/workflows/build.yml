@@ -13,12 +13,19 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Find qmake
+      id: find-qmake
+      run: |
+        qmake_path=$(which qmake)
+        echo "QMAKE_PATH=$qmake_path" >> $GITHUB_ENV
+        echo "::set-output name=qmake-path::$qmake_path"
+      
     - name: Set Up Qt
       run: |
         sudo apt-get update
         sudo apt-get install qt6-default
-        export QMAKE=/usr/lib/x86_64-linux-gnu/qt6/bin/qmake
-        
+        export QMAKE=${{ env.QMAKE_PATH }}
+
     - name: Build Project
       run: |
         qmake -r
@@ -27,4 +34,3 @@ jobs:
     - name: Upload Artifacts
       if: success()
       run: |
-
