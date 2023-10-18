@@ -35,7 +35,6 @@ void MainWindow::mainWindowInit()
     // idk why you paste 2 spaces bro
     ui->settingsButton->setText(tr("  Налаштування"));
 
-
     setWindowTitle("Gradify");
 
     // init obj's of windows classes
