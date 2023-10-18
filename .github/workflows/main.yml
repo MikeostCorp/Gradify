@@ -1,0 +1,30 @@
+name: Build Qt C++ Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set Up Qt
+      run: |
+        sudo apt-get update
+        sudo apt-get install qt5-default
+        export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+        
+    - name: Build Project
+      run: |
+        qmake -r
+        make
+
+    - name: Upload Artifacts
+      if: success()
+      run: |
+
