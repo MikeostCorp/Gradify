@@ -3,7 +3,7 @@ name: Build Qt C++ Project
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
@@ -12,6 +12,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+
+    - name: Debug PATH
+      run: |
+        echo "PATH = $PATH"
 
     - name: Debug Step
       run: |
@@ -40,5 +44,4 @@ jobs:
     - name: Upload Artifacts
       if: success()
       run: |
-        echo "Debugging step: Before uploading artifacts"
-        echo "Debugging step: After uploading artifacts"
+        echo "Debugging
