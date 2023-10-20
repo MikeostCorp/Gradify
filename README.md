@@ -8,6 +8,8 @@
 [![latest release](https://img.shields.io/github/v/release/MikeostCorp/Gradify)](https://github.com/MikeostCorp/Gradify/releases)
 ![platform](https://img.shields.io/badge/MacOS-platform?label=platform)
 [![downloads](https://img.shields.io/github/downloads/MikeostCorp/Gradify/total.svg)](https://github.com/MikeostCorp/Gradify/releases)
+![build status](https://github.com/MikeostCorp/Gradify/actions/workflows/build.yml/badge.svg)
+
 
 ----
 
