@@ -25,7 +25,13 @@ jobs:
         version: 6.4.3
         modules: qtcharts
 
-    - name: Configure
+    - name: Configure MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+        spectre: true
+        
+    - name: Configure Project
       run: qmake -makefile src/Gradify.pro
 
     - name: Build
