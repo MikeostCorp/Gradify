@@ -23,7 +23,6 @@
 #include <filterform.h>
 #include <queryform.h>
 #include <aboutapp.h>
-#include <customWidgets/qsearchbar.h>
 
 #include <recordsForms/gradewindow.h>
 #include <recordsForms/groupwindow.h>

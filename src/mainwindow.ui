@@ -1391,7 +1391,7 @@
   <customwidget>
    <class>QSearchBar</class>
    <extends>QLineEdit</extends>
-   <header>qsearchbar.h</header>
+   <header>customWidgets/qsearchbar.h</header>
   </customwidget>
  </customwidgets>
  <resources>

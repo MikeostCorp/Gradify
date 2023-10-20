@@ -13,6 +13,8 @@
 #include <QPageSize>
 #include <QDesktopServices>
 
+#include <customWidgets/qsearchbar.h>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
