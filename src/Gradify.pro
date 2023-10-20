@@ -70,14 +70,6 @@ FORMS += \
     statisticsForms/subjectstatistics.ui \
     statisticsForms/teacherstatistics.ui
 
-TRANSLATIONS =
-    translations/Gradify_en_US.ts
-    translations/Gradify_ua_UA.ts
-
-translations.target = translations
-translations.commands = lrelease-qt6 Gradify.pro
-translations.depends = Gradify.pro
-QMAKE_EXTRA_COMPILERS += translations
 
 TARGET = Gradify
 

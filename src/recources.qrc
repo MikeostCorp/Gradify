@@ -109,9 +109,5 @@
         <file>img/blueMenuIcon/statisticsIcon.png</file>
         <file>styles/black/statisticsForms/statisticsForms.qss</file>
         <file>styles/white/statisticsForms/statisticsForms.qss</file>
-        <file>translations/Gradify_en_US.qm</file>
-        <file>translations/Gradify_en_US.ts</file>
-        <file>translations/Gradify_ua_UA.qm</file>
-        <file>translations/Gradify_ua_UA.ts</file>
     </qresource>
 </RCC>
