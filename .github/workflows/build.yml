@@ -35,3 +35,6 @@ jobs:
       
     - name: Build
       run: make
+      
+    - name: View Makefile.Release
+      run: cat Makefile.Release
