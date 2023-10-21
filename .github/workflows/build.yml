@@ -12,17 +12,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest] # windows-latest
         
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup MSVC Developer Command Prompt
-      if: matrix.os == 'windows-latest'
-      uses: TheMrMilchmann/setup-msvc-dev@v3.0.0
-      with:
-        arch: x64
+   #- name: Setup MSVC Developer Command Prompt
+   #  if: matrix.os == 'windows-latest'
+   #  uses: TheMrMilchmann/setup-msvc-dev@v3.0.0
+   #  with:
+   #    arch: x64
       
     - name: Install Qt
       uses: jurplel/install-qt-action@v3.3.0
@@ -32,9 +32,6 @@ jobs:
 
     - name: Configure
       run: qmake -makefile src/Gradify.pro
-      
-    - name: View Makefile.Release
-      run: cat Makefile.Release
       
     - name: Build
       run: make
