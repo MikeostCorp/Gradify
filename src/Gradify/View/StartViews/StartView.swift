@@ -8,7 +8,7 @@
 import SwiftUI
 import AppKit
 
-struct LoginView: View
+struct StartView: View
 {
     @Binding var isShowingMainWindow: Bool
         
@@ -26,14 +26,24 @@ struct LoginView: View
             Text("Gradify")
                 .foregroundColor(.blue)
             
+            VStack(spacing: 25)
+            {
+                InfoRowView(imageName: "opticaldiscdrive.fill", mainText: "Ефективний облік даних", bodyText: "Gradify надає зручний та ефективний спосіб ведення обліку інформації про студентів")
+                
+                InfoRowView(imageName: "speedometer", mainText: "Швидкий доступ до інформації", bodyText: "Зручно та швидко знаходьте та переглядайте дані про студентів")
+
+                InfoRowView(imageName: "gearshape.2", mainText: "Оптимізація роботи", bodyText: "Застосунок ефективно організовує інформацію та забезпечує швидкий доступ до даних")
+
+            }//VStack with info
+            .padding(.top, 40)
+            .padding(.horizontal, 12)
+            
             Spacer()
             
             Button
             {
                 // go to auth
                 isShowingMainWindow = true
-                //NSApplication.shared.keyWindow?.close()
-
             }
             label:
             {
@@ -48,10 +58,9 @@ struct LoginView: View
             .padding()
             
         }// VStack
-        .padding(.top, 64)
-        .frame(minWidth: 375, maxWidth: 375,
-               minHeight: 550, maxHeight: 550)
-        
+        .padding(.top, 12)
+        .frame(minWidth: 390, maxWidth: 390,
+               minHeight: 600, maxHeight: 600)
         .font(.largeTitle.bold())
         .background(Color("BackgroundLoginView"))
         //.ignoresSafeArea(.all, edges: .all)
@@ -65,6 +74,6 @@ struct LoginView_Previews: PreviewProvider
 
     static var previews: some View
     {
-        LoginView(isShowingMainWindow: $isShowingMainWindow)
+        StartView(isShowingMainWindow: $isShowingMainWindow)
     }
 }

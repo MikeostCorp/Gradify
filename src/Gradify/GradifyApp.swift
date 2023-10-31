@@ -26,7 +26,7 @@ struct GradifyApp: App
             }
             else
             {
-                LoginView(isShowingMainWindow: $isMainWindowOpen)
+                StartView(isShowingMainWindow: $isMainWindowOpen)
                     .onAppear
                     {
                         useStyleMiniWindow(status: true)
