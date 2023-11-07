@@ -12,7 +12,6 @@ struct MainMenuView: View
     @State private var selection: String? = "Item1"
     @State private var columnVisibility = NavigationSplitViewVisibility.detailOnly
 
-    
     var body: some View
     {
         NavigationSplitView(columnVisibility: $columnVisibility)
@@ -41,12 +40,14 @@ struct MainMenuView: View
             {
                 Button
                 {
-                    print("test auth")
+                    print("test setting")
                 }
                 label:
                 {
-                    Text("Авторизація")
+                    Image(systemName: "gearshape.fill")
+                    Text("Налаштування")
                 }
+                //.keyboardShortcut(.defaultAction)
                 .padding(.bottom)
                 .buttonStyle(.borderless)
                 .foregroundColor(.accentColor)
@@ -58,7 +59,8 @@ struct MainMenuView: View
             Text("Go auth Mishanya")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }//detail if no selected
-        .navigationTitle("Gradify brr...")
+        .navigationTitle("Gradify dev build")
+
         //.frame(minWidth: 550)
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 @main
 struct GradifyApp: App
 {
@@ -16,6 +17,7 @@ struct GradifyApp: App
     {
         WindowGroup
         {
+           
             if isMainWindowOpen
             {
                 MainMenuView()
@@ -32,9 +34,13 @@ struct GradifyApp: App
                         useStyleMiniWindow(status: true)
                     }
             }
-            
         }
         .windowResizability(.contentSize)
+        .commands
+        {
+            SidebarCommands()
+        }
+
     }
     
     func useStyleMiniWindow(status: Bool)
@@ -42,5 +48,6 @@ struct GradifyApp: App
         NSApp.windows.first?.standardWindowButton(.zoomButton)?.isHidden = status
         NSApp.windows.first?.standardWindowButton(.miniaturizeButton)?.isHidden = status
         NSApp.windows.first?.titlebarAppearsTransparent = status
+        //NSApp.windows.first?.backgroundColor = .clear
     }
 }

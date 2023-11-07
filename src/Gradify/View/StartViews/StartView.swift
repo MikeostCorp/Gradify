@@ -11,6 +11,7 @@ import AppKit
 struct StartView: View
 {
     @Binding var isShowingMainWindow: Bool
+    @State private var animateStatus = true
         
     var body: some View
     {
@@ -28,11 +29,11 @@ struct StartView: View
             
             VStack(spacing: 25)
             {
-                InfoRowView(imageName: "opticaldiscdrive.fill", mainText: "Ефективний облік даних", bodyText: "Gradify надає зручний та ефективний спосіб ведення обліку інформації про студентів")
-                
-                InfoRowView(imageName: "speedometer", mainText: "Швидкий доступ до інформації", bodyText: "Зручно та швидко знаходьте та переглядайте дані про студентів")
+                InfoRowView(isAnimated: $animateStatus, imageName: "opticaldiscdrive.fill", mainText: "Ефективний облік даних", bodyText: "Gradify забезпечує ефективний облік та збереження інформації про студентів")
 
-                InfoRowView(imageName: "gearshape.2", mainText: "Оптимізація роботи", bodyText: "Застосунок ефективно організовує інформацію та забезпечує швидкий доступ до даних")
+                InfoRowView(isAnimated: $animateStatus, imageName: "speedometer", mainText: "Швидкий доступ до інформації", bodyText: "Зручний та швидкий доступ до важливих даних про студентів")
+
+                InfoRowView(isAnimated: $animateStatus, imageName: "gearshape.2", mainText: "Оптимізація роботи", bodyText: "Оптимізує роботу та допомагає організувати інформацію для зручного доступу")
 
             }//VStack with info
             .padding(.top, 40)
@@ -43,6 +44,7 @@ struct StartView: View
             Button
             {
                 // go to auth
+                animateStatus = false
                 isShowingMainWindow = true
             }
             label:
@@ -52,9 +54,7 @@ struct StartView: View
                     .padding(.horizontal, 34)
                     .font(.body)
             }// Button go to mainWindow or auth
-            .background(Color.blue)
-            .foregroundColor(Color.white)
-            .cornerRadius(8)
+            .keyboardShortcut(.defaultAction)
             .padding()
             
         }// VStack
