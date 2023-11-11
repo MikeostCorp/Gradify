@@ -3,27 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B5535C0D2AEEFC6700709D53 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5535C0C2AEEFC6700709D53 /* StartView.swift */; };
 		B5535C0F2AEEFCC700709D53 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5535C0E2AEEFCC700709D53 /* MainMenuView.swift */; };
+		B56A1DAB2AFD5F84006AC92D /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A1DAA2AFD5F84006AC92D /* AuthView.swift */; };
 		B57AAA352AF12DE6003E79E6 /* InfoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AAA342AF12DE6003E79E6 /* InfoRowView.swift */; };
 		B584C3182AE9879B00464E32 /* GradifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B584C3172AE9879B00464E32 /* GradifyApp.swift */; };
 		B584C31C2AE9879D00464E32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B584C31B2AE9879D00464E32 /* Assets.xcassets */; };
 		B584C31F2AE9879D00464E32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B584C31E2AE9879D00464E32 /* Preview Assets.xcassets */; };
+		B5E23C6D2AFBD3F600806DAC /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E23C6C2AFBD3F600806DAC /* ButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B5535C0C2AEEFC6700709D53 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B5535C0E2AEEFCC700709D53 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		B56A1DAA2AFD5F84006AC92D /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		B57AAA342AF12DE6003E79E6 /* InfoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoRowView.swift; sourceTree = "<group>"; };
 		B584C3142AE9879B00464E32 /* Gradify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gradify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B584C3172AE9879B00464E32 /* GradifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradifyApp.swift; sourceTree = "<group>"; };
 		B584C31B2AE9879D00464E32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B584C31E2AE9879D00464E32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B584C3202AE9879D00464E32 /* Gradify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gradify.entitlements; sourceTree = "<group>"; };
+		B5E23C6C2AFBD3F600806DAC /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,7 @@
 		B57AAA312AF12BA1003E79E6 /* StartViews */ = {
 			isa = PBXGroup;
 			children = (
+				B5E23C6C2AFBD3F600806DAC /* ButtonView.swift */,
 				B5535C0C2AEEFC6700709D53 /* StartView.swift */,
 				B57AAA342AF12DE6003E79E6 /* InfoRowView.swift */,
 			);
@@ -59,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				B5535C0E2AEEFCC700709D53 /* MainMenuView.swift */,
+				B56A1DAA2AFD5F84006AC92D /* AuthView.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -135,12 +141,13 @@
 				};
 			};
 			buildConfigurationList = B584C30F2AE9879B00464E32 /* Build configuration list for PBXProject "Gradify" */;
-			compatibilityVersion = "Xcode 12.0";
-			developmentRegion = en;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = uk;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = B584C30B2AE9879B00464E32;
 			productRefGroup = B584C3152AE9879B00464E32 /* Products */;
@@ -171,6 +178,8 @@
 			files = (
 				B5535C0D2AEEFC6700709D53 /* StartView.swift in Sources */,
 				B5535C0F2AEEFCC700709D53 /* MainMenuView.swift in Sources */,
+				B56A1DAB2AFD5F84006AC92D /* AuthView.swift in Sources */,
+				B5E23C6D2AFBD3F600806DAC /* ButtonView.swift in Sources */,
 				B584C3182AE9879B00464E32 /* GradifyApp.swift in Sources */,
 				B57AAA352AF12DE6003E79E6 /* InfoRowView.swift in Sources */,
 			);
@@ -305,18 +314,19 @@
 				CODE_SIGN_ENTITLEMENTS = Gradify/Gradify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Gradify/Preview Content\"";
 				DEVELOPMENT_TEAM = L4XDJUG5Z2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = Developer;
 				PRODUCT_BUNDLE_IDENTIFIER = AndriiIzbash.Gradify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -332,18 +342,19 @@
 				CODE_SIGN_ENTITLEMENTS = Gradify/Gradify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Gradify/Preview Content\"";
 				DEVELOPMENT_TEAM = L4XDJUG5Z2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = Developer;
 				PRODUCT_BUNDLE_IDENTIFIER = AndriiIzbash.Gradify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

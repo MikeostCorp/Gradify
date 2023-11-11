@@ -10,6 +10,9 @@ import SwiftUI
 struct MainMenuView: View
 {
     @State private var selection: String? = "Item1"
+    
+    @State private var isShowTestWindow = false
+    
     @State private var columnVisibility = NavigationSplitViewVisibility.detailOnly
 
     var body: some View
@@ -32,8 +35,30 @@ struct MainMenuView: View
                     
                     NavigationLink(destination: ScrollView{Text("Item 3").frame(maxWidth: .infinity, maxHeight: .infinity)}, tag: "Item3", selection: $selection)
                     {
-                        Label("Item 3", systemImage: "triangle.fill")
+                        HStack
+                        {
+                            Image(systemName: "doc.fill")
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30, alignment: .center)
+                            
+                            VStack
+                            {
+                                Text("Title")
+                                    .font(.body.bold())
+
+                                Text("Body")
+                                    .font(.callout)
+                            }
+                        }//HStack test in SideBar
+                        .padding(.horizontal, 4)
                     }
+                    
+                    NavigationLink(destination: ButtonView(), tag: "AnimationButton", selection: $selection)
+                    {
+                        Label("Item 2", systemImage: "square.fill")
+                    }
+                    
+
                 }// Section 1
             } // List
             .safeAreaInset(edge: .bottom)
@@ -41,6 +66,7 @@ struct MainMenuView: View
                 Button
                 {
                     print("test setting")
+                    isShowTestWindow.toggle()
                 }
                 label:
                 {
@@ -60,7 +86,12 @@ struct MainMenuView: View
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }//detail if no selected
         .navigationTitle("Gradify dev build")
+        .sheet(isPresented: $isShowTestWindow)
+        {
+            ButtonView()
+        }
 
+        //.sheet(item: $isShowTestWindow, content: ButtonView())
         //.frame(minWidth: 550)
     }
 }

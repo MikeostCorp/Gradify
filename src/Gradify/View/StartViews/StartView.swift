@@ -62,7 +62,7 @@ struct StartView: View
         .frame(minWidth: 390, maxWidth: 390,
                minHeight: 600, maxHeight: 600)
         .font(.largeTitle.bold())
-        .background(Color("BackgroundLoginView"))
+        .background(Color("BackgroundLeftLoginView"))
         //.ignoresSafeArea(.all, edges: .all)
         .navigationTitle("")
     }

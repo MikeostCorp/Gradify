@@ -12,30 +12,17 @@ import SwiftUI
 struct GradifyApp: App
 {
     @State private var isMainWindowOpen = false
-    
+    var screen = NSScreen.main?.visibleFrame
+
     var body: some Scene
     {
         WindowGroup
         {
-           
-            if isMainWindowOpen
-            {
-                MainMenuView()
-                    .onAppear
-                    {
-                        useStyleMiniWindow(status: false)
-                    }
-            }
-            else
-            {
-                StartView(isShowingMainWindow: $isMainWindowOpen)
-                    .onAppear
-                    {
-                        useStyleMiniWindow(status: true)
-                    }
-            }
+            AuthView()
+                .frame(minWidth: screen!.width / 1.8, minHeight: screen!.height - 200)
         }
-        .windowResizability(.contentSize)
+        .windowStyle(HiddenTitleBarWindowStyle())
+        .windowResizability(.automatic)
         .commands
         {
             SidebarCommands()
@@ -51,3 +38,32 @@ struct GradifyApp: App
         //NSApp.windows.first?.backgroundColor = .clear
     }
 }
+
+/* use after make auth view
+ WindowGroup
+         {
+            
+             if isMainWindowOpen
+             {
+                 MainMenuView()
+                     .onAppear
+                     {
+                         useStyleMiniWindow(status: false)
+                     }
+             }
+             else
+             {
+                 StartView(isShowingMainWindow: $isMainWindowOpen)
+                     .onAppear
+                     {
+                         useStyleMiniWindow(status: true)
+                     }
+             }
+         }
+         .windowResizability(.contentSize)
+         .commands
+         {
+             SidebarCommands()
+         }
+ 
+ */
