@@ -11,7 +11,9 @@ struct AuthView: View
 {
     @State private var login = ""
     @State private var password = ""
-    @State private var rememberMe = false // do you remember the rain???
+    @State private var isRemberMe = false
+    @State private var isWrongAuth = false
+    @State private var forgetPassAlertShow = false
 
     var body: some View
     {
@@ -64,11 +66,10 @@ struct AuthView: View
                                 .stroke(style: StrokeStyle(lineWidth: 1))
                                 .foregroundColor(.gray.opacity(0.7)))
                     }// VStack with Textfield
-                    //.padding(.vertical)
                     
                     HStack
                     {
-                        Toggle("Запам'ятати мене", isOn: $rememberMe)
+                        Toggle("Запам'ятати мене", isOn: $isRemberMe)
                             //.labelsHidden()
                             //.toggleStyle(CheckboxToggleStyle())
                         
@@ -77,6 +78,7 @@ struct AuthView: View
                         Button
                         {
                             print("forget pass")
+                            forgetPassAlertShow.toggle()
                         }
                         label:
                         {
@@ -89,7 +91,15 @@ struct AuthView: View
                     
                     Button
                     {
-                        print("auth!")
+                        // temp if
+                        if login == "" || password == ""
+                        {
+                            print("auth!")
+                            withAnimation(Animation.easeOut(duration: 0.5))
+                            {
+                                isWrongAuth.toggle()
+                            }
+                        }// if for auth
                     }
                     label:
                     {
@@ -102,9 +112,16 @@ struct AuthView: View
                         
                         Image(systemName: "arrow.right")
                     }// Auth Button
+                    .shadow(radius: 6)
                     .keyboardShortcut(.defaultAction)
-                }
+                
+                    Text(isWrongAuth ? "Помилка авторизації, не вірний пароль або логін!" : " ")
+                            .foregroundColor(Color.red)
+                            .transition(.move(edge: .bottom))
+                    
+                }//VStack with TextField login, pass and button auth
                 .padding(.horizontal, 32)
+                .padding(.bottom, 20)
         
                 Spacer()
             }// VStack with TextField for login
@@ -119,6 +136,7 @@ struct AuthView: View
                     .aspectRatio(contentMode: .fit)
                     .padding(100)
                     .padding(.leading, -140)
+                    .shadow(radius: 14)
             }// VStack with photo
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("BackgroundRightLoginView"))
@@ -128,6 +146,22 @@ struct AuthView: View
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("BackgroundLeftLoginView"))
         //.background(VisualEffectView())
+        .alert(isPresented: $forgetPassAlertShow)
+        {
+            Alert(
+                title: Text("Забули пароль?"),
+                message: Text("Якщо ви забули пароль, будь ласка, зверніться до адміністрації або напишіть на пошту support@gradify.online"),
+                primaryButton: .default(Text("Написати")){
+                    
+                    if let mailURL = URL(string: "mailto:support@gradify.online")
+                    {
+                        NSWorkspace.shared.open(mailURL)
+                    }
+                },//Primary button
+
+                secondaryButton: .cancel(Text("OK"))
+            )
+        }
     }
 }
 
