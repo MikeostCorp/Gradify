@@ -11,9 +11,11 @@ struct AuthView: View
 {
     @State private var login = ""
     @State private var password = ""
-    @State private var isRemberMe = false
-    @State private var isWrongAuth = false
-    @State private var forgetPassAlertShow = false
+    @State private var isRemberMe: Bool = false
+    @State private var isWrongAuth: Bool = false
+    @State private var forgetPassAlertShow: Bool = false
+    @State private var isHoverOnButton: Bool = false
+    @State private var isRegistration: Bool = false
 
     var body: some View
     {
@@ -30,13 +32,15 @@ struct AuthView: View
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100)
                         .foregroundColor(Color("CloudLoginView"))
-                    
+                        .shadow(radius: 4)
+
                     Image(systemName: "arrow.down")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 45, height: 45)
                         .padding(.top, 65)
                         .foregroundColor(Color("ArrowCloudLoginView"))
+                        .shadow(radius: 4)
                 }// ZStack with hello photo
                 
                 Text("З поверненням!")
@@ -46,6 +50,10 @@ struct AuthView: View
                 
                 VStack(spacing: 16)
                 {
+                    Text(isWrongAuth ? "Помилка авторизації, не вірний пароль або логін!" : " ")
+                            .foregroundColor(Color.red)
+                            .transition(.move(edge: .bottom))
+
                     VStack(spacing: 16)
                     {
                         TextField("Введіть логін", text: $login)
@@ -55,7 +63,7 @@ struct AuthView: View
                             .textContentType(.username)
                             .background(RoundedRectangle(cornerRadius: 8)
                                 .stroke(style: StrokeStyle(lineWidth: 1))
-                                .foregroundColor(.gray.opacity(0.7)))
+                                .foregroundColor(isWrongAuth ? Color.red.opacity(0.7) : Color.gray.opacity(0.7)))
                         
                         SecureField("Введіть пароль", text: $password)
                             .textFieldStyle(PlainTextFieldStyle())
@@ -64,7 +72,7 @@ struct AuthView: View
                             .textContentType(.password)
                             .background(RoundedRectangle(cornerRadius: 8)
                                 .stroke(style: StrokeStyle(lineWidth: 1))
-                                .foregroundColor(.gray.opacity(0.7)))
+                                .foregroundColor(isWrongAuth ? Color.red.opacity(0.7) : Color.gray.opacity(0.7)))
                     }// VStack with Textfield
                     
                     HStack
@@ -84,8 +92,30 @@ struct AuthView: View
                         {
                             Text("Забули пароль?")
                                 .foregroundColor(Color.blue)
+                                .underline(true, color: Color.blue)
+                                .onHover
+                                { isHovered in
+                                    self.isHoverOnButton = isHovered
+                                    changeCursor()
+                                }
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .alert(isPresented: $forgetPassAlertShow)
+                        {
+                            Alert(
+                                title: Text("Забули пароль?"),
+                                message: Text("Якщо ви забули пароль, будь ласка, зверніться до адміністрації або напишіть на пошту support@gradify.online"),
+                                primaryButton: .default(Text("Написати")){
+                                    
+                                    if let mailURL = URL(string: "mailto:support@gradify.online")
+                                    {
+                                        NSWorkspace.shared.open(mailURL)
+                                    }
+                                },//Primary button
+
+                                secondaryButton: .cancel(Text("Скасувати"))
+                            )
+                        }
                         
                     }// HStack with remember me Toogle and button forget pass
                     
@@ -95,7 +125,7 @@ struct AuthView: View
                         if login == "" || password == ""
                         {
                             print("auth!")
-                            withAnimation(Animation.easeOut(duration: 0.5))
+                            withAnimation(Animation.easeOut(duration: 0.25))
                             {
                                 isWrongAuth.toggle()
                             }
@@ -114,11 +144,51 @@ struct AuthView: View
                     }// Auth Button
                     .shadow(radius: 6)
                     .keyboardShortcut(.defaultAction)
+                    .onHover
+                    { isHovered in
+                        self.isHoverOnButton = isHovered
+                        changeCursor()
+                    }
                 
-                    Text(isWrongAuth ? "Помилка авторизації, не вірний пароль або логін!" : " ")
-                            .foregroundColor(Color.red)
-                            .transition(.move(edge: .bottom))
-                    
+                    HStack
+                    {
+                        Text("Відсутній аккаунту?")
+                            .foregroundColor(Color.gray)
+                        
+                        Button
+                        {
+                            isRegistration.toggle()
+                        }
+                        label:
+                        {
+                            Text("Зареєструйтесь")
+                                .foregroundColor(Color.blue)
+                                .underline(true, color: Color.blue)
+                                .onHover
+                                { isHovered in
+                                    self.isHoverOnButton = isHovered
+                                    changeCursor()
+                                }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .alert(isPresented: $isRegistration)
+                        {
+                            Alert(
+                                title: Text("Реєстрація"),
+                                message: Text("Дякуємо за вибір нашого сервісу! Для створення облікового запису та отримання повного доступу, будь ласка, звертайтеся до нашої служби підтримки за електронною адресою support@gradify.online. Ми завжди готові допомогти!"),
+                                primaryButton: .default(Text("Написати")){
+                                    
+                                    if let mailURL = URL(string: "mailto:support@gradify.online")
+                                    {
+                                        NSWorkspace.shared.open(mailURL)
+                                    }
+                                },//Primary button
+
+                                secondaryButton: .cancel(Text("Скасувати"))
+                            )
+                        }
+                    }// Hstack for register user
+                                        
                 }//VStack with TextField login, pass and button auth
                 .padding(.horizontal, 32)
                 .padding(.bottom, 20)
@@ -146,23 +216,23 @@ struct AuthView: View
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("BackgroundLeftLoginView"))
         //.background(VisualEffectView())
-        .alert(isPresented: $forgetPassAlertShow)
-        {
-            Alert(
-                title: Text("Забули пароль?"),
-                message: Text("Якщо ви забули пароль, будь ласка, зверніться до адміністрації або напишіть на пошту support@gradify.online"),
-                primaryButton: .default(Text("Написати")){
-                    
-                    if let mailURL = URL(string: "mailto:support@gradify.online")
-                    {
-                        NSWorkspace.shared.open(mailURL)
-                    }
-                },//Primary button
-
-                secondaryButton: .cancel(Text("OK"))
-            )
-        }
+        
     }
+    
+    func changeCursor()
+    {
+        DispatchQueue.main.async
+        {
+            if (self.isHoverOnButton)
+            {
+                NSCursor.pointingHand.push()
+            }
+            else
+            {
+                NSCursor.pop()
+            }
+        }
+    }// func changeCursor()
 }
 
 // maybe delete this
