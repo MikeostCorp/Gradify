@@ -6,64 +6,73 @@
 //
 
 import SwiftUI
-
+import Firebase
 
 @main
 struct GradifyApp: App
 {
-    @State private var isMainWindowOpen = false
+    init()
+    {
+        FirebaseApp.configure()
+    }
+    
+    @State private var isLogined: Bool = false
     var screen = NSScreen.main?.visibleFrame
 
     var body: some Scene
     {
-        WindowGroup
+        WindowGroup(id: "startView")
         {
-            AuthView()
-                .frame(minWidth: screen!.width / 1.8, minHeight: screen!.height - 200)
+            StartView(isLogined: $isLogined)
+                .onAppear
+                {
+                    useMiniWindowStyle(status: true)
+                }
+        }// startView window
+        .windowResizability(.contentSize)
+        .commands
+        {
+            // command if i need
         }
+
+        WindowGroup(id: "loginView")
+        {
+            AuthView(currentLogin: $isLogined)
+                .frame(minWidth: screen!.width / 1.8, minHeight: screen!.height - 200)
+        } // loginView window
+        .windowResizability(.contentSize)
         .windowStyle(HiddenTitleBarWindowStyle())
-        .windowResizability(.automatic)
+        .commands
+        {
+            // command if i need
+        }
+        
+        WindowGroup(id: "mainWindow")
+        {
+            MainMenuView()
+                .onAppear
+            {
+                useMiniWindowStyle(status: false)
+            }
+        }// mainView Window
         .commands
         {
             SidebarCommands()
         }
+       
+        
 
     }
     
-    func useStyleMiniWindow(status: Bool)
+    func useMiniWindowStyle(status: Bool)
     {
         NSApp.windows.first?.standardWindowButton(.zoomButton)?.isHidden = status
         NSApp.windows.first?.standardWindowButton(.miniaturizeButton)?.isHidden = status
         NSApp.windows.first?.titlebarAppearsTransparent = status
+        
+        //NSWindow.allowsAutomaticWindowTabbing = false
         //NSApp.windows.first?.backgroundColor = .clear
-    }
+        
+    }// func useMiniWindowStyle(status: Bool)
 }
 
-/* use after make auth view
- WindowGroup
-         {
-            
-             if isMainWindowOpen
-             {
-                 MainMenuView()
-                     .onAppear
-                     {
-                         useStyleMiniWindow(status: false)
-                     }
-             }
-             else
-             {
-                 StartView(isShowingMainWindow: $isMainWindowOpen)
-                     .onAppear
-                     {
-                         useStyleMiniWindow(status: true)
-                     }
-             }
-         }
-         .windowResizability(.contentSize)
-         .commands
-         {
-             SidebarCommands()
-         }
- 
- */
