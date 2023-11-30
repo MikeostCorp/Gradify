@@ -20,11 +20,11 @@ struct StartView: View
     {
         VStack
         {
-            Image(systemName: "homekit")
+            Image(systemName: "graduationcap.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100, alignment: .center)
-                .accentColor(Color.white)
+                .foregroundColor(Color.gray)
             
             Text("Зустрічайте")
             Text("Gradify")

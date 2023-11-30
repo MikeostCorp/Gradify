@@ -129,7 +129,8 @@ struct AuthView: View
                         
                         Task
                         {
-                            do {
+                            do
+                            {
                                 try await loginData.loginUser()
                                 
                                 if loginData.currentAuth
@@ -137,12 +138,10 @@ struct AuthView: View
                                     await dismiss()
                                     await openWindow(id: "mainWindow")
                                 }
-                                // Обновление UI на главном потоке после завершения задачи
-                                DispatchQueue.main.async {
-                                    // Выполните обновление UI здесь, если необходимо
-                                }
-                            } catch {
-                                print("Ошибка при проверке аутентификации: \(error)")
+                            }
+                            catch
+                            {
+                                print("Error checking authentication: \(error)")
                             }
                         }
                         
@@ -158,7 +157,6 @@ struct AuthView: View
                         
                         Image(systemName: "arrow.right")
                     }// Auth Button
-                    .shadow(radius: 6)
                     .keyboardShortcut(.defaultAction)
                     .disabled(loginData.password.isEmpty && loginData.password.isEmpty)
                     .onHover
@@ -193,8 +191,8 @@ struct AuthView: View
                             Alert(
                                 title: Text("Реєстрація"),
                                 message: Text("Дякуємо за вибір нашого сервісу! Для створення облікового запису та отримання повного доступу, будь ласка, звертайтеся до нашої служби підтримки за електронною адресою support@gradify.online. Ми завжди готові допомогти!"),
-                                primaryButton: .default(Text("Написати")){
-                                    
+                                primaryButton: .default(Text("Написати"))
+                                {
                                     if let mailURL = URL(string: "mailto:support@gradify.online")
                                     {
                                         NSWorkspace.shared.open(mailURL)
