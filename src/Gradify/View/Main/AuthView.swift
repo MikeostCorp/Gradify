@@ -22,6 +22,7 @@ struct AuthView: View
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
+    
     var body: some View
     {
         HStack(spacing: 0)
@@ -52,7 +53,7 @@ struct AuthView: View
                 
                 VStack(spacing: 16)
                 {
-                    Text(loginData.authStatus ? " " : "Помилка авторизації, не вірний пароль або логін!")
+                    Text(loginData.statusAuth ? "Помилка авторизації, не вірний пароль або логін!" : " ")
                         .foregroundColor(Color.red)
                         .transition(.move(edge: .bottom))
                     
@@ -66,7 +67,7 @@ struct AuthView: View
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(style: StrokeStyle(lineWidth: 1))
-                                    .foregroundColor(loginData.authStatus ? Color.gray.opacity(0.7) : Color.red.opacity(0.7)))
+                                    .foregroundColor(loginData.statusAuth ? Color.red.opacity(0.7) : Color.gray.opacity(0.7)))
                         
                         SecureField("Введіть пароль", text: $loginData.password)
                             .textFieldStyle(PlainTextFieldStyle())
@@ -76,7 +77,7 @@ struct AuthView: View
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(style: StrokeStyle(lineWidth: 1))
-                                    .foregroundColor(loginData.authStatus ? Color.gray.opacity(0.7) : Color.red.opacity(0.7)))
+                                    .foregroundColor(loginData.statusAuth ? Color.red.opacity(0.7) : Color.gray.opacity(0.7)))
                     }// VStack with Textfield
                     
                     HStack
@@ -125,9 +126,26 @@ struct AuthView: View
                     
                     Button
                     {
-                        // temp if
                         
-                        loginData.loginUser()
+                        Task
+                        {
+                            do {
+                                try await loginData.loginUser()
+                                
+                                if loginData.currentAuth
+                                {
+                                    await dismiss()
+                                    await openWindow(id: "mainWindow")
+                                }
+                                // Обновление UI на главном потоке после завершения задачи
+                                DispatchQueue.main.async {
+                                    // Выполните обновление UI здесь, если необходимо
+                                }
+                            } catch {
+                                print("Ошибка при проверке аутентификации: \(error)")
+                            }
+                        }
+                        
                     }
                     label:
                     {
@@ -225,6 +243,11 @@ struct AuthView: View
             })
         
     }
+    
+    func checkAuthentication() async
+    {
+        
+    }// func checkAuthentication() async
     
     func changeCursor()
     {

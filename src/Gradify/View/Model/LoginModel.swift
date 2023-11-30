@@ -14,44 +14,34 @@ class LoginModel: ObservableObject
     @Published var userName:    String = ""
     @Published var password:    String = ""
     
-    @Published var authStatus: Bool = true
+    @Published var currentAuth: Bool = false
+    @Published var statusAuth:  Bool = false
     @Published var isLoading:   Bool = false
     
-    
-    func loginUser()
+    func loginUser() async
     {
-        Auth.auth().signIn(withEmail: userName, password: password)
-        { result, error in
-            if error != nil
-            {
-                print(error!.localizedDescription)
-                self.authStatus = false
-            }
-            else
-            {
-                if let _ = result
-                {
-                    self.authStatus = true
-                    print("true")
-                }
-            }
-        }// auth to firebase :)
-
-        
-        
         isLoading = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+        do
         {
-            withAnimation
-            {
-                self.isLoading = false
-            }
+            let result = try await Auth.auth().signIn(withEmail: userName, password: password)
+            
+            self.statusAuth = false
+            self.currentAuth = true
+            print("true") // debug
         }
-        
-        
-    }// func loginUser()
-    
+        catch
+        {
+            print("Error : \(error.localizedDescription)") // also debug
+            self.statusAuth = true
+        }
+
+        withAnimation
+        {
+            self.isLoading = false
+        }
+    }// func loginUser() async
+
     
     
     func resetPassword()

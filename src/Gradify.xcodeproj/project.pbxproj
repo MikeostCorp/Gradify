@@ -15,10 +15,12 @@
 		B584C3182AE9879B00464E32 /* GradifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B584C3172AE9879B00464E32 /* GradifyApp.swift */; };
 		B584C31C2AE9879D00464E32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B584C31B2AE9879D00464E32 /* Assets.xcassets */; };
 		B584C31F2AE9879D00464E32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B584C31E2AE9879D00464E32 /* Preview Assets.xcassets */; };
+		B589012B2B18745900151AB4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B589012A2B18745900151AB4 /* FirebaseAuth */; };
+		B58901372B18745900151AB4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B58901362B18745900151AB4 /* FirebaseFirestore */; };
+		B58901512B18745900151AB4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B58901502B18745900151AB4 /* FirebaseStorage */; };
 		B5B0D2152B167A6D00B5417C /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B0D2142B167A6D00B5417C /* LoadingScreen.swift */; };
 		B5B0D2182B17780300B5417C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B0D2172B17780300B5417C /* LoginModel.swift */; };
 		B5B0D26C2B1796BF00B5417C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B5B0D26B2B1796BF00B5417C /* FirebaseAuth */; };
-		B5B0D26E2B1796DA00B5417C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B5B0D26D2B1796DA00B5417C /* FirebaseFirestore */; };
 		B5B0D2702B17981300B5417C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B0D26F2B17981200B5417C /* GoogleService-Info.plist */; };
 		B5E23C6D2AFBD3F600806DAC /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E23C6C2AFBD3F600806DAC /* ButtonView.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +50,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B0D26C2B1796BF00B5417C /* FirebaseAuth in Frameworks */,
-				B5B0D26E2B1796DA00B5417C /* FirebaseFirestore in Frameworks */,
+				B589012B2B18745900151AB4 /* FirebaseAuth in Frameworks */,
+				B58901372B18745900151AB4 /* FirebaseFirestore in Frameworks */,
+				B58901512B18745900151AB4 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +171,9 @@
 			name = Gradify;
 			packageProductDependencies = (
 				B5B0D26B2B1796BF00B5417C /* FirebaseAuth */,
-				B5B0D26D2B1796DA00B5417C /* FirebaseFirestore */,
+				B589012A2B18745900151AB4 /* FirebaseAuth */,
+				B58901362B18745900151AB4 /* FirebaseFirestore */,
+				B58901502B18745900151AB4 /* FirebaseStorage */,
 			);
 			productName = Gradify;
 			productReference = B584C3142AE9879B00464E32 /* Gradify.app */;
@@ -369,7 +375,7 @@
 				CODE_SIGN_ENTITLEMENTS = Gradify/GradifyDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "3 ";
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Gradify/Preview Content\"";
 				DEVELOPMENT_TEAM = L4XDJUG5Z2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -382,7 +388,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = Developer;
+				MARKETING_VERSION = "for Developers";
 				PRODUCT_BUNDLE_IDENTIFIER = AndriiIzbash.Gradify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -398,7 +404,7 @@
 				CODE_SIGN_ENTITLEMENTS = Gradify/Gradify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "3 ";
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Gradify/Preview Content\"";
 				DEVELOPMENT_TEAM = L4XDJUG5Z2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -411,7 +417,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = Developer;
+				MARKETING_VERSION = "for Developers";
 				PRODUCT_BUNDLE_IDENTIFIER = AndriiIzbash.Gradify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -454,15 +460,22 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B589012A2B18745900151AB4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuth;
+		};
+		B58901362B18745900151AB4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseFirestore;
+		};
+		B58901502B18745900151AB4 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseStorage;
+		};
 		B5B0D26B2B1796BF00B5417C /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B5B0D21A2B178C9B00B5417C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		B5B0D26D2B1796DA00B5417C /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B5B0D21A2B178C9B00B5417C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
