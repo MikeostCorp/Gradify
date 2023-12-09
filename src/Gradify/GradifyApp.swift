@@ -8,6 +8,24 @@
 import SwiftUI
 import Firebase
 
+
+struct WindowAccessor: NSViewRepresentable
+{
+   @Binding var window: NSWindow?
+
+   func makeNSView(context: Context) -> NSView
+   {
+      let view = NSView()
+      DispatchQueue.main.async {
+         self.window = view.window
+      }
+      return view
+   }
+
+   func updateNSView(_ nsView: NSView, context: Context) {}
+}
+
+
 @main
 struct GradifyApp: App
 {
@@ -16,6 +34,7 @@ struct GradifyApp: App
         FirebaseApp.configure()
     }
     
+    @State private var window: NSWindow?
     @State private var isLogined: Bool = false
     var screen = NSScreen.main?.visibleFrame
 
@@ -46,7 +65,7 @@ struct GradifyApp: App
         {
             // command if i need
         }
-        
+
         WindowGroup(id: "mainWindow")
         {
             MainMenuView()
@@ -59,7 +78,7 @@ struct GradifyApp: App
         {
             SidebarCommands()
         }
-       
+
         
 
     }

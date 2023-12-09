@@ -22,7 +22,6 @@ struct AuthView: View
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
 
-    
     var body: some View
     {
         HStack(spacing: 0)
@@ -93,7 +92,7 @@ struct AuthView: View
                             print("forget pass")
                             forgetPassAlertShow.toggle()
                         }
-                    label:
+                        label:
                         {
                             Text("Забули пароль?")
                                 .foregroundColor(Color.blue)
@@ -105,28 +104,37 @@ struct AuthView: View
                             }
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .alert(isPresented: $forgetPassAlertShow)
+                        .alert("Забули пароль?", isPresented: $forgetPassAlertShow)
                         {
-                            Alert(
-                                title: Text("Забули пароль?"),
-                                message: Text("Якщо ви забули пароль, будь ласка, зверніться до адміністрації або напишіть на пошту support@gradify.online"),
-                                primaryButton: .default(Text("Написати")){
-                                    
-                                    if let mailURL = URL(string: "mailto:support@gradify.online")
+                            TextField("Email-пошта", text: $loginData.emailForReset)
+                            
+                            Button("Надіслати")
+                            {
+                                Task
+                                {
+                                    do
                                     {
-                                        NSWorkspace.shared.open(mailURL)
+                                        try await loginData.resetPassword()
+                                        loginData.emailForReset = ""
                                     }
-                                },//Primary button
-                                
-                                secondaryButton: .cancel(Text("Скасувати"))
-                            )
+                                    catch
+                                    {
+                                        print("Error send email to reset pass: \(error)")
+                                    }
+                                }
+                            }// button for send reset password email
+                            .disabled(loginData.emailForReset.isEmpty ? true : false)
+                            
+                            Button("Скасувати", role: .cancel) { } // cancel button
                         }
-                        
+                        message:
+                        {
+                            Text("Введіть свою електронну адресу, і ми надішлемо вам інструкції щодо відновлення пароля.")
+                        }// alert to reset password
                     }// HStack with remember me Toogle and button forget pass
                     
                     Button
                     {
-                        
                         Task
                         {
                             do
@@ -144,7 +152,6 @@ struct AuthView: View
                                 print("Error checking authentication: \(error)")
                             }
                         }
-                        
                     }
                     label:
                     {
@@ -241,12 +248,7 @@ struct AuthView: View
             })
         
     }
-    
-    func checkAuthentication() async
-    {
         
-    }// func checkAuthentication() async
-    
     func changeCursor()
     {
         DispatchQueue.main.async

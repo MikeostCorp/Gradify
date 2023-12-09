@@ -11,12 +11,13 @@ import Firebase
 
 class LoginModel: ObservableObject
 {
-    @Published var userName:    String = ""
-    @Published var password:    String = ""
+    @Published var userName:        String = ""
+    @Published var password:        String = ""
+    @Published var emailForReset:   String = ""
     
-    @Published var currentAuth: Bool = false
-    @Published var statusAuth:  Bool = false
-    @Published var isLoading:   Bool = false
+    @Published var currentAuth:     Bool = false
+    @Published var statusAuth:      Bool = false
+    @Published var isLoading:       Bool = false
     
     func loginUser() async
     {
@@ -44,8 +45,19 @@ class LoginModel: ObservableObject
 
     
     
-    func resetPassword()
+    func resetPassword() async
     {
+        do
+        {
+            try await Auth.auth().sendPasswordReset(withEmail: emailForReset)
+            {
+                error in
+            }
+        }
+        catch
+        {
+            print("Error : \(error.localizedDescription)") // also debug
+        }
         
     }// func resetPassword()
     
