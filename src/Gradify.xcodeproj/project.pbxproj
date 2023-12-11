@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B504A0282B0E449B003000C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504A0272B0E449B003000C4 /* AppDelegate.swift */; };
+		B504E9962B277DFC00FF8D34 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E9952B277DFC00FF8D34 /* WindowController.swift */; };
 		B5535C0D2AEEFC6700709D53 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5535C0C2AEEFC6700709D53 /* StartView.swift */; };
 		B5535C0F2AEEFCC700709D53 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5535C0E2AEEFCC700709D53 /* MainMenuView.swift */; };
 		B56A1DAB2AFD5F84006AC92D /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A1DAA2AFD5F84006AC92D /* AuthView.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		B504A0272B0E449B003000C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B504E9952B277DFC00FF8D34 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		B5535C0C2AEEFC6700709D53 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B5535C0E2AEEFCC700709D53 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		B56A1DAA2AFD5F84006AC92D /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B504E9972B277E0600FF8D34 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				B504E9952B277DFC00FF8D34 /* WindowController.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		B57AAA312AF12BA1003E79E6 /* Start */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +123,7 @@
 				B5B0D26A2B17931900B5417C /* Info.plist */,
 				B5B0D26F2B17981200B5417C /* GoogleService-Info.plist */,
 				B584C3172AE9879B00464E32 /* GradifyApp.swift */,
+				B504E9972B277E0600FF8D34 /* Component */,
 				B504A0272B0E449B003000C4 /* AppDelegate.swift */,
 				B57AAA322AF12BB6003E79E6 /* View */,
 				B584C31B2AE9879D00464E32 /* Assets.xcassets */,
@@ -235,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5535C0D2AEEFC6700709D53 /* StartView.swift in Sources */,
+				B504E9962B277DFC00FF8D34 /* WindowController.swift in Sources */,
 				B5535C0F2AEEFCC700709D53 /* MainMenuView.swift in Sources */,
 				B56A1DAB2AFD5F84006AC92D /* AuthView.swift in Sources */,
 				B5E23C6D2AFBD3F600806DAC /* ButtonView.swift in Sources */,
