@@ -1,20 +1,20 @@
 #include "studentstatistics.h"
 #include "ui_studentstatistics.h"
 
-#include <QFile>
-#include <QChart>
-#include <QBarSet>
-#include <QBarSeries>
-#include <QChartView>
-#include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QChart>
+#include <QChartView>
+#include <QFile>
+#include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
-#include <QMessageBox>
+#include <QValueAxis>
 
-studentStatistics::studentStatistics(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::studentStatistics)
+studentStatistics::studentStatistics(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::studentStatistics)
 {
     ui->setupUi(this);
 
@@ -40,10 +40,18 @@ studentStatistics::studentStatistics(QWidget *parent) :
     chartView = new QChartView(chart);
 
     QStringList categories;
-    categories << "Січень" << "Лютий"  << "Березень"
-               << "Квітень" << "Травень" << "Червень"
-               << "Липень" << "Серпень" << "Вересень"
-               << "Жовтень" << "Листопад" << "Грудень";
+    categories << "Січень"
+               << "Лютий"
+               << "Березень"
+               << "Квітень"
+               << "Травень"
+               << "Червень"
+               << "Липень"
+               << "Серпень"
+               << "Вересень"
+               << "Жовтень"
+               << "Листопад"
+               << "Грудень";
 
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
@@ -66,12 +74,10 @@ studentStatistics::studentStatistics(QWidget *parent) :
     ui->specialChart->addWidget(chartView);
 }
 
-
 studentStatistics::~studentStatistics()
 {
     delete ui;
 }
-
 
 void studentStatistics::setBlackUI()
 {
@@ -81,14 +87,13 @@ void studentStatistics::setBlackUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeDark);
-    chartView->chart()->setBackgroundBrush(QColor (49, 51, 52));
+    chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 
     set0->setColor(QColor(255, 95, 95));
     set1->setColor(QColor(254, 202, 100));
     set2->setColor(QColor(28, 211, 163));
     set3->setColor(QColor(136, 91, 255));
 }
-
 
 void studentStatistics::setWhiteUI()
 {
@@ -98,7 +103,7 @@ void studentStatistics::setWhiteUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeLight);
-    chartView->chart()->setBackgroundBrush(QColor (255, 255, 255));
+    chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 
     set0->setColor(QColor(255, 102, 152));
     set1->setColor(QColor(245, 179, 67));
@@ -106,40 +111,31 @@ void studentStatistics::setWhiteUI()
     set3->setColor(QColor(170, 114, 192));
 }
 
-
 void studentStatistics::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void studentStatistics::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
-
 
 void studentStatistics::updateGroupComboBox()
 {
@@ -152,8 +148,7 @@ void studentStatistics::updateGroupComboBox()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         groupList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
@@ -163,20 +158,16 @@ void studentStatistics::updateGroupComboBox()
     ui->groupComboBox->addItems(groupList);
 }
 
-
 void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
 {
     clearChartSets();
     chart->setTitle("Кількість оцінок за рік");
 
-    if (index == 0)
-    {
+    if (index == 0) {
         ui->studentComboBox->setEnabled(false);
         ui->studentComboBox->clear();
         ui->studentComboBox->addItem("Студенти групи відсутні", 0);
-    }
-    else
-    {
+    } else {
         ui->studentComboBox->setEnabled(true);
 
         QStringList studentList;
@@ -185,14 +176,13 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
 
         virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
                                    "FROM `Студенти`"
-                                   "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'");
+                                   "WHERE `Студенти`.`Група` = '"
+                                   + ui->groupComboBox->currentText() + "'");
 
         virtualTable->setModel(virualQueryModel);
 
-        if (virualQueryModel->rowCount() > 0)
-        {
-            for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-            {
+        if (virualQueryModel->rowCount() > 0) {
+            for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
                 studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
                                    + virtualTable->model()->index(row, 1).data().toString() + " "
                                    + virtualTable->model()->index(row, 2).data().toString());
@@ -202,16 +192,15 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
             ui->studentComboBox->addItem("Оберіть студента", 0);
             ui->studentComboBox->insertSeparator(1);
             ui->studentComboBox->addItems(studentList);
-        }
-        else
-        {
+        } else {
             ui->studentComboBox->clear();
             ui->studentComboBox->addItem("Студенти групи відсутні", 0);
         }
 
         virualQueryModel->setQuery("SELECT `Рік початку навчання`, `Рік закінчення навчання`"
                                    "FROM `Групи`"
-                                   "WHERE `Групи`.`Назва` = '" + ui->groupComboBox->currentText() + "'");
+                                   "WHERE `Групи`.`Назва` = '"
+                                   + ui->groupComboBox->currentText() + "'");
 
         virtualTable->setModel(virualQueryModel);
 
@@ -223,37 +212,31 @@ void studentStatistics::on_groupComboBox_currentIndexChanged(int index)
     setWindowTitle("Статистика студента");
 }
 
-
 void studentStatistics::on_studentComboBox_currentIndexChanged(int index)
 {
-    if (index == 0)
-    {
+    if (index == 0) {
         clearChartSets();
         ui->nameLabel->setText("Статистика за:");
         setWindowTitle("Статистика студента");
-    }
-    else if (index > 0)
-    {
+    } else if (index > 0) {
         setCurrentChart();
     }
 }
 
-
 void studentStatistics::clearChartSets()
 {
-    set0->remove(0 , set0->count());
-    set1->remove(0 , set1->count());
-    set2->remove(0 , set2->count());
-    set3->remove(0 , set3->count());
+    set0->remove(0, set0->count());
+    set1->remove(0, set1->count());
+    set2->remove(0, set2->count());
+    set3->remove(0, set3->count());
 }
-
 
 void studentStatistics::setCurrentChart()
 {
     clearChartSets();
 
-    ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText()
-                           + " [" + ui->groupComboBox->currentText() + "]");
+    ui->nameLabel->setText("Статистика за: " + ui->studentComboBox->currentText() + " ["
+                           + ui->groupComboBox->currentText() + "]");
     setWindowTitle("Статистика " + ui->studentComboBox->currentText());
 
     QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
@@ -261,58 +244,48 @@ void studentStatistics::setCurrentChart()
 
     virualQueryModel->setQuery("SELECT `Оцінка`, MONTH(`Дата виставлення`)"
                                "FROM `Оцінки`"
-                               "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
-                               " AND YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
+                               "WHERE `Оцінки`.`Отримувач` = '"
+                               + ui->studentComboBox->currentText()
+                               + "'"
+                                 " AND YEAR(`Дата виставлення`) = '"
+                               + QString::number(ui->yearSpinBox->value()) + "'");
     virtualTable->setModel(virualQueryModel);
 
     int maxCount = 0;
 
-    for (int i = 0; i < 12; ++i)
-    {
+    for (int i = 0; i < 12; ++i) {
         int sum0 = 0;
         int sum1 = 0;
         int sum2 = 0;
         int sum3 = 0;
 
-        for (int j = 0; j < virualQueryModel->rowCount(); ++j)
-        {
+        for (int j = 0; j < virualQueryModel->rowCount(); ++j) {
             if (virtualTable->model()->index(j, 0).data().toInt() == 2
-                and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-            {
+                and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i) {
                 sum0++;
 
-                if (sum0 > maxCount)
-                {
+                if (sum0 > maxCount) {
                     maxCount = sum0;
                 }
-            }
-            else if (virtualTable->model()->index(j, 0).data().toInt() == 3
-                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-            {
+            } else if (virtualTable->model()->index(j, 0).data().toInt() == 3
+                       and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i) {
                 sum1++;
 
-                if (sum1 > maxCount)
-                {
+                if (sum1 > maxCount) {
                     maxCount = sum1;
                 }
-            }
-            else if (virtualTable->model()->index(j, 0).data().toInt() == 4
-                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-            {
+            } else if (virtualTable->model()->index(j, 0).data().toInt() == 4
+                       and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i) {
                 sum2++;
 
-                if (sum2 > maxCount)
-                {
+                if (sum2 > maxCount) {
                     maxCount = sum2;
                 }
-            }
-            else if (virtualTable->model()->index(j, 0).data().toInt() == 5
-                     and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i)
-            {
+            } else if (virtualTable->model()->index(j, 0).data().toInt() == 5
+                       and (virtualTable->model()->index(j, 1).data().toInt() - 1) == i) {
                 sum3++;
 
-                if (sum3 > maxCount)
-                {
+                if (sum3 > maxCount) {
                     maxCount = sum3;
                 }
             }
@@ -325,18 +298,19 @@ void studentStatistics::setCurrentChart()
 
     virualQueryModel->setQuery("SELECT MAX(`Оцінка`)"
                                "FROM `Оцінки`"
-                               "WHERE `Оцінки`.`Отримувач` = '" + ui->studentComboBox->currentText() + "'"
-                               " AND  YEAR(`Дата виставлення`) = '" + QString::number(ui->yearSpinBox->value()) + "'");
+                               "WHERE `Оцінки`.`Отримувач` = '"
+                               + ui->studentComboBox->currentText()
+                               + "'"
+                                 " AND  YEAR(`Дата виставлення`) = '"
+                               + QString::number(ui->yearSpinBox->value()) + "'");
     virtualTable->setModel(virualQueryModel);
     chart->axes(Qt::Vertical).first()->setRange(0, maxCount + 1);
-    chart->setTitle("Кількість оцінок за " + QString::number(ui->yearSpinBox->value())+ " рік");
+    chart->setTitle("Кількість оцінок за " + QString::number(ui->yearSpinBox->value()) + " рік");
 }
-
 
 void studentStatistics::on_yearSpinBox_valueChanged(int arg1)
 {
-    if (ui->studentComboBox->currentIndex() > 0)
-    {
+    if (ui->studentComboBox->currentIndex() > 0) {
         setCurrentChart();
     }
 }

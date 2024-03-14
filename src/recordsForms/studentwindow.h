@@ -1,8 +1,8 @@
 #ifndef STUDENTWINDOW_H
 #define STUDENTWINDOW_H
 
-#include <QWidget>
 #include <QValidator>
+#include <QWidget>
 
 namespace Ui {
 class studentWindow;

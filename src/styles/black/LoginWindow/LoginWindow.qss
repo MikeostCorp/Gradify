@@ -1,50 +1,50 @@
-authorizationForm
+LoginWindow
 {
-    background-color: rgb(231, 224, 223);
+    background-color: rgb(41, 45, 48)
 }
 
 QLabel#headTitleLabel
 {
     font: 34px;
-    color: rgb(61, 60, 59);
+    color: white;
 }
 
 QPushButton#forgotPasswordButton
 {
     background-color: rgba(0, 0, 0, 0);
-    color: rgb(61, 60, 59);
+    color: white;
 }
 
 QPushButton#forgotPasswordButton:hover
 {
-    color: rgb(65, 125, 215);
+    color: rgb(85, 145, 235);
 }
 
 QPushButton#loginButton
 {
     border-radius: 8px;
-    background-color: rgb(75, 125, 245);
-    color: black;
+    background-color: rgb(65, 105, 225);
+    color: white;
 }
 
 QPushButton#loginButton:hover
 {
-    background-color: rgb(95, 145, 255);
+    background-color: rgb(75, 115, 235);
 }
 
 QLineEdit#loginLineEdit,
 QLineEdit#passwordLineEdit
 {
-    color: rgb(61, 60, 59);
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(195, 195, 195);
+    color: white;
+    background-color: rgb(29, 31, 32);
+    border: 1px solid rgb(79, 81, 82);
     border-radius: 8px;
 }
 
 QLineEdit#loginLineEdit:focus,
 QLineEdit#passwordLineEdit:focus
 {
-    border: 2px solid rgb(65, 105, 225);
+    border: 2px solid rgb(85, 135, 235);
     border-radius: 8px;
 }
 
@@ -62,13 +62,14 @@ QLabel#authorizationErrorLabel
 
 QCheckBox#rememberCheckBox
 {
-    color: rgb(61, 60, 59);
+    color: white;
     spacing: 5px;
 }
 
 QCheckBox#rememberCheckBox::indicator
 {
-    background-color: white;
+    background-color: qlineargradient(spread:pad, x1:0.519608, y1:1, x2:0.52451, y2:0,
+        stop:0 rgba(101, 103, 106, 255), stop:1 rgba(74, 79, 81, 255));
     border-radius: 3px;
     width: 14px;
     height: 14px;
@@ -83,10 +84,10 @@ QCheckBox#rememberCheckBox::indicator:checked
 
 QMessageBox
 {
-    background-color: white;
+    background-color: rgb(41, 45, 48);
 }
 
 QMessageBox QLabel
 {
-    color: rgb(71, 71, 72);
+    color: white;
 }

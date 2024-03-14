@@ -1,11 +1,11 @@
 #ifndef STUDENTSTATISTICS_H
 #define STUDENTSTATISTICS_H
 
-#include <QWidget>
+#include <QBarSeries>
+#include <QBarSet>
 #include <QChart>
 #include <QChartView>
-#include <QBarSet>
-#include <QBarSeries>
+#include <QWidget>
 
 namespace Ui {
 class studentStatistics;

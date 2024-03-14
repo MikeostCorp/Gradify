@@ -2,49 +2,48 @@
 #include "ui_mainwindow.h"
 
 #include <QApplication>
-#include <QDir>
-#include <QInputDialog>
-#include <QFileDialog>
-#include <QStandardPaths>
-#include <QGraphicsDropShadowEffect>
-#include <QKeyEvent>
-#include <QTextDocument>
-#include <QPrinter>
-#include <QPageSize>
 #include <QDesktopServices>
+#include <QDir>
+#include <QFileDialog>
+#include <QGraphicsDropShadowEffect>
+#include <QInputDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QKeyEvent>
+#include <QPageSize>
+#include <QPrinter>
+#include <QStandardPaths>
+#include <QTextDocument>
 
+#include <DatabaseHandler/databasehandler.h>
 #include <customWidgets/qsearchbar.h>
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mainWindowInit();
+    initMainWindow();
 }
-
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-
-void MainWindow::mainWindowInit()
+void MainWindow::initMainWindow()
 {
-    // example of translate
-    // idk why you paste 2 spaces bro
-    ui->settingsButton->setText(tr("  Налаштування"));
-
     setWindowTitle("Gradify");
 
+    dbHandler = new DatabaseHandler(this);
+
     // init obj's of windows classes
-    settingWindow = new appSetting();
-    authorizationWindow = new authorizationForm();
-    filterWindow = new filterForm(this);
-    queryWindow = new queryForm(this);
-    aboutAppWindow = new aboutApp();
+    appSettingsWindow = new AppSettingsWindow();
+    loginWindow = new LoginWindow();
+    filterWindow = new FilterWindow(this);
+    queryWindow = new QueryWindow(this);
+    aboutAppWindow = new AboutAppWindow();
 
     gradeForm = new gradeWindow();
     groupForm = new groupWindow();
@@ -63,21 +62,21 @@ void MainWindow::mainWindowInit()
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
 
     // default inactive state on main window
-    currentSelectTable = -1;
+    currentSelectTable = TableType::None;
     setEnabledButtons(false);
     setEnabledActions(false);
     setEnabledEditButton(false);
 
     // tableview settings
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
-    ui->tableView->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
 
     ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
 
     // theme change after config init
-    connect(this, &MainWindow::setThemeSettingsUI, settingWindow, &appSetting::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, authorizationWindow, &authorizationForm::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, aboutAppWindow, &aboutApp::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, appSettingsWindow, &AppSettingsWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, loginWindow, &LoginWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, aboutAppWindow, &AboutAppWindow::setTheme);
 
     connect(this, &MainWindow::setThemeSettingsUI, gradeForm, &gradeWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, groupForm, &groupWindow::setTheme);
@@ -92,65 +91,117 @@ void MainWindow::mainWindowInit()
     connect(this, &MainWindow::setThemeSettingsUI, teacherStat, &teacherStatistics::setTheme);
 
     // update statistics
-    connect(this, &MainWindow::updateStatisticsSignal, studentStat, &studentStatistics::updateGroupComboBox);
-    connect(this, &MainWindow::updateStatisticsComboBoxSignal, groupStat, &groupStatistics::setGroupComboBox);
+    connect(this,
+            &MainWindow::updateStatisticsSignal,
+            studentStat,
+            &studentStatistics::updateGroupComboBox);
+    connect(this,
+            &MainWindow::updateStatisticsComboBoxSignal,
+            groupStat,
+            &groupStatistics::setGroupComboBox);
+
     // config initialization
     configInit();
 
     // login/logout
-    connect(authorizationWindow, &authorizationForm::signalLogin, this, &MainWindow::authorization);
-    connect(settingWindow, &appSetting::logoutSignal, this, &MainWindow::userLogout);
+    connect(loginWindow, &LoginWindow::signalLogin, this, &MainWindow::authorization);
+    connect(appSettingsWindow, &AppSettingsWindow::logoutSignal, this, &MainWindow::logoutUser);
 
     // theme change in settings window
-    connect(settingWindow, &appSetting::changeThemeApp, this, &MainWindow::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, authorizationWindow, &authorizationForm::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, aboutAppWindow, &aboutApp::setTheme);
+    connect(appSettingsWindow, &AppSettingsWindow::changeThemeApp, this, &MainWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            loginWindow,
+            &LoginWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            aboutAppWindow,
+            &AboutAppWindow::setTheme);
 
-    connect(settingWindow, &appSetting::changeThemeApp, gradeForm, &gradeWindow::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, groupForm, &groupWindow::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, studentForm, &studentWindow::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, subjectForm, &subjectWindow::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, teacherForm, &teacherWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            gradeForm,
+            &gradeWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            groupForm,
+            &groupWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            studentForm,
+            &studentWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            subjectForm,
+            &subjectWindow::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            teacherForm,
+            &teacherWindow::setTheme);
 
-    connect(settingWindow, &appSetting::changeThemeApp, gradeStat, &gradeStatistics::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, groupStat, &groupStatistics::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, studentStat, &studentStatistics::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, subjectStat, &subjectStatistics::setTheme);
-    connect(settingWindow, &appSetting::changeThemeApp, teacherStat, &teacherStatistics::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            gradeStat,
+            &gradeStatistics::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            groupStat,
+            &groupStatistics::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            studentStat,
+            &studentStatistics::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            subjectStat,
+            &subjectStatistics::setTheme);
+    connect(appSettingsWindow,
+            &AppSettingsWindow::changeThemeApp,
+            teacherStat,
+            &teacherStatistics::setTheme);
 
     // filters and requests
-    connect(filterWindow, &filterForm::sendFilter, this, &MainWindow::setFilterForTable);
-    connect(filterWindow, &filterForm::clearFilter, this, &MainWindow::clearFilterForTable);
-    connect(this, &MainWindow::setTableForFilter, filterWindow, &filterForm::setListTable);
-    connect(queryWindow, &queryForm::sendQuery, this, &MainWindow::setQueryForTable);
-    connect(queryWindow, &queryForm::sendFilter, this, &MainWindow::setFilterForTable);
-    connect(queryWindow, &queryForm::clearFilter, this, &MainWindow::clearFilterForTable);
-    connect(this, &MainWindow::changedGradeTable, queryWindow, &queryForm::selectedGradeTable);
+    connect(filterWindow, &FilterWindow::sendFilter, this, &MainWindow::setFilterForTable);
+    connect(filterWindow, &FilterWindow::clearFilter, this, &MainWindow::clearFilterForTable);
+    connect(this, &MainWindow::setTableForFilter, filterWindow, &FilterWindow::setListTable);
+    connect(queryWindow, &QueryWindow::sendQuery, this, &MainWindow::setQueryForTable);
+    connect(queryWindow, &QueryWindow::sendFilter, this, &MainWindow::setFilterForTable);
+    connect(queryWindow, &QueryWindow::clearFilter, this, &MainWindow::clearFilterForTable);
+    connect(this, &MainWindow::changedGradeTable, queryWindow, &QueryWindow::selectedGradeTable);
 
     // clear searchbar & filter
-    connect(ui->searchLineEdit, &QSearchBar::clickedClearButton, this, &MainWindow::clearFilterForTable);
+    connect(ui->searchLineEdit,
+            &QSearchBar::clickedClearButton,
+            this,
+            &MainWindow::clearFilterForTable);
 
     // close pop-up windows on click tableView (need fix empty space)
-    connect(ui->tableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->tableView->verticalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->tableView, &QTableView::clicked, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->tableWidget->horizontalHeader(),
+            &QHeaderView::sectionClicked,
+            this,
+            &MainWindow::closeAllPopUpWindow);
+    connect(ui->tableWidget->verticalHeader(),
+            &QHeaderView::sectionClicked,
+            this,
+            &MainWindow::closeAllPopUpWindow);
+    connect(ui->tableWidget, &QAbstractItemView::clicked, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->tableWidget, &QTableWidget::clicked, this, &MainWindow::closeAllPopUpWindow);
 
     // close pop-up windows on click any buttons
-    for (QPushButton* button : findChildren<QPushButton*>())
-    {
+    for (QPushButton *button : findChildren<QPushButton *>()) {
         // Добавлять в условие название кнопок форм привязаных к главному окну
         if (button->objectName() not_eq "filterButton" and button->objectName() not_eq "queryButton"
-            and button->objectName() not_eq "filterPushButton" and button->objectName() not_eq "succesStudentPushButton"
-            and button->objectName() not_eq "avgScorePushButton" and button->objectName() not_eq "clearFilterPushButton"
-            and button->objectName() not_eq "mySQLPushButton" and button->objectName() not_eq "searchGradeStudentButton")
-        { // ето тебе нада
+            and button->objectName() not_eq "filterPushButton"
+            and button->objectName() not_eq "succesStudentPushButton"
+            and button->objectName() not_eq "avgScorePushButton"
+            and button->objectName() not_eq "clearFilterPushButton"
+            and button->objectName() not_eq "mySQLPushButton"
+            and button->objectName() not_eq "searchGradeStudentButton") {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllPopUpWindow);
         }
         if (button->objectName() not_eq "editRowButton"
             and button->objectName() not_eq "settingsButton"
-            and button->objectName() not_eq "addRowButton")
-        {
+            and button->objectName() not_eq "addRowButton") {
             connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
         }
     }
@@ -178,252 +229,307 @@ void MainWindow::mainWindowInit()
     logoutMessageBox.setDefaultButton(yesButton);
     logoutMessageBox.setWindowTitle("Разлогін");
     logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-}
 
+    // on_foo_bar naming fix:
+    connect(ui->studentsTableButton, &QPushButton::clicked, this, &MainWindow::openStudentsTable);
+    connect(ui->teachersTableButton, &QPushButton::clicked, this, &MainWindow::openTeachersTable);
+    connect(ui->gradesTableButton, &QPushButton::clicked, this, &MainWindow::openGradesTable);
+    connect(ui->groupsTableButton, &QPushButton::clicked, this, &MainWindow::openGroupsTable);
+    connect(ui->subjectsTableButton, &QPushButton::clicked, this, &MainWindow::openSubjectsTable);
+
+    connect(ui->addRowAction, &QAction::triggered, this, &MainWindow::addRowToTable);
+    connect(ui->addRowButton, &QPushButton::clicked, this, &MainWindow::addRowToTable);
+
+    connect(ui->authorizationButton, &QPushButton::clicked, this, &MainWindow::handleLogin);
+    connect(ui->deleteRowAction, &QAction::triggered, this, &MainWindow::deleteRowFromTable);
+    connect(ui->deleteRowButton, &QPushButton::clicked, this, &MainWindow::deleteRowFromTable);
+
+    connect(ui->settingsButton, &QPushButton::clicked, this, &MainWindow::openSettingsWindow);
+
+    connect(ui->editRowButton, &QPushButton::clicked, this, &MainWindow::editRowInTable);
+    connect(ui->editRowAction, &QAction::triggered, this, &MainWindow::editRowInTable);
+
+    connect(ui->openTeachTabAction, &QAction::triggered, this, &MainWindow::openTeachersTable);
+    connect(ui->openStudTabAction, &QAction::triggered, this, &MainWindow::openStudentsTable);
+    connect(ui->openSubjTabAction, &QAction::triggered, this, &MainWindow::openSubjectsTable);
+    connect(ui->openGradesTabAction, &QAction::triggered, this, &MainWindow::openGradesTable);
+    connect(ui->openGroupTabAction, &QAction::triggered, this, &MainWindow::openGroupsTable);
+
+    connect(ui->currentTableReportAction,
+            &QAction::triggered,
+            this,
+            &MainWindow::generateCurrentTableReport);
+    connect(ui->currentTableReportButton,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::generateCurrentTableReport);
+    connect(ui->studentsReportAction,
+            &QAction::triggered,
+            this,
+            &MainWindow::generateStudentsGroupReport);
+    connect(ui->studentsReportButton,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::generateStudentsGroupReport);
+    connect(ui->teachersReportAction,
+            &QAction::triggered,
+            this,
+            &MainWindow::generateTeachersReport);
+    connect(ui->teachersReportButton,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::generateTeachersReport);
+    connect(ui->gradesReportAction, &QAction::triggered, this, &MainWindow::generateGradesReport);
+    connect(ui->gradesReportButton, &QPushButton::clicked, this, &MainWindow::generateGradesReport);
+    connect(ui->groupsReportAction, &QAction::triggered, this, &MainWindow::generateGroupsReport);
+    connect(ui->groupsReportButton, &QPushButton::clicked, this, &MainWindow::generateGroupsReport);
+    connect(ui->subjectsReportAction,
+            &QAction::triggered,
+            this,
+            &MainWindow::generateSubjectsReport);
+    connect(ui->subjectsReportButton,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::generateSubjectsReport);
+
+    connect(ui->openManual, &QAction::triggered, this, &MainWindow::openManual);
+    connect(ui->about, &QAction::triggered, this, &MainWindow::openAboutWindow);
+    connect(ui->filterButton, &QPushButton::clicked, this, &MainWindow::toggleFilterWindow);
+    connect(ui->queryButton, &QPushButton::clicked, this, &MainWindow::toggleQueryWindow);
+    connect(ui->statisticsButton, &QPushButton::clicked, this, &MainWindow::openStatisticsWindow);
+
+    connect(ui->actionCSV, &QAction::triggered, this, &MainWindow::exportDataToCSV);
+    connect(ui->actionTXT, &QAction::triggered, this, &MainWindow::exportDataToTXT);
+
+    // TEST!!!
+    setEnabledButtons(true);
+    setEnabledActions(true);
+    setEnabledEditButton(true);
+}
 
 void MainWindow::configDefault()
 {
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
 
+    settingsConfig
+        .setValue("url", "https://gradifydatabase-default-rtdb.europe-west1.firebasedatabase.app/");
     settingsConfig.setValue("theme", "system");
-    settingsConfig.setValue("hostname", "141.136.44.252");
-    settingsConfig.setValue("username", "teacher");
-    settingsConfig.setValue("password", "P433w0rD!");
-    settingsConfig.setValue("databasename", "Gradify");
 }
-
 
 void MainWindow::configInit()
 {
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
 
-    if (settingsConfig.allKeys().empty())
-    {
+    if (settingsConfig.allKeys().empty()) {
         configDefault();
     }
 
-    if (settingsConfig.contains("theme"))
-    {
+    if (settingsConfig.contains("theme")) {
         setTheme(settingsConfig.value("theme").toString());
 
         emit setThemeSettingsUI(theme);
     }
-    if (settingsConfig.contains("userlogin"))
-    {
+    if (settingsConfig.contains("userlogin")) {
         authorization(settingsConfig.value("userlogin").toString());
     }
 }
 
-
 void MainWindow::configWrite(const QString &key, const QVariant &value)
 {
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
     settingsConfig.setValue(key, value);
 }
-
 
 void MainWindow::changeEvent(QEvent *event)
 {
     QWidget::changeEvent(event);
-    if (event->type() == QEvent::ActivationChange)
-    {
-        if (isActiveWindow())
-        {
+    if (event->type() == QEvent::ActivationChange) {
+        if (isActiveWindow()) {
             setWindowOpacity(1);
-        }
-        else
-        {
+        } else {
             setWindowOpacity(0.97);
         }
-    }
-    else if (event->type() == QEvent::LanguageChange)
-    {
+    } else if (event->type() == QEvent::LanguageChange) {
         ui->retranslateUi(this);
     }
 }
 
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if (event->Close)
-    {
+    if (event->Close) {
         QApplication::closeAllWindows();
     }
 }
 
-
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton and filterWindow->isVisible() and not filterWindow->underMouse())
-    {
+    if (event->button() == Qt::LeftButton and filterWindow->isVisible()
+        and not filterWindow->underMouse()) {
         filterWindow->close();
-    }
-    else if (event->button() == Qt::LeftButton and queryWindow->isVisible() and not queryWindow->underMouse())
-    {
+    } else if (event->button() == Qt::LeftButton and queryWindow->isVisible()
+               and not queryWindow->underMouse()) {
         queryWindow->close();
     }
 }
 
-
-void MainWindow::on_studentsTableButton_clicked()
+void MainWindow::fillTable(const QStringList &columns, const QJsonArray &data)
 {
-    /*
-     *
-     * Код реализации открытия таблицы студентов
-     *
-    */
-    setWindowTitle("Gradify - (Студенти)");
-    model->setTable("Студенти");
-    model->select();
-    currentSelectTable = 0;
+    qsizetype rowCount = data.size();
+    qsizetype columnCount = columns.size();
 
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+    ui->tableWidget->clear();
+    ui->tableWidget->setRowCount(rowCount);
+    ui->tableWidget->setColumnCount(columnCount);
+    ui->tableWidget->setHorizontalHeaderLabels(columns);
 
-    clearStyleButtonTable();
-
-    setEnabledEditButton(true);
-
-    ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
-    ui->searchLineEdit->clear();
-
-    ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
-
-    emit setTableForFilter(getColumnsNamesAndDatatypes("Студенти"));
-    emit changedGradeTable(0);
+    for (qsizetype i = 0; i < rowCount; ++i) {
+        QJsonObject item = data[i].toObject();
+        for (qsizetype j = 0; j < columnCount; ++j) {
+            QString columnName = columns[j];
+            QTableWidgetItem *tableItem = new QTableWidgetItem(item.value(columnName).toString());
+            ui->tableWidget->setItem(i, j, tableItem);
+        }
+    }
 }
 
-
-void MainWindow::on_teachersTableButton_clicked()
+void MainWindow::openTable(TableType tableType, const QString &tableName)
 {
-    /*
-     *
-     * Код реализации открытия таблицы преподавателей
-     *
-    */
-    setWindowTitle("Gradify - (Викладачі)");
-    model->setTable("Викладачі");
-    model->select();
-    currentSelectTable = 1;
-
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-
+    setWindowTitle("Gradify - (" + tableName + ")");
+    currentSelectTable = tableType;
     clearStyleButtonTable();
-
     setEnabledEditButton(true);
 
-    ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
     ui->searchLineEdit->clear();
 
-    ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
 
-    emit setTableForFilter(getColumnsNamesAndDatatypes("Викладачі"));
-    emit changedGradeTable(1);
+    if (settingsConfig.value("url").isNull()) {
+        qDebug() << "Gradify - " << tableName << " - URL IS NULL";
+        return;
+    }
+
+    QStringList headers;
+
+    switch (tableType) {
+    case TableType::Teachers:
+        ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
+        ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
+        headers = {"Прізвище",
+                   "Ім'я",
+                   "По батькові",
+                   "Номер телефона",
+                   "Дата народження",
+                   "Адреса проживання",
+                   "Категорія",
+                   "Спеціалізація"};
+        break;
+    case TableType::Subjects:
+        ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectsIco.png"));
+        ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
+        headers = {"Назва",
+                   "Тип",
+                   "Викладач",
+                   "Всього годин",
+                   "Кількість лекційних годин",
+                   "Кількість лабораторних годин",
+                   "Кількість семінарних годин",
+                   "Кількість годин на самостійні роботи",
+                   "Семестр в якому вивчається",
+                   "Семестровий контроль"};
+        break;
+    case TableType::Students:
+        ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
+        ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
+        headers = {"Прізвище",
+                   "Ім'я",
+                   "По батькові",
+                   "Дата народження",
+                   "Адреса проживання",
+                   "Номер телефона",
+                   "Номер паспорту",
+                   "Група",
+                   "ІНН"};
+        break;
+    case TableType::Grades:
+        ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/gradesIco.png"));
+        ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
+        headers = {"Предмет",
+                   "Отримувач",
+                   "Оцінка",
+                   "Тип оцінки",
+                   "Дата отримання"};
+        break;
+    case TableType::Groups:
+        ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupsIco.png"));
+        ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
+        headers = {"Назва",
+                   "Спеціальність",
+                   "Рік початку навчання",
+                   "Рік закінчення навчання",
+                   "Куратор",
+                   "Староста"};
+        break;
+    case TableType::None:
+        break;
+    }
+
+    QByteArray answer = dbHandler->getReply(settingsConfig.value("url").toString() + "/" + tableName
+                                            + ".json");
+
+    QJsonDocument doc = QJsonDocument::fromJson(answer);
+
+    if (!doc.isNull() && doc.isArray()) {
+        fillTable(headers, doc.array());
+    }
+
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+
+    //emit setTableForFilter(getColumnsNamesAndDatatypes(tableName));
+    //emit changedGradeTable(tableType);
 }
 
-
-void MainWindow::on_gradesTableButton_clicked()
+void MainWindow::openTeachersTable()
 {
-    setWindowTitle("Gradify - (Оцінки)");
-    model->setTable("Оцінки");
-    model->select();
-    currentSelectTable = 2;
-
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-
-    clearStyleButtonTable();
-
-    setEnabledEditButton(true);
-
-    ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
-    ui->searchLineEdit->clear();
-
-    ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/raitingIco.png"));
-
-    emit setTableForFilter(getColumnsNamesAndDatatypes("Оцінки"));
-    emit changedGradeTable(2);
+    openTable(TableType::Teachers, "Викладачі");
 }
 
-
-void MainWindow::on_groupsTableButton_clicked()
+void MainWindow::openSubjectsTable()
 {
-    /*
-     *
-     * Код реализации открытия таблицы групп
-     *
-    */
-    setWindowTitle("Gradify - (Групи)");
-    model->setTable("Групи");
-    model->select();
-    currentSelectTable = 3;
-
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-
-    clearStyleButtonTable();
-
-    setEnabledEditButton(true);
-
-    ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
-    ui->searchLineEdit->clear();
-
-    ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupIco.png"));
-
-    emit setTableForFilter(getColumnsNamesAndDatatypes("Групи"));
-    emit changedGradeTable(3);
+    openTable(TableType::Subjects, "Предмети");
 }
 
-
-void MainWindow::on_subjectsTableButton_clicked()
+void MainWindow::openStudentsTable()
 {
-    /*
-     *
-     * Код реализации открытия таблицы предметы
-     *
-    */
-    setWindowTitle("Gradify - (Предмети)");
-    model->setTable("Предмети");
-    model->select();
-    currentSelectTable = 4;
-
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-
-    clearStyleButtonTable();
-
-    setEnabledEditButton(true);
-
-    ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
-    ui->searchLineEdit->clear();
-
-    ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectIco.png"));
-
-    emit setTableForFilter(getColumnsNamesAndDatatypes("Предмети"));
-    emit changedGradeTable(4);
+    openTable(TableType::Students, "Студенти");
 }
 
+void MainWindow::openGradesTable()
+{
+    openTable(TableType::Grades, "Оцінки");
+}
+
+void MainWindow::openGroupsTable()
+{
+    openTable(TableType::Groups, "Групи");
+}
 
 void MainWindow::clearSelectTable()
 {
-    ui->tableView->setModel(NULL);
-    currentSelectTable = -1;
+    ui->tableWidget->clear();
+    currentSelectTable = TableType::None;
     closeAllPopUpWindow();
 }
-
 
 void MainWindow::closeAllPopUpWindow()
 {
     filterWindow->close();
     queryWindow->close();
 }
-
 
 void MainWindow::closeAllEditForm()
 {
@@ -434,7 +540,6 @@ void MainWindow::closeAllEditForm()
     teacherForm->close();
 }
 
-
 void MainWindow::closeAllStatisticsForm()
 {
     gradeStat->close();
@@ -443,7 +548,6 @@ void MainWindow::closeAllStatisticsForm()
     subjectStat->close();
     teacherStat->close();
 }
-
 
 void MainWindow::setEnabledButtons(const bool &status)
 {
@@ -460,7 +564,6 @@ void MainWindow::setEnabledButtons(const bool &status)
     ui->teachersTableButton->setEnabled(status);
     ui->groupsTableButton->setEnabled(status);
 }
-
 
 void MainWindow::setEnabledActions(const bool &status)
 {
@@ -480,7 +583,6 @@ void MainWindow::setEnabledActions(const bool &status)
     ui->menu_2->setEnabled(status);
 }
 
-
 void MainWindow::setEnabledEditButton(const bool &status)
 {
     ui->addRowAction->setEnabled(status);
@@ -496,7 +598,6 @@ void MainWindow::setEnabledEditButton(const bool &status)
     ui->statisticsButton->setEnabled(status);
 }
 
-
 void MainWindow::clearStyleButtonTable()
 {
     ui->studentsTableButton->setStyleSheet("");
@@ -507,26 +608,20 @@ void MainWindow::clearStyleButtonTable()
 
     ui->studentsTableButton->setIcon(QIcon(":/img/blueMenuIcon/studentsIco.png"));
     ui->teachersTableButton->setIcon(QIcon(":/img/blueMenuIcon/teachersIco.png"));
-    ui->gradesTableButton->setIcon(QIcon(":/img/blueMenuIcon/raitingIco.png"));
-    ui->groupsTableButton->setIcon(QIcon(":/img/blueMenuIcon/groupIco.png"));
-    ui->subjectsTableButton->setIcon(QIcon(":/img/blueMenuIcon/subjectIco.png"));
+    ui->gradesTableButton->setIcon(QIcon(":/img/blueMenuIcon/gradesIco.png"));
+    ui->groupsTableButton->setIcon(QIcon(":/img/blueMenuIcon/groupsIco.png"));
+    ui->subjectsTableButton->setIcon(QIcon(":/img/blueMenuIcon/subjectsIco.png"));
 }
-
 
 void MainWindow::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         theme = "black";
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         theme = "white";
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         theme = "system";
         setSystemUI();
     }
@@ -534,12 +629,13 @@ void MainWindow::setTheme(const QString &style)
     configWrite("theme", theme);
 }
 
-
 void MainWindow::authorization(const QString &login)
 {
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+    // QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+    //                          QSettings::IniFormat);
 
-
+    // TEST!!!
+    /*
     db = QSqlDatabase::addDatabase("QMYSQL");
     // https://gradify.online/
     db.setHostName(settingsConfig.value("hostname").toString());
@@ -547,20 +643,22 @@ void MainWindow::authorization(const QString &login)
     db.setPassword(settingsConfig.value("password").toString());
     db.setDatabaseName(settingsConfig.value("databasename").toString());
 
-    if (not db.open())
-    {
-        QMessageBox::critical(this, "Помилка з'єднання", "Перевірте статус серверу або параметри серверу в налаштуваннях!");
+    if (not db.open()) {
+        QMessageBox::critical(this,
+                              "Помилка з'єднання",
+                              "Перевірте статус серверу або параметри серверу в налаштуваннях!");
         return;
     }
 
     query = new QSqlQuery(db);
     model = new QSqlTableModel(this, db);
     queryModel = new QSqlQueryModel(this);
+    */
 
     setEnabledButtons(true);
     setEnabledActions(true);
 
-    clearSelectTable();
+    // clearSelectTable();
 
     ui->authorizationButton->setText(" Привіт, " + login + "!");
     ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
@@ -568,17 +666,15 @@ void MainWindow::authorization(const QString &login)
     isLogin = true;
 }
 
-
 void MainWindow::setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter)
 {
     model->setFilter(filterQuery);
-    ui->tableView->setModel(model);
+    //ui->tableWidget->setModel(model);
 
-    for(int i = 0; i < ui->tableView->model()->columnCount(); ++i)
-    {
-        if (ui->tableView->model()->headerData(i, Qt::Horizontal).toString() == currentColumnFilter)
-        {
-            ui->tableView->selectColumn(i);
+    for (int i = 0; i < ui->tableWidget->model()->columnCount(); ++i) {
+        if (ui->tableWidget->model()->headerData(i, Qt::Horizontal).toString()
+            == currentColumnFilter) {
+            ui->tableWidget->selectColumn(i);
             break;
         }
     }
@@ -587,18 +683,16 @@ void MainWindow::setFilterForTable(const QString &filterQuery, const QString &cu
     //QMessageBox::information(this, "", filterQuery);
 }
 
-
-void MainWindow::on_settingsButton_clicked()
+void MainWindow::openSettingsWindow()
 {
-    settingWindow->show();
+    appSettingsWindow->show();
 
-    if (settingWindow->isVisible())
-    {
-        settingWindow->raise();
+    if (appSettingsWindow->isVisible()) {
+        appSettingsWindow->raise();
     }
 }
 
-void MainWindow::userLogout()
+void MainWindow::logoutUser()
 {
     isLogin = false;
     setEnabledButtons(false);
@@ -610,35 +704,36 @@ void MainWindow::userLogout()
     ui->searchLineEdit->clear();
 
     setWindowTitle("Gradify");
-    ui->authorizationButton->setText("Авторизація");
+    ui->authorizationButton->setText("Вхід");
     ui->authorizationButton->setStyleSheet("");
 
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
     settingsConfig.remove("userlogin");
 }
 
-void MainWindow::on_authorizationButton_clicked()
+void MainWindow::handleLogin()
 {
-    if (not isLogin)
-    {
-        authorizationWindow->show();
-    }
-    else
-    {
+    qDebug() << QString("handleLogin()");
+    // return;
+
+    if (not isLogin) {
+        loginWindow->show();
+    } else {
         logoutMessageBox.exec();
-        if (logoutMessageBox.clickedButton() == yesButton)
-        {
-            userLogout();
+        if (logoutMessageBox.clickedButton() == yesButton) {
+            logoutUser();
         }
     }
 }
 
-
-void MainWindow::on_addRowButton_clicked()
+void MainWindow::addRowToTable()
 {
-    switch (currentSelectTable)
-    {
-    case 0:
+    qDebug() << QString("addRowToTable()");
+    return;
+
+    switch (currentSelectTable) {
+    case TableType::Students:
         connect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
 
         emit sendGroupsList(getGroupsNames());
@@ -647,7 +742,7 @@ void MainWindow::on_addRowButton_clicked()
         disconnect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
         studentForm->show();
         break;
-    case 1:
+    case TableType::Teachers:
         connect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
 
         emit createNewRow();
@@ -655,168 +750,242 @@ void MainWindow::on_addRowButton_clicked()
         disconnect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
         teacherForm->show();
         break;
-    case 2:
+    case TableType::Grades:
         connect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
-        connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-        connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+        connect(this,
+                &MainWindow::sendStudentsList,
+                gradeForm,
+                &gradeWindow::setDataStudentComboBox);
+        connect(this,
+                &MainWindow::sendSubjectsList,
+                gradeForm,
+                &gradeWindow::setDataSubjectComboBox);
 
         emit sendSubjectsList(getSubjectsNames());
         emit sendStudentsList(getStudentsNames());
         emit sendTeachersList(getTeachersNames());
         emit createNewRow();
 
-        disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
-        disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+        disconnect(this,
+                   &MainWindow::sendSubjectsList,
+                   gradeForm,
+                   &gradeWindow::setDataSubjectComboBox);
+        disconnect(this,
+                   &MainWindow::sendStudentsList,
+                   gradeForm,
+                   &gradeWindow::setDataStudentComboBox);
         disconnect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
         gradeForm->show();
         break;
-    case 3:
+    case TableType::Groups:
         connect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
-        connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-        connect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
+        connect(this,
+                &MainWindow::sendTeachersList,
+                groupForm,
+                &groupWindow::setDataCuratorComboBox);
+        connect(this,
+                &MainWindow::sendCurrentGroup,
+                groupForm,
+                &groupWindow::setDataHeadManComboBox);
 
         emit createNewRow();
         emit sendTeachersList(getTeachersNames());
         emit sendCurrentGroup("NULL");
 
-        disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-        disconnect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
+        disconnect(this,
+                   &MainWindow::sendTeachersList,
+                   groupForm,
+                   &groupWindow::setDataCuratorComboBox);
+        disconnect(this,
+                   &MainWindow::sendCurrentGroup,
+                   groupForm,
+                   &groupWindow::setDataHeadManComboBox);
         disconnect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
         groupForm->show();
         break;
-    case 4:
+    case TableType::Subjects:
         connect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
-        connect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
+        connect(this,
+                &MainWindow::sendTeachersList,
+                subjectForm,
+                &subjectWindow::setTeacherComboBox);
 
         emit sendTeachersList(getTeachersNames());
         emit createNewRow();
 
-        disconnect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
+        disconnect(this,
+                   &MainWindow::sendTeachersList,
+                   subjectForm,
+                   &subjectWindow::setTeacherComboBox);
         disconnect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
         subjectForm->show();
+        break;
+    case TableType::None:
+        QMessageBox::information(this, "Попередження", "Оберіть таблицю!");
         break;
     }
 }
 
-
-void MainWindow::on_deleteRowButton_clicked()
+void MainWindow::deleteRowFromTable()
 {
+    qDebug() << QString("deleteRowFromTable()");
+    return;
+
     ui->searchLineEdit->clearFocus();
     closeAllPopUpWindow();
 
-    if (ui->tableView->model()->rowCount() > 0)
-    {
+    if (ui->tableWidget->model()->rowCount() > 0) {
         bool ok;
-        QString selectedItem = QInputDialog::getItem(this, tr("Видалення запису"),
-                                                     tr("Оберіть запис для видалення:"), getCurrentItemTable(),
-                                                     ui->tableView->currentIndex().row(), false, &ok);
+        QString selectedItem = QInputDialog::getItem(this,
+                                                     tr("Видалення запису"),
+                                                     tr("Оберіть запис для видалення:"),
+                                                     getCurrentItemTable(),
+                                                     ui->tableWidget->currentIndex().row(),
+                                                     false,
+                                                     &ok);
 
-
-        if (ok)
-        {
+        if (ok) {
             model->removeRow(selectedItem.left(selectedItem.indexOf('.')).toInt() - 1);
             model->select();
         }
-    }
-    else
-    {
+    } else {
         QMessageBox::critical(this, "", "Не знайдено записів для видалення!");
     }
 }
 
-
-void MainWindow::on_editRowButton_clicked()
+void MainWindow::editRowInTable()
 {
+    qDebug() << QString("editRowInTable()");
+    return;
+
     ui->searchLineEdit->clearFocus();
     closeAllPopUpWindow();
 
-    if (ui->tableView->model()->rowCount() > 0)
-    {
+    if (ui->tableWidget->model()->rowCount() > 0) {
         bool ok;
-        QString selectedItem = QInputDialog::getItem(this, tr("Редагування запису"),
-                                                     tr("Оберіть запис для редагування:"), getCurrentItemTable(),
-                                                     ui->tableView->currentIndex().row(), false, &ok);
+        QString selectedItem = QInputDialog::getItem(this,
+                                                     tr("Редагування запису"),
+                                                     tr("Оберіть запис для редагування:"),
+                                                     getCurrentItemTable(),
+                                                     ui->tableWidget->currentIndex().row(),
+                                                     false,
+                                                     &ok);
 
-        if (ok)
-        {
-            switch (currentSelectTable)
-            {
-            case 0:
+        if (ok) {
+            switch (currentSelectTable) {
+            case TableType::Students:
                 connect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
 
                 emit sendGroupsList(getGroupsNames());
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.QString::left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem,
+                                     getRowData(
+                                         selectedItem.QString::left(selectedItem.indexOf('.'))
+                                             .toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
                 studentForm->show();
                 break;
-            case 1:
+            case TableType::Teachers:
                 connect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
 
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem,
+                                     getRowData(
+                                         selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
                 teacherForm->show();
                 break;
-            case 2:
+            case TableType::Grades:
                 connect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
-                connect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
-                connect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
+                connect(this,
+                        &MainWindow::sendStudentsList,
+                        gradeForm,
+                        &gradeWindow::setDataStudentComboBox);
+                connect(this,
+                        &MainWindow::sendSubjectsList,
+                        gradeForm,
+                        &gradeWindow::setDataSubjectComboBox);
 
                 emit sendSubjectsList(getSubjectsNames());
                 emit sendStudentsList(getStudentsNames());
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem,
+                                     getRowData(
+                                         selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::sendSubjectsList, gradeForm, &gradeWindow::setDataSubjectComboBox);
-                disconnect(this, &MainWindow::sendStudentsList, gradeForm, &gradeWindow::setDataStudentComboBox);
+                disconnect(this,
+                           &MainWindow::sendSubjectsList,
+                           gradeForm,
+                           &gradeWindow::setDataSubjectComboBox);
+                disconnect(this,
+                           &MainWindow::sendStudentsList,
+                           gradeForm,
+                           &gradeWindow::setDataStudentComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
                 gradeForm->show();
                 break;
-            case 3:
+            case TableType::Groups:
                 connect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
-                connect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-                connect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
+                connect(this,
+                        &MainWindow::sendTeachersList,
+                        groupForm,
+                        &groupWindow::setDataCuratorComboBox);
+                connect(this,
+                        &MainWindow::sendCurrentGroup,
+                        groupForm,
+                        &groupWindow::setDataHeadManComboBox);
 
                 emit sendTeachersList(getTeachersNames());
                 emit sendCurrentGroup(selectedItem);
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem,
+                                     getRowData(
+                                         selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
                 disconnect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
-                disconnect(this, &MainWindow::sendTeachersList, groupForm, &groupWindow::setDataCuratorComboBox);
-                disconnect(this, &MainWindow::sendCurrentGroup, groupForm, &groupWindow::setDataHeadManComboBox);
+                disconnect(this,
+                           &MainWindow::sendTeachersList,
+                           groupForm,
+                           &groupWindow::setDataCuratorComboBox);
+                disconnect(this,
+                           &MainWindow::sendCurrentGroup,
+                           groupForm,
+                           &groupWindow::setDataHeadManComboBox);
                 groupForm->show();
                 break;
-            case 4:
+            case TableType::Subjects:
                 connect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
-                connect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
+                connect(this,
+                        &MainWindow::sendTeachersList,
+                        subjectForm,
+                        &subjectWindow::setTeacherComboBox);
 
                 emit sendTeachersList(getTeachersNames());
-                emit setDataEditForm(selectedItem, getRowData(selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                emit setDataEditForm(selectedItem,
+                                     getRowData(
+                                         selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::sendTeachersList, subjectForm, &subjectWindow::setTeacherComboBox);
+                disconnect(this,
+                           &MainWindow::sendTeachersList,
+                           subjectForm,
+                           &subjectWindow::setTeacherComboBox);
                 disconnect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
                 subjectForm->show();
                 break;
+            case TableType::None:
+                break;
             }
         }
-    }
-    else
-    {
+    } else {
         QMessageBox::critical(this, "", "Не знайдено записів для редагування!");
     }
 }
 
-
-void MainWindow::on_filterButton_clicked()
+void MainWindow::toggleFilterWindow()
 {
     ui->searchLineEdit->clearFocus();
 
-    if (filterWindow->isVisible())
-    {
+    if (filterWindow->isVisible()) {
         filterWindow->close();
-    }
-    else
-    {
+    } else {
         queryWindow->close();
 
         filterWindow->move(ui->filterButton->x() * 2,
@@ -825,17 +994,13 @@ void MainWindow::on_filterButton_clicked()
     }
 }
 
-
-void MainWindow::on_queryButton_clicked()
+void MainWindow::toggleQueryWindow()
 {
     ui->searchLineEdit->clearFocus();
 
-    if (queryWindow->isVisible())
-    {
+    if (queryWindow->isVisible()) {
         queryWindow->close();
-    }
-    else
-    {
+    } else {
         filterWindow->close();
 
         queryWindow->move(ui->queryButton->x() * 1.864,
@@ -843,7 +1008,6 @@ void MainWindow::on_queryButton_clicked()
         queryWindow->show();
     }
 }
-
 
 void MainWindow::printDocumentToPDF(const QString path, const QString html)
 {
@@ -865,15 +1029,13 @@ void MainWindow::printDocumentToPDF(const QString path, const QString html)
     QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
 
-
 void MainWindow::printDocumentToHTML(const QString path, const QString html)
 {
     QFile outputFile(path);
     outputFile.open(QIODevice::WriteOnly);
 
-    if(not outputFile.isOpen())
-    {
-        QMessageBox::critical(this,"","Не вдалося зберегти звіт");
+    if (not outputFile.isOpen()) {
+        QMessageBox::critical(this, "", "Не вдалося зберегти звіт");
         return;
     }
 
@@ -884,7 +1046,6 @@ void MainWindow::printDocumentToHTML(const QString path, const QString html)
 
     QDesktopServices::openUrl(QUrl("file://" + path, QUrl::TolerantMode));
 }
-
 
 QString MainWindow::getHeaderHTML()
 {
@@ -917,101 +1078,87 @@ QString MainWindow::getHeaderHTML()
     return htmlHeader;
 }
 
-
 void MainWindow::goSearch()
 {
-    if (not ui->searchLineEdit->text().isEmpty())
-    {
+    if (not ui->searchLineEdit->text().isEmpty()) {
         QString searchString;
 
-        for (int i = 0; i < ui->tableView->model()->columnCount(); ++i)
-        {
-            searchString += "`" + ui->tableView->model()->headerData(i, Qt::Horizontal).toString() + "` LIKE" +
-                            "'%" + ui->searchLineEdit->text() + "%'";
+        for (int i = 0; i < ui->tableWidget->model()->columnCount(); ++i) {
+            searchString += "`" + ui->tableWidget->model()->headerData(i, Qt::Horizontal).toString()
+                            + "` LIKE" + "'%" + ui->searchLineEdit->text() + "%'";
 
-            if (i not_eq ui->tableView->model()->columnCount() - 1)
-            {
+            if (i not_eq ui->tableWidget->model()->columnCount() - 1) {
                 searchString += " OR ";
             }
         }
 
         model->setFilter(searchString);
-        ui->tableView->setModel(model);
-    }
-    else
-    {
+        //ui->tableWidget->setModel(model);
+    } else {
         clearFilterForTable();
     }
 }
 
-
 void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 {
-    if (isNewRow)
-    {
+    if (isNewRow) {
         QString newRow = "INSERT INTO ";
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-        QTableView *tableView = new QTableView(this);
+        QTableWidget *tableWidget = new QTableWidget(this);
 
-        switch (currentSelectTable)
-        {
-        case 0:
+        switch (currentSelectTable) {
+        case TableType::Students:
             newRow += "`Студенти`";
             queryModel->setQuery("SELECT MAX(`Код`) "
                                  "FROM Студенти");
             break;
-        case 1:
+        case TableType::Teachers:
             newRow += "`Викладачі` ";
             queryModel->setQuery("SELECT MAX(`Код`) "
                                  "FROM Викладачі");
             break;
-        case 2:
+        case TableType::Grades:
             newRow += "`Оцінки` ";
             queryModel->setQuery("SELECT MAX(`Код`) "
                                  "FROM Оцінки");
             break;
-        case 3:
+        case TableType::Groups:
             newRow += "`Групи` ";
             queryModel->setQuery("SELECT MAX(`Код`) "
                                  "FROM Групи");
             break;
-        case 4:
+        case TableType::Subjects:
             newRow += "`Предмети` ";
             queryModel->setQuery("SELECT MAX(`Код`) "
                                  "FROM Предмети");
             break;
+        case TableType::None:
+            break;
         }
 
-        tableView->setModel(queryModel);
+        //tableWidget->setModel(queryModel);
 
         newRow += "(";
 
-        for (int i = 0; i < model->columnCount(); ++i)
-        {
+        for (int i = 0; i < model->columnCount(); ++i) {
             newRow += "`" + model->headerData(i, Qt::Horizontal).toString();
 
-            if (i not_eq model->columnCount() - 1)
-            {
+            if (i not_eq model->columnCount() - 1) {
                 newRow += "`, ";
-            }
-            else
-            {
+            } else {
                 newRow += "`)";
             }
         }
 
-        newRow += "\nVALUES ('" + QString::number(tableView->model()->index(0, 0).data().toInt() + 1) + "',";
+        newRow += "\nVALUES ('"
+                  + QString::number(tableWidget->model()->index(0, 0).data().toInt() + 1) + "',";
 
-        for (int i = 1; i < model->columnCount(); ++i)
-        {
+        for (int i = 1; i < model->columnCount(); ++i) {
             newRow += "'" + dataList[i];
 
-            if (i not_eq model->columnCount() - 1)
-            {
+            if (i not_eq model->columnCount() - 1) {
                 newRow += "', ";
-            }
-            else
-            {
+            } else {
                 newRow += "')";
             }
         }
@@ -1019,41 +1166,37 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
         QSqlQueryModel *sqlModel = new QSqlQueryModel();
         sqlModel->setQuery(newRow);
         model->select();
-    }
-    else
-    {
+    } else {
         QString queryEdit = "UPDATE ";
 
-        switch (currentSelectTable)
-        {
-        case 0:
+        switch (currentSelectTable) {
+        case TableType::Students:
             queryEdit += "`Студенти`";
             break;
-        case 1:
+        case TableType::Teachers:
             queryEdit += "`Викладачі` ";
             break;
-        case 2:
+        case TableType::Grades:
             queryEdit += "`Оцінки`";
             break;
-        case 3:
+        case TableType::Groups:
             queryEdit += "`Групи`";
             break;
-        case 4:
+        case TableType::Subjects:
             queryEdit += "`Предмети`";
+            break;
+        case None:
             break;
         }
         queryEdit += " \nSET";
 
-        for (int i = 1; i < model->columnCount(); ++i)
-        {
-            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '" + dataList[i];
+        for (int i = 1; i < model->columnCount(); ++i) {
+            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '"
+                         + dataList[i];
 
-            if (i not_eq model->columnCount() - 1)
-            {
+            if (i not_eq model->columnCount() - 1) {
                 queryEdit += "', \n";
-            }
-            else
-            {
+            } else {
                 queryEdit += "'";
             }
         }
@@ -1066,30 +1209,24 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
     }
 }
 
-
 void MainWindow::setQueryForTable(QString query)
 {
-    if (query == "NULL")
-    {
-        ui->tableView->setModel(model);
-        ui->tableView->resizeColumnsToContents();
-        ui->tableView->sortByColumn(0, Qt::AscendingOrder);
-    }
-    else
-    {
+    if (query == "NULL") {
+        //ui->tableWidget->setModel(model);
+        ui->tableWidget->resizeColumnsToContents();
+        ui->tableWidget->sortByColumn(0, Qt::AscendingOrder);
+    } else {
         queryModel->setQuery(query);
-        ui->tableView->setModel(queryModel);
+        //ui->tableWidget->setModel(queryModel);
     }
 }
-
 
 void MainWindow::clearFilterForTable()
 {
     model->setFilter("");
     model->select();
-    ui->tableView->setModel(model);
+    //ui->tableWidget->setModel(model);
 }
-
 
 QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
 {
@@ -1100,87 +1237,80 @@ QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
     return effect;
 }
 
-
 QMap<QString, QString> MainWindow::getColumnsNamesAndDatatypes(const QString &tableName)
 {
-    QMap<QString,QString> headerListMap;
+    QMap<QString, QString> headerListMap;
 
-    if (not tableName.isEmpty())
-    {
+    if (not tableName.isEmpty()) {
         QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-        QTableView *tableView = new QTableView(this);
+        QTableWidget *tableWidget = new QTableWidget(this);
 
         queryModel->setQuery("SELECT COLUMN_NAME, DATA_TYPE "
                              "FROM INFORMATION_SCHEMA.COLUMNS "
                              "WHERE table_schema = 'Gradify' "
-                             "AND table_name = '" + tableName + "'"
-                             "AND NOT column_name = 'Код'");
+                             "AND table_name = '"
+                             + tableName
+                             + "'"
+                               "AND NOT column_name = 'Код'");
 
-        tableView->setModel(queryModel);
+        //tableWidget->setModel(queryModel);
 
-        for (int row = 0; row < queryModel->rowCount(); ++row)
-        {
-            headerListMap.insert(tableView->model()->index(row, 0).data().toString(),
-                                 tableView->model()->index(row, 1).data().toString());
+        for (int row = 0; row < queryModel->rowCount(); ++row) {
+            headerListMap.insert(tableWidget->model()->index(row, 0).data().toString(),
+                                 tableWidget->model()->index(row, 1).data().toString());
         }
     }
 
     return headerListMap;
 }
 
-
 QStringList MainWindow::getCurrentItemTable()
 {
     QStringList str;
 
-    switch (currentSelectTable)
-    {
-    case 0:
-    case 1:
-        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
-        {
-            str << QString::number(i + 1) +  ". "
-                   + ui->tableView->model()->data(model->index(i, 1)).toString() + " "
-                   + ui->tableView->model()->data(model->index(i, 2)).toString() + " "
-                   + ui->tableView->model()->data(model->index(i, 3)).toString();
+    switch (currentSelectTable) {
+    case TableType::Students:
+    case TableType::Teachers:
+        for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
+            str << QString::number(i + 1) + ". "
+                       + ui->tableWidget->model()->data(model->index(i, 1)).toString() + " "
+                       + ui->tableWidget->model()->data(model->index(i, 2)).toString() + " "
+                       + ui->tableWidget->model()->data(model->index(i, 3)).toString();
         }
         break;
-    case 2:
-        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
-        {
-            str << QString::number(i + 1) +  ". "
-                   + ui->tableView->model()->data(model->index(i, 2)).toString() + " - "
-                   + ui->tableView->model()->data(model->index(i, 1)).toString() + ", "
-                   + ui->tableView->model()->data(model->index(i, 4)).toString() + " ("
-                   + ui->tableView->model()->data(model->index(i, 3)).toString() + ")";
+    case TableType::Grades:
+        for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
+            str << QString::number(i + 1) + ". "
+                       + ui->tableWidget->model()->data(model->index(i, 2)).toString() + " - "
+                       + ui->tableWidget->model()->data(model->index(i, 1)).toString() + ", "
+                       + ui->tableWidget->model()->data(model->index(i, 4)).toString() + " ("
+                       + ui->tableWidget->model()->data(model->index(i, 3)).toString() + ")";
         }
         break;
-    case 3:
-    case 4:
-        for (int i = 0; i < ui->tableView->model()->rowCount(); ++i)
-        {
-            str << QString::number(i + 1) +  ". "
-                   + ui->tableView->model()->data(model->index(i, 1)).toString();
+    case TableType::Groups:
+    case TableType::Subjects:
+        for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
+            str << QString::number(i + 1) + ". "
+                       + ui->tableWidget->model()->data(model->index(i, 1)).toString();
         }
+        break;
+    case None:
         break;
     }
 
     return str;
 }
 
-
 QStringList MainWindow::getRowData(const int &row)
 {
     QStringList listData;
 
-    for (int j = 0; j < model->columnCount(); ++j)
-    {
+    for (int j = 0; j < model->columnCount(); ++j) {
         listData << model->data(model->index(row - 1, j)).toString();
     }
 
     return listData;
 }
-
 
 QStringList MainWindow::getStudentsNames()
 {
@@ -1193,16 +1323,14 @@ QStringList MainWindow::getStudentsNames()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
-        studentList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
-                           virtualTable->model()->index(row, 1).data().toString() + " " +
-                           virtualTable->model()->index(row, 2).data().toString() );
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
+        studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
+                           + virtualTable->model()->index(row, 1).data().toString() + " "
+                           + virtualTable->model()->index(row, 2).data().toString());
     }
 
     return studentList;
 }
-
 
 QStringList MainWindow::getTeachersNames()
 {
@@ -1215,16 +1343,14 @@ QStringList MainWindow::getTeachersNames()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
-        teacherList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
-                           virtualTable->model()->index(row, 1).data().toString() + " " +
-                           virtualTable->model()->index(row, 2).data().toString());
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
+        teacherList.append(virtualTable->model()->index(row, 0).data().toString() + " "
+                           + virtualTable->model()->index(row, 1).data().toString() + " "
+                           + virtualTable->model()->index(row, 2).data().toString());
     }
 
     return teacherList;
 }
-
 
 QStringList MainWindow::getSubjectsNames()
 {
@@ -1237,14 +1363,12 @@ QStringList MainWindow::getSubjectsNames()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         subjectList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
     return subjectList;
 }
-
 
 QStringList MainWindow::getSubjectsTypes()
 {
@@ -1258,14 +1382,12 @@ QStringList MainWindow::getSubjectsTypes()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         categoryList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
     return categoryList;
 }
-
 
 QStringList MainWindow::getCategoryTeachers()
 {
@@ -1279,14 +1401,12 @@ QStringList MainWindow::getCategoryTeachers()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         categoryList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
     return categoryList;
 }
-
 
 QStringList MainWindow::getGroupsNames()
 {
@@ -1297,17 +1417,14 @@ QStringList MainWindow::getGroupsNames()
     virualQueryModel->setQuery("SELECT `Назва`"
                                "FROM `Групи`");
 
-
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         groupList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
     return groupList;
 }
-
 
 QStringList MainWindow::getGroupsSpecial()
 {
@@ -1321,20 +1438,17 @@ QStringList MainWindow::getGroupsSpecial()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         groupSpecialList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
     return groupSpecialList;
 }
 
-
 void MainWindow::on_tableView_clicked(const QModelIndex &index)
 {
     row = index.row();
 }
-
 
 //=========================================================
 //
@@ -1342,115 +1456,117 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 //
 //=========================================================
 
-void MainWindow::fillHTMLTable(QString& textHTML, QTableView* tableView){
-    for (int i = 0; i < tableView->model()->columnCount(); ++i)
-    {
-        textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal ).toString() +"</th>\n";
+void MainWindow::fillHTMLTable(QString &textHTML, QTableView *tableView)
+{
+    for (int i = 0; i < tableView->model()->columnCount(); ++i) {
+        textHTML += "   <th>" + tableView->model()->headerData(i, Qt::Horizontal).toString()
+                    + "</th>\n";
     }
 
     textHTML += "</tr>\n";
 
-    for (int i = 0; i < tableView->model()->rowCount(); ++i)
-    {
+    for (int i = 0; i < tableView->model()->rowCount(); ++i) {
         textHTML += "<tr>\n";
 
-        for (int j = 0; j < tableView->model()->columnCount(); ++j)
-        {
-            if (i % 2 not_eq 0)
-            {
-                textHTML += "   <td class='la'>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
-            }
-            else
-            {
-                textHTML += "   <td>" + tableView->model()->index(i,j).data().toString() + "</td>\n";
+        for (int j = 0; j < tableView->model()->columnCount(); ++j) {
+            if (i % 2 not_eq 0) {
+                textHTML += "   <td class='la'>" + tableView->model()->index(i, j).data().toString()
+                            + "</td>\n";
+            } else {
+                textHTML += "   <td>" + tableView->model()->index(i, j).data().toString()
+                            + "</td>\n";
             }
         }
         textHTML += "</tr>\n";
     }
-    textHTML+= "</tbody></table>";
+    textHTML += "</tbody></table>";
 }
 
-
-void MainWindow::on_currentTableReportButton_clicked()
+void MainWindow::generateCurrentTableReport()
 {
-    if (model->rowCount() > 0)
-    {
+    qDebug() << QString("generateCurrentTableReport()");
+    return;
+
+    if (model->rowCount() > 0) {
         QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
-        {
+        QString pathToSave
+            = QFileDialog::getSaveFileName(nullptr,
+                                           tr("Збереження звіту"),
+                                           "/Users/" + qgetenv("USER") + "/Desktop",
+                                           "PDF формат (*.pdf);;HTML формат (*.html)",
+                                           &typeFile);
+        if (not pathToSave.isEmpty()) {
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт Gradify</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт Gradify</h2>\n<table ALIGN = 'center'>\n<p2 "
+                        "id='transpert'>f</p2><tr>";
 
-            fillHTMLTable(textHTML, ui->tableView);
+            fillHTMLTable(textHTML, ui->tableWidget);
 
-            if (typeFile == "HTML формат (*.html)")
-            {
+            if (typeFile == "HTML формат (*.html)") {
                 printDocumentToHTML(pathToSave, textHTML);
-            }
-            else if (typeFile == "PDF формат (*.pdf)")
-            {
+            } else if (typeFile == "PDF формат (*.pdf)") {
                 printDocumentToPDF(pathToSave, textHTML);
             }
         }
-    }
-    else
-    {
-        QMessageBox::information(this,"","У таблиці не знайдено записів!");
+    } else {
+        QMessageBox::information(this, "", "У таблиці не знайдено записів!");
     }
 }
 
-
-void MainWindow::on_studentsReportButton_clicked()
+void MainWindow::generateStudentsGroupReport()
 {
+    qDebug() << QString("generateStudentsGroupReport()");
+    return;
+
     bool ok;
 
-    QString selectedGroup = QInputDialog::getItem(this, tr("Звіт за студентами групи"),
-                                                  tr("Оберіть групу:"), getGroupsNames(),
-                                                  0, false, &ok);
-    if (ok)
-    {
+    QString selectedGroup = QInputDialog::getItem(this,
+                                                  tr("Звіт за студентами групи"),
+                                                  tr("Оберіть групу:"),
+                                                  getGroupsNames(),
+                                                  0,
+                                                  false,
+                                                  &ok);
+    if (ok) {
         QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
-        {
+        QString pathToSave
+            = QFileDialog::getSaveFileName(nullptr,
+                                           tr("Збереження звіту"),
+                                           "/Users/" + qgetenv("USER") + "/Desktop",
+                                           "PDF формат (*.pdf);;HTML формат (*.html)",
+                                           &typeFile);
+        if (not pathToSave.isEmpty()) {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
 
             queryModel->setQuery("SELECT * "
                                  "FROM `Студенти`"
-                                 "WHERE `Студенти`.`Група` = '" + selectedGroup + "'");
+                                 "WHERE `Студенти`.`Група` = '"
+                                 + selectedGroup + "'");
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за студентами групи «" + selectedGroup + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт за студентами групи «" + selectedGroup
+                        + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             fillHTMLTable(textHTML, tableView);
 
             queryModel->setQuery("SELECT `Куратор`,`Староста`"
-                                        "FROM `Групи`"
-                                        "WHERE `Групи`.`Назва` = '" + selectedGroup + "'");
+                                 "FROM `Групи`"
+                                 "WHERE `Групи`.`Назва` = '"
+                                 + selectedGroup + "'");
             tableView->setModel(queryModel);
 
             textHTML += "<tr>\n <td class='info'>Куратор</td>";
 
-
-            QString bufStr = tableView->model()->index(0, 0) .data().toString();
+            QString bufStr = tableView->model()->index(0, 0).data().toString();
             textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.indexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr.left(bufStr.lastIndexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.lastIndexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n";
 
-            bufStr = tableView->model()->index(0, 1) .data().toString();
+            bufStr = tableView->model()->index(0, 1).data().toString();
             textHTML += "\n<tr>\n   <td class='info'>Староста</td>";
             textHTML += "\n <td>" + bufStr.left(bufStr.indexOf(' ')) + "</td>";
             bufStr.remove(0, bufStr.indexOf(' ') + 1);
@@ -1458,31 +1574,33 @@ void MainWindow::on_studentsReportButton_clicked()
             bufStr.remove(0, bufStr.lastIndexOf(' ') + 1);
             textHTML += "\n <td>" + bufStr + "</td>\n</tr>\n</table>\n";
 
-            if (typeFile == "HTML формат (*.html)")
-            {
+            if (typeFile == "HTML формат (*.html)") {
                 printDocumentToHTML(pathToSave, textHTML);
-            }
-            else if (typeFile == "PDF формат (*.pdf)")
-            {
+            } else if (typeFile == "PDF формат (*.pdf)") {
                 printDocumentToPDF(pathToSave, textHTML);
             }
         }
     }
 }
 
-
-void MainWindow::on_teachersReportButton_clicked()
+void MainWindow::generateTeachersReport()
 {
+    qDebug() << QString("generateTeachersReport()");
+    return;
+
     // bool flag for get events status
     bool ok;
 
     // select teachers category
-    QString selectedCategory = QInputDialog::getItem(this, tr("Звіт по викладачам"),
-                                                  tr("Оберіть категорію викладача:"), getCategoryTeachers(),
-                                                  0, false, &ok);
+    QString selectedCategory = QInputDialog::getItem(this,
+                                                     tr("Звіт по викладачам"),
+                                                     tr("Оберіть категорію викладача:"),
+                                                     getCategoryTeachers(),
+                                                     0,
+                                                     false,
+                                                     &ok);
 
-    if (ok)
-    {
+    if (ok) {
         // create teachers list
         QStringList teachersList;
         QSqlQueryModel *virtualQueryModel = new QSqlQueryModel(this);
@@ -1490,61 +1608,64 @@ void MainWindow::on_teachersReportButton_clicked()
 
         virtualQueryModel->setQuery("SELECT `Прізвище`"
                                     "FROM `Викладачі` "
-                                    "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "';");
+                                    "WHERE `Викладачі`.`Категорія` = '"
+                                    + selectedCategory + "';");
 
         virtualTable->setModel(virtualQueryModel);
 
-        if (virtualQueryModel->rowCount() > 0)
-        {
+        if (virtualQueryModel->rowCount() > 0) {
             teachersList.append("Всі викладачі");
-            for (int row = 0; row < virtualQueryModel->rowCount(); ++row)
-            {
+            for (int row = 0; row < virtualQueryModel->rowCount(); ++row) {
                 teachersList.append(virtualTable->model()->index(row, 0).data().toString());
             }
-        }
-        else
-        {
+        } else {
             QMessageBox::information(this, "Помилка", "Викладачів даної категорії немає!");
             return;
         }
 
         // string choice teacher
-        QString optionChoice = QInputDialog::getItem(this, tr("Звіт по викладачам"),
-                                                     tr("Оберіть викладача:"), teachersList,
-                                                     0, false, &ok);
+        QString optionChoice = QInputDialog::getItem(this,
+                                                     tr("Звіт по викладачам"),
+                                                     tr("Оберіть викладача:"),
+                                                     teachersList,
+                                                     0,
+                                                     false,
+                                                     &ok);
 
-        if (ok)
-        {
+        if (ok) {
             // get path to report save
             QString typeFile;
-            QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                              tr("Збереження звіту"),
-                                                              "/Users/" + qgetenv("USER") + "/Desktop",
-                                                              "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                              &typeFile);
-            if (not pathToSave.isEmpty())
-            {
+            QString pathToSave
+                = QFileDialog::getSaveFileName(nullptr,
+                                               tr("Збереження звіту"),
+                                               "/Users/" + qgetenv("USER") + "/Desktop",
+                                               "PDF формат (*.pdf);;HTML формат (*.html)",
+                                               &typeFile);
+            if (not pathToSave.isEmpty()) {
                 QSqlQueryModel *virtualQueryModel = new QSqlQueryModel(this);
                 QTableView *virtualTableView = new QTableView(this);
 
                 QString textHTML = getHeaderHTML();
 
-                if (optionChoice == "Всі викладачі")
-                {
+                if (optionChoice == "Всі викладачі") {
                     virtualQueryModel->setQuery("SELECT * "
                                                 "FROM `Викладачі`"
-                                                "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "';");
-                    textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+                                                "WHERE `Викладачі`.`Категорія` = '"
+                                                + selectedCategory + "';");
+                    textHTML += "<h2 align='center'>Викладачі з категорією «" + selectedCategory
+                                + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
-                }
-                else
-                {
+                } else {
                     virtualQueryModel->setQuery("SELECT * "
                                                 "FROM `Викладачі` "
-                                                "WHERE `Викладачі`.`Категорія` = '" + selectedCategory + "' "
-                                                "AND `Викладачі`.`Прізвище` = '" + optionChoice + "';");
-                    textHTML += "<h2 align='center'>Викладач з категорією «" + selectedCategory + "» " + optionChoice +"</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
-
+                                                "WHERE `Викладачі`.`Категорія` = '"
+                                                + selectedCategory
+                                                + "' "
+                                                  "AND `Викладачі`.`Прізвище` = '"
+                                                + optionChoice + "';");
+                    textHTML += "<h2 align='center'>Викладач з категорією «" + selectedCategory
+                                + "» " + optionChoice
+                                + "</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
                 }
 
                 virtualTableView->setModel(virtualQueryModel);
@@ -1553,24 +1674,26 @@ void MainWindow::on_teachersReportButton_clicked()
 
                 // statistics chart
 
-                if (optionChoice != "Всі викладачі")
-                {
-                    virtualQueryModel->setQuery("SELECT `Предмети`.`Назва`, COUNT(`Оцінки`.`Оцінка`)"
-                                                "FROM `Оцінки`, `Предмети`, `Викладачі`"
-                                                "WHERE SUBSTRING_INDEX(`Предмети`.`Викладач`, ' ', 1) = '" + optionChoice + "'"
-                                                "AND `Предмети`.`Назва` = `Оцінки`.`Предмет`"
-                                                "GROUP BY(`Предмети`.`Назва`);");
+                if (optionChoice != "Всі викладачі") {
+                    virtualQueryModel->setQuery(
+                        "SELECT `Предмети`.`Назва`, COUNT(`Оцінки`.`Оцінка`)"
+                        "FROM `Оцінки`, `Предмети`, `Викладачі`"
+                        "WHERE SUBSTRING_INDEX(`Предмети`.`Викладач`, ' ', 1) = '"
+                        + optionChoice
+                        + "'"
+                          "AND `Предмети`.`Назва` = `Оцінки`.`Предмет`"
+                          "GROUP BY(`Предмети`.`Назва`);");
 
-                    if (virtualQueryModel->rowCount() > 0){
+                    if (virtualQueryModel->rowCount() > 0) {
                         // fill pie series
                         virtualTable->setModel(virtualQueryModel);
 
                         QPieSeries *pieSeries = new QPieSeries();
 
-                        for (int row = 0; row < virtualQueryModel->rowCount(); ++row)
-                        {
+                        for (int row = 0; row < virtualQueryModel->rowCount(); ++row) {
                             pieSeries->append(virtualTable->model()->index(row, 0).data().toString(),
-                                              virtualTable->model()->index(row, 1).data().toInt() / 21);
+                                              virtualTable->model()->index(row, 1).data().toInt()
+                                                  / 21);
                         }
 
                         pieSeries->setLabelsVisible(true);
@@ -1585,173 +1708,165 @@ void MainWindow::on_teachersReportButton_clicked()
                         chartView->setRenderHint(QPainter::Antialiasing);
                         chartView->setBackgroundBrush(Qt::white);
 
+                        chartView->grab().save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png",
+                                               "PNG");
 
-                        chartView->grab().save(pathToSave.left(pathToSave.lastIndexOf('.')) + ".png", "PNG");
-
-                        textHTML += "<br><br><br><center><img src=" + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png"
-                                  + " width=\"640\" height=\"480\"></center>";
+                        textHTML += "<br><br><br><center><img src="
+                                    + pathToSave.left(pathToSave.lastIndexOf('.')) + ".png"
+                                    + " width=\"640\" height=\"480\"></center>";
                     }
                 }
 
-                if (typeFile == "HTML формат (*.html)")
-                {
+                if (typeFile == "HTML формат (*.html)") {
                     printDocumentToHTML(pathToSave, textHTML);
-                }
-                else if (typeFile == "PDF формат (*.pdf)")
-                {
+                } else if (typeFile == "PDF формат (*.pdf)") {
                     printDocumentToPDF(pathToSave, textHTML);
                 }
             }
         }
     }
-
 }
 
-
-void MainWindow::on_gradesReportButton_clicked()
+void MainWindow::generateGradesReport()
 {
+    qDebug() << QString("generateGradesReport()");
+    return;
+
     bool ok;
 
-    QString selectedStudent = QInputDialog::getItem(this, tr("Звіт по оцінкам"),
-                                                  tr("Оберіть отримувача оцінок:"), getStudentsNames(),
-                                                  0, false, &ok);
-    if (ok)
-    {
+    QString selectedStudent = QInputDialog::getItem(this,
+                                                    tr("Звіт по оцінкам"),
+                                                    tr("Оберіть отримувача оцінок:"),
+                                                    getStudentsNames(),
+                                                    0,
+                                                    false,
+                                                    &ok);
+    if (ok) {
         QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
-        {
+        QString pathToSave
+            = QFileDialog::getSaveFileName(nullptr,
+                                           tr("Збереження звіту"),
+                                           "/Users/" + qgetenv("USER") + "/Desktop",
+                                           "PDF формат (*.pdf);;HTML формат (*.html)",
+                                           &typeFile);
+        if (not pathToSave.isEmpty()) {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
 
             queryModel->setQuery("SELECT * "
                                  "FROM `Оцінки`"
-                                 "WHERE `Оцінки`.`Отримувач` = '" + selectedStudent + "'");
+                                 "WHERE `Оцінки`.`Отримувач` = '"
+                                 + selectedStudent + "'");
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за оцінками студента «" + selectedStudent + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт за оцінками студента «" + selectedStudent
+                        + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             fillHTMLTable(textHTML, tableView);
 
-            if (typeFile == "HTML формат (*.html)")
-            {
+            if (typeFile == "HTML формат (*.html)") {
                 printDocumentToHTML(pathToSave, textHTML);
-            }
-            else if (typeFile == "PDF формат (*.pdf)")
-            {
+            } else if (typeFile == "PDF формат (*.pdf)") {
                 printDocumentToPDF(pathToSave, textHTML);
             }
         }
     }
 }
 
-
-void MainWindow::on_groupsReportButton_clicked()
+void MainWindow::generateGroupsReport()
 {
+    qDebug() << QString("generateGroupsReport()");
+    return;
+
     bool ok;
 
-    QString selectedTypeSubject = QInputDialog::getItem(this, tr("Звіт за спеціальностями груп"),
-                                                  tr("Оберіть спеціальність групи:"), getGroupsSpecial(),
-                                                  0, false, &ok);
-    if (ok)
-    {
+    QString selectedTypeSubject = QInputDialog::getItem(this,
+                                                        tr("Звіт за спеціальностями груп"),
+                                                        tr("Оберіть спеціальність групи:"),
+                                                        getGroupsSpecial(),
+                                                        0,
+                                                        false,
+                                                        &ok);
+    if (ok) {
         QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
-        {
+        QString pathToSave
+            = QFileDialog::getSaveFileName(nullptr,
+                                           tr("Збереження звіту"),
+                                           "/Users/" + qgetenv("USER") + "/Desktop",
+                                           "PDF формат (*.pdf);;HTML формат (*.html)",
+                                           &typeFile);
+        if (not pathToSave.isEmpty()) {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
 
             queryModel->setQuery("SELECT * "
                                  "FROM `Групи`"
-                                 "WHERE `Групи`.`Спеціальність` = '" + selectedTypeSubject + "'");
+                                 "WHERE `Групи`.`Спеціальність` = '"
+                                 + selectedTypeSubject + "'");
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за спеціальністю «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт за спеціальністю «" + selectedTypeSubject
+                        + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             fillHTMLTable(textHTML, tableView);
 
-            if (typeFile == "HTML формат (*.html)")
-            {
+            if (typeFile == "HTML формат (*.html)") {
                 printDocumentToHTML(pathToSave, textHTML);
-            }
-            else if (typeFile == "PDF формат (*.pdf)")
-            {
+            } else if (typeFile == "PDF формат (*.pdf)") {
                 printDocumentToPDF(pathToSave, textHTML);
             }
         }
     }
 }
 
-
-void MainWindow::on_subjectsReportButton_clicked()
+void MainWindow::generateSubjectsReport()
 {
+    qDebug() << QString("generateSubjectsReport()");
+    return;
+
     bool ok;
 
-    QString selectedTypeSubject = QInputDialog::getItem(this, tr("Звіт за предметами"),
-                                                  tr("Оберіть тип предмету:"), getSubjectsTypes(),
-                                                  0, false, &ok);
-    if (ok)
-    {
+    QString selectedTypeSubject = QInputDialog::getItem(this,
+                                                        tr("Звіт за предметами"),
+                                                        tr("Оберіть тип предмету:"),
+                                                        getSubjectsTypes(),
+                                                        0,
+                                                        false,
+                                                        &ok);
+    if (ok) {
         QString typeFile;
-        QString pathToSave = QFileDialog::getSaveFileName(nullptr,
-                                                          tr("Збереження звіту"),
-                                                          "/Users/" + qgetenv("USER") + "/Desktop",
-                                                          "PDF формат (*.pdf);;HTML формат (*.html)",
-                                                          &typeFile);
-        if (not pathToSave.isEmpty())
-        {
+        QString pathToSave
+            = QFileDialog::getSaveFileName(nullptr,
+                                           tr("Збереження звіту"),
+                                           "/Users/" + qgetenv("USER") + "/Desktop",
+                                           "PDF формат (*.pdf);;HTML формат (*.html)",
+                                           &typeFile);
+        if (not pathToSave.isEmpty()) {
             QSqlQueryModel *queryModel = new QSqlQueryModel(this);
             QTableView *tableView = new QTableView(this);
 
             queryModel->setQuery("SELECT * "
                                  "FROM `Предмети`"
-                                 "WHERE `Предмети`.`Тип` = '" + selectedTypeSubject + "'");
+                                 "WHERE `Предмети`.`Тип` = '"
+                                 + selectedTypeSubject + "'");
             tableView->setModel(queryModel);
 
             QString textHTML = getHeaderHTML();
-            textHTML += "<h2 align='center'>Звіт за типом предмета «" + selectedTypeSubject + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
+            textHTML += "<h2 align='center'>Звіт за типом предмета «" + selectedTypeSubject
+                        + "»</h2>\n<table ALIGN = 'center'>\n<p2 id='transpert'>f</p2><tr>";
 
             fillHTMLTable(textHTML, tableView);
 
-            if (typeFile == "HTML формат (*.html)")
-            {
+            if (typeFile == "HTML формат (*.html)") {
                 printDocumentToHTML(pathToSave, textHTML);
-            }
-            else if (typeFile == "PDF формат (*.pdf)")
-            {
+            } else if (typeFile == "PDF формат (*.pdf)") {
                 printDocumentToPDF(pathToSave, textHTML);
             }
         }
     }
 }
-
-
-//=========================================================
-//
-//
-//          This code for styling theme application
-//          Warning! Many line code.
-//
-//
-//=========================================================
-
-//====================
-//
-// set black style
-//
-//====================
-
 
 void MainWindow::setBlackUI()
 {
@@ -1770,41 +1885,41 @@ void MainWindow::setBlackUI()
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
 
-    if (isLogin)
-    {
+    if (isLogin) {
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
 
     ui->searchLineEdit->setIconSearchButton(QIcon(":/img/blackMenuIcon/search.png"), QSize(12, 12));
-    ui->searchLineEdit->setIconClearButton(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"), QSize(12, 12));
+    ui->searchLineEdit->setIconClearButton(QIcon(":/img/whiteMenuIcon/clearLoginIco.png"),
+                                           QSize(12, 12));
 
     setCurrentIconAction();
 
-    switch (currentSelectTable)
-    {
-    case 0:
+    switch (currentSelectTable) {
+    case TableType::Students:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
         ui->studentsTableButton->setIcon(QIcon(":/img/blackMenuIcon/studentsIco.png"));
         break;
-    case 1:
+    case TableType::Teachers:
         ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
         ui->teachersTableButton->setIcon(QIcon(":/img/blackMenuIcon/teachersIco.png"));
         break;
-    case 2:
+    case TableType::Grades:
         ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/raitingIco.png"));
+        ui->gradesTableButton->setIcon(QIcon(":/img/blackMenuIcon/gradesIco.png"));
         break;
-    case 3:
+    case TableType::Groups:
         ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupIco.png"));
+        ui->groupsTableButton->setIcon(QIcon(":/img/blackMenuIcon/groupsIco.png"));
         break;
-    case 4:
+    case TableType::Subjects:
         ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectIco.png"));
+        ui->subjectsTableButton->setIcon(QIcon(":/img/blackMenuIcon/subjectsIco.png"));
+        break;
+    case None:
         break;
     }
 }
-
 
 //====================
 //
@@ -1829,87 +1944,90 @@ void MainWindow::setWhiteUI()
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
 
-    if (isLogin)
-    {
+    if (isLogin) {
         ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
     }
 
     ui->searchLineEdit->setIconSearchButton(QIcon(":/img/blackMenuIcon/search.png"), QSize(12, 12));
-    ui->searchLineEdit->setIconClearButton(QIcon(":/img/blackMenuIcon/clearLoginIco.png"), QSize(12, 12));
+    ui->searchLineEdit->setIconClearButton(QIcon(":/img/blackMenuIcon/clearLoginIco.png"),
+                                           QSize(12, 12));
 
     setCurrentIconAction();
 
-    switch (currentSelectTable)
-    {
-    case 0:
+    switch (currentSelectTable) {
+    case TableType::Students:
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
         ui->studentsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/studentsIco.png"));
         break;
-    case 1:
+    case TableType::Teachers:
         ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
         ui->teachersTableButton->setIcon(QIcon(":/img/whiteMenuIcon/teachersIco.png"));
         break;
-    case 2:
+    case TableType::Grades:
         ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->gradesTableButton->setIcon(QIcon(":/img/whiteMenuIcon/raitingIco.png"));
+        ui->gradesTableButton->setIcon(QIcon(":/img/whiteMenuIcon/gradesIco.png"));
         break;
-    case 3:
+    case TableType::Groups:
         ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupIco.png"));
+        ui->groupsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/groupsIco.png"));
         break;
-    case 4:
+    case TableType::Subjects:
         ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
-        ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectIco.png"));
+        ui->subjectsTableButton->setIcon(QIcon(":/img/whiteMenuIcon/subjectsIco.png"));
+        break;
+    case TableType::None:
         break;
     }
 }
-
 
 void MainWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         theme = "white";
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         theme = "black";
         setBlackUI();
     }
 }
 
-
 void MainWindow::setCurrentIconAction()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
     QString iconColor = newBase.name() == "#000000" ? "black" : "white";
 
     ui->openStudTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/studentsIco.png"));
     ui->openTeachTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/teachersIco.png"));
-    ui->openGradesTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/raitingIco.png"));
-    ui->openGroupTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/groupIco.png"));
-    ui->openSubjTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/subjectIco.png"));
+    ui->openGradesTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/gradesIco.png"));
+    ui->openGroupTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/groupsIco.png"));
+    ui->openSubjTabAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/subjectsIco.png"));
 
     ui->addRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/newRecord.png"));
     ui->deleteRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/deleteRecord.png"));
     ui->editRowAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/editRecord.png"));
 
-    ui->currentTableReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportCurrentTable.png"));
-    ui->studentsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportStudent.png"));
-    ui->teachersReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportTeachers.png"));
-    ui->gradesReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportRaiting.png"));
-    ui->groupsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportGroup.png"));
-    ui->subjectsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportItem.png"));
+    ui->currentTableReportAction->setIcon(
+        QIcon(":/img/" + iconColor + "ActionsIcon/reportCurrentTable.png"));
+    ui->studentsReportAction->setIcon(
+        QIcon(":/img/" + iconColor + "ActionsIcon/reportStudents.png"));
+    ui->teachersReportAction->setIcon(
+        QIcon(":/img/" + iconColor + "ActionsIcon/reportTeachers.png"));
+    ui->gradesReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportGrades.png"));
+    ui->groupsReportAction->setIcon(QIcon(":/img/" + iconColor + "ActionsIcon/reportGroups.png"));
+    ui->subjectsReportAction->setIcon(
+        QIcon(":/img/" + iconColor + "ActionsIcon/reportSubjects.png"));
 }
-
 
 //=========================================================
 //
@@ -1917,147 +2035,60 @@ void MainWindow::setCurrentIconAction()
 //
 //=========================================================
 
-void MainWindow::on_addRowAction_triggered()
+void MainWindow::openManual()
 {
-    on_addRowButton_clicked();
+    QDesktopServices::openUrl(
+        QUrl("https://gradify.online/Посібник_користувача.pdf", QUrl::TolerantMode));
 }
 
-
-void MainWindow::on_deleteRowAction_triggered()
-{
-    on_deleteRowButton_clicked();
-}
-
-
-void MainWindow::on_editRowAction_triggered()
-{
-    on_editRowButton_clicked();
-}
-
-
-void MainWindow::on_openStudTabAction_triggered()
-{
-    on_studentsTableButton_clicked();
-}
-
-
-void MainWindow::on_openTeachTabAction_triggered()
-{
-    on_teachersTableButton_clicked();
-}
-
-
-void MainWindow::on_openGradesTabAction_triggered()
-{
-    on_gradesTableButton_clicked();
-}
-
-
-void MainWindow::on_openGroupTabAction_triggered()
-{
-    on_groupsTableButton_clicked();
-}
-
-
-void MainWindow::on_openSubjTabAction_triggered()
-{
-    on_subjectsTableButton_clicked();
-}
-
-
-void MainWindow::on_openManual_triggered()
-{
-    QDesktopServices::openUrl(QUrl("https://gradify.online/Посібник_користувача.pdf", QUrl::TolerantMode));
-}
-
-
-void MainWindow::on_studentsReportAction_triggered()
-{
-    on_studentsReportButton_clicked();
-}
-
-
-void MainWindow::on_teachersReportAction_triggered()
-{
-    on_teachersReportButton_clicked();
-}
-
-
-void MainWindow::on_groupsReportAction_triggered()
-{
-    on_groupsReportButton_clicked();
-}
-
-
-void MainWindow::on_gradesReportAction_triggered()
-{
-    on_gradesReportButton_clicked();
-}
-
-
-void MainWindow::on_subjectsReportAction_triggered()
-{
-    on_subjectsReportButton_clicked();
-}
-
-
-void MainWindow::on_currentTableReportAction_triggered()
-{
-    on_currentTableReportButton_clicked();
-}
-
-
-void MainWindow::on_about_triggered()
+void MainWindow::openAboutWindow()
 {
     aboutAppWindow->show();
 }
 
-
-void MainWindow::on_statisticsButton_clicked()
+void MainWindow::openStatisticsWindow()
 {
     closeAllStatisticsForm();
 
-    switch (currentSelectTable)
-    {
-    case 0:
+    switch (currentSelectTable) {
+    case TableType::Students:
         studentStat->show();
         break;
-    case 1:
+    case TableType::Teachers:
         teacherStat->fillChart();
         teacherStat->show();
         break;
-    case 2:
+    case TableType::Grades:
         gradeStat->show();
         break;
-    case 3:
+    case TableType::Groups:
         groupStat->show();
         emit updateStatisticsComboBoxSignal();
         break;
-    case 4:
+    case TableType::Subjects:
         subjectStat->fillChart();
         subjectStat->show();
+        break;
+    case None:
         break;
     }
 
     emit updateStatisticsSignal();
 }
 
-QString MainWindow::modelDataToString(QAbstractItemModel* model)
+QString MainWindow::modelDataToString(QAbstractItemModel *model)
 {
     QString textData;
 
-    for (int col = 0; col < model->columnCount(); ++col)
-    {
+    for (int col = 0; col < model->columnCount(); ++col) {
         textData += model->headerData(col, Qt::Horizontal).toString() + ", ";
     }
     textData += "\n";
 
-    for (int row = 0; row < model->rowCount(); ++row)
-    {
-        for (int col = 0; col < model->columnCount(); ++col)
-        {
-                textData += model->data(model->index(row, col)).toString();
-                textData += ", ";
+    for (int row = 0; row < model->rowCount(); ++row) {
+        for (int col = 0; col < model->columnCount(); ++col) {
+            textData += model->data(model->index(row, col)).toString();
+            textData += ", ";
         }
         textData += "\n";
     }
@@ -2065,10 +2096,12 @@ QString MainWindow::modelDataToString(QAbstractItemModel* model)
     return textData;
 }
 
-void MainWindow::on_actionCSV_triggered()
+void MainWindow::exportDataToCSV()
 {
-    if (model->rowCount() == 0)
-    {
+    qDebug() << QString("exportDataToCSV");
+    return;
+
+    if (model->rowCount() == 0) {
         QMessageBox::information(this, "Помилка", "Оберіть таблицю для експорту");
         return;
     }
@@ -2076,22 +2109,23 @@ void MainWindow::on_actionCSV_triggered()
     QString pathToSave = QFileDialog::getSaveFileName(nullptr,
                                                       tr("Експорт файлу:"),
                                                       "/Users/" + qgetenv("USER") + "/Desktop",
-                                                      "CSV files (*.csv);;All files (*.*)", new QString("CSV file (*.csv)"));
+                                                      "CSV files (*.csv);;All files (*.*)",
+                                                      new QString("CSV file (*.csv)"));
 
     QFile csvFile(pathToSave + ".csv");
-    if(csvFile.open(QIODevice::WriteOnly)) {
-
+    if (csvFile.open(QIODevice::WriteOnly)) {
         QTextStream out(&csvFile);
         out << modelDataToString(model);
         csvFile.close();
     }
 }
 
-
-void MainWindow::on_actionTXT_triggered()
+void MainWindow::exportDataToTXT()
 {
-    if (model->rowCount() == 0)
-    {
+    qDebug() << QString("exportDataToTXT");
+    return;
+
+    if (model->rowCount() == 0) {
         QMessageBox::information(this, "Помилка", "Оберіть таблицю для експорту");
         return;
     }
@@ -2099,20 +2133,20 @@ void MainWindow::on_actionTXT_triggered()
     QString pathToSave = QFileDialog::getSaveFileName(nullptr,
                                                       tr("Експорт файлу:"),
                                                       "/Users/" + qgetenv("USER") + "/Desktop",
-                                                      "Text file (*.txt);;All files (*.*)", new QString("Text file (*.txt)"));
+                                                      "Text file (*.txt);;All files (*.*)",
+                                                      new QString("Text file (*.txt)"));
 
     QFile txtFile(pathToSave);
-    if (txtFile.open(QIODevice::WriteOnly))
-    {
+    if (txtFile.open(QIODevice::WriteOnly)) {
         QTextStream out(&txtFile);
         out << modelDataToString(model);
         txtFile.close();
     }
 }
 
-
 void MainWindow::on_actionEnglish_Translate_triggered()
 {
+    /*
     qDebug() << "Switching to English (United States)...";
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qDebug() << "Current locale:" << QLocale::system().name();
@@ -2123,12 +2157,12 @@ void MainWindow::on_actionEnglish_Translate_triggered()
     } else {
         qDebug() << "Failed to install translation.";
     }
+    */
 }
-
-
 
 void MainWindow::on_actionUkrainian_Translate_triggered()
 {
+    /*
     qDebug() << "Switching to Ukrainian (Ukraine)...";
     QLocale::setDefault(QLocale(QLocale::Ukrainian, QLocale::Ukraine));
     qDebug() << "Current locale:" << QLocale::system().name();
@@ -2139,5 +2173,5 @@ void MainWindow::on_actionUkrainian_Translate_triggered()
     } else {
         qDebug() << "Failed to install translation.";
     }
+    */
 }
-

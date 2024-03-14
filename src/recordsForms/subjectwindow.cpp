@@ -4,9 +4,9 @@
 #include <QFile>
 #include <QMessageBox>
 
-subjectWindow::subjectWindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::subjectWindow)
+subjectWindow::subjectWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::subjectWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -21,18 +21,19 @@ subjectWindow::subjectWindow(QWidget *parent) :
     ui->okLabel->setVisible(false);
     isNewRow = false;
 
-    connect(ui->lectureTimeSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
+    connect(ui->lectureTimeSpinBox,
+            &QSpinBox::valueChanged,
+            this,
+            &subjectWindow::setCurrentAllTime);
     connect(ui->labTimeSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
     connect(ui->seminarSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
     connect(ui->soloWorkSpinBox, &QSpinBox::valueChanged, this, &subjectWindow::setCurrentAllTime);
 }
 
-
 subjectWindow::~subjectWindow()
 {
     delete ui;
 }
-
 
 void subjectWindow::setBlackUI()
 {
@@ -43,7 +44,6 @@ void subjectWindow::setBlackUI()
     file.close();
 }
 
-
 void subjectWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/subjectIco.png"));
@@ -53,23 +53,20 @@ void subjectWindow::setWhiteUI()
     file.close();
 }
 
-
 void subjectWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void subjectWindow::setData(QString titleName, QStringList listData)
 {
@@ -77,7 +74,7 @@ void subjectWindow::setData(QString titleName, QStringList listData)
 
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
-    setWindowTitle("Редагування предмета (" + titleName +")");
+    setWindowTitle("Редагування предмета (" + titleName + ")");
 
     ui->nameLineEdit->setFocus();
 
@@ -95,7 +92,6 @@ void subjectWindow::setData(QString titleName, QStringList listData)
     ui->okLabel->setVisible(false);
 }
 
-
 void subjectWindow::setTeacherComboBox(const QStringList teacherList)
 {
     ui->teacherComboBox->clear();
@@ -104,23 +100,16 @@ void subjectWindow::setTeacherComboBox(const QStringList teacherList)
     ui->teacherComboBox->addItems(teacherList);
 }
 
-
 void subjectWindow::setTheme(const QString style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
-
 
 void subjectWindow::newRow()
 {
@@ -141,64 +130,45 @@ void subjectWindow::newRow()
     ui->controlComboBox->setCurrentIndex(0);
 }
 
-
 void subjectWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
-
 void subjectWindow::on_saveButton_clicked()
 {
-    if (not ui->nameLineEdit->text().isEmpty() and
-        ui->typeComboBox->currentIndex() not_eq 0 and
-        ui->teacherComboBox->currentIndex() not_eq 0 and
-        ui->controlComboBox->currentIndex() not_eq 0)
-    {
-        if (isNewRow)
-        {
+    if (not ui->nameLineEdit->text().isEmpty() and ui->typeComboBox->currentIndex() not_eq 0
+        and ui->teacherComboBox->currentIndex() not_eq 0
+        and ui->controlComboBox->currentIndex() not_eq 0) {
+        if (isNewRow) {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), true);
-        }
-        else
-        {
+        } else {
             ui->okLabel->setText("Запис збережено");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), false);
         }
-    }
-    else if (ui->nameLineEdit->text().isEmpty())
-    {
+    } else if (ui->nameLineEdit->text().isEmpty()) {
         ui->nameLineEdit->setFocus();
-        QMessageBox::critical(this,"","Введіть назву предмета");
-    }
-    else if (ui->typeComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Введіть назву предмета");
+    } else if (ui->typeComboBox->currentIndex() == 0) {
         ui->typeComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть тип предмету");
-    }
-    else if (ui->teacherComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть тип предмету");
+    } else if (ui->teacherComboBox->currentIndex() == 0) {
         ui->teacherComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть викладача предмету");
-    }
-    else if (ui->controlComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть викладача предмету");
+    } else if (ui->controlComboBox->currentIndex() == 0) {
         ui->controlComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть семестровий контроль з предмету");
+        QMessageBox::critical(this, "", "Оберіть семестровий контроль з предмету");
     }
 }
-
 
 void subjectWindow::setCurrentAllTime()
 {
-    ui->allTimeSpinBox->setValue(ui->lectureTimeSpinBox->value()
-                                 + ui->labTimeSpinBox->value()
-                                 + ui->seminarSpinBox->value()
-                                 + ui->soloWorkSpinBox->value());
+    ui->allTimeSpinBox->setValue(ui->lectureTimeSpinBox->value() + ui->labTimeSpinBox->value()
+                                 + ui->seminarSpinBox->value() + ui->soloWorkSpinBox->value());
 }
-
 
 QStringList subjectWindow::getCurrentData()
 {

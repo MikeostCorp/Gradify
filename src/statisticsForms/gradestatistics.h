@@ -1,10 +1,10 @@
 #ifndef GRADESTATISTICS_H
 #define GRADESTATISTICS_H
 
-#include <QWidget>
 #include <QChart>
 #include <QChartView>
 #include <QPieSeries>
+#include <QWidget>
 
 namespace Ui {
 class gradeStatistics;
@@ -43,7 +43,6 @@ private:
 
 public slots:
     void setTheme(const QString &style);
-
 };
 
 #endif // GRADESTATISTICS_H

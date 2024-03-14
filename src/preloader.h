@@ -1,8 +1,8 @@
 #ifndef PRELOADER_H
 #define PRELOADER_H
 
-#include <QWidget>
 #include <QGraphicsDropShadowEffect>
+#include <QWidget>
 
 #include <mainwindow.h>
 

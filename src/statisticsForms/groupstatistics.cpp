@@ -1,20 +1,20 @@
 #include "groupstatistics.h"
 #include "ui_groupstatistics.h"
 
-#include <QFile>
-#include <QChart>
-#include <QBarSet>
-#include <QBarSeries>
-#include <QChartView>
-#include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QChart>
+#include <QChartView>
+#include <QFile>
+#include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
-#include <QMessageBox>
+#include <QValueAxis>
 
-groupStatistics::groupStatistics(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::groupStatistics)
+groupStatistics::groupStatistics(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::groupStatistics)
 {
     ui->setupUi(this);
 
@@ -36,12 +36,10 @@ groupStatistics::groupStatistics(QWidget *parent) :
     clearPieChart();
 }
 
-
 groupStatistics::~groupStatistics()
 {
     delete ui;
 }
-
 
 void groupStatistics::setBlackUI()
 {
@@ -51,9 +49,8 @@ void groupStatistics::setBlackUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeDark);
-    chartView->chart()->setBackgroundBrush(QColor (49, 51, 52));
+    chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 }
-
 
 void groupStatistics::setWhiteUI()
 {
@@ -63,43 +60,34 @@ void groupStatistics::setWhiteUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeLight);
-    chartView->chart()->setBackgroundBrush(QColor (255, 255, 255));
+    chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 }
-
 
 void groupStatistics::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void groupStatistics::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
-
 
 void groupStatistics::setGroupComboBox()
 {
@@ -112,8 +100,7 @@ void groupStatistics::setGroupComboBox()
 
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         groupList.append(virtualTable->model()->index(row, 0).data().toString());
     }
 
@@ -123,22 +110,22 @@ void groupStatistics::setGroupComboBox()
     ui->groupComboBox->addItems(groupList);
 }
 
-
 void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
 {
     clearPieChart();
 
-    if (index > 0)
-    {
+    if (index > 0) {
         series->clear();
 
         QSqlQueryModel *virualQueryModel = new QSqlQueryModel();
         QTableView *virtualTable = new QTableView();
 
         virualQueryModel->setQuery("SELECT COUNT(*)"
-                                    "FROM `Студенти`"
-                                    "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'"
-                                    "GROUP BY `Студенти`.`Група`");
+                                   "FROM `Студенти`"
+                                   "WHERE `Студенти`.`Група` = '"
+                                   + ui->groupComboBox->currentText()
+                                   + "'"
+                                     "GROUP BY `Студенти`.`Група`");
         virtualTable->setModel(virualQueryModel);
         int countCurrentGroupStudent = virtualTable->model()->index(0, 0).data().toInt();
 
@@ -147,17 +134,15 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
         virtualTable->setModel(virualQueryModel);
         int allCountStudent = virtualTable->model()->index(0, 0).data().toInt();
 
-        if (allCountStudent not_eq 0 and countCurrentGroupStudent not_eq 0)
-        {
+        if (allCountStudent not_eq 0 and countCurrentGroupStudent not_eq 0) {
             series->append("Кількість студентів інших груп ["
                                + QString::number(allCountStudent - countCurrentGroupStudent) + "]",
-                               allCountStudent - countCurrentGroupStudent);
+                           allCountStudent - countCurrentGroupStudent);
 
-            series->append("Кількість студентів групи " + ui->groupComboBox->currentText()
-                           + "[" + QString::number(countCurrentGroupStudent) + "]", countCurrentGroupStudent);
-        }
-        else if (allCountStudent not_eq 0 )
-        {
+            series->append("Кількість студентів групи " + ui->groupComboBox->currentText() + "["
+                               + QString::number(countCurrentGroupStudent) + "]",
+                           countCurrentGroupStudent);
+        } else if (allCountStudent not_eq 0) {
             series->append("Загальна кількість студентів", allCountStudent);
         }
 
@@ -165,11 +150,9 @@ void groupStatistics::on_groupComboBox_currentIndexChanged(int index)
     }
 }
 
-
 void groupStatistics::clearPieChart()
 {
     setWindowTitle("Статистика груп");
     series->clear();
     series->append("Приклад", 1);
 }
-

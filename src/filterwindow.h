@@ -1,20 +1,20 @@
-#ifndef FILTERFORM_H
-#define FILTERFORM_H
+#ifndef FILTERWINDOW_H
+#define FILTERWINDOW_H
 
-#include <QWidget>
 #include <QGraphicsDropShadowEffect>
+#include <QWidget>
 
 namespace Ui {
-class filterForm;
+class FilterWindow;
 }
 
-class filterForm : public QWidget
+class FilterWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit filterForm(QWidget *parent = nullptr);
-    ~filterForm();
+    explicit FilterWindow(QWidget *parent = nullptr);
+    ~FilterWindow();
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
@@ -33,7 +33,7 @@ private slots:
     QGraphicsDropShadowEffect *paintDropRedShadowEffect();
 
 private:
-    Ui::filterForm *ui;
+    Ui::FilterWindow *ui;
 
     QString currentTabelSelect;
     QString currentPlaceHolderText;
@@ -50,4 +50,4 @@ signals:
     void clearFilter();
 };
 
-#endif // FILTERFORM_H
+#endif // FILTERWINDOW_H

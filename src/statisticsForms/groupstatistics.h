@@ -1,10 +1,10 @@
 #ifndef GROUPSTATISTICS_H
 #define GROUPSTATISTICS_H
 
-#include <QWidget>
 #include <QChart>
 #include <QChartView>
 #include <QPieSeries>
+#include <QWidget>
 
 namespace Ui {
 class groupStatistics;
@@ -37,7 +37,6 @@ private:
 public slots:
     void setTheme(const QString &style);
     void setGroupComboBox();
-
 };
 
 #endif // GROUPSTATISTICS_H

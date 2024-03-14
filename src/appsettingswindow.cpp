@@ -1,13 +1,13 @@
-#include "appsetting.h"
-#include "ui_appsetting.h"
+#include "appsettingswindow.h"
+#include "ui_appsettingswindow.h"
 
-#include <mainwindow.h>
 #include <QDir>
 #include <QMessageBox>
+#include <mainwindow.h>
 
-appSetting::appSetting(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::appSetting)
+AppSettingsWindow::AppSettingsWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::AppSettingsWindow)
 {
     ui->setupUi(this);
     setWindowTitle("Налаштування");
@@ -20,71 +20,62 @@ appSetting::appSetting(QWidget *parent) :
 
     ui->succSaveSettings->setVisible(false);
 
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
-    if (settingsConfig.contains("hostname") and
-        settingsConfig.contains("username") and
-        settingsConfig.contains("password") and
-        settingsConfig.contains("databasename"))
-    {
-        ui->dbhostnameLineEdit->setText(settingsConfig.value("hostname").toString());
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
+    if (settingsConfig.contains("url") and settingsConfig.contains("username")
+        and settingsConfig.contains("password") and settingsConfig.contains("databasename")) {
+        ui->dburlLineEdit->setText(settingsConfig.value("url").toString());
         ui->dbloginLineEdit->setText(settingsConfig.value("username").toString());
         ui->dbpasswordLineEdit->setText(settingsConfig.value("password").toString());
         ui->dbnameLineEdit->setText(settingsConfig.value("databasename").toString());
     }
 }
 
-appSetting::~appSetting()
+AppSettingsWindow::~AppSettingsWindow()
 {
     delete ui;
 }
 
-
-void appSetting::changeEvent(QEvent *event)
+void AppSettingsWindow::changeEvent(QEvent *event)
 {
     QWidget::changeEvent(event);
-    if (event->type() == QEvent::ActivationChange)
-    {
-        if (not isActiveWindow())
-        {
+    if (event->type() == QEvent::ActivationChange) {
+        if (not isActiveWindow()) {
             ui->succSaveSettings->setVisible(false);
         }
     }
 }
 
-
-void appSetting::setBlackUI()
+void AppSettingsWindow::setBlackUI()
 {
-    QFile file(":/styles/black/appSetting/appSetting.qss");
+    QFile file(":/styles/black/AppSettingsWindow/AppSettingsWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
     ui->selectBlackUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::setWhiteUI()
+void AppSettingsWindow::setWhiteUI()
 {
-    QFile file(":/styles/white/appSetting/appSetting.qss");
+    QFile file(":/styles/white/AppSettingsWindow/AppSettingsWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
     ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::setSystemUI()
+void AppSettingsWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
         emit changeThemeApp("white");
-    }
-    else
-    {
+    } else {
         setBlackUI();
         emit changeThemeApp("black");
     }
@@ -92,95 +83,80 @@ void appSetting::setSystemUI()
     ui->selectSystemUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::on_selectWhiteUIButton_clicked()
+void AppSettingsWindow::on_selectWhiteUIButton_clicked()
 {
     emit changeThemeApp("white");
     setWhiteUI();
     ui->selectWhiteUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::on_selectBlackUIButton_clicked()
+void AppSettingsWindow::on_selectBlackUIButton_clicked()
 {
     emit changeThemeApp("black");
     setBlackUI();
     ui->selectBlackUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::on_selectWhiteUIRadioButton_clicked()
+void AppSettingsWindow::on_selectWhiteUIRadioButton_clicked()
 {
     emit changeThemeApp("white");
     setWhiteUI();
 }
 
-
-void appSetting::on_selectBlackUIRadioButton_clicked()
+void AppSettingsWindow::on_selectBlackUIRadioButton_clicked()
 {
     emit changeThemeApp("black");
     setBlackUI();
 }
 
-
-void appSetting::on_selectSystemUIButton_clicked()
+void AppSettingsWindow::on_selectSystemUIButton_clicked()
 {
     setSystemUI();
     ui->selectSystemUIRadioButton->setChecked(true);
 }
 
-
-void appSetting::on_selectSystemUIRadioButton_clicked()
+void AppSettingsWindow::on_selectSystemUIRadioButton_clicked()
 {
     setSystemUI();
 }
 
-
-void appSetting::setTheme(const QString &style)
+void AppSettingsWindow::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
 
-void appSetting::on_saveDBSettings_clicked()
+void AppSettingsWindow::on_saveDBSettings_clicked()
 {
-    if (ui->dbhostnameLineEdit->text().isEmpty())
-    {
-        QMessageBox::information(this, "Хост", "Введіть хост!");
-        ui->dbhostnameLineEdit->setFocus();
+    if (ui->dburlLineEdit->text().isEmpty()) {
+        QMessageBox::information(this, "URL", "Введіть URL бази даних!");
+        ui->dburlLineEdit->setFocus();
         return;
     }
-    if (ui->dbloginLineEdit->text().isEmpty())
-    {
+    if (ui->dbloginLineEdit->text().isEmpty()) {
         QMessageBox::information(this, "Логін", "Введіть логін!");
         ui->dbloginLineEdit->setFocus();
         return;
     }
-    if (ui->dbpasswordLineEdit->text().isEmpty())
-    {
+    if (ui->dbpasswordLineEdit->text().isEmpty()) {
         QMessageBox::information(this, "Пароль", "Введіть пароль!");
         ui->dbpasswordLineEdit->setFocus();
         return;
     }
-    if (ui->dbnameLineEdit->text().isEmpty())
-    {
+    if (ui->dbnameLineEdit->text().isEmpty()) {
         QMessageBox::information(this, "Назва БД", "Введіть назву БД!");
         ui->dbnameLineEdit->setFocus();
         return;
     }
 
-    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
-    settingsConfig.setValue("hostname", ui->dbhostnameLineEdit->text());
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
+    settingsConfig.setValue("url", ui->dburlLineEdit->text());
     settingsConfig.setValue("username", ui->dbloginLineEdit->text());
     settingsConfig.setValue("password", ui->dbpasswordLineEdit->text());
     settingsConfig.setValue("databasename", ui->dbnameLineEdit->text());
@@ -189,4 +165,3 @@ void appSetting::on_saveDBSettings_clicked()
 
     emit logoutSignal();
 }
-

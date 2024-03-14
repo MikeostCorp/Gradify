@@ -1,5 +1,5 @@
-#ifndef ABOUTAPP_H
-#define ABOUTAPP_H
+#ifndef ABOUTAPPWINDOW_H
+#define ABOUTAPPWINDOW_H
 
 #include <QWidget>
 
@@ -7,13 +7,13 @@ namespace Ui {
 class aboutApp;
 }
 
-class aboutApp : public QWidget
+class AboutAppWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit aboutApp(QWidget *parent = nullptr);
-    ~aboutApp();
+    explicit AboutAppWindow(QWidget *parent = nullptr);
+    ~AboutAppWindow();
     void changeEvent(QEvent *event) override;
 
 private slots:
@@ -26,7 +26,6 @@ private:
 
 public slots:
     void setTheme(const QString &style);
-
 };
 
-#endif // ABOUTAPP_H
+#endif // ABOUTAPPWINDOW_H

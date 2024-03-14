@@ -1,12 +1,11 @@
 #ifndef TEACHERSTATISTICS_H
 #define TEACHERSTATISTICS_H
 
-#include <QWidget>
 #include <QChart>
 #include <QChartView>
 #include <QPieSeries>
 #include <QTableView>
-#include <QSqlQueryModel>
+#include <QWidget>
 
 namespace Ui {
 class teacherStatistics;
@@ -31,9 +30,9 @@ private slots:
 private:
     Ui::teacherStatistics *ui;
 
-    QChartView* chartView;
-    QChart* chart;
-    QPieSeries* series;
+    QChartView *chartView;
+    QChart *chart;
+    QPieSeries *series;
 
 public slots:
     void setTheme(const QString &style);

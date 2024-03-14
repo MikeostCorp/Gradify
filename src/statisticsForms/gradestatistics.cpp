@@ -1,20 +1,20 @@
 #include "gradestatistics.h"
 #include "ui_gradestatistics.h"
 
-#include <QFile>
-#include <QChart>
-#include <QBarSeries>
-#include <QChartView>
-#include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QChart>
+#include <QChartView>
+#include <QFile>
 #include <QMessageBox>
 #include <QPieSeries>
-#include <QTableView>
 #include <QSqlQueryModel>
+#include <QTableView>
+#include <QValueAxis>
 
-gradeStatistics::gradeStatistics(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::gradeStatistics)
+gradeStatistics::gradeStatistics(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::gradeStatistics)
 {
     ui->setupUi(this);
 
@@ -48,7 +48,6 @@ gradeStatistics::~gradeStatistics()
     delete ui;
 }
 
-
 void gradeStatistics::setBlackUI()
 {
     QFile file(":/styles/black/statisticsForms/statisticsForms.qss");
@@ -57,9 +56,8 @@ void gradeStatistics::setBlackUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeDark);
-    chartView->chart()->setBackgroundBrush(QColor (49, 51, 52));
+    chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 }
-
 
 void gradeStatistics::setWhiteUI()
 {
@@ -69,26 +67,23 @@ void gradeStatistics::setWhiteUI()
     file.close();
 
     chartView->chart()->setTheme(QChart::ChartThemeLight);
-    chartView->chart()->setBackgroundBrush(QColor (255, 255, 255));
+    chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 }
-
 
 void gradeStatistics::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void gradeStatistics::updateTeacherComboBox()
 {
@@ -101,11 +96,11 @@ void gradeStatistics::updateTeacherComboBox()
 
     virualQueryModel->setQuery("SELECT `Прізвище`, `Ім\'я`, `По батькові`"
                                "FROM `Викладачі`"
-                               "WHERE `Викладачі`.`Категорія` = '" + ui->categoryComboBox->currentText() + "'");
+                               "WHERE `Викладачі`.`Категорія` = '"
+                               + ui->categoryComboBox->currentText() + "'");
     virtualTable->setModel(virualQueryModel);
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
         teacherList.append(virtualTable->model()->index(row, 0).data().toString() + " "
                            + virtualTable->model()->index(row, 1).data().toString() + " "
                            + virtualTable->model()->index(row, 2).data().toString());
@@ -117,14 +112,12 @@ void gradeStatistics::updateTeacherComboBox()
     ui->teacherComboBox->addItems(teacherList);
 }
 
-
 void gradeStatistics::clearTeacherComboBox()
 {
     setWindowTitle("Статистика оцінок");
     ui->teacherComboBox->clear();
     ui->teacherComboBox->addItem("Оберіть викладача");
 }
-
 
 void gradeStatistics::clearSubjectComboBox()
 {
@@ -133,7 +126,6 @@ void gradeStatistics::clearSubjectComboBox()
     ui->subjectComboBox->addItem("Оберіть предмет");
 }
 
-
 void gradeStatistics::clearPieChart()
 {
     setWindowTitle("Статистика оцінок");
@@ -141,50 +133,36 @@ void gradeStatistics::clearPieChart()
     series->append("Приклад", 1);
 }
 
-
 void gradeStatistics::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
 
-
 void gradeStatistics::on_categoryComboBox_currentIndexChanged(int index)
 {
-    if (index == 0)
-    {
+    if (index == 0) {
         ui->teacherComboBox->setEnabled(false);
         ui->subjectComboBox->setEnabled(false);
 
         clearTeacherComboBox();
         clearSubjectComboBox();
-    }
-    else if (index > 0)
-    {
+    } else if (index > 0) {
         updateTeacherComboBox();
     }
 }
 
-
 void gradeStatistics::on_teacherComboBox_currentIndexChanged(int index)
 {
-    if (index == 0)
-    {
+    if (index == 0) {
         ui->subjectComboBox->setEnabled(false);
         clearSubjectComboBox();
-    }
-    else if (index > 0)
-    {
+    } else if (index > 0) {
         ui->subjectComboBox->setEnabled(true);
 
         QStringList subjectList;
@@ -193,19 +171,15 @@ void gradeStatistics::on_teacherComboBox_currentIndexChanged(int index)
 
         virualQueryModel->setQuery("SELECT `Назва`"
                                    "FROM `Предмети`"
-                                   "WHERE `Предмети`.`Викладач` = '" + ui->teacherComboBox->currentText() + "'");
+                                   "WHERE `Предмети`.`Викладач` = '"
+                                   + ui->teacherComboBox->currentText() + "'");
         virtualTable->setModel(virualQueryModel);
 
-
-        if (virualQueryModel->rowCount() == 0)
-        {
+        if (virualQueryModel->rowCount() == 0) {
             ui->subjectComboBox->clear();
             ui->subjectComboBox->addItem("Немає предметів");
-        }
-        else
-        {
-            for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-            {
+        } else {
+            for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
                 subjectList.append(virtualTable->model()->index(row, 0).data().toString());
             }
 
@@ -217,58 +191,56 @@ void gradeStatistics::on_teacherComboBox_currentIndexChanged(int index)
     }
 }
 
-
 void gradeStatistics::on_subjectComboBox_currentIndexChanged(int index)
 {
-    if (index == 0)
-    {
+    if (index == 0) {
         clearPieChart();
-    }
-    else if (index > 0)
-    {
+    } else if (index > 0) {
         series->clear();
         setWindowTitle("Статистика оцінок - (" + ui->subjectComboBox->currentText() + ")");
 
         QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
         QTableView *virtualTable = new QTableView(this);
 
-        for (int i = 2; i <= 5; i++)
-        {
+        for (int i = 2; i <= 5; i++) {
             virualQueryModel->setQuery("SELECT COUNT(`Оцінка`)"
                                        "FROM `Оцінки`"
-                                       "WHERE `Оцінки`.`Предмет` = '" + ui->subjectComboBox->currentText() + "'"
-                                         "AND `Оцінки`.`Оцінка` = '" + QString::number(i) + "'"
-                                       "GROUP BY `Оцінки`.`Оцінка`");
+                                       "WHERE `Оцінки`.`Предмет` = '"
+                                       + ui->subjectComboBox->currentText()
+                                       + "'"
+                                         "AND `Оцінки`.`Оцінка` = '"
+                                       + QString::number(i)
+                                       + "'"
+                                         "GROUP BY `Оцінки`.`Оцінка`");
             virtualTable->setModel(virualQueryModel);
 
-            switch (i)
-            {
+            switch (i) {
             case 2:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
-                {
-                    series->append("Незадовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                                                          virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                    series->append("Незадовільно ["
+                                       + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                   virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 3:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
-                {
-                    series->append("Задовільно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                                                        virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                    series->append("Задовільно ["
+                                       + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                   virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 4:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
-                {
-                    series->append("Добре [" + virtualTable->model()->index(0, 0).data().toString() + "]",
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                    series->append("Добре [" + virtualTable->model()->index(0, 0).data().toString()
+                                       + "]",
                                    virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 5:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL)
-                {
-                    series->append("Відмінно [" + virtualTable->model()->index(0, 0).data().toString() + "]",
-                                    virtualTable->model()->index(0, 0).data().toInt());
+                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                    series->append("Відмінно ["
+                                       + virtualTable->model()->index(0, 0).data().toString() + "]",
+                                   virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             }
@@ -277,4 +249,3 @@ void gradeStatistics::on_subjectComboBox_currentIndexChanged(int index)
         series->setLabelsVisible(true);
     }
 }
-

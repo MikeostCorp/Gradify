@@ -1,4 +1,4 @@
-appSetting
+AppSettingsWindow
 {
     background-color: rgb(29, 31, 32);
 }
@@ -26,7 +26,7 @@ QLabel#labelSeeUI,
 QLabel#dataBaseText,
 QLabel#accountText,
 QLabel#dbname,
-QLabel#dbhostname,
+QLabel#dburl,
 QLabel#dblogin,
 QLabel#dbpassword,
 QLabel#accountText_2,
@@ -42,7 +42,7 @@ QLabel#succSaveSettings
     color: lime;
 }
 
-QLineEdit#dbhostnameLineEdit,
+QLineEdit#dburlLineEdit,
 QLineEdit#dbloginLineEdit,
 QLineEdit#dbpasswordLineEdit,
 QLineEdit#dbnameLineEdit,
@@ -59,7 +59,7 @@ QLineEdit#accountLideEdit_4
     border-radius: 8px;
 }
 
-QLineEdit#dbhostnameLineEdit:focus,
+QLineEdit#dburlLineEdit:focus,
 QLineEdit#dbloginLineEdit:focus,
 QLineEdit#dbpasswordLineEdit:focus,
 QLineEdit#dbnameLineEdit:focus,

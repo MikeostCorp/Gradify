@@ -1,13 +1,13 @@
 #include "preloader.h"
 #include "ui_preloader.h"
 
+#include <QGraphicsDropShadowEffect>
 #include <QTime>
 #include <QTimer>
-#include <QGraphicsDropShadowEffect>
 
-preloader::preloader(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::preloader)
+preloader::preloader(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::preloader)
 {
     ui->setupUi(this);
 
@@ -36,20 +36,15 @@ preloader::preloader(QWidget *parent) :
 
     connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
 
-    QTimer::singleShot(1000, [this]
-    {
+    QTimer::singleShot(1000, [this] {
         ui->loadStatusLabel->setText("<strong>LOADING</strong> database connection");
     });
 
-    QTimer::singleShot(1850, [this]
-    {
+    QTimer::singleShot(1850, [this] {
         ui->loadStatusLabel->setText("<strong>LOADING</strong> application styles");
     });
 
-    QTimer::singleShot(2300, [this]
-    {
-        ui->loadLabel->setText("start!");
-    });
+    QTimer::singleShot(2300, [this] { ui->loadLabel->setText("start!"); });
 
     QFile file(":/styles/other/preloader/preloader.qss");
     file.open(QFile::ReadOnly);
@@ -57,26 +52,19 @@ preloader::preloader(QWidget *parent) :
     file.close();
 }
 
-
 preloader::~preloader()
 {
     delete ui;
 }
 
-
-
 void preloader::updateProgressBar()
 {
-
-    if (ui->progressBar->value() < 100)
-    {
+    if (ui->progressBar->value() < 100) {
         ui->progressBar->setValue(ui->progressBar->value() + 1);
-    }
-    else
-    {
+    } else {
         mainMenu = new MainWindow;
         mainMenu->show();
-        delete(timer);
+        delete (timer);
         close();
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>filterForm</class>
- <widget class="QWidget" name="filterForm">
+ <class>FilterWindow</class>
+ <widget class="QWidget" name="FilterWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

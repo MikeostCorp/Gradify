@@ -24,8 +24,6 @@ public slots:
 
 signals:
     void buttonClicked();
-
 };
 
 #endif // QLINEEDITWITHBUTTON_H
-

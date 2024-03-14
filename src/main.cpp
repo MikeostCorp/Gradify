@@ -9,6 +9,7 @@
 #include "preloader.h"
 
 #include <QApplication>
+#include <DatabaseHandler/databasehandler.h>
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     preloader window;
     window.show();
     return app.exec();
+
 #else
     qDebug() << "This application is designed specifically for macOS and is optimized for its use. "
                 "Please make sure you have it installed on your macOS computer for future use.";

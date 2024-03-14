@@ -1,17 +1,17 @@
 #include "subjectstatistics.h"
 #include "ui_subjectstatistics.h"
 
-#include <QFile>
-#include <QChart>
-#include <QBarSet>
-#include <QBarSeries>
-#include <QChartView>
-#include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QChart>
+#include <QChartView>
+#include <QFile>
+#include <QValueAxis>
 
-subjectStatistics::subjectStatistics(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::subjectStatistics)
+subjectStatistics::subjectStatistics(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::subjectStatistics)
 {
     ui->setupUi(this);
     setWindowTitle("Статистика предметів по типам");
@@ -32,7 +32,6 @@ subjectStatistics::subjectStatistics(QWidget *parent) :
     ui->specialChart->addWidget(chartView);
 }
 
-
 subjectStatistics::~subjectStatistics()
 {
     delete ui;
@@ -40,14 +39,14 @@ subjectStatistics::~subjectStatistics()
 
 void subjectStatistics::closeEvent(QCloseEvent *event)
 {
-    if (event->Close)
-    {
+    if (event->Close) {
         series->clear();
     }
 }
 
 void subjectStatistics::fillChart()
 {
+    /*
     QSqlQueryModel *virtualQueryModel = new QSqlQueryModel();
     QTableView *virtualTableView = new QTableView();
 
@@ -57,12 +56,12 @@ void subjectStatistics::fillChart()
 
     virtualTableView->setModel(virtualQueryModel);
 
-    for (int row = 0; row < virtualTableView->model()->rowCount(); ++row)
-    {
+    for (int row = 0; row < virtualTableView->model()->rowCount(); ++row) {
         series->append(virtualTableView->model()->index(row, 0).data().toString(),
                        virtualTableView->model()->index(row, 1).data().toInt());
     }
     series->setLabelsVisible(true);
+    */
 }
 
 void subjectStatistics::setBlackUI()
@@ -76,7 +75,6 @@ void subjectStatistics::setBlackUI()
     chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 }
 
-
 void subjectStatistics::setWhiteUI()
 {
     QFile file(":/styles/white/statisticsForms/statisticsForms.qss");
@@ -88,36 +86,28 @@ void subjectStatistics::setWhiteUI()
     chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 }
 
-
 void subjectStatistics::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
 
-
 void subjectStatistics::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }

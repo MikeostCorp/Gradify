@@ -2,13 +2,13 @@
 #include "ui_gradewindow.h"
 
 #include <QFile>
-#include <QTableView>
 #include <QMessageBox>
 #include <QSqlQueryModel>
+#include <QTableView>
 
-gradeWindow::gradeWindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::gradeWindow)
+gradeWindow::gradeWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::gradeWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -23,12 +23,10 @@ gradeWindow::gradeWindow(QWidget *parent) :
     isNewRow = false;
 }
 
-
 gradeWindow::~gradeWindow()
 {
     delete ui;
 }
-
 
 void gradeWindow::setBlackUI()
 {
@@ -39,7 +37,6 @@ void gradeWindow::setBlackUI()
     file.close();
 }
 
-
 void gradeWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/raitingIco.png"));
@@ -49,23 +46,20 @@ void gradeWindow::setWhiteUI()
     file.close();
 }
 
-
 void gradeWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void gradeWindow::setData(QString titleName, QStringList listData)
 {
@@ -74,7 +68,7 @@ void gradeWindow::setData(QString titleName, QStringList listData)
 
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
-    setWindowTitle("Редагування оцінки (" + titleName +")");
+    setWindowTitle("Редагування оцінки (" + titleName + ")");
 
     ui->gradeSpinBox->setFocus();
     ui->subjectComboBox->setCurrentText(listData[1]);
@@ -93,9 +87,9 @@ void gradeWindow::setData(QString titleName, QStringList listData)
 
     QString queryMy = "SELECT `Група`"
                       "\nFROM `Студенти`"
-                      "\nWHERE `Студенти`.`Прізвище` = '" + FIOStr[0] + "'" +
-                      " AND `Студенти`.`Ім\'я` = '" + FIOStr[1] + "'" +
-                      " AND `Студенти`.`По батькові` = '" + FIOStr[2] + "'";
+                      "\nWHERE `Студенти`.`Прізвище` = '"
+                      + FIOStr[0] + "'" + " AND `Студенти`.`Ім\'я` = '" + FIOStr[1] + "'"
+                      + " AND `Студенти`.`По батькові` = '" + FIOStr[2] + "'";
 
     queryModel->setQuery(queryMy);
     tableView->setModel(queryModel);
@@ -109,7 +103,6 @@ void gradeWindow::setData(QString titleName, QStringList listData)
     ui->okLabel->setVisible(false);
 }
 
-
 void gradeWindow::setDataStudentComboBox(const QStringList list)
 {
     ui->whoTakeComboBox->clear();
@@ -117,8 +110,6 @@ void gradeWindow::setDataStudentComboBox(const QStringList list)
     ui->whoTakeComboBox->insertSeparator(1);
     ui->whoTakeComboBox->addItems(list);
 }
-
-
 
 void gradeWindow::setDataSubjectComboBox(const QStringList list)
 {
@@ -128,23 +119,16 @@ void gradeWindow::setDataSubjectComboBox(const QStringList list)
     ui->subjectComboBox->addItems(list);
 }
 
-
 void gradeWindow::setTheme(const QString style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
-
 
 void gradeWindow::newRow()
 {
@@ -160,17 +144,15 @@ void gradeWindow::newRow()
     ui->gradeSpinBox->setValue(2);
     ui->typeGradeComboBox->setCurrentIndex(0);
     ui->takeDateEdit->setDate(QDate::currentDate());
-    QString::number(ui->takeDateEdit->date().year()) + "." +
-                    QString::number(ui->takeDateEdit->date().month()) + "." +
-                    QString::number(ui->takeDateEdit->date().day()) + ".";
+    QString::number(ui->takeDateEdit->date().year()) + "."
+        + QString::number(ui->takeDateEdit->date().month()) + "."
+        + QString::number(ui->takeDateEdit->date().day()) + ".";
 }
-
 
 void gradeWindow::on_cancelButton_clicked()
 {
     this->close();
 }
-
 
 QString gradeWindow::reverseDate(QString str)
 {
@@ -190,7 +172,6 @@ QString gradeWindow::reverseDate(QString str)
     return newStrDate;
 }
 
-
 QStringList gradeWindow::getCurrentData()
 {
     QStringList dataList;
@@ -200,66 +181,48 @@ QStringList gradeWindow::getCurrentData()
     dataList << ui->whoTakeComboBox->currentText();
     dataList << QString::number(ui->gradeSpinBox->value());
     dataList << ui->typeGradeComboBox->currentText();
-    dataList << QString::number(ui->takeDateEdit->date().year()) + "." +
-                    QString::number(ui->takeDateEdit->date().month()) + "." +
-                    QString::number(ui->takeDateEdit->date().day()) + ".";
+    dataList << QString::number(ui->takeDateEdit->date().year()) + "."
+                    + QString::number(ui->takeDateEdit->date().month()) + "."
+                    + QString::number(ui->takeDateEdit->date().day()) + ".";
 
     return dataList;
-
 }
-
 
 void gradeWindow::on_saveButton_clicked()
 {
-    if (ui->subjectComboBox->currentIndex() not_eq 0 and
-        ui->whoTakeComboBox->currentIndex() not_eq 0 and
-        ui->typeGradeComboBox->currentIndex() not_eq 0)
-    {
-        if (isNewRow)
-        {
+    if (ui->subjectComboBox->currentIndex() not_eq 0
+        and ui->whoTakeComboBox->currentIndex() not_eq 0
+        and ui->typeGradeComboBox->currentIndex() not_eq 0) {
+        if (isNewRow) {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), true);
-        }
-        else
-        {
+        } else {
             ui->okLabel->setText("Запис збережено");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), false);
         }
-    }
-    else if (ui->subjectComboBox->currentIndex() == 0)
-    {
+    } else if (ui->subjectComboBox->currentIndex() == 0) {
         ui->subjectComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть з якого предмету оцінка");
-    }
-    else if (ui->groupComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть з якого предмету оцінка");
+    } else if (ui->groupComboBox->currentIndex() == 0) {
         ui->groupComboBox->setFocus();
-        QMessageBox::critical(this,"","Для вибору отримувача оберіть спочатку його групу");
-    }
-    else if (ui->whoTakeComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Для вибору отримувача оберіть спочатку його групу");
+    } else if (ui->whoTakeComboBox->currentIndex() == 0) {
         ui->whoTakeComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть хто отримав оцінку");
-    }
-    else if (ui->typeGradeComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть хто отримав оцінку");
+    } else if (ui->typeGradeComboBox->currentIndex() == 0) {
         ui->typeGradeComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть тип оцінки");
+        QMessageBox::critical(this, "", "Оберіть тип оцінки");
     }
 }
 
-
 void gradeWindow::on_groupComboBox_currentIndexChanged(int index)
 {
-    if (index == 0)
-    {
+    if (index == 0) {
         ui->whoTakeComboBox->setCurrentIndex(0);
         ui->whoTakeComboBox->setEnabled(false);
-    }
-    else
-    {
+    } else {
         ui->whoTakeComboBox->setEnabled(true);
 
         QStringList studentList;
@@ -268,21 +231,19 @@ void gradeWindow::on_groupComboBox_currentIndexChanged(int index)
 
         queryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
                              "FROM `Студенти`"
-                             "WHERE `Студенти`.`Група` = '" + ui->groupComboBox->currentText() + "'");
+                             "WHERE `Студенти`.`Група` = '"
+                             + ui->groupComboBox->currentText() + "'");
         tableView->setModel(queryModel);
 
-        for (int row = 0; row < queryModel->rowCount(); ++row)
-        {
-            studentList.append(tableView->model()->index(row, 0).data().toString() + " " +
-                               tableView->model()->index(row, 1).data().toString() + " " +
-                               tableView->model()->index(row, 2).data().toString());
+        for (int row = 0; row < queryModel->rowCount(); ++row) {
+            studentList.append(tableView->model()->index(row, 0).data().toString() + " "
+                               + tableView->model()->index(row, 1).data().toString() + " "
+                               + tableView->model()->index(row, 2).data().toString());
         }
 
         setDataStudentComboBox(studentList);
-
     }
 }
-
 
 void gradeWindow::setGroupComboBox()
 {
@@ -298,12 +259,9 @@ void gradeWindow::setGroupComboBox()
                          "FROM `Групи`");
     tableView->setModel(queryModel);
 
-    for (int row = 0; row < queryModel->rowCount(); ++row)
-    {
+    for (int row = 0; row < queryModel->rowCount(); ++row) {
         listGroup.append(tableView->model()->index(row, 0).data().toString());
     }
 
     ui->groupComboBox->addItems(listGroup);
 }
-
-

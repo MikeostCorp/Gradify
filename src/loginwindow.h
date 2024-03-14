@@ -1,23 +1,22 @@
-#ifndef AUTHORIZATIONFORM_H
-#define AUTHORIZATIONFORM_H
+#ifndef LOGINWINDOW_H
+#define LOGINWINDOW_H
 
-#include <QWidget>
-#include <QSqlDatabase>
 #include <QFile>
-#include "customWidgets/qlineeditwithbutton.h"
 #include <QSettings>
+#include <QWidget>
+#include "customWidgets/qlineeditwithbutton.h"
 
 namespace Ui {
-class authorizationForm;
+class LoginWindow;
 }
 
-class authorizationForm : public QWidget
+class LoginWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit authorizationForm(QWidget *parent = nullptr);
-    ~authorizationForm();
+    explicit LoginWindow(QWidget *parent = nullptr);
+    ~LoginWindow();
 
 private slots:
     void setBlackUI();
@@ -35,9 +34,7 @@ private slots:
     void on_loginButton_clicked();
 
 private:
-    Ui::authorizationForm *ui;
-
-    QSqlDatabase authorizationDB;
+    Ui::LoginWindow *ui;
 
     bool isPasswordHidden;
 
@@ -51,4 +48,4 @@ signals:
     void signalLogin(const QString);
 };
 
-#endif // AUTHORIZATIONFORM_H
+#endif // LOGINWINDOW_H

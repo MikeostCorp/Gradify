@@ -127,7 +127,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/raitingIco.png</normaloff>:/img/blueMenuIcon/raitingIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/gradesIco.png</normaloff>:/img/blueMenuIcon/gradesIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -293,7 +293,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/groupIco.png</normaloff>:/img/blueMenuIcon/groupIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/groupsIco.png</normaloff>:/img/blueMenuIcon/groupsIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -318,7 +318,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string> Авторизація</string>
+           <string>Вхід</string>
           </property>
           <property name="icon">
            <iconset>
@@ -369,7 +369,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/blueMenuIcon/subjectIco.png</normaloff>:/img/blueMenuIcon/subjectIco.png</iconset>
+            <normaloff>:/img/blueMenuIcon/subjectsIco.png</normaloff>:/img/blueMenuIcon/subjectsIco.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -438,7 +438,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportItem.png</normaloff>:/img/reportsIcon/reportItem.png</iconset>
+            <normaloff>:/img/reportsIcon/reportSubjects.png</normaloff>:/img/reportsIcon/reportSubjects.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -532,7 +532,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportRaiting.png</normaloff>:/img/reportsIcon/reportRaiting.png</iconset>
+            <normaloff>:/img/reportsIcon/reportGrades.png</normaloff>:/img/reportsIcon/reportGrades.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -579,7 +579,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportGroup.png</normaloff>:/img/reportsIcon/reportGroup.png</iconset>
+            <normaloff>:/img/reportsIcon/reportGroups.png</normaloff>:/img/reportsIcon/reportGroups.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -626,7 +626,7 @@
           </property>
           <property name="icon">
            <iconset resource="recources.qrc">
-            <normaloff>:/img/reportsIcon/reportStudent.png</normaloff>:/img/reportsIcon/reportStudent.png</iconset>
+            <normaloff>:/img/reportsIcon/reportStudents.png</normaloff>:/img/reportsIcon/reportStudents.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -718,7 +718,7 @@
          </property>
          <property name="icon">
           <iconset resource="recources.qrc">
-           <normaloff>:/img/blueMenuIcon/settingIco.png</normaloff>:/img/blueMenuIcon/settingIco.png</iconset>
+           <normaloff>:/img/blueMenuIcon/settingsIco.png</normaloff>:/img/blueMenuIcon/settingsIco.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1112,43 +1112,13 @@
           </widget>
          </item>
          <item>
-          <widget class="QTableView" name="tableView">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>5</horstretch>
-             <verstretch>12</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="mouseTracking">
-            <bool>true</bool>
-           </property>
-           <property name="tabletTracking">
-            <bool>true</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
+          <widget class="QTableWidget" name="tableWidget">
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="tabKeyNavigation">
-            <bool>true</bool>
            </property>
            <property name="sortingEnabled">
             <bool>true</bool>
            </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-           <property name="cornerButtonEnabled">
-            <bool>true</bool>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>20</number>
-           </attribute>
           </widget>
          </item>
         </layout>
@@ -1171,11 +1141,11 @@
     <property name="title">
      <string>Перегляд</string>
     </property>
-    <addaction name="openStudTabAction"/>
     <addaction name="openTeachTabAction"/>
+    <addaction name="openSubjTabAction"/>
+    <addaction name="openStudTabAction"/>
     <addaction name="openGradesTabAction"/>
     <addaction name="openGroupTabAction"/>
-    <addaction name="openSubjTabAction"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuReport">
@@ -1183,11 +1153,11 @@
      <string>Звіти</string>
     </property>
     <addaction name="currentTableReportAction"/>
-    <addaction name="studentsReportAction"/>
     <addaction name="teachersReportAction"/>
+    <addaction name="subjectsReportAction"/>
+    <addaction name="studentsReportAction"/>
     <addaction name="gradesReportAction"/>
     <addaction name="groupsReportAction"/>
-    <addaction name="subjectsReportAction"/>
    </widget>
    <widget class="QMenu" name="menuManual">
     <property name="title">
@@ -1221,8 +1191,8 @@
      <string>Редагування</string>
     </property>
     <addaction name="addRowAction"/>
-    <addaction name="deleteRowAction"/>
     <addaction name="editRowAction"/>
+    <addaction name="deleteRowAction"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menuGeneral"/>
@@ -1261,7 +1231,7 @@
     <string>Відкрити таблицю &quot;Студенти&quot;</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+1</string>
+    <string>Ctrl+Alt+3</string>
    </property>
   </action>
   <action name="openTeachTabAction">
@@ -1269,7 +1239,7 @@
     <string>Відкрити таблицю &quot;Викладачі&quot;</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+2</string>
+    <string>Ctrl+Alt+1</string>
    </property>
   </action>
   <action name="openGradesTabAction">
@@ -1277,7 +1247,7 @@
     <string>Відкрити таблицю &quot;Оцінки&quot;</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+3</string>
+    <string>Ctrl+Alt+4</string>
    </property>
   </action>
   <action name="openGroupTabAction">
@@ -1288,7 +1258,7 @@
     <string>Відкрити таблицю &quot;Групи&quot;</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+4</string>
+    <string>Ctrl+Alt+5</string>
    </property>
   </action>
   <action name="openSubjTabAction">
@@ -1296,7 +1266,7 @@
     <string>Відкрити таблицю &quot;Предмети&quot;</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+5</string>
+    <string>Ctrl+Alt+2</string>
    </property>
   </action>
   <action name="openManual">
@@ -1315,7 +1285,7 @@
     <string>Звіт по студентам</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Ctrl+2</string>
+    <string>Meta+Ctrl+4</string>
    </property>
   </action>
   <action name="teachersReportAction">
@@ -1323,7 +1293,7 @@
     <string>Звіт по викладачам</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Ctrl+3</string>
+    <string>Meta+Ctrl+2</string>
    </property>
   </action>
   <action name="gradesReportAction">
@@ -1331,7 +1301,7 @@
     <string>Звіт по оцінкам</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Ctrl+4</string>
+    <string>Meta+Ctrl+5</string>
    </property>
   </action>
   <action name="groupsReportAction">
@@ -1339,7 +1309,7 @@
     <string>Звіт по групам</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Ctrl+5</string>
+    <string>Meta+Ctrl+6</string>
    </property>
   </action>
   <action name="subjectsReportAction">
@@ -1347,7 +1317,7 @@
     <string>Звіт по предметам</string>
    </property>
    <property name="shortcut">
-    <string>Meta+Ctrl+6</string>
+    <string>Meta+Ctrl+3</string>
    </property>
   </action>
   <action name="currentTableReportAction">

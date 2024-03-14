@@ -1,12 +1,12 @@
-#include "filterform.h"
-#include "ui_filterform.h"
+#include "filterwindow.h"
+#include "ui_filterwindow.h"
 
 #include <QMessageBox>
 #include <QRegularExpression>
 
-filterForm::filterForm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::filterForm)
+FilterWindow::FilterWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::FilterWindow)
 {
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint, true);
@@ -23,28 +23,20 @@ filterForm::filterForm(QWidget *parent) :
     close();
 }
 
-
-filterForm::~filterForm()
+FilterWindow::~FilterWindow()
 {
     delete ui;
 }
 
-
-bool filterForm::eventFilter(QObject *obj, QEvent *event)
+bool FilterWindow::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::FocusIn)
-    {
-        if (ui->conditionComboBox->hasFocus())
-        {
+    if (event->type() == QEvent::FocusIn) {
+        if (ui->conditionComboBox->hasFocus()) {
             ui->conditionComboBox->setGraphicsEffect(paintDropRedShadowEffect());
-        }
-        else if (ui->tableComboBox->hasFocus())
-        {
+        } else if (ui->tableComboBox->hasFocus()) {
             ui->tableComboBox->setGraphicsEffect(paintDropRedShadowEffect());
         }
-    }
-    else if (event->type() == QEvent::FocusOut and not hasFocus())
-    {
+    } else if (event->type() == QEvent::FocusOut and not hasFocus()) {
         ui->conditionComboBox->setGraphicsEffect(nullptr);
         ui->tableComboBox->setGraphicsEffect(nullptr);
     }
@@ -52,8 +44,7 @@ bool filterForm::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
-
-void filterForm::setListTable(const QMap<QString, QString> colsNameAndType)
+void FilterWindow::setListTable(const QMap<QString, QString> colsNameAndType)
 {
     ui->clearFilterPushButton->setEnabled(false);
     ui->conditionComboBox->setEnabled(false);
@@ -74,53 +65,40 @@ void filterForm::setListTable(const QMap<QString, QString> colsNameAndType)
     ui->conditionLineEdit->setValidator(nullptr);
 }
 
-
-void filterForm::on_filterPushButton_clicked()
+void FilterWindow::on_filterPushButton_clicked()
 {
-    if (ui->tableComboBox->currentIndex() > 0
-        and ui->conditionComboBox->currentIndex() > 0
-        and not ui->conditionLineEdit->text().isEmpty()
-        and currentPlaceHolderText not_eq "Дата")
-    {
+    if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0
+        and not ui->conditionLineEdit->text().isEmpty() and currentPlaceHolderText not_eq "Дата") {
         strSqlFilter = "`" + ui->tableComboBox->currentText() + "` ";
 
-        if (currentPlaceHolderText == "Число")
-        {
-            if (ui->conditionComboBox->currentText() not_eq "between")
-            {
-                strSqlFilter += ui->conditionComboBox->currentText() + " " + ui->conditionLineEdit->text();
-            }
-            else if (ui->conditionComboBox->currentText() == "between" and not ui->conditionLineEdit_2->text().isEmpty()
-                     and ui->conditionLineEdit->text().toInt() < ui->conditionLineEdit_2->text().toInt())
-            {
-                strSqlFilter += "BETWEEN " + ui->conditionLineEdit->text() + " AND " + ui->conditionLineEdit_2->text();
-            }
-            else if (ui->conditionComboBox->currentText() == "between" and ui->conditionLineEdit_2->text().isEmpty())
-            {
+        if (currentPlaceHolderText == "Число") {
+            if (ui->conditionComboBox->currentText() not_eq "between") {
+                strSqlFilter += ui->conditionComboBox->currentText() + " "
+                                + ui->conditionLineEdit->text();
+            } else if (ui->conditionComboBox->currentText() == "between"
+                       and not ui->conditionLineEdit_2->text().isEmpty()
+                       and ui->conditionLineEdit->text().toInt()
+                               < ui->conditionLineEdit_2->text().toInt()) {
+                strSqlFilter += "BETWEEN " + ui->conditionLineEdit->text() + " AND "
+                                + ui->conditionLineEdit_2->text();
+            } else if (ui->conditionComboBox->currentText() == "between"
+                       and ui->conditionLineEdit_2->text().isEmpty()) {
                 QMessageBox::critical(this, "", "Введіть значення умови фільтрування!");
                 ui->conditionLineEdit_2->setFocus();
                 return;
-            }
-            else if (ui->conditionComboBox->currentText() == "between"
-                     and ui->conditionLineEdit->text().toInt() >= ui->conditionLineEdit_2->text().toInt())
-            {
+            } else if (ui->conditionComboBox->currentText() == "between"
+                       and ui->conditionLineEdit->text().toInt()
+                               >= ui->conditionLineEdit_2->text().toInt()) {
                 QMessageBox::critical(this, "", "Перше значення повине бути меншим за друге!");
                 ui->conditionLineEdit->setFocus();
                 return;
             }
-        }
-        else if (currentPlaceHolderText == "Текст")
-        {
-            if (ui->conditionComboBox->currentText() == "like%")
-            {
+        } else if (currentPlaceHolderText == "Текст") {
+            if (ui->conditionComboBox->currentText() == "like%") {
                 strSqlFilter += "LIKE '" + ui->conditionLineEdit->text() + "%'";
-            }
-            else if (ui->conditionComboBox->currentText() == "%like")
-            {
+            } else if (ui->conditionComboBox->currentText() == "%like") {
                 strSqlFilter += "LIKE '%" + ui->conditionLineEdit->text() + "'";
-            }
-            else if (ui->conditionComboBox->currentText() == "%like%")
-            {
+            } else if (ui->conditionComboBox->currentText() == "%like%") {
                 strSqlFilter += "LIKE '%" + ui->conditionLineEdit->text() + "%'";
             }
         }
@@ -129,47 +107,37 @@ void filterForm::on_filterPushButton_clicked()
         ui->clearFilterPushButton->setEnabled(true);
     }
 
-    else if (ui->tableComboBox->currentIndex() > 0
-             and ui->conditionComboBox->currentIndex() > 0
-             and currentPlaceHolderText == "Дата")
-    {
-        strSqlFilter = "`" + ui->tableComboBox->currentText() + "` " +
-                       ui->conditionComboBox->currentText()
-                       + " '" + QString::number(ui->conditionDataEdit->date().year()) + "-"
+    else if (ui->tableComboBox->currentIndex() > 0 and ui->conditionComboBox->currentIndex() > 0
+             and currentPlaceHolderText == "Дата") {
+        strSqlFilter = "`" + ui->tableComboBox->currentText() + "` "
+                       + ui->conditionComboBox->currentText() + " '"
+                       + QString::number(ui->conditionDataEdit->date().year()) + "-"
                        + QString::number(ui->conditionDataEdit->date().month()) + "-"
                        + QString::number(ui->conditionDataEdit->date().day()) + "'";
 
         emit sendFilter(strSqlFilter, ui->tableComboBox->currentText());
         ui->clearFilterPushButton->setEnabled(true);
         show();
-    }
-    else if (ui->tableComboBox->currentIndex() == 0)
-    {
+    } else if (ui->tableComboBox->currentIndex() == 0) {
         QMessageBox::critical(this, "", "Оберіть потрібну колонку!");
         ui->tableComboBox->setFocus();
         show();
-    }
-    else if (ui->conditionComboBox->currentIndex() == 0)
-    {
+    } else if (ui->conditionComboBox->currentIndex() == 0) {
         QMessageBox::critical(this, "", "Оберіть умову!");
         ui->conditionComboBox->setFocus();
         show();
-    }
-    else
-    {
+    } else {
         QMessageBox::critical(this, "", "Введіть значення умови фільтрування");
         ui->conditionLineEdit->setFocus();
         show();
     }
 }
 
-
-void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
+void FilterWindow::on_conditionComboBox_currentTextChanged(const QString &arg1)
 {
     ui->conditionComboBox->clearFocus();
 
-    if (ui->conditionComboBox->currentText() == "between" and currentPlaceHolderText not_eq "Дата")
-    {
+    if (ui->conditionComboBox->currentText() == "between" and currentPlaceHolderText not_eq "Дата") {
         ui->conditionLineEdit_2->setVisible(true);
 
         ui->conditionLineEdit->setPlaceholderText("1");
@@ -181,15 +149,12 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
         ui->conditionLineEdit->resize(ui->conditionLineEdit->height() + 18,
                                       ui->conditionLineEdit->height());
 
-        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 46,
-                                      ui->conditionLineEdit->y());
+        ui->conditionLineEdit_2->move(ui->conditionLineEdit->x() + 46, ui->conditionLineEdit->y());
 
         ui->conditionLineEdit_2->resize(ui->conditionLineEdit->height() + 18,
                                         ui->conditionLineEdit->height());
 
-    }
-    else if (currentPlaceHolderText not_eq "Дата")
-    {
+    } else if (currentPlaceHolderText not_eq "Дата") {
         ui->conditionComboBox->resize(QSize(160, 21));
         ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
         ui->conditionLineEdit->resize(70, ui->conditionLineEdit->height());
@@ -199,39 +164,32 @@ void filterForm::on_conditionComboBox_currentTextChanged(const QString &arg1)
     }
 }
 
-
-void filterForm::on_conditionLineEdit_editingFinished()
+void FilterWindow::on_conditionLineEdit_editingFinished()
 {
     ui->conditionLineEdit->clearFocus();
 }
 
-
-void filterForm::on_tableComboBox_currentTextChanged(const QString &arg1)
+void FilterWindow::on_tableComboBox_currentTextChanged(const QString &arg1)
 {
     ui->tableComboBox->clearFocus();
 
-    if ((typeColumnsMap.value(arg1) == "text" or typeColumnsMap.value(arg1) == "set") and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
-    {
+    if ((typeColumnsMap.value(arg1) == "text" or typeColumnsMap.value(arg1) == "set")
+        and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1)) {
         setStringTypeComboBox();
-    }
-    else if (typeColumnsMap.value(arg1) == "int" and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
-    {
+    } else if (typeColumnsMap.value(arg1) == "int"
+               and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1)) {
         setIntTypeComboBox();
-    }
-    else if (typeColumnsMap.value(arg1) == "date" and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1))
-    {
+    } else if (typeColumnsMap.value(arg1) == "date"
+               and typeColumnsMap.value(oldColumnSelect) not_eq typeColumnsMap.value(arg1)) {
         setDateTypeComboBox();
-    }
-    else if (ui->tableComboBox->currentIndex() == 0)
-    {
+    } else if (ui->tableComboBox->currentIndex() == 0) {
         setDisabledComboBox();
     }
 
     oldColumnSelect = arg1;
 }
 
-
-void filterForm::setIntTypeComboBox()
+void FilterWindow::setIntTypeComboBox()
 {
     ui->conditionComboBox->setEnabled(true);
     ui->conditionComboBox->clear();
@@ -250,12 +208,9 @@ void filterForm::setIntTypeComboBox()
     currentPlaceHolderText = "Число";
     ui->conditionLineEdit->setPlaceholderText(currentPlaceHolderText);
 
-    if (not ui->conditionLineEdit->text().toInt())
-    {
+    if (not ui->conditionLineEdit->text().toInt()) {
         ui->conditionLineEdit->clear();
-    }
-    else if (not ui->conditionLineEdit_2->text().toInt())
-    {
+    } else if (not ui->conditionLineEdit_2->text().toInt()) {
         ui->conditionLineEdit_2->clear();
     }
 
@@ -268,8 +223,7 @@ void filterForm::setIntTypeComboBox()
     ui->conditionLineEdit->resize(QSize(70, 21));
 }
 
-
-void filterForm::setStringTypeComboBox()
+void FilterWindow::setStringTypeComboBox()
 {
     ui->conditionComboBox->setEnabled(true);
     ui->conditionComboBox->clear();
@@ -294,8 +248,7 @@ void filterForm::setStringTypeComboBox()
     ui->conditionLineEdit->resize(QSize(70, 21));
 }
 
-
-void filterForm::setDateTypeComboBox()
+void FilterWindow::setDateTypeComboBox()
 {
     ui->conditionComboBox->setEnabled(true);
     ui->conditionComboBox->clear();
@@ -318,8 +271,7 @@ void filterForm::setDateTypeComboBox()
     ui->conditionComboBox->resize(QSize(150, 21));
 }
 
-
-void filterForm::setDisabledComboBox()
+void FilterWindow::setDisabledComboBox()
 {
     ui->conditionComboBox->setEnabled(false);
     ui->conditionComboBox->setCurrentIndex(0);
@@ -328,8 +280,7 @@ void filterForm::setDisabledComboBox()
     ui->conditionLineEdit_2->clear();
 }
 
-
-QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
+QGraphicsDropShadowEffect *FilterWindow::paintDropRedShadowEffect()
 {
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(this);
     effect->setBlurRadius(25);
@@ -338,10 +289,8 @@ QGraphicsDropShadowEffect *filterForm::paintDropRedShadowEffect()
     return effect;
 }
 
-
-void filterForm::on_clearFilterPushButton_clicked()
+void FilterWindow::on_clearFilterPushButton_clicked()
 {
     ui->clearFilterPushButton->setEnabled(false);
     emit clearFilter();
 }
-

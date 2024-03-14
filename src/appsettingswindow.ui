@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>appSetting</class>
- <widget class="QWidget" name="appSetting">
+ <class>AppSettingsWindow</class>
+ <widget class="QWidget" name="AppSettingsWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -476,7 +476,7 @@ border-radius: 8px;
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Назва БД&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dbhostname">
+        <widget class="QLabel" name="dburl">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -495,7 +495,7 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Хост (ip)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;URL бази даних&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
         <widget class="QLabel" name="dblogin">
@@ -542,7 +542,7 @@ border-radius: 8px;
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbhostnameLineEdit">
+        <widget class="QLineEdit" name="dburlLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>

@@ -1,22 +1,22 @@
-#ifndef APPSETTING_H
-#define APPSETTING_H
+#ifndef APPSETTINGSWINDOW_H
+#define APPSETTINGSWINDOW_H
 
-#include <QWidget>
-#include <QFile>
 #include <QByteArray>
+#include <QFile>
 #include <QSettings>
+#include <QWidget>
 
 namespace Ui {
-class appSetting;
+class AppSettingsWindow;
 }
 
-class appSetting : public QWidget
+class AppSettingsWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit appSetting(QWidget *parent = nullptr);
-    ~appSetting();
+    explicit AppSettingsWindow(QWidget *parent = nullptr);
+    ~AppSettingsWindow();
     void changeEvent(QEvent *event) override;
 
 private slots:
@@ -33,7 +33,7 @@ private slots:
     void on_saveDBSettings_clicked();
 
 private:
-    Ui::appSetting *ui;
+    Ui::AppSettingsWindow *ui;
 
 signals:
     void changeThemeApp(const QString);
@@ -41,7 +41,6 @@ signals:
 
 public slots:
     void setTheme(const QString &style);
-
 };
 
-#endif // APPSETTING_H
+#endif // APPSETTINGSWINDOW_H

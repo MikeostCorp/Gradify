@@ -1,5 +1,5 @@
-#ifndef QUERYFORM_H
-#define QUERYFORM_H
+#ifndef QUERYWINDOW_H
+#define QUERYWINDOW_H
 
 #include <QWidget>
 
@@ -7,13 +7,13 @@ namespace Ui {
 class queryForm;
 }
 
-class queryForm : public QWidget
+class QueryWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit queryForm(QWidget *parent = nullptr);
-    ~queryForm();
+    explicit QueryWindow(QWidget *parent = nullptr);
+    ~QueryWindow();
 
 private slots:
     void on_mySQLPushButton_clicked();
@@ -38,4 +38,4 @@ signals:
     void clearFilter();
 };
 
-#endif // QUERYFORM_H
+#endif // QUERYWINDOW_H

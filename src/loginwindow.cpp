@@ -1,26 +1,40 @@
-#include "authorizationform.h"
-#include "ui_authorizationform.h"
+#include "loginwindow.h"
+#include "ui_loginwindow.h"
 
 #include <QMessageBox>
-#include <QSqlQueryModel>
 #include <QTableView>
 
-authorizationForm::authorizationForm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::authorizationForm)
+LoginWindow::LoginWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("Авторизація");
+    setWindowTitle("Вхід");
     setFixedSize(width(), height());
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 
     connect(ui->loginLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLineLogin(bool)));
-    connect(ui->loginLineEdit, &QLineEdit::returnPressed, this, &authorizationForm::startAuthozation);
-    connect(ui->loginLineEdit, &QLineEditWithButton::buttonClicked, this, &authorizationForm::loginClearButtonCliked);
+    connect(ui->loginLineEdit,
+            &QLineEdit::returnPressed,
+            this,
+            &LoginWindow::startAuthozation);
+    connect(ui->loginLineEdit,
+            &QLineEditWithButton::buttonClicked,
+            this,
+            &LoginWindow::loginClearButtonCliked);
 
-    connect(ui->passwordLineEdit, SIGNAL(QLineEdit::focusInEvent), this, SLOT(clearLinePassword(bool)));
-    connect(ui->passwordLineEdit, &QLineEdit::returnPressed, this, &authorizationForm::startAuthozation);
-    connect(ui->passwordLineEdit, &QLineEditWithButton::buttonClicked, this, &authorizationForm::passwordVisibilityButtonClicked);
+    connect(ui->passwordLineEdit,
+            SIGNAL(QLineEdit::focusInEvent),
+            this,
+            SLOT(clearLinePassword(bool)));
+    connect(ui->passwordLineEdit,
+            &QLineEdit::returnPressed,
+            this,
+            &LoginWindow::startAuthozation);
+    connect(ui->passwordLineEdit,
+            &QLineEditWithButton::buttonClicked,
+            this,
+            &LoginWindow::passwordVisibilityButtonClicked);
 
     show();
     close();
@@ -31,94 +45,75 @@ authorizationForm::authorizationForm(QWidget *parent) :
     ui->passwordLineEdit->setPlaceholderText("Пароль");
 }
 
-
-authorizationForm::~authorizationForm()
+LoginWindow::~LoginWindow()
 {
     delete ui;
 }
 
-
-void authorizationForm::startAuthozation()
+void LoginWindow::startAuthozation()
 {
     on_loginButton_clicked();
 }
 
-
-void authorizationForm::on_forgotPasswordButton_clicked()
+void LoginWindow::on_forgotPasswordButton_clicked()
 {
-    QMessageBox::information(this, "Увага", "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
-                                            "\nsupport@gradify.online");
+    QMessageBox::information(this,
+                             "Увага",
+                             "У випадку якщо ви забулі пароль або логін зверніться по пошті:"
+                             "\nsupport@gradify.online");
 }
 
-
-void authorizationForm::loginClearButtonCliked()
+void LoginWindow::loginClearButtonCliked()
 {
     ui->loginLineEdit->clear();
 }
 
-
-void authorizationForm::passwordVisibilityButtonClicked()
+void LoginWindow::passwordVisibilityButtonClicked()
 {
-    if (not isPasswordHidden)
-    {
+    if (not isPasswordHidden) {
         isPasswordHidden = true;
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
-        if (styleType == "white")
-        {
+        if (styleType == "white") {
             ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/noWatchPass.png"));
-        }
-        else
-        {
+        } else {
             ui->passwordLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/noWatchPass.png"));
         }
-    }
-    else
-    {
+    } else {
         isPasswordHidden = false;
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
-        if (styleType == "white")
-        {
+        if (styleType == "white") {
             ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/watchPass.png"));
-        }
-        else
-        {
+        } else {
             ui->passwordLineEdit->setIconButton(QIcon(":/img/whiteMenuIcon/watchPass.png"));
         }
     }
 }
 
-
-void authorizationForm::setTheme(const QString &style)
+void LoginWindow::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         styleType = "black";
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         styleType = "white";
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
 
-
-void authorizationForm::on_loginButton_clicked()
+void LoginWindow::on_loginButton_clicked()
 {
-    if (ui->loginLineEdit->text().isEmpty())
-    {
+    // TEST!!!
+    QString login = ui->loginLineEdit->text();
+    emit signalLogin(login);
+    close();
+    /*
+    if (ui->loginLineEdit->text().isEmpty()) {
         ui->loginLineEdit->setFocus();
-    }
-    else if (ui->passwordLineEdit->text().isEmpty())
-    {
+    } else if (ui->passwordLineEdit->text().isEmpty()) {
         ui->passwordLineEdit->setFocus();
-    }
-    else
-    {
+    } else {
         authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
         // https://gradify.online/
         authorizationDB.setHostName("141.136.44.252");
@@ -126,8 +121,7 @@ void authorizationForm::on_loginButton_clicked()
         authorizationDB.setPassword("P433w0rD!");
         authorizationDB.setDatabaseName("accounts_db");
 
-        if (not authorizationDB.open())
-        {
+        if (not authorizationDB.open()) {
             QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
             return;
         }
@@ -139,26 +133,27 @@ void authorizationForm::on_loginButton_clicked()
         QTableView *tableView = new QTableView(this);
         queryModel->setQuery("SELECT * "
                              "FROM Акаунти "
-                             "WHERE Логін = '" + login + "'"
-                             " AND Пароль = '" + password + "'");
+                             "WHERE Логін = '"
+                             + login
+                             + "'"
+                               " AND Пароль = '"
+                             + password + "'");
 
         tableView->setModel(queryModel);
 
-        if (tableView->model()->rowCount() > 0)
-        {
+        if (tableView->model()->rowCount() > 0) {
             ui->loginLineEdit->clear();
             ui->passwordLineEdit->clear();
             ui->loginLineEdit->setFocus();
             ui->authorizationErrorLabel->setVisible(false);
 
-            if (ui->rememberCheckBox->isChecked())
-            {
-                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+            if (ui->rememberCheckBox->isChecked()) {
+                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                                         QSettings::IniFormat);
                 settingsConfig.setValue("userlogin", login);
-            }
-            else
-            {
-                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf", QSettings::IniFormat);
+            } else {
+                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                                         QSettings::IniFormat);
                 settingsConfig.remove("userlogin");
             }
 
@@ -166,18 +161,16 @@ void authorizationForm::on_loginButton_clicked()
             QSqlDatabase::removeDatabase(authorizationDB.connectionName());
             emit signalLogin(login);
             close();
-        }
-        else
-        {
+        } else {
             ui->authorizationErrorLabel->setVisible(true);
         }
     }
+    */
 }
 
-
-void authorizationForm::setBlackUI()
+void LoginWindow::setBlackUI()
 {
-    QFile file(":/styles/black/authorizationForm/authorizationForm.qss");
+    QFile file(":/styles/black/LoginWindow/LoginWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
@@ -194,10 +187,9 @@ void authorizationForm::setBlackUI()
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
-
-void authorizationForm::setWhiteUI()
+void LoginWindow::setWhiteUI()
 {
-    QFile file(":/styles/white/authorizationForm/authorizationForm.qss");
+    QFile file(":/styles/white/LoginWindow/LoginWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
@@ -210,27 +202,23 @@ void authorizationForm::setWhiteUI()
     ui->loginLineEdit->setIconSize(QSize(13, 13));
 
     ui->passwordLineEdit->setIconButton(QIcon(":/img/blackMenuIcon/watchPass.png"));
-    ui->passwordLineEdit->setIconSize(QSize(16, 16)  );
+    ui->passwordLineEdit->setIconSize(QSize(16, 16));
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
-
-void authorizationForm::setSystemUI()
+void LoginWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         styleType = "white";
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         styleType = "black";
         setBlackUI();
     }
 }
-
-

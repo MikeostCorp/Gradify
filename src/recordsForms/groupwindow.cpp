@@ -6,9 +6,9 @@
 #include <QSqlQueryModel>
 #include <QTableView>
 
-groupWindow::groupWindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::groupWindow)
+groupWindow::groupWindow(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::groupWindow)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -23,12 +23,10 @@ groupWindow::groupWindow(QWidget *parent) :
     isNewRow = false;
 }
 
-
 groupWindow::~groupWindow()
 {
     delete ui;
 }
-
 
 void groupWindow::setBlackUI()
 {
@@ -39,7 +37,6 @@ void groupWindow::setBlackUI()
     file.close();
 }
 
-
 void groupWindow::setWhiteUI()
 {
     ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/groupIco.png"));
@@ -49,23 +46,20 @@ void groupWindow::setWhiteUI()
     file.close();
 }
 
-
 void groupWindow::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
-
 
 void groupWindow::setData(QString titleName, QStringList listData)
 {
@@ -73,7 +67,7 @@ void groupWindow::setData(QString titleName, QStringList listData)
 
     idRowEdit = listData[0].toInt();
     titleName.remove(0, titleName.indexOf('.') + 2);
-    setWindowTitle("Редагування групи (" + titleName +")");
+    setWindowTitle("Редагування групи (" + titleName + ")");
 
     ui->nameLineEdit->setFocus();
 
@@ -87,7 +81,6 @@ void groupWindow::setData(QString titleName, QStringList listData)
     ui->okLabel->setVisible(false);
 }
 
-
 void groupWindow::setDataCuratorComboBox(const QStringList list)
 {
     ui->curatorComboBox->clear();
@@ -95,7 +88,6 @@ void groupWindow::setDataCuratorComboBox(const QStringList list)
     ui->curatorComboBox->insertSeparator(1);
     ui->curatorComboBox->addItems(list);
 }
-
 
 void groupWindow::setDataHeadManComboBox(QString group)
 {
@@ -111,41 +103,32 @@ void groupWindow::setDataHeadManComboBox(QString group)
 
     virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
                                "FROM `Студенти`"
-                               "WHERE `Студенти`.`Група` = '" + group + "'");
+                               "WHERE `Студенти`.`Група` = '"
+                               + group + "'");
 
-    if (virualQueryModel->rowCount() <= 0 )
-    {
+    if (virualQueryModel->rowCount() <= 0) {
         ui->headManComboBox->addItem("Студентів поки що нема");
         ui->headManComboBox->setCurrentIndex(2);
-    }
-    else
-    {
+    } else {
         virtualTable->setModel(virualQueryModel);
 
-        for (int row = 0; row < virualQueryModel->rowCount(); ++row)
-        {
-            studentList.append(virtualTable->model()->index(row, 0).data().toString() + " " +
-                               virtualTable->model()->index(row, 1).data().toString() + " " +
-                               virtualTable->model()->index(row, 2).data().toString());
+        for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
+            studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
+                               + virtualTable->model()->index(row, 1).data().toString() + " "
+                               + virtualTable->model()->index(row, 2).data().toString());
         }
 
         ui->headManComboBox->addItems(studentList);
     }
 }
 
-
 void groupWindow::setTheme(const QString style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }
@@ -165,61 +148,44 @@ void groupWindow::newRow()
     ui->headManComboBox->setCurrentIndex(0);
 }
 
-
 void groupWindow::on_cancelButton_clicked()
 {
     this->close();
 }
 
-
 void groupWindow::on_saveButton_clicked()
 {
-    if (not ui->nameLineEdit->text().isEmpty() and
-        ui->specialComboBox->currentIndex() not_eq 0 and
-        ui->curatorComboBox->currentIndex() not_eq 0 and
-        ui->headManComboBox->currentIndex() not_eq 0)
-    {
-        if (isNewRow)
-        {
+    if (not ui->nameLineEdit->text().isEmpty() and ui->specialComboBox->currentIndex() not_eq 0
+        and ui->curatorComboBox->currentIndex() not_eq 0
+        and ui->headManComboBox->currentIndex() not_eq 0) {
+        if (isNewRow) {
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), true);
-        }
-        else
-        {
+        } else {
             ui->okLabel->setText("Запис збережено");
             ui->okLabel->setVisible(true);
             emit sendData(getCurrentData(), false);
         }
-    }
-    else if (ui->nameLineEdit->text().isEmpty())
-    {
+    } else if (ui->nameLineEdit->text().isEmpty()) {
         ui->nameLineEdit->setFocus();
-        QMessageBox::critical(this,"","Введіть назву групи");
-    }
-    else if (ui->specialComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Введіть назву групи");
+    } else if (ui->specialComboBox->currentIndex() == 0) {
         ui->specialComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть спеціальність групи");
-    }
-    else if (ui->curatorComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть спеціальність групи");
+    } else if (ui->curatorComboBox->currentIndex() == 0) {
         ui->curatorComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть куратора групи");
-    }
-    else if (ui->headManComboBox->currentIndex() == 0)
-    {
+        QMessageBox::critical(this, "", "Оберіть куратора групи");
+    } else if (ui->headManComboBox->currentIndex() == 0) {
         ui->headManComboBox->setFocus();
-        QMessageBox::critical(this,"","Оберіть старосту групи");
+        QMessageBox::critical(this, "", "Оберіть старосту групи");
     }
 }
-
 
 void groupWindow::on_startStudySpinBox_valueChanged(int arg1)
 {
     ui->endStudySpinBox->setMinimum(arg1 + 1);
 }
-
 
 QStringList groupWindow::getCurrentData()
 {
@@ -235,4 +201,3 @@ QStringList groupWindow::getCurrentData()
 
     return dataList;
 }
-

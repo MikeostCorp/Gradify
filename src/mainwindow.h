@@ -1,28 +1,28 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "QtWidgets/qpushbutton.h"
-#include <QMainWindow>
-#include <QString>
+#include <QCloseEvent>
 #include <QEvent>
 #include <QFile>
+#include <QGraphicsDropShadowEffect>
+#include <QMainWindow>
 #include <QMap>
+#include <QMessageBox>
+#include <QSettings>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlTableModel>
-#include <QCloseEvent>
-#include <QMessageBox>
-#include <QGraphicsDropShadowEffect>
-#include <QSettings>
+#include <QString>
 #include <QTableView>
+#include "QtWidgets/qpushbutton.h"
 
 #include <QTranslator>
 
-#include <appsetting.h>
-#include <authorizationform.h>
-#include <filterform.h>
-#include <queryform.h>
-#include <aboutapp.h>
+#include <aboutappwindow.h>
+#include <appsettingswindow.h>
+#include <loginwindow.h>
+#include <filterwindow.h>
+#include <querywindow.h>
 
 #include <recordsForms/gradewindow.h>
 #include <recordsForms/groupwindow.h>
@@ -36,8 +36,12 @@
 #include <statisticsForms/subjectstatistics.h>
 #include <statisticsForms/teacherstatistics.h>
 
+#include <DatabaseHandler/databasehandler.h>
+
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -50,33 +54,46 @@ public:
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
 
+    enum TableType {
+        Teachers,
+        Subjects,
+        Students,
+        Grades,
+        Groups,
+        None
+    };
+    Q_ENUM(TableType);
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 private slots:
-    void on_studentsTableButton_clicked();
-    void on_teachersTableButton_clicked();
-    void on_gradesTableButton_clicked();
-    void on_groupsTableButton_clicked();
+    void openTeachersTable();
+    void openSubjectsTable();
+    void openStudentsTable();
+    void openGradesTable();
+    void openGroupsTable();
+
     void clearStyleButtonTable();
-    void on_settingsButton_clicked();
+
+    void openSettingsWindow();
 
     void setBlackUI();
     void setWhiteUI();
     void setSystemUI();
 
     void setCurrentIconAction();
-    void mainWindowInit();
+    void initMainWindow();
     void configDefault();
     void configInit();
     void configWrite(const QString &key, const QVariant &value);
-    void userLogout();
+    void logoutUser();
 
-    void on_authorizationButton_clicked();
-    void on_addRowButton_clicked();
-    void on_deleteRowButton_clicked();
+    void handleLogin();
+    void addRowToTable();
+    void editRowInTable();
+    void deleteRowFromTable();
     void on_tableView_clicked(const QModelIndex &index);
-    void on_subjectsTableButton_clicked();
 
     void clearSelectTable();
     void closeAllPopUpWindow();
@@ -87,40 +104,25 @@ private slots:
     void setEnabledActions(const bool &status);
     void setEnabledEditButton(const bool &status);
 
-    void on_addRowAction_triggered();
-    void on_deleteRowAction_triggered();
-    void on_editRowAction_triggered();
-    void on_editRowButton_clicked();
-    void on_openStudTabAction_triggered();
-    void on_openTeachTabAction_triggered();
-    void on_openGradesTabAction_triggered();
-    void on_openGroupTabAction_triggered();
-    void on_openSubjTabAction_triggered();
-    void on_studentsReportButton_clicked();
-    void on_teachersReportButton_clicked();
-    void on_gradesReportButton_clicked();
-    void on_groupsReportButton_clicked();
-    void on_subjectsReportButton_clicked();
+    void generateStudentsGroupReport();
+    void generateTeachersReport();
+    void generateGradesReport();
+    void generateGroupsReport();
+    void generateSubjectsReport();
 
-    void on_openManual_triggered();
+    void openManual();
 
-    void on_studentsReportAction_triggered();
-    void on_teachersReportAction_triggered();
-    void on_groupsReportAction_triggered();
-    void on_gradesReportAction_triggered();
-    void on_subjectsReportAction_triggered();
-    void on_currentTableReportAction_triggered();
-    void on_currentTableReportButton_clicked();
+    void generateCurrentTableReport();
 
-    void on_about_triggered();
-    void on_filterButton_clicked();
-    void on_queryButton_clicked();
+    void openAboutWindow();
+    void toggleFilterWindow();
+    void toggleQueryWindow();
 
     void printDocumentToPDF(const QString path, const QString html);
     void printDocumentToHTML(const QString path, const QString html);
 
     QString getHeaderHTML();
-    void fillHTMLTable(QString& textHTML, QTableView* tableView);
+    void fillHTMLTable(QString &textHTML, QTableView *tableView);
 
     QGraphicsDropShadowEffect *paintDropShadowEffect();
 
@@ -136,12 +138,12 @@ private slots:
     QStringList getSubjectsTypes();
     QStringList getCategoryTeachers();
 
-    void on_statisticsButton_clicked();
+    void openStatisticsWindow();
 
-    QString modelDataToString(QAbstractItemModel* model);
+    QString modelDataToString(QAbstractItemModel *model);
 
-    void on_actionCSV_triggered();
-    void on_actionTXT_triggered();
+    void exportDataToCSV();
+    void exportDataToTXT();
 
     void on_actionEnglish_Translate_triggered();
 
@@ -150,13 +152,15 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    DatabaseHandler *dbHandler;
+
     QTranslator translator;
 
-    appSetting *settingWindow;
-    authorizationForm *authorizationWindow;
-    filterForm *filterWindow;
-    queryForm *queryWindow;
-    aboutApp *aboutAppWindow;
+    AppSettingsWindow *appSettingsWindow;
+    LoginWindow *loginWindow;
+    FilterWindow *filterWindow;
+    QueryWindow *queryWindow;
+    AboutAppWindow *aboutAppWindow;
 
     gradeWindow *gradeForm;
     groupWindow *groupForm;
@@ -188,19 +192,21 @@ private:
     QGraphicsDropShadowEffect *effect;
 
     int row;
-    int currentSelectTable;
+
+    TableType currentSelectTable;
 
     bool isLogin;
 
 public slots:
     void setTheme(const QString &style);
     void authorization(const QString &login);
-    void setFilterForTable(const QString &filterQuery,
-                           const QString &currentColumnFilter);
+    void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
     void clearFilterForTable();
     void goSearch();
     void setDataToModel(QStringList dataList, bool isNewRow);
     void setQueryForTable(QString query);
+    void openTable(TableType tableType, const QString &tableName);
+    void fillTable(const QStringList &columns, const QJsonArray &data);
 
 signals:
     void setThemeSettingsUI(const QString);

@@ -1,17 +1,17 @@
 #include "teacherstatistics.h"
 #include "ui_teacherstatistics.h"
 
-#include <QFile>
-#include <QChart>
-#include <QBarSet>
-#include <QBarSeries>
-#include <QChartView>
-#include <QValueAxis>
 #include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QChart>
+#include <QChartView>
+#include <QFile>
+#include <QValueAxis>
 
-teacherStatistics::teacherStatistics(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::teacherStatistics)
+teacherStatistics::teacherStatistics(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::teacherStatistics)
 {
     ui->setupUi(this);
     setWindowTitle("Статистика викладачів по категоріям");
@@ -32,7 +32,6 @@ teacherStatistics::teacherStatistics(QWidget *parent) :
     ui->specialChartL->addWidget(chartView);
 }
 
-
 teacherStatistics::~teacherStatistics()
 {
     delete ui;
@@ -40,14 +39,14 @@ teacherStatistics::~teacherStatistics()
 
 void teacherStatistics::closeEvent(QCloseEvent *event)
 {
-    if (event->Close)
-    {
+    if (event->Close) {
         series->clear();
     }
 }
 
 void teacherStatistics::fillChart()
 {
+    /*
     QSqlQueryModel *virtualQueryModel = new QSqlQueryModel();
     QTableView *virtualTableView = new QTableView();
 
@@ -57,12 +56,12 @@ void teacherStatistics::fillChart()
 
     virtualTableView->setModel(virtualQueryModel);
 
-    for (int row = 0; row < virtualTableView->model()->rowCount(); ++row)
-    {
+    for (int row = 0; row < virtualTableView->model()->rowCount(); ++row) {
         series->append(virtualTableView->model()->index(row, 0).data().toString(),
                        virtualTableView->model()->index(row, 1).data().toInt());
     }
     series->setLabelsVisible(true);
+    */
 }
 
 void teacherStatistics::setBlackUI()
@@ -76,7 +75,6 @@ void teacherStatistics::setBlackUI()
     chartView->chart()->setBackgroundBrush(QColor(49, 51, 52));
 }
 
-
 void teacherStatistics::setWhiteUI()
 {
     QFile file(":/styles/white/statisticsForms/statisticsForms.qss");
@@ -88,36 +86,28 @@ void teacherStatistics::setWhiteUI()
     chartView->chart()->setBackgroundBrush(QColor(255, 255, 255));
 }
 
-
 void teacherStatistics::setSystemUI()
 {
     QPalette basePalette;
     QColor baseColor = basePalette.base().color();
-    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(), 1 - baseColor.greenF(), 1 - baseColor.blueF());
+    QColor newBase = QColor::fromRgbF(1 - baseColor.redF(),
+                                      1 - baseColor.greenF(),
+                                      1 - baseColor.blueF());
 
-    if (newBase.name() == "#000000")
-    {
+    if (newBase.name() == "#000000") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setBlackUI();
     }
 }
 
-
 void teacherStatistics::setTheme(const QString &style)
 {
-    if (style == "black")
-    {
+    if (style == "black") {
         setBlackUI();
-    }
-    else if (style == "white")
-    {
+    } else if (style == "white") {
         setWhiteUI();
-    }
-    else
-    {
+    } else {
         setSystemUI();
     }
 }

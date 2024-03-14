@@ -4,26 +4,26 @@
         <file>img/blackMenuIcon/cloud.png</file>
         <file>img/blackMenuIcon/downArrow.png</file>
         <file>img/blackMenuIcon/downArrowDisabled.png</file>
-        <file>img/blackMenuIcon/groupIco.png</file>
+        <file>img/blackMenuIcon/groupsIco.png</file>
         <file>img/blackMenuIcon/noWatchPass.png</file>
-        <file>img/blackMenuIcon/raitingIco.png</file>
-        <file>img/blackMenuIcon/subjectIco.png</file>
+        <file>img/blackMenuIcon/gradesIco.png</file>
+        <file>img/blackMenuIcon/subjectsIco.png</file>
         <file>img/blackMenuIcon/teachersIco.png</file>
         <file>img/blackMenuIcon/watchPass.png</file>
         <file>img/blueMenuIcon/deleteRecord.png</file>
         <file>img/blueMenuIcon/editRecord.png</file>
-        <file>img/blueMenuIcon/groupIco.png</file>
+        <file>img/blueMenuIcon/groupsIco.png</file>
         <file>img/blueMenuIcon/newRecord.png</file>
-        <file>img/blueMenuIcon/raitingIco.png</file>
-        <file>img/blueMenuIcon/settingIco.png</file>
+        <file>img/blueMenuIcon/gradesIco.png</file>
+        <file>img/blueMenuIcon/settingsIco.png</file>
         <file>img/blueMenuIcon/studentsIco.png</file>
-        <file>img/blueMenuIcon/subjectIco.png</file>
+        <file>img/blueMenuIcon/subjectsIco.png</file>
         <file>img/blueMenuIcon/teachersIco.png</file>
         <file>img/reportsIcon/reportCurrentTable.png</file>
-        <file>img/reportsIcon/reportGroup.png</file>
-        <file>img/reportsIcon/reportItem.png</file>
-        <file>img/reportsIcon/reportRaiting.png</file>
-        <file>img/reportsIcon/reportStudent.png</file>
+        <file>img/reportsIcon/reportGroups.png</file>
+        <file>img/reportsIcon/reportSubjects.png</file>
+        <file>img/reportsIcon/reportGrades.png</file>
+        <file>img/reportsIcon/reportStudents.png</file>
         <file>img/reportsIcon/reportTeachers.png</file>
         <file>img/settingIcon/settingBlackUIIco.png</file>
         <file>img/settingIcon/settingSystemUIICo.png</file>
@@ -31,18 +31,18 @@
         <file>img/whiteMenuIcon/clearLoginIco.png</file>
         <file>img/whiteMenuIcon/cloud.png</file>
         <file>img/whiteMenuIcon/downArrow.png</file>
-        <file>img/whiteMenuIcon/groupIco.png</file>
+        <file>img/whiteMenuIcon/groupsIco.png</file>
         <file>img/whiteMenuIcon/noWatchPass.png</file>
-        <file>img/whiteMenuIcon/raitingIco.png</file>
-        <file>img/whiteMenuIcon/settingIco.png</file>
-        <file>img/whiteMenuIcon/subjectIco.png</file>
+        <file>img/whiteMenuIcon/gradesIco.png</file>
+        <file>img/whiteMenuIcon/settingsIco.png</file>
+        <file>img/whiteMenuIcon/subjectsIco.png</file>
         <file>img/whiteMenuIcon/teachersIco.png</file>
         <file>img/whiteMenuIcon/watchPass.png</file>
         <file>img/AppIcon.icns</file>
-        <file>styles/black/appSetting/appSetting.qss</file>
+        <file>styles/black/AppSettingsWindow/AppSettingsWindow.qss</file>
         <file>styles/black/mainWindow/mainWindow.qss</file>
         <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
-        <file>styles/white/appSetting/appSetting.qss</file>
+        <file>styles/white/AppSettingsWindow/AppSettingsWindow.qss</file>
         <file>styles/white/mainWindow/mainWindow.qss</file>
         <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
         <file>img/blueMenuIcon/filterIco.png</file>
@@ -74,34 +74,34 @@
         <file>styles/white/aboutApp/aboutApp.qss</file>
         <file>img/blackActionsIcon/deleteRecord.png</file>
         <file>img/blackActionsIcon/editRecord.png</file>
-        <file>img/blackActionsIcon/groupIco.png</file>
+        <file>img/blackActionsIcon/groupsIco.png</file>
         <file>img/blackActionsIcon/newRecord.png</file>
-        <file>img/blackActionsIcon/raitingIco.png</file>
+        <file>img/blackActionsIcon/gradesIco.png</file>
         <file>img/blackActionsIcon/reportCurrentTable.png</file>
-        <file>img/blackActionsIcon/reportGroup.png</file>
-        <file>img/blackActionsIcon/reportItem.png</file>
-        <file>img/blackActionsIcon/reportRaiting.png</file>
-        <file>img/blackActionsIcon/reportStudent.png</file>
+        <file>img/blackActionsIcon/reportGroups.png</file>
+        <file>img/blackActionsIcon/reportSubjects.png</file>
+        <file>img/blackActionsIcon/reportGrades.png</file>
+        <file>img/blackActionsIcon/reportStudents.png</file>
         <file>img/blackActionsIcon/reportTeachers.png</file>
-        <file>img/blackActionsIcon/subjectIco.png</file>
+        <file>img/blackActionsIcon/subjectsIco.png</file>
         <file>img/blackActionsIcon/teachersIco.png</file>
         <file>img/whiteActionsIcon/deleteRecord.png</file>
         <file>img/whiteActionsIcon/editRecord.png</file>
-        <file>img/whiteActionsIcon/groupIco.png</file>
+        <file>img/whiteActionsIcon/groupsIco.png</file>
         <file>img/whiteActionsIcon/newRecord.png</file>
-        <file>img/whiteActionsIcon/raitingIco.png</file>
+        <file>img/whiteActionsIcon/gradesIco.png</file>
         <file>img/whiteActionsIcon/reportCurrentTable.png</file>
-        <file>img/whiteActionsIcon/reportGroup.png</file>
-        <file>img/whiteActionsIcon/reportItem.png</file>
-        <file>img/whiteActionsIcon/reportRaiting.png</file>
-        <file>img/whiteActionsIcon/reportStudent.png</file>
+        <file>img/whiteActionsIcon/reportGroups.png</file>
+        <file>img/whiteActionsIcon/reportSubjects.png</file>
+        <file>img/whiteActionsIcon/reportGrades.png</file>
+        <file>img/whiteActionsIcon/reportStudents.png</file>
         <file>img/whiteActionsIcon/reportTeachers.png</file>
-        <file>img/whiteActionsIcon/subjectIco.png</file>
+        <file>img/whiteActionsIcon/subjectsIco.png</file>
         <file>img/whiteActionsIcon/teachersIco.png</file>
         <file>styles/white/recordsForms/recordsForms.qss</file>
         <file>styles/black/recordsForms/recordsForms.qss</file>
-        <file>styles/white/authorizationForm/authorizationForm.qss</file>
-        <file>styles/black/authorizationForm/authorizationForm.qss</file>
+        <file>styles/white/LoginWindow/LoginWindow.qss</file>
+        <file>styles/black/LoginWindow/LoginWindow.qss</file>
         <file>img/whiteMenuIcon/studentsIco.png</file>
         <file>img/blackActionsIcon/studentsIco.png</file>
         <file>img/whiteActionsIcon/studentsIco.png</file>

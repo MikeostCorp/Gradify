@@ -1,24 +1,27 @@
-QT       += core gui sql printsupport charts
+QT       += core gui printsupport charts network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17 app_bundle
+
+QMAKE_CXXFLAGS += -pedantic -Wextra -Wall
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    aboutapp.cpp \
-    appsetting.cpp \
-    authorizationform.cpp \
+    DatabaseHandler/databasehandler.cpp \
+    aboutappwindow.cpp \
+    appsettingswindow.cpp \
     customWidgets/qlineeditwithbutton.cpp \
     customWidgets/qsearchbar.cpp \
-    filterform.cpp \
+    filterwindow.cpp \
+    loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     preloader.cpp \
-    queryform.cpp \
+    querywindow.cpp \
     recordsForms/gradewindow.cpp \
     recordsForms/groupwindow.cpp \
     recordsForms/studentwindow.cpp \
@@ -31,15 +34,16 @@ SOURCES += \
     statisticsForms/teacherstatistics.cpp
 
 HEADERS += \
-    aboutapp.h \
-    appsetting.h \
-    authorizationform.h \
+    DatabaseHandler/databasehandler.h \
+    aboutappwindow.h \
+    appsettingswindow.h \
     customWidgets/qlineeditwithbutton.h \
     customWidgets/qsearchbar.h \
-    filterform.h \
+    filterwindow.h \
+    loginwindow.h \
     mainwindow.h \
     preloader.h \
-    queryform.h \
+    querywindow.h \
     recordsForms/gradewindow.h \
     recordsForms/groupwindow.h \
     recordsForms/studentwindow.h \
@@ -52,13 +56,13 @@ HEADERS += \
     statisticsForms/teacherstatistics.h
 
 FORMS += \
-    aboutapp.ui \
-    appsetting.ui \
-    authorizationform.ui \
-    filterform.ui \
+    aboutappwindow.ui \
+    appsettingswindow.ui \
+    filterwindow.ui \
+    loginwindow.ui \
     mainwindow.ui \
     preloader.ui \
-    queryform.ui \
+    querywindow.ui \
     recordsForms/gradewindow.ui \
     recordsForms/groupwindow.ui \
     recordsForms/studentwindow.ui \
