@@ -14,7 +14,7 @@
 
 GroupStatisticsWindow::GroupStatisticsWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::groupStatistics)
+    , ui(new Ui::GroupStatisticsWindow)
 {
     ui->setupUi(this);
 

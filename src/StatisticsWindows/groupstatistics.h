@@ -7,7 +7,7 @@
 #include <QWidget>
 
 namespace Ui {
-class groupStatistics;
+class GroupStatisticsWindow;
 }
 
 class GroupStatisticsWindow : public QWidget
@@ -27,7 +27,7 @@ private slots:
     void clearPieChart();
 
 private:
-    Ui::groupStatistics *ui;
+    Ui::GroupStatisticsWindow *ui;
 
     QChartView *chartView;
     QChart *chart;

@@ -8,7 +8,7 @@
 #include <QWidget>
 
 namespace Ui {
-class subjectStatistics;
+class SubjectStatisticsWindow;
 }
 
 class SubjectStatisticsWindow : public QWidget
@@ -28,7 +28,7 @@ private slots:
     void setSystemUI();
 
 private:
-    Ui::subjectStatistics *ui;
+    Ui::SubjectStatisticsWindow *ui;
 
     QChartView *chartView;
     QChart *chart;

@@ -14,7 +14,7 @@
 
 StudentStatisticsWindow::StudentStatisticsWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::studentStatistics)
+    , ui(new Ui::StudentStatisticsWindow)
 {
     ui->setupUi(this);
 

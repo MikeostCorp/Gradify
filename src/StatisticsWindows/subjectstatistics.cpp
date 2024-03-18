@@ -11,7 +11,7 @@
 
 SubjectStatisticsWindow::SubjectStatisticsWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::subjectStatistics)
+    , ui(new Ui::SubjectStatisticsWindow)
 {
     ui->setupUi(this);
     setWindowTitle("Статистика предметів по типам");

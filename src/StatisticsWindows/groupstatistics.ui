@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>groupStatistics</class>
- <widget class="QWidget" name="groupStatistics">
+ <class>GroupStatisticsWindow</class>
+ <widget class="QWidget" name="GroupStatisticsWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

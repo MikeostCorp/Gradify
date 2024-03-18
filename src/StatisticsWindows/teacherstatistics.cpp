@@ -11,7 +11,7 @@
 
 TeacherStatisticsWindow::TeacherStatisticsWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::teacherStatistics)
+    , ui(new Ui::TeacherStatisticsWindow)
 {
     ui->setupUi(this);
     setWindowTitle("Статистика викладачів по категоріям");

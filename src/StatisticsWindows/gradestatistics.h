@@ -7,7 +7,7 @@
 #include <QWidget>
 
 namespace Ui {
-class gradeStatistics;
+class GradeStatisticsWindow;
 }
 
 class GradeStatisticsWindow : public QWidget
@@ -34,7 +34,7 @@ private slots:
     void on_subjectComboBox_currentIndexChanged(int index);
 
 private:
-    Ui::gradeStatistics *ui;
+    Ui::GradeStatisticsWindow *ui;
 
     QChartView *chartView;
     QChart *chart;

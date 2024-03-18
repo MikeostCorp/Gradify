@@ -1,8 +1,8 @@
-gradeStatistics,
-groupStatistics,
-studentStatistics,
-subjectStatistics,
-teacherStatistics
+GradeStatisticsWindow,
+GroupStatisticsWindow,
+StudentStatisticsWindow,
+SubjectStatisticsWindow,
+TeacherStatisticsWindow
 {
     background-color: rgb(231, 224, 223);
 }

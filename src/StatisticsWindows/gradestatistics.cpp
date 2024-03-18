@@ -14,7 +14,7 @@
 
 GradeStatisticsWindow::GradeStatisticsWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::gradeStatistics)
+    , ui(new Ui::GradeStatisticsWindow)
 {
     ui->setupUi(this);
 
@@ -216,29 +216,28 @@ void GradeStatisticsWindow::on_subjectComboBox_currentIndexChanged(int index)
 
             switch (i) {
             case 2:
-                // you are stupid
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                if (virtualTable->model()->index(0, 0).data().toInt() != 0) {
                     series->append("Незадовільно ["
                                        + virtualTable->model()->index(0, 0).data().toString() + "]",
                                    virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 3:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                if (virtualTable->model()->index(0, 0).data().toInt() != 0) {
                     series->append("Задовільно ["
                                        + virtualTable->model()->index(0, 0).data().toString() + "]",
                                    virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 4:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                if (virtualTable->model()->index(0, 0).data().toInt() != 0) {
                     series->append("Добре [" + virtualTable->model()->index(0, 0).data().toString()
                                        + "]",
                                    virtualTable->model()->index(0, 0).data().toInt());
                 }
                 break;
             case 5:
-                if (virtualTable->model()->index(0, 0).data().toInt() != NULL) {
+                if (virtualTable->model()->index(0, 0).data().toInt() != 0) {
                     series->append("Відмінно ["
                                        + virtualTable->model()->index(0, 0).data().toString() + "]",
                                    virtualTable->model()->index(0, 0).data().toInt());
