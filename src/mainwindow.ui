@@ -1048,7 +1048,7 @@
               </property>
               <property name="icon">
                <iconset resource="recources.qrc">
-                <normaloff>:/img/blueMenuIcon/statisticsIcon.png</normaloff>:/img/blueMenuIcon/statisticsIcon.png</iconset>
+                <normaloff>:/img/blueMenuIcon/statisticsIco.png</normaloff>:/img/blueMenuIcon/statisticsIco.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1116,9 +1116,21 @@
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
-           <property name="sortingEnabled">
-            <bool>true</bool>
+           <property name="alternatingRowColors">
+            <bool>false</bool>
            </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectItems</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
           </widget>
          </item>
         </layout>

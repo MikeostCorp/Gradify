@@ -31,7 +31,7 @@ private slots:
 
     void passwordVisibilityButtonClicked();
 
-    void on_loginButton_clicked();
+    void loginProcessing();
 
 private:
     Ui::LoginWindow *ui;
@@ -43,9 +43,13 @@ private:
 public slots:
     void setTheme(const QString &style);
     void startAuthozation();
+    void loginFailed();
+    void loginSuccessful();
+    void clearInputFields();
 
 signals:
-    void signalLogin(const QString);
+    void signalLogin(const QString &login);
+    void loginAttempt(const QString &login, const QString &password);
 };
 
 #endif // LOGINWINDOW_H

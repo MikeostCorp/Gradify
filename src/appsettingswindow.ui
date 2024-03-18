@@ -454,29 +454,7 @@ border-radius: 8px;
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QLabel" name="dbname">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>130</y>
-           <width>81</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Назва БД&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="dburl">
+        <widget class="QLabel" name="dbURL">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -498,7 +476,7 @@ border-radius: 8px;
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;URL бази даних&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dblogin">
+        <widget class="QLabel" name="dbAPI">
          <property name="geometry">
           <rect>
            <x>45</x>
@@ -517,32 +495,10 @@ border-radius: 8px;
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Логін&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;API ключ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="dbpassword">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>100</y>
-           <width>121</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="dburlLineEdit">
+        <widget class="QLineEdit" name="dbURLLineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
@@ -552,21 +508,11 @@ border-radius: 8px;
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="dbloginLineEdit">
+        <widget class="QLineEdit" name="dbAPILineEdit">
          <property name="geometry">
           <rect>
            <x>190</x>
            <y>70</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="dbpasswordLineEdit">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>100</y>
            <width>341</width>
            <height>21</height>
           </rect>
@@ -583,16 +529,6 @@ border-radius: 8px;
          </property>
          <property name="text">
           <string>Зберегти</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="dbnameLineEdit">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>130</y>
-           <width>341</width>
-           <height>21</height>
-          </rect>
          </property>
         </widget>
         <widget class="QLabel" name="succSaveSettings">

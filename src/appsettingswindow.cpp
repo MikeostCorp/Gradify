@@ -22,12 +22,9 @@ AppSettingsWindow::AppSettingsWindow(QWidget *parent)
 
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
-    if (settingsConfig.contains("url") and settingsConfig.contains("username")
-        and settingsConfig.contains("password") and settingsConfig.contains("databasename")) {
-        ui->dburlLineEdit->setText(settingsConfig.value("url").toString());
-        ui->dbloginLineEdit->setText(settingsConfig.value("username").toString());
-        ui->dbpasswordLineEdit->setText(settingsConfig.value("password").toString());
-        ui->dbnameLineEdit->setText(settingsConfig.value("databasename").toString());
+    if (settingsConfig.contains("url") and settingsConfig.contains("apiKey")) {
+        ui->dbURLLineEdit->setText(settingsConfig.value("url").toString());
+        ui->dbAPILineEdit->setText(settingsConfig.value("apiKey").toString());
     }
 }
 
@@ -133,35 +130,25 @@ void AppSettingsWindow::setTheme(const QString &style)
 
 void AppSettingsWindow::on_saveDBSettings_clicked()
 {
-    if (ui->dburlLineEdit->text().isEmpty()) {
+    if (ui->dbURLLineEdit->text().isEmpty()) {
         QMessageBox::information(this, "URL", "Введіть URL бази даних!");
-        ui->dburlLineEdit->setFocus();
+        ui->dbURLLineEdit->setFocus();
         return;
     }
-    if (ui->dbloginLineEdit->text().isEmpty()) {
-        QMessageBox::information(this, "Логін", "Введіть логін!");
-        ui->dbloginLineEdit->setFocus();
-        return;
-    }
-    if (ui->dbpasswordLineEdit->text().isEmpty()) {
-        QMessageBox::information(this, "Пароль", "Введіть пароль!");
-        ui->dbpasswordLineEdit->setFocus();
-        return;
-    }
-    if (ui->dbnameLineEdit->text().isEmpty()) {
-        QMessageBox::information(this, "Назва БД", "Введіть назву БД!");
-        ui->dbnameLineEdit->setFocus();
+    if (ui->dbAPILineEdit->text().isEmpty()) {
+        QMessageBox::information(this, "API", "Введіть API ключ!");
+        ui->dbAPILineEdit->setFocus();
         return;
     }
 
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
-    settingsConfig.setValue("url", ui->dburlLineEdit->text());
-    settingsConfig.setValue("username", ui->dbloginLineEdit->text());
-    settingsConfig.setValue("password", ui->dbpasswordLineEdit->text());
-    settingsConfig.setValue("databasename", ui->dbnameLineEdit->text());
+    settingsConfig.setValue("url", ui->dbURLLineEdit->text());
+    settingsConfig.setValue("apiKey", ui->dbAPILineEdit->text());
 
     ui->succSaveSettings->setVisible(true);
+
+    emit setAPI(settingsConfig.value("apiKey").toString());
 
     emit logoutSignal();
 }

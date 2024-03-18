@@ -38,6 +38,7 @@ private:
 signals:
     void changeThemeApp(const QString);
     void logoutSignal();
+    void setAPI(const QString& apiKey);
 
 public slots:
     void setTheme(const QString &style);

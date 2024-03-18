@@ -19,4 +19,7 @@ Gradify also provides quick access to student information through a user-friendl
 
 ----
 
-Just wait.
+Test!!! input auth data:
+
+- login: test@email.com
+- pass: Password123!

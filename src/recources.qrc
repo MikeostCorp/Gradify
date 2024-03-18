@@ -40,15 +40,15 @@
         <file>img/whiteMenuIcon/watchPass.png</file>
         <file>img/AppIcon.icns</file>
         <file>styles/black/AppSettingsWindow/AppSettingsWindow.qss</file>
-        <file>styles/black/mainWindow/mainWindow.qss</file>
-        <file>styles/black/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/black/MainWindow/MainWindow.qss</file>
+        <file>styles/black/MainWindow/SelectButtonTableStyle.qss</file>
         <file>styles/white/AppSettingsWindow/AppSettingsWindow.qss</file>
-        <file>styles/white/mainWindow/mainWindow.qss</file>
-        <file>styles/white/mainWindow/selectButtonTableStyle.qss</file>
+        <file>styles/white/MainWindow/MainWindow.qss</file>
+        <file>styles/white/MainWindow/SelectButtonTableStyle.qss</file>
         <file>img/blueMenuIcon/filterIco.png</file>
         <file>img/blueMenuIcon/queryIco.png</file>
-        <file>styles/black/mainWindow/outLoginButton.qss</file>
-        <file>styles/white/mainWindow/outLoginButton.qss</file>
+        <file>styles/black/MainWindow/OutLoginButton.qss</file>
+        <file>styles/white/MainWindow/OutLoginButton.qss</file>
         <file>img/blackMenuIcon/inLog.png</file>
         <file>img/blackMenuIcon/outLog.png</file>
         <file>img/whiteMenuIcon/inLog.png</file>
@@ -70,8 +70,8 @@
         <file>img/blueMenuIcon/clearFilterIco.png</file>
         <file>img/whiteMenuIcon/upArrow.png</file>
         <file>img/blackMenuIcon/upArrow.png</file>
-        <file>styles/black/aboutApp/aboutApp.qss</file>
-        <file>styles/white/aboutApp/aboutApp.qss</file>
+        <file>styles/black/AboutAppWindow/AboutAppWindow.qss</file>
+        <file>styles/white/AboutAppWindow/AboutAppWindow.qss</file>
         <file>img/blackActionsIcon/deleteRecord.png</file>
         <file>img/blackActionsIcon/editRecord.png</file>
         <file>img/blackActionsIcon/groupsIco.png</file>
@@ -98,16 +98,16 @@
         <file>img/whiteActionsIcon/reportTeachers.png</file>
         <file>img/whiteActionsIcon/subjectsIco.png</file>
         <file>img/whiteActionsIcon/teachersIco.png</file>
-        <file>styles/white/recordsForms/recordsForms.qss</file>
-        <file>styles/black/recordsForms/recordsForms.qss</file>
+        <file>styles/white/RecordsWindows/RecordsWindows.qss</file>
+        <file>styles/black/RecordsWindows/RecordsWindows.qss</file>
         <file>styles/white/LoginWindow/LoginWindow.qss</file>
         <file>styles/black/LoginWindow/LoginWindow.qss</file>
         <file>img/whiteMenuIcon/studentsIco.png</file>
         <file>img/blackActionsIcon/studentsIco.png</file>
         <file>img/whiteActionsIcon/studentsIco.png</file>
         <file>img/blackMenuIcon/studentsIco.png</file>
-        <file>img/blueMenuIcon/statisticsIcon.png</file>
-        <file>styles/black/statisticsForms/statisticsForms.qss</file>
-        <file>styles/white/statisticsForms/statisticsForms.qss</file>
+        <file>img/blueMenuIcon/statisticsIco.png</file>
+        <file>styles/black/StatisticsWindows/StatisticsWindows.qss</file>
+        <file>styles/white/StatisticsWindows/StatisticsWindows.qss</file>
     </qresource>
 </RCC>

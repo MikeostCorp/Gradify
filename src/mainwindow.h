@@ -20,21 +20,21 @@
 
 #include <aboutappwindow.h>
 #include <appsettingswindow.h>
-#include <loginwindow.h>
 #include <filterwindow.h>
+#include <loginwindow.h>
 #include <querywindow.h>
 
-#include <recordsForms/gradewindow.h>
-#include <recordsForms/groupwindow.h>
-#include <recordsForms/studentwindow.h>
-#include <recordsForms/subjectwindow.h>
-#include <recordsForms/teacherwindow.h>
+#include <RecordsWindows/gradewindow.h>
+#include <RecordsWindows/groupwindow.h>
+#include <RecordsWindows/studentwindow.h>
+#include <RecordsWindows/subjectwindow.h>
+#include <RecordsWindows/teacherwindow.h>
 
-#include <statisticsForms/gradestatistics.h>
-#include <statisticsForms/groupstatistics.h>
-#include <statisticsForms/studentstatistics.h>
-#include <statisticsForms/subjectstatistics.h>
-#include <statisticsForms/teacherstatistics.h>
+#include <StatisticsWindows/gradestatistics.h>
+#include <StatisticsWindows/groupstatistics.h>
+#include <StatisticsWindows/studentstatistics.h>
+#include <StatisticsWindows/subjectstatistics.h>
+#include <StatisticsWindows/teacherstatistics.h>
 
 #include <DatabaseHandler/databasehandler.h>
 
@@ -54,20 +54,83 @@ public:
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
 
-    enum TableType {
-        Teachers,
-        Subjects,
-        Students,
-        Grades,
-        Groups,
-        None
-    };
+    enum TableType { Teachers, Subjects, Students, Grades, Groups, None };
     Q_ENUM(TableType);
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
+private:
+    Ui::MainWindow *ui;
+
+    DatabaseHandler *dbHandler;
+
+    QTranslator translator;
+
+    AppSettingsWindow *appSettingsWindow;
+    LoginWindow *loginWindow;
+    FilterWindow *filterWindow;
+    QueryWindow *queryWindow;
+    AboutAppWindow *aboutAppWindow;
+
+    GradeWindow *gradeWindow;
+    GroupWindow *groupWindow;
+    StudentWindow *studentWindow;
+    SubjectWindow *subjectWindow;
+    TeacherWindow *teacherWindow;
+
+    GradeStatisticsWindow *gradeStatisticsWindow;
+    GroupStatisticsWindow *groupStatisticsWindow;
+    StudentStatisticsWindow *studentStatisticsWindow;
+    SubjectStatisticsWindow *subjectStatisticsWindow;
+    TeacherStatisticsWindow *teacherStatisticsWindow;
+
+    QString selectButtonTableStyle;
+    QString selectButtonAuthStyle;
+    QString theme;
+
+    QFile cfgFile;
+    QFile styleF;
+
+    QSqlDatabase db;
+    QSqlQuery *query;
+    QSqlQueryModel *queryModel;
+    QSqlTableModel *model;
+
+    QMessageBox logoutMessageBox;
+    QPushButton *yesButton;
+
+    QGraphicsDropShadowEffect *effect;
+
+    int row;
+
+    TableType currentSelectTable;
+
+    bool isLogin;
+
+public slots:
+    void setTheme(const QString &style);
+    void authorization(const QString &login);
+    void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
+    void clearFilterForTable();
+    void goSearch();
+    void setDataToModel(QStringList dataList, bool isNewRow);
+    void setQueryForTable(QString query);
+    void openTable(TableType tableType, const QString &tableName);
+    void fillTable(const QStringList &columns, const QJsonArray &data);
+    void handleReply(const QByteArray &data, const QStringList &headers);
+
 private slots:
+    void initDatabaseHandler();
+    void initWindowsObjects();
+    void initPopUpWindowsGraphics();
+    void setDefaultMainWindowState();
+    void setTableWidgetSettings();
+    void connectThemeChangeSignals();
+    void connectLoginLogoutSignals();
+    void connectFiltersAndRequests();
+    void connectCloseEvents();
+    void connectButtonsAndActions();
     void openTeachersTable();
     void openSubjectsTable();
     void openStudentsTable();
@@ -84,9 +147,9 @@ private slots:
 
     void setCurrentIconAction();
     void initMainWindow();
-    void configDefault();
-    void configInit();
-    void configWrite(const QString &key, const QVariant &value);
+    void initConfigDefault();
+    void initConfig();
+    void writeConfig(const QString &key, const QVariant &value);
     void logoutUser();
 
     void handleLogin();
@@ -97,7 +160,7 @@ private slots:
 
     void clearSelectTable();
     void closeAllPopUpWindow();
-    void closeAllEditForm();
+    void closeAllEditForms();
     void closeAllStatisticsForm();
 
     void setEnabledButtons(const bool &status);
@@ -149,65 +212,6 @@ private slots:
 
     void on_actionUkrainian_Translate_triggered();
 
-private:
-    Ui::MainWindow *ui;
-
-    DatabaseHandler *dbHandler;
-
-    QTranslator translator;
-
-    AppSettingsWindow *appSettingsWindow;
-    LoginWindow *loginWindow;
-    FilterWindow *filterWindow;
-    QueryWindow *queryWindow;
-    AboutAppWindow *aboutAppWindow;
-
-    gradeWindow *gradeForm;
-    groupWindow *groupForm;
-    studentWindow *studentForm;
-    subjectWindow *subjectForm;
-    teacherWindow *teacherForm;
-
-    gradeStatistics *gradeStat;
-    groupStatistics *groupStat;
-    studentStatistics *studentStat;
-    subjectStatistics *subjectStat;
-    teacherStatistics *teacherStat;
-
-    QString selectButtonTableStyle;
-    QString selectButtonAuthStyle;
-    QString theme;
-
-    QFile cfgFile;
-    QFile styleF;
-
-    QSqlDatabase db;
-    QSqlQuery *query;
-    QSqlQueryModel *queryModel;
-    QSqlTableModel *model;
-
-    QMessageBox logoutMessageBox;
-    QPushButton *yesButton;
-
-    QGraphicsDropShadowEffect *effect;
-
-    int row;
-
-    TableType currentSelectTable;
-
-    bool isLogin;
-
-public slots:
-    void setTheme(const QString &style);
-    void authorization(const QString &login);
-    void setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter);
-    void clearFilterForTable();
-    void goSearch();
-    void setDataToModel(QStringList dataList, bool isNewRow);
-    void setQueryForTable(QString query);
-    void openTable(TableType tableType, const QString &tableName);
-    void fillTable(const QStringList &columns, const QJsonArray &data);
-
 signals:
     void setThemeSettingsUI(const QString);
     void statusAuthorization(const bool);
@@ -222,5 +226,6 @@ signals:
     void createNewRow();
     void updateStatisticsSignal();
     void updateStatisticsComboBoxSignal();
+    void clearInputFields();
 };
 #endif // MAINWINDOW_H

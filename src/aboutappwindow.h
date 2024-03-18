@@ -4,7 +4,7 @@
 #include <QWidget>
 
 namespace Ui {
-class aboutApp;
+class AboutAppWindow;
 }
 
 class AboutAppWindow : public QWidget
@@ -22,7 +22,7 @@ private slots:
     void setSystemUI();
 
 private:
-    Ui::aboutApp *ui;
+    Ui::AboutAppWindow *ui;
 
 public slots:
     void setTheme(const QString &style);

@@ -1,0 +1,146 @@
+GradeWindow,
+GroupWindow,
+StudentWindow,
+SubjectWindow,
+TeacherWindow
+{
+    background-color: white;
+}
+
+QLabel
+{
+    color: rgb(132, 132, 132);
+}
+
+QLabel#mainImage
+{
+    background-color: rgb(225, 225, 225);
+    border: 2px solid rgb(195, 195, 195);
+    border-radius: 16px;
+}
+
+QLabel#okLabel
+{
+    color: green;
+}
+
+QLineEdit,
+QSpinBox,
+QDateEdit
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(71, 71, 72);
+    background-color: rgb(235, 235, 235);
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 8px;
+}
+
+QLineEdit:focus,
+QSpinBox:focus,
+QDateEdit:focus
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox
+{
+    background-color: rgb(235, 235, 235);
+    color: rgb(71, 71, 72);
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 8px;
+}
+
+QComboBox:disabled
+{
+    color: #989898;
+}
+
+QComboBox:editable
+{
+    background-color: rgb(235, 235, 235);
+}
+
+QComboBox::hover
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox::drop-down
+{
+    background-color: rgb(235, 235, 235);
+    color: rgb(71, 71, 72);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    padding-right: 5px;
+}
+
+QComboBox::separator
+{
+    background-color: rgb(181, 185, 188);
+    height: 2px;
+    border: 8px solid white;
+}
+
+QComboBox::focus
+{
+    border: 2px solid rgb(65, 105, 225);
+}
+
+QComboBox::down-arrow
+{
+   image:url(:/img/blackMenuIcon/downArrow.png);
+   width: 12px;
+   height: 12px;
+}
+
+QComboBox::down-arrow:disabled
+{
+    image:url(:/img/blackMenuIcon/downArrowDisabled.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView
+{
+  color: rgb(71, 71, 72);
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+QPushButton#cancelButton
+{
+    border-radius: 6px;
+    border: 1px solid rgb(215, 215, 215);
+    background-color: rgb(255, 255, 255);
+    color: rgb(71, 71, 72);
+}
+
+QPushButton#cancelButton:hover
+{
+    background-color: rgb(235, 235, 235);
+}
+
+QPushButton#saveButton
+{
+    border-radius: 6px;
+    border: 2px solid rgb(113,210,255);
+    background-color: rgb(0, 131, 255);
+    color: white;
+}
+
+QPushButton#saveButton:hover
+{
+    background-color: rgb(30, 151, 255);
+}
+
+QMessageBox
+{
+    background-color: white;
+}
+
+QMessageBox QLabel
+{
+    color: rgb(71, 71, 72);
+}

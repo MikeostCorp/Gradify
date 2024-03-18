@@ -36,76 +36,155 @@ void MainWindow::initMainWindow()
 {
     setWindowTitle("Gradify");
 
-    dbHandler = new DatabaseHandler(this);
+    initDatabaseHandler();
+    initWindowsObjects();
+    initPopUpWindowsGraphics();
+    setDefaultMainWindowState();
+    setTableWidgetSettings();
 
-    // init obj's of windows classes
+    connectThemeChangeSignals();
+
+    // update statistics
+    connect(this,
+            &MainWindow::updateStatisticsSignal,
+            studentStatisticsWindow,
+            &StudentStatisticsWindow::updateGroupComboBox);
+    connect(this,
+            &MainWindow::updateStatisticsComboBoxSignal,
+            groupStatisticsWindow,
+            &GroupStatisticsWindow::setGroupComboBox);
+
+    initConfig();
+
+    connectLoginLogoutSignals();
+
+    connectFiltersAndRequests();
+
+    // clear searchbar & filter
+    connect(ui->searchLineEdit,
+            &QSearchBar::clickedClearButton,
+            this,
+            &MainWindow::clearFilterForTable);
+
+    connectCloseEvents();
+
+    // close popup windows on click menubar
+    connect(ui->menuBar, &QMenuBar::triggered, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
+    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
+
+    // send list to edit form
+    connect(this, &MainWindow::sendGroupsList, studentWindow, &StudentWindow::setComboBox);
+
+    // get data from edit form
+    connect(gradeWindow, &GradeWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(groupWindow, &GroupWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(studentWindow, &StudentWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(subjectWindow, &SubjectWindow::sendData, this, &MainWindow::setDataToModel);
+    connect(teacherWindow, &TeacherWindow::sendData, this, &MainWindow::setDataToModel);
+
+    // custom message box
+    logoutMessageBox.setIcon(QMessageBox::Question);
+    yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
+    logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
+    logoutMessageBox.setDefaultButton(yesButton);
+    logoutMessageBox.setWindowTitle("Разлогін");
+    logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
+
+    connectButtonsAndActions();
+
+    connect(loginWindow, &LoginWindow::loginAttempt, dbHandler, &DatabaseHandler::signUserIn);
+    connect(appSettingsWindow, &AppSettingsWindow::setAPI, dbHandler, &DatabaseHandler::setAPIKey);
+
+    connect(dbHandler, &DatabaseHandler::loginFailed, loginWindow, &LoginWindow::loginFailed);
+    connect(dbHandler, &DatabaseHandler::loginSuccessful, loginWindow, &LoginWindow::loginSuccessful);
+
+    connect(this, &MainWindow::clearInputFields, loginWindow, &LoginWindow::clearInputFields);
+}
+
+void MainWindow::initDatabaseHandler()
+{
+    dbHandler = new DatabaseHandler(this);
+    connect(dbHandler, &DatabaseHandler::replyReceived, this, &MainWindow::handleReply);
+}
+
+void MainWindow::initWindowsObjects()
+{
     appSettingsWindow = new AppSettingsWindow();
     loginWindow = new LoginWindow();
     filterWindow = new FilterWindow(this);
     queryWindow = new QueryWindow(this);
     aboutAppWindow = new AboutAppWindow();
 
-    gradeForm = new gradeWindow();
-    groupForm = new groupWindow();
-    studentForm = new studentWindow();
-    subjectForm = new subjectWindow();
-    teacherForm = new teacherWindow();
+    gradeWindow = new GradeWindow();
+    groupWindow = new GroupWindow();
+    studentWindow = new StudentWindow();
+    subjectWindow = new SubjectWindow();
+    teacherWindow = new TeacherWindow();
 
-    gradeStat = new gradeStatistics();
-    groupStat = new groupStatistics();
-    studentStat = new studentStatistics();
-    subjectStat = new subjectStatistics();
-    teacherStat = new teacherStatistics();
+    gradeStatisticsWindow = new GradeStatisticsWindow();
+    groupStatisticsWindow = new GroupStatisticsWindow();
+    studentStatisticsWindow = new StudentStatisticsWindow();
+    subjectStatisticsWindow = new SubjectStatisticsWindow();
+    teacherStatisticsWindow = new TeacherStatisticsWindow();
+}
 
-    // pop-up windows graphics settings
+void MainWindow::initPopUpWindowsGraphics()
+{
     filterWindow->setGraphicsEffect(paintDropShadowEffect());
     queryWindow->setGraphicsEffect(paintDropShadowEffect());
+    ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
+}
 
-    // default inactive state on main window
+void MainWindow::setDefaultMainWindowState()
+{
+    isLogin = false;
     currentSelectTable = TableType::None;
     setEnabledButtons(false);
     setEnabledActions(false);
     setEnabledEditButton(false);
+}
 
-    // tableview settings
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+void MainWindow::setTableWidgetSettings()
+{
     ui->tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+}
 
-    ui->centralwidget->layout()->setContentsMargins(0, 0, 0, 0);
-
+void MainWindow::connectThemeChangeSignals()
+{
     // theme change after config init
     connect(this, &MainWindow::setThemeSettingsUI, appSettingsWindow, &AppSettingsWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, loginWindow, &LoginWindow::setTheme);
     connect(this, &MainWindow::setThemeSettingsUI, aboutAppWindow, &AboutAppWindow::setTheme);
 
-    connect(this, &MainWindow::setThemeSettingsUI, gradeForm, &gradeWindow::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, groupForm, &groupWindow::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, studentForm, &studentWindow::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, subjectForm, &subjectWindow::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, teacherForm, &teacherWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, gradeWindow, &GradeWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, groupWindow, &GroupWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, studentWindow, &StudentWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, subjectWindow, &SubjectWindow::setTheme);
+    connect(this, &MainWindow::setThemeSettingsUI, teacherWindow, &TeacherWindow::setTheme);
 
-    connect(this, &MainWindow::setThemeSettingsUI, gradeStat, &gradeStatistics::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, groupStat, &groupStatistics::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, studentStat, &studentStatistics::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, subjectStat, &subjectStatistics::setTheme);
-    connect(this, &MainWindow::setThemeSettingsUI, teacherStat, &teacherStatistics::setTheme);
-
-    // update statistics
     connect(this,
-            &MainWindow::updateStatisticsSignal,
-            studentStat,
-            &studentStatistics::updateGroupComboBox);
+            &MainWindow::setThemeSettingsUI,
+            gradeStatisticsWindow,
+            &GradeStatisticsWindow::setTheme);
     connect(this,
-            &MainWindow::updateStatisticsComboBoxSignal,
-            groupStat,
-            &groupStatistics::setGroupComboBox);
-
-    // config initialization
-    configInit();
-
-    // login/logout
-    connect(loginWindow, &LoginWindow::signalLogin, this, &MainWindow::authorization);
-    connect(appSettingsWindow, &AppSettingsWindow::logoutSignal, this, &MainWindow::logoutUser);
+            &MainWindow::setThemeSettingsUI,
+            groupStatisticsWindow,
+            &GroupStatisticsWindow::setTheme);
+    connect(this,
+            &MainWindow::setThemeSettingsUI,
+            studentStatisticsWindow,
+            &StudentStatisticsWindow::setTheme);
+    connect(this,
+            &MainWindow::setThemeSettingsUI,
+            subjectStatisticsWindow,
+            &SubjectStatisticsWindow::setTheme);
+    connect(this,
+            &MainWindow::setThemeSettingsUI,
+            teacherStatisticsWindow,
+            &TeacherStatisticsWindow::setTheme);
 
     // theme change in settings window
     connect(appSettingsWindow, &AppSettingsWindow::changeThemeApp, this, &MainWindow::setTheme);
@@ -120,47 +199,55 @@ void MainWindow::initMainWindow()
 
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            gradeForm,
-            &gradeWindow::setTheme);
+            gradeWindow,
+            &GradeWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            groupForm,
-            &groupWindow::setTheme);
+            groupWindow,
+            &GroupWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            studentForm,
-            &studentWindow::setTheme);
+            studentWindow,
+            &StudentWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            subjectForm,
-            &subjectWindow::setTheme);
+            subjectWindow,
+            &SubjectWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            teacherForm,
-            &teacherWindow::setTheme);
+            teacherWindow,
+            &TeacherWindow::setTheme);
 
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            gradeStat,
-            &gradeStatistics::setTheme);
+            gradeStatisticsWindow,
+            &GradeStatisticsWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            groupStat,
-            &groupStatistics::setTheme);
+            groupStatisticsWindow,
+            &GroupStatisticsWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            studentStat,
-            &studentStatistics::setTheme);
+            studentStatisticsWindow,
+            &StudentStatisticsWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            subjectStat,
-            &subjectStatistics::setTheme);
+            subjectStatisticsWindow,
+            &SubjectStatisticsWindow::setTheme);
     connect(appSettingsWindow,
             &AppSettingsWindow::changeThemeApp,
-            teacherStat,
-            &teacherStatistics::setTheme);
+            teacherStatisticsWindow,
+            &TeacherStatisticsWindow::setTheme);
+}
 
-    // filters and requests
+void MainWindow::connectLoginLogoutSignals()
+{
+    connect(loginWindow, &LoginWindow::signalLogin, this, &MainWindow::authorization);
+    connect(appSettingsWindow, &AppSettingsWindow::logoutSignal, this, &MainWindow::logoutUser);
+}
+
+void MainWindow::connectFiltersAndRequests()
+{
     connect(filterWindow, &FilterWindow::sendFilter, this, &MainWindow::setFilterForTable);
     connect(filterWindow, &FilterWindow::clearFilter, this, &MainWindow::clearFilterForTable);
     connect(this, &MainWindow::setTableForFilter, filterWindow, &FilterWindow::setListTable);
@@ -168,13 +255,10 @@ void MainWindow::initMainWindow()
     connect(queryWindow, &QueryWindow::sendFilter, this, &MainWindow::setFilterForTable);
     connect(queryWindow, &QueryWindow::clearFilter, this, &MainWindow::clearFilterForTable);
     connect(this, &MainWindow::changedGradeTable, queryWindow, &QueryWindow::selectedGradeTable);
+}
 
-    // clear searchbar & filter
-    connect(ui->searchLineEdit,
-            &QSearchBar::clickedClearButton,
-            this,
-            &MainWindow::clearFilterForTable);
-
+void MainWindow::connectCloseEvents()
+{
     // close pop-up windows on click tableView (need fix empty space)
     connect(ui->tableWidget->horizontalHeader(),
             &QHeaderView::sectionClicked,
@@ -189,7 +273,6 @@ void MainWindow::initMainWindow()
 
     // close pop-up windows on click any buttons
     for (QPushButton *button : findChildren<QPushButton *>()) {
-        // Добавлять в условие название кнопок форм привязаных к главному окну
         if (button->objectName() not_eq "filterButton" and button->objectName() not_eq "queryButton"
             and button->objectName() not_eq "filterPushButton"
             and button->objectName() not_eq "succesStudentPushButton"
@@ -202,35 +285,13 @@ void MainWindow::initMainWindow()
         if (button->objectName() not_eq "editRowButton"
             and button->objectName() not_eq "settingsButton"
             and button->objectName() not_eq "addRowButton") {
-            connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForm);
+            connect(button, &QPushButton::clicked, this, &MainWindow::closeAllEditForms);
         }
     }
+}
 
-    // close popup windows on click menubar
-    connect(ui->menuBar, &QMenuBar::triggered, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
-    connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
-
-    // send list to edit form
-    connect(this, &MainWindow::sendGroupsList, studentForm, &studentWindow::setComboBox);
-
-    // get data from edit form
-    connect(gradeForm, &gradeWindow::sendData, this, &MainWindow::setDataToModel);
-    connect(groupForm, &groupWindow::sendData, this, &MainWindow::setDataToModel);
-    connect(studentForm, &studentWindow::sendData, this, &MainWindow::setDataToModel);
-    connect(subjectForm, &subjectWindow::sendData, this, &MainWindow::setDataToModel);
-    connect(teacherForm, &teacherWindow::sendData, this, &MainWindow::setDataToModel);
-
-    // custom message box
-    logoutMessageBox.setIcon(QMessageBox::Question);
-    yesButton = logoutMessageBox.addButton(tr("Так"), QMessageBox::YesRole);
-    logoutMessageBox.addButton(tr("Ні"), QMessageBox::NoRole);
-    logoutMessageBox.setDefaultButton(yesButton);
-    logoutMessageBox.setWindowTitle("Разлогін");
-    logoutMessageBox.setText("Ви дійсно хочете вийти з аккаунта?");
-
-    // on_foo_bar naming fix:
+void MainWindow::connectButtonsAndActions()
+{
     connect(ui->studentsTableButton, &QPushButton::clicked, this, &MainWindow::openStudentsTable);
     connect(ui->teachersTableButton, &QPushButton::clicked, this, &MainWindow::openTeachersTable);
     connect(ui->gradesTableButton, &QPushButton::clicked, this, &MainWindow::openGradesTable);
@@ -300,30 +361,27 @@ void MainWindow::initMainWindow()
 
     connect(ui->actionCSV, &QAction::triggered, this, &MainWindow::exportDataToCSV);
     connect(ui->actionTXT, &QAction::triggered, this, &MainWindow::exportDataToTXT);
-
-    // TEST!!!
-    setEnabledButtons(true);
-    setEnabledActions(true);
-    setEnabledEditButton(true);
 }
 
-void MainWindow::configDefault()
+void MainWindow::initConfigDefault()
 {
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
 
     settingsConfig
         .setValue("url", "https://gradifydatabase-default-rtdb.europe-west1.firebasedatabase.app/");
+    settingsConfig
+        .setValue("apiKey", "AIzaSyBH39ltGfdl_kbgLbBHfAMz8fyZaJk8q6g");
     settingsConfig.setValue("theme", "system");
 }
 
-void MainWindow::configInit()
+void MainWindow::initConfig()
 {
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
 
     if (settingsConfig.allKeys().empty()) {
-        configDefault();
+        initConfigDefault();
     }
 
     if (settingsConfig.contains("theme")) {
@@ -331,12 +389,19 @@ void MainWindow::configInit()
 
         emit setThemeSettingsUI(theme);
     }
-    if (settingsConfig.contains("userlogin")) {
-        authorization(settingsConfig.value("userlogin").toString());
+
+    if (settingsConfig.contains("apiKey")) {
+        dbHandler->setAPIKey(settingsConfig.value("apiKey").toString());
+    } else {
+        return;
+    }
+
+    if (settingsConfig.contains("userlogin") and settingsConfig.contains("userpassword")) {
+        dbHandler->signUserIn(settingsConfig.value("userlogin").toString(), settingsConfig.value("userpassword").toString());
     }
 }
 
-void MainWindow::configWrite(const QString &key, const QVariant &value)
+void MainWindow::writeConfig(const QString &key, const QVariant &value)
 {
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
@@ -380,7 +445,6 @@ void MainWindow::fillTable(const QStringList &columns, const QJsonArray &data)
     qsizetype rowCount = data.size();
     qsizetype columnCount = columns.size();
 
-    ui->tableWidget->clear();
     ui->tableWidget->setRowCount(rowCount);
     ui->tableWidget->setColumnCount(columnCount);
     ui->tableWidget->setHorizontalHeaderLabels(columns);
@@ -397,6 +461,8 @@ void MainWindow::fillTable(const QStringList &columns, const QJsonArray &data)
 
 void MainWindow::openTable(TableType tableType, const QString &tableName)
 {
+    clearSelectTable();
+
     setWindowTitle("Gradify - (" + tableName + ")");
     currentSelectTable = tableType;
     clearStyleButtonTable();
@@ -457,11 +523,7 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
     case TableType::Grades:
         ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/gradesIco.png"));
         ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Предмет",
-                   "Отримувач",
-                   "Оцінка",
-                   "Тип оцінки",
-                   "Дата отримання"};
+        headers = {"Предмет", "Отримувач", "Оцінка", "Тип оцінки", "Дата отримання"};
         break;
     case TableType::Groups:
         ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupsIco.png"));
@@ -477,20 +539,19 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
         break;
     }
 
-    QByteArray answer = dbHandler->getReply(settingsConfig.value("url").toString() + "/" + tableName
-                                            + ".json");
+    dbHandler->getReply(tableName, headers);
 
-    QJsonDocument doc = QJsonDocument::fromJson(answer);
+    //emit setTableForFilter(getColumnsNamesAndDatatypes(tableName));
+    //emit changedGradeTable(tableType);
+}
+
+void MainWindow::handleReply(const QByteArray &data, const QStringList &headers)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(data);
 
     if (!doc.isNull() && doc.isArray()) {
         fillTable(headers, doc.array());
     }
-
-    ui->tableWidget->resizeColumnsToContents();
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-
-    //emit setTableForFilter(getColumnsNamesAndDatatypes(tableName));
-    //emit changedGradeTable(tableType);
 }
 
 void MainWindow::openTeachersTable()
@@ -521,8 +582,9 @@ void MainWindow::openGroupsTable()
 void MainWindow::clearSelectTable()
 {
     ui->tableWidget->clear();
+    ui->tableWidget->setColumnCount(0);
+    ui->tableWidget->setRowCount(0);
     currentSelectTable = TableType::None;
-    closeAllPopUpWindow();
 }
 
 void MainWindow::closeAllPopUpWindow()
@@ -531,22 +593,22 @@ void MainWindow::closeAllPopUpWindow()
     queryWindow->close();
 }
 
-void MainWindow::closeAllEditForm()
+void MainWindow::closeAllEditForms()
 {
-    gradeForm->close();
-    groupForm->close();
-    studentForm->close();
-    subjectForm->close();
-    teacherForm->close();
+    gradeWindow->close();
+    groupWindow->close();
+    studentWindow->close();
+    subjectWindow->close();
+    teacherWindow->close();
 }
 
 void MainWindow::closeAllStatisticsForm()
 {
-    gradeStat->close();
-    groupStat->close();
-    studentStat->close();
-    subjectStat->close();
-    teacherStat->close();
+    gradeStatisticsWindow->close();
+    groupStatisticsWindow->close();
+    studentStatisticsWindow->close();
+    subjectStatisticsWindow->close();
+    teacherStatisticsWindow->close();
 }
 
 void MainWindow::setEnabledButtons(const bool &status)
@@ -626,39 +688,13 @@ void MainWindow::setTheme(const QString &style)
         setSystemUI();
     }
 
-    configWrite("theme", theme);
+    writeConfig("theme", theme);
 }
 
 void MainWindow::authorization(const QString &login)
 {
-    // QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
-    //                          QSettings::IniFormat);
-
-    // TEST!!!
-    /*
-    db = QSqlDatabase::addDatabase("QMYSQL");
-    // https://gradify.online/
-    db.setHostName(settingsConfig.value("hostname").toString());
-    db.setUserName(settingsConfig.value("username").toString());
-    db.setPassword(settingsConfig.value("password").toString());
-    db.setDatabaseName(settingsConfig.value("databasename").toString());
-
-    if (not db.open()) {
-        QMessageBox::critical(this,
-                              "Помилка з'єднання",
-                              "Перевірте статус серверу або параметри серверу в налаштуваннях!");
-        return;
-    }
-
-    query = new QSqlQuery(db);
-    model = new QSqlTableModel(this, db);
-    queryModel = new QSqlQueryModel(this);
-    */
-
     setEnabledButtons(true);
     setEnabledActions(true);
-
-    // clearSelectTable();
 
     ui->authorizationButton->setText(" Привіт, " + login + "!");
     ui->authorizationButton->setStyleSheet(selectButtonAuthStyle);
@@ -700,7 +736,7 @@ void MainWindow::logoutUser()
 
     clearSelectTable();
     clearStyleButtonTable();
-    closeAllEditForm();
+    closeAllEditForms();
     ui->searchLineEdit->clear();
 
     setWindowTitle("Gradify");
@@ -710,6 +746,8 @@ void MainWindow::logoutUser()
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
     settingsConfig.remove("userlogin");
+
+    emit clearInputFields();
 }
 
 void MainWindow::handleLogin()
@@ -734,32 +772,32 @@ void MainWindow::addRowToTable()
 
     switch (currentSelectTable) {
     case TableType::Students:
-        connect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
+        connect(this, &MainWindow::createNewRow, studentWindow, &StudentWindow::newRow);
 
         emit sendGroupsList(getGroupsNames());
         emit createNewRow();
 
-        disconnect(this, &MainWindow::createNewRow, studentForm, &studentWindow::newRow);
-        studentForm->show();
+        disconnect(this, &MainWindow::createNewRow, studentWindow, &StudentWindow::newRow);
+        studentWindow->show();
         break;
     case TableType::Teachers:
-        connect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
+        connect(this, &MainWindow::createNewRow, teacherWindow, &TeacherWindow::newRow);
 
         emit createNewRow();
 
-        disconnect(this, &MainWindow::createNewRow, teacherForm, &teacherWindow::newRow);
-        teacherForm->show();
+        disconnect(this, &MainWindow::createNewRow, teacherWindow, &TeacherWindow::newRow);
+        teacherWindow->show();
         break;
     case TableType::Grades:
-        connect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
+        connect(this, &MainWindow::createNewRow, gradeWindow, &GradeWindow::newRow);
         connect(this,
                 &MainWindow::sendStudentsList,
-                gradeForm,
-                &gradeWindow::setDataStudentComboBox);
+                gradeWindow,
+                &GradeWindow::setDataStudentComboBox);
         connect(this,
                 &MainWindow::sendSubjectsList,
-                gradeForm,
-                &gradeWindow::setDataSubjectComboBox);
+                gradeWindow,
+                &GradeWindow::setDataSubjectComboBox);
 
         emit sendSubjectsList(getSubjectsNames());
         emit sendStudentsList(getStudentsNames());
@@ -768,25 +806,25 @@ void MainWindow::addRowToTable()
 
         disconnect(this,
                    &MainWindow::sendSubjectsList,
-                   gradeForm,
-                   &gradeWindow::setDataSubjectComboBox);
+                   gradeWindow,
+                   &GradeWindow::setDataSubjectComboBox);
         disconnect(this,
                    &MainWindow::sendStudentsList,
-                   gradeForm,
-                   &gradeWindow::setDataStudentComboBox);
-        disconnect(this, &MainWindow::createNewRow, gradeForm, &gradeWindow::newRow);
-        gradeForm->show();
+                   gradeWindow,
+                   &GradeWindow::setDataStudentComboBox);
+        disconnect(this, &MainWindow::createNewRow, gradeWindow, &GradeWindow::newRow);
+        gradeWindow->show();
         break;
     case TableType::Groups:
-        connect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
+        connect(this, &MainWindow::createNewRow, groupWindow, &GroupWindow::newRow);
         connect(this,
                 &MainWindow::sendTeachersList,
-                groupForm,
-                &groupWindow::setDataCuratorComboBox);
+                groupWindow,
+                &GroupWindow::setDataCuratorComboBox);
         connect(this,
                 &MainWindow::sendCurrentGroup,
-                groupForm,
-                &groupWindow::setDataHeadManComboBox);
+                groupWindow,
+                &GroupWindow::setDataHeadManComboBox);
 
         emit createNewRow();
         emit sendTeachersList(getTeachersNames());
@@ -794,31 +832,31 @@ void MainWindow::addRowToTable()
 
         disconnect(this,
                    &MainWindow::sendTeachersList,
-                   groupForm,
-                   &groupWindow::setDataCuratorComboBox);
+                   groupWindow,
+                   &GroupWindow::setDataCuratorComboBox);
         disconnect(this,
                    &MainWindow::sendCurrentGroup,
-                   groupForm,
-                   &groupWindow::setDataHeadManComboBox);
-        disconnect(this, &MainWindow::createNewRow, groupForm, &groupWindow::newRow);
-        groupForm->show();
+                   groupWindow,
+                   &GroupWindow::setDataHeadManComboBox);
+        disconnect(this, &MainWindow::createNewRow, groupWindow, &GroupWindow::newRow);
+        groupWindow->show();
         break;
     case TableType::Subjects:
-        connect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
+        connect(this, &MainWindow::createNewRow, subjectWindow, &SubjectWindow::newRow);
         connect(this,
                 &MainWindow::sendTeachersList,
-                subjectForm,
-                &subjectWindow::setTeacherComboBox);
+                subjectWindow,
+                &SubjectWindow::setTeacherComboBox);
 
         emit sendTeachersList(getTeachersNames());
         emit createNewRow();
 
         disconnect(this,
                    &MainWindow::sendTeachersList,
-                   subjectForm,
-                   &subjectWindow::setTeacherComboBox);
-        disconnect(this, &MainWindow::createNewRow, subjectForm, &subjectWindow::newRow);
-        subjectForm->show();
+                   subjectWindow,
+                   &SubjectWindow::setTeacherComboBox);
+        disconnect(this, &MainWindow::createNewRow, subjectWindow, &SubjectWindow::newRow);
+        subjectWindow->show();
         break;
     case TableType::None:
         QMessageBox::information(this, "Попередження", "Оберіть таблицю!");
@@ -874,7 +912,7 @@ void MainWindow::editRowInTable()
         if (ok) {
             switch (currentSelectTable) {
             case TableType::Students:
-                connect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
+                connect(this, &MainWindow::setDataEditForm, studentWindow, &StudentWindow::setData);
 
                 emit sendGroupsList(getGroupsNames());
                 emit setDataEditForm(selectedItem,
@@ -882,29 +920,35 @@ void MainWindow::editRowInTable()
                                          selectedItem.QString::left(selectedItem.indexOf('.'))
                                              .toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, studentForm, &studentWindow::setData);
-                studentForm->show();
+                disconnect(this,
+                           &MainWindow::setDataEditForm,
+                           studentWindow,
+                           &StudentWindow::setData);
+                studentWindow->show();
                 break;
             case TableType::Teachers:
-                connect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
+                connect(this, &MainWindow::setDataEditForm, teacherWindow, &TeacherWindow::setData);
 
                 emit setDataEditForm(selectedItem,
                                      getRowData(
                                          selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, teacherForm, &teacherWindow::setData);
-                teacherForm->show();
+                disconnect(this,
+                           &MainWindow::setDataEditForm,
+                           teacherWindow,
+                           &TeacherWindow::setData);
+                teacherWindow->show();
                 break;
             case TableType::Grades:
-                connect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
+                connect(this, &MainWindow::setDataEditForm, gradeWindow, &GradeWindow::setData);
                 connect(this,
                         &MainWindow::sendStudentsList,
-                        gradeForm,
-                        &gradeWindow::setDataStudentComboBox);
+                        gradeWindow,
+                        &GradeWindow::setDataStudentComboBox);
                 connect(this,
                         &MainWindow::sendSubjectsList,
-                        gradeForm,
-                        &gradeWindow::setDataSubjectComboBox);
+                        gradeWindow,
+                        &GradeWindow::setDataSubjectComboBox);
 
                 emit sendSubjectsList(getSubjectsNames());
                 emit sendStudentsList(getStudentsNames());
@@ -914,25 +958,25 @@ void MainWindow::editRowInTable()
 
                 disconnect(this,
                            &MainWindow::sendSubjectsList,
-                           gradeForm,
-                           &gradeWindow::setDataSubjectComboBox);
+                           gradeWindow,
+                           &GradeWindow::setDataSubjectComboBox);
                 disconnect(this,
                            &MainWindow::sendStudentsList,
-                           gradeForm,
-                           &gradeWindow::setDataStudentComboBox);
-                disconnect(this, &MainWindow::setDataEditForm, gradeForm, &gradeWindow::setData);
-                gradeForm->show();
+                           gradeWindow,
+                           &GradeWindow::setDataStudentComboBox);
+                disconnect(this, &MainWindow::setDataEditForm, gradeWindow, &GradeWindow::setData);
+                gradeWindow->show();
                 break;
             case TableType::Groups:
-                connect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
+                connect(this, &MainWindow::setDataEditForm, groupWindow, &GroupWindow::setData);
                 connect(this,
                         &MainWindow::sendTeachersList,
-                        groupForm,
-                        &groupWindow::setDataCuratorComboBox);
+                        groupWindow,
+                        &GroupWindow::setDataCuratorComboBox);
                 connect(this,
                         &MainWindow::sendCurrentGroup,
-                        groupForm,
-                        &groupWindow::setDataHeadManComboBox);
+                        groupWindow,
+                        &GroupWindow::setDataHeadManComboBox);
 
                 emit sendTeachersList(getTeachersNames());
                 emit sendCurrentGroup(selectedItem);
@@ -940,23 +984,23 @@ void MainWindow::editRowInTable()
                                      getRowData(
                                          selectedItem.left(selectedItem.indexOf('.')).toInt()));
 
-                disconnect(this, &MainWindow::setDataEditForm, groupForm, &groupWindow::setData);
+                disconnect(this, &MainWindow::setDataEditForm, groupWindow, &GroupWindow::setData);
                 disconnect(this,
                            &MainWindow::sendTeachersList,
-                           groupForm,
-                           &groupWindow::setDataCuratorComboBox);
+                           groupWindow,
+                           &GroupWindow::setDataCuratorComboBox);
                 disconnect(this,
                            &MainWindow::sendCurrentGroup,
-                           groupForm,
-                           &groupWindow::setDataHeadManComboBox);
-                groupForm->show();
+                           groupWindow,
+                           &GroupWindow::setDataHeadManComboBox);
+                groupWindow->show();
                 break;
             case TableType::Subjects:
-                connect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
+                connect(this, &MainWindow::setDataEditForm, subjectWindow, &SubjectWindow::setData);
                 connect(this,
                         &MainWindow::sendTeachersList,
-                        subjectForm,
-                        &subjectWindow::setTeacherComboBox);
+                        subjectWindow,
+                        &SubjectWindow::setTeacherComboBox);
 
                 emit sendTeachersList(getTeachersNames());
                 emit setDataEditForm(selectedItem,
@@ -965,10 +1009,13 @@ void MainWindow::editRowInTable()
 
                 disconnect(this,
                            &MainWindow::sendTeachersList,
-                           subjectForm,
-                           &subjectWindow::setTeacherComboBox);
-                disconnect(this, &MainWindow::setDataEditForm, subjectForm, &subjectWindow::setData);
-                subjectForm->show();
+                           subjectWindow,
+                           &SubjectWindow::setTeacherComboBox);
+                disconnect(this,
+                           &MainWindow::setDataEditForm,
+                           subjectWindow,
+                           &SubjectWindow::setData);
+                subjectWindow->show();
                 break;
             case TableType::None:
                 break;
@@ -1870,17 +1917,17 @@ void MainWindow::generateSubjectsReport()
 
 void MainWindow::setBlackUI()
 {
-    QFile file(":/styles/black/mainWindow/mainWindow.qss");
+    QFile file(":/styles/black/MainWindow/MainWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 
-    styleF.setFileName(":/styles/black/mainWindow/selectButtonTableStyle.qss");
+    styleF.setFileName(":/styles/black/MainWindow/SelectButtonTableStyle.qss");
     styleF.open(QFile::ReadOnly);
     selectButtonTableStyle = styleF.readAll();
     styleF.close();
 
-    file.setFileName(":/styles/black/mainWindow/outLoginButton.qss");
+    file.setFileName(":/styles/black/MainWindow/OutLoginButton.qss");
     file.open(QFile::ReadOnly);
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
@@ -1929,17 +1976,17 @@ void MainWindow::setBlackUI()
 
 void MainWindow::setWhiteUI()
 {
-    QFile file(":/styles/white/mainWindow/mainWindow.qss");
+    QFile file(":/styles/white/MainWindow/MainWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 
-    file.setFileName(":/styles/white/mainWindow/selectButtonTableStyle.qss");
+    file.setFileName(":/styles/white/MainWindow/SelectButtonTableStyle.qss");
     file.open(QFile::ReadOnly);
     selectButtonTableStyle = QLatin1String(file.readAll());
     file.close();
 
-    file.setFileName(":/styles/white/mainWindow/outLoginButton.qss");
+    file.setFileName(":/styles/white/MainWindow/OutLoginButton.qss");
     file.open(QFile::ReadOnly);
     selectButtonAuthStyle = QLatin1String(file.readAll());
     file.close();
@@ -2052,22 +2099,22 @@ void MainWindow::openStatisticsWindow()
 
     switch (currentSelectTable) {
     case TableType::Students:
-        studentStat->show();
+        studentStatisticsWindow->show();
         break;
     case TableType::Teachers:
-        teacherStat->fillChart();
-        teacherStat->show();
+        teacherStatisticsWindow->fillChart();
+        teacherStatisticsWindow->show();
         break;
     case TableType::Grades:
-        gradeStat->show();
+        gradeStatisticsWindow->show();
         break;
     case TableType::Groups:
-        groupStat->show();
+        groupStatisticsWindow->show();
         emit updateStatisticsComboBoxSignal();
         break;
     case TableType::Subjects:
-        subjectStat->fillChart();
-        subjectStat->show();
+        subjectStatisticsWindow->fillChart();
+        subjectStatisticsWindow->show();
         break;
     case None:
         break;

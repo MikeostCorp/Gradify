@@ -6,7 +6,7 @@
 
 AboutAppWindow::AboutAppWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::aboutApp)
+    , ui(new Ui::AboutAppWindow)
 {
     ui->setupUi(this);
     setWindowTitle("Про Gradify");
@@ -31,7 +31,7 @@ void AboutAppWindow::changeEvent(QEvent *event)
 
 void AboutAppWindow::setBlackUI()
 {
-    QFile file(":/styles/black/aboutApp/aboutApp.qss");
+    QFile file(":/styles/black/AboutAppWindow/AboutAppWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
@@ -39,7 +39,7 @@ void AboutAppWindow::setBlackUI()
 
 void AboutAppWindow::setWhiteUI()
 {
-    QFile file(":/styles/white/aboutApp/aboutApp.qss");
+    QFile file(":/styles/white/AboutAppWindow/AboutAppWindow.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();

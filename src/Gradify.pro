@@ -22,16 +22,16 @@ SOURCES += \
     mainwindow.cpp \
     preloader.cpp \
     querywindow.cpp \
-    recordsForms/gradewindow.cpp \
-    recordsForms/groupwindow.cpp \
-    recordsForms/studentwindow.cpp \
-    recordsForms/subjectwindow.cpp \
-    recordsForms/teacherwindow.cpp \
-    statisticsForms/gradestatistics.cpp \
-    statisticsForms/groupstatistics.cpp \
-    statisticsForms/studentstatistics.cpp \
-    statisticsForms/subjectstatistics.cpp \
-    statisticsForms/teacherstatistics.cpp
+    RecordsWindows/gradewindow.cpp \
+    RecordsWindows/groupwindow.cpp \
+    RecordsWindows/studentwindow.cpp \
+    RecordsWindows/subjectwindow.cpp \
+    RecordsWindows/teacherwindow.cpp \
+    StatisticsWindows/gradestatistics.cpp \
+    StatisticsWindows/groupstatistics.cpp \
+    StatisticsWindows/studentstatistics.cpp \
+    StatisticsWindows/subjectstatistics.cpp \
+    StatisticsWindows/teacherstatistics.cpp
 
 HEADERS += \
     DatabaseHandler/databasehandler.h \
@@ -44,16 +44,16 @@ HEADERS += \
     mainwindow.h \
     preloader.h \
     querywindow.h \
-    recordsForms/gradewindow.h \
-    recordsForms/groupwindow.h \
-    recordsForms/studentwindow.h \
-    recordsForms/subjectwindow.h \
-    recordsForms/teacherwindow.h \
-    statisticsForms/gradestatistics.h \
-    statisticsForms/groupstatistics.h \
-    statisticsForms/studentstatistics.h \
-    statisticsForms/subjectstatistics.h \
-    statisticsForms/teacherstatistics.h
+    RecordsWindows/gradewindow.h \
+    RecordsWindows/groupwindow.h \
+    RecordsWindows/studentwindow.h \
+    RecordsWindows/subjectwindow.h \
+    RecordsWindows/teacherwindow.h \
+    StatisticsWindows/gradestatistics.h \
+    StatisticsWindows/groupstatistics.h \
+    StatisticsWindows/studentstatistics.h \
+    StatisticsWindows/subjectstatistics.h \
+    StatisticsWindows/teacherstatistics.h
 
 FORMS += \
     aboutappwindow.ui \
@@ -63,16 +63,16 @@ FORMS += \
     mainwindow.ui \
     preloader.ui \
     querywindow.ui \
-    recordsForms/gradewindow.ui \
-    recordsForms/groupwindow.ui \
-    recordsForms/studentwindow.ui \
-    recordsForms/subjectwindow.ui \
-    recordsForms/teacherwindow.ui \
-    statisticsForms/gradestatistics.ui \
-    statisticsForms/groupstatistics.ui \
-    statisticsForms/studentstatistics.ui \
-    statisticsForms/subjectstatistics.ui \
-    statisticsForms/teacherstatistics.ui
+    RecordsWindows/gradewindow.ui \
+    RecordsWindows/groupwindow.ui \
+    RecordsWindows/studentwindow.ui \
+    RecordsWindows/subjectwindow.ui \
+    RecordsWindows/teacherwindow.ui \
+    StatisticsWindows/gradestatistics.ui \
+    StatisticsWindows/groupstatistics.ui \
+    StatisticsWindows/studentstatistics.ui \
+    StatisticsWindows/subjectstatistics.ui \
+    StatisticsWindows/teacherstatistics.ui
 
 
 TARGET = Gradify

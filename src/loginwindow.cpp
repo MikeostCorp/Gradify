@@ -36,6 +36,8 @@ LoginWindow::LoginWindow(QWidget *parent)
             this,
             &LoginWindow::passwordVisibilityButtonClicked);
 
+    connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::loginProcessing);
+
     show();
     close();
 
@@ -52,7 +54,57 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::startAuthozation()
 {
-    on_loginButton_clicked();
+    loginProcessing();
+}
+
+void LoginWindow::loginFailed()
+{
+    ui->authorizationErrorLabel->setVisible(true);
+}
+
+void LoginWindow::loginSuccessful()
+{
+    ui->authorizationErrorLabel->setVisible(false);
+
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
+
+    QString email;
+
+    if (settingsConfig.contains("userlogin")) {
+        email = settingsConfig.value("userlogin").toString();
+    } else {
+        email = ui->loginLineEdit->text();
+
+        if (ui->rememberCheckBox->isChecked()) {
+            QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                                     QSettings::IniFormat);
+            settingsConfig.setValue("userlogin", email);
+            settingsConfig.setValue("userpassword", ui->passwordLineEdit->text());
+        } else {
+            QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                                     QSettings::IniFormat);
+            settingsConfig.remove("userlogin");
+            settingsConfig.remove("userpassword");
+        }
+    }
+
+    QString login = email.left(email.indexOf('@'));
+
+    emit signalLogin(login);
+    close();
+}
+
+void LoginWindow::clearInputFields()
+{
+    ui->loginLineEdit->clear();
+    ui->passwordLineEdit->clear();
+
+    ui->loginLineEdit->setFocus();
+
+    ui->authorizationErrorLabel->setVisible(false);
+
+    ui->rememberCheckBox->setChecked(false);
 }
 
 void LoginWindow::on_forgotPasswordButton_clicked()
@@ -102,70 +154,28 @@ void LoginWindow::setTheme(const QString &style)
     }
 }
 
-void LoginWindow::on_loginButton_clicked()
+void LoginWindow::loginProcessing()
 {
-    // TEST!!!
-    QString login = ui->loginLineEdit->text();
-    emit signalLogin(login);
-    close();
-    /*
     if (ui->loginLineEdit->text().isEmpty()) {
         ui->loginLineEdit->setFocus();
     } else if (ui->passwordLineEdit->text().isEmpty()) {
         ui->passwordLineEdit->setFocus();
     } else {
-        authorizationDB = QSqlDatabase::addDatabase("QMYSQL");
-        // https://gradify.online/
-        authorizationDB.setHostName("141.136.44.252");
-        authorizationDB.setUserName("GradifyAdmin");
-        authorizationDB.setPassword("P433w0rD!");
-        authorizationDB.setDatabaseName("accounts_db");
+        QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                                 QSettings::IniFormat);
 
-        if (not authorizationDB.open()) {
-            QMessageBox::information(this, "Увага", "Перевірте інтернет з'єднання");
+        if (not settingsConfig.contains("url") or not settingsConfig.contains("apiKey")) {
+            QMessageBox::information(this,
+                                     "Увага",
+                                     "Перевірте налаштування: всі параметри повинні бути заповнені!");
             return;
         }
 
         QString login = ui->loginLineEdit->text();
         QString password = ui->passwordLineEdit->text();
 
-        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-        QTableView *tableView = new QTableView(this);
-        queryModel->setQuery("SELECT * "
-                             "FROM Акаунти "
-                             "WHERE Логін = '"
-                             + login
-                             + "'"
-                               " AND Пароль = '"
-                             + password + "'");
-
-        tableView->setModel(queryModel);
-
-        if (tableView->model()->rowCount() > 0) {
-            ui->loginLineEdit->clear();
-            ui->passwordLineEdit->clear();
-            ui->loginLineEdit->setFocus();
-            ui->authorizationErrorLabel->setVisible(false);
-
-            if (ui->rememberCheckBox->isChecked()) {
-                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
-                                         QSettings::IniFormat);
-                settingsConfig.setValue("userlogin", login);
-            } else {
-                QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
-                                         QSettings::IniFormat);
-                settingsConfig.remove("userlogin");
-            }
-
-            authorizationDB.close();
-            QSqlDatabase::removeDatabase(authorizationDB.connectionName());
-            emit signalLogin(login);
-            close();
-        } else {
-            ui->authorizationErrorLabel->setVisible(true);
-        }
+        emit loginAttempt(login, password);
     }
-    */
 }
 
 void LoginWindow::setBlackUI()
