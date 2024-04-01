@@ -11,9 +11,9 @@ public:
     explicit QSearchBar(QWidget *parent = nullptr);
 
 protected:
-    virtual void focusInEvent(QFocusEvent *event);
-    virtual void focusOutEvent(QFocusEvent *event);
-    void resizeEvent(QResizeEvent *event);
+    virtual void focusInEvent(QFocusEvent *event) override;
+    virtual void focusOutEvent(QFocusEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     QToolButton *searchButton;
@@ -26,7 +26,7 @@ private:
 private slots:
     void updateClearButton(const QString &text);
     void playAnimationSearchButton();
-    void buttonClick();
+    void search();
     void clearText();
 
 public slots:
@@ -34,9 +34,9 @@ public slots:
     void setIconClearButton(QIcon icon, QSize size);
 
 signals:
-    void buttonSearchClick();
-    void haveFocus(bool);
-    void clickedClearButton();
+    void searchInfo();
+    void haveFocus();
+    void clearInfo();
 };
 
 #endif // QSEARCHBAR_H

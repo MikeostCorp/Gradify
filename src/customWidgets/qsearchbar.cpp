@@ -23,16 +23,14 @@ QSearchBar::QSearchBar(QWidget *parent)
 
     setTextMargins(searchButton->minimumWidth(), 2, clearButton->minimumWidth(), 2);
 
-    connect(searchButton, SIGNAL(clicked()), this, SLOT(buttonClick()));
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(clearText()));
-    connect(this,
-            SIGNAL(textChanged(const QString &)),
-            this,
-            SLOT(updateClearButton(const QString)));
+    connect(searchButton, &QAbstractButton::clicked, this, &QSearchBar::search);
+    connect(clearButton, &QAbstractButton::clicked, this, &QSearchBar::clearText);
+    connect(this, &QSearchBar::textChanged, this, &QSearchBar::updateClearButton);
 }
 
 void QSearchBar::resizeEvent(QResizeEvent *event)
 {
+    QLineEdit::resizeEvent(event);
     int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
     clearButton->move(rect().right() - frameWidth - searchButton->sizeHint().width() - 10, 2);
 
@@ -47,7 +45,7 @@ void QSearchBar::focusInEvent(QFocusEvent *event)
     setAlignment(Qt::AlignLeft);
     searchButton->setCursor(Qt::PointingHandCursor);
     playAnimationSearchButton();
-    emit haveFocus(true);
+    emit haveFocus();
 }
 
 void QSearchBar::focusOutEvent(QFocusEvent *event)
@@ -60,24 +58,24 @@ void QSearchBar::focusOutEvent(QFocusEvent *event)
         setAlignment(Qt::AlignCenter);
     }
 
-    emit(haveFocus(false));
+    emit haveFocus();
 }
 
 void QSearchBar::updateClearButton(const QString &text)
 {
     clearButton->setVisible(not text.isEmpty());
-    buttonClick();
+    search();
 }
 
-void QSearchBar::buttonClick()
+void QSearchBar::search()
 {
-    emit buttonSearchClick();
+    emit searchInfo();
 }
 
 void QSearchBar::clearText()
 {
     clear();
-    emit clickedClearButton();
+    emit clearInfo();
 }
 
 void QSearchBar::playAnimationSearchButton()

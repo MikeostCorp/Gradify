@@ -61,17 +61,14 @@ void MainWindow::initMainWindow()
     connectFiltersAndRequests();
 
     // clear searchbar & filter
-    connect(ui->searchLineEdit,
-            &QSearchBar::clickedClearButton,
-            this,
-            &MainWindow::clearFilterForTable);
+    connect(ui->searchLineEdit, &QSearchBar::clearInfo, this, &MainWindow::clearFilterForTable);
 
     connectCloseEvents();
 
     // close popup windows on click menubar
     connect(ui->menuBar, &QMenuBar::triggered, this, &MainWindow::closeAllPopUpWindow);
     connect(ui->searchLineEdit, &QSearchBar::haveFocus, this, &MainWindow::closeAllPopUpWindow);
-    connect(ui->searchLineEdit, &QSearchBar::buttonSearchClick, this, &MainWindow::goSearch);
+    connect(ui->searchLineEdit, &QSearchBar::searchInfo, this, &MainWindow::goSearch);
     connect(ui->searchLineEdit, &QLineEdit::returnPressed, this, &MainWindow::goSearch);
 
     // send list to edit form
@@ -98,7 +95,10 @@ void MainWindow::initMainWindow()
     connect(appSettingsWindow, &AppSettingsWindow::setAPI, dbHandler, &DatabaseHandler::setAPIKey);
 
     connect(dbHandler, &DatabaseHandler::loginFailed, loginWindow, &LoginWindow::loginFailed);
-    connect(dbHandler, &DatabaseHandler::loginSuccessful, loginWindow, &LoginWindow::loginSuccessful);
+    connect(dbHandler,
+            &DatabaseHandler::loginSuccessful,
+            loginWindow,
+            &LoginWindow::loginSuccessful);
 
     connect(this, &MainWindow::clearInputFields, loginWindow, &LoginWindow::clearInputFields);
 }
@@ -370,8 +370,7 @@ void MainWindow::initConfigDefault()
 
     settingsConfig
         .setValue("url", "https://gradifydatabase-default-rtdb.europe-west1.firebasedatabase.app/");
-    settingsConfig
-        .setValue("apiKey", "AIzaSyBH39ltGfdl_kbgLbBHfAMz8fyZaJk8q6g");
+    settingsConfig.setValue("apiKey", "AIzaSyBH39ltGfdl_kbgLbBHfAMz8fyZaJk8q6g");
     settingsConfig.setValue("theme", "system");
 }
 
@@ -397,7 +396,8 @@ void MainWindow::initConfig()
     }
 
     if (settingsConfig.contains("userlogin") and settingsConfig.contains("userpassword")) {
-        dbHandler->signUserIn(settingsConfig.value("userlogin").toString(), settingsConfig.value("userpassword").toString());
+        dbHandler->signUserIn(settingsConfig.value("userlogin").toString(),
+                              settingsConfig.value("userpassword").toString());
     }
 }
 
@@ -1128,19 +1128,21 @@ QString MainWindow::getHeaderHTML()
 void MainWindow::goSearch()
 {
     if (not ui->searchLineEdit->text().isEmpty()) {
-        QString searchString;
+        QString searchString = ui->searchLineEdit->text().toLower();
 
-        for (int i = 0; i < ui->tableWidget->model()->columnCount(); ++i) {
-            searchString += "`" + ui->tableWidget->model()->headerData(i, Qt::Horizontal).toString()
-                            + "` LIKE" + "'%" + ui->searchLineEdit->text() + "%'";
-
-            if (i not_eq ui->tableWidget->model()->columnCount() - 1) {
-                searchString += " OR ";
+        for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
+            bool isFound = false;
+            for (int j = 0; j < ui->tableWidget->model()->columnCount(); ++j) {
+                if (ui->tableWidget->item(i, j)->text().toLower().contains(searchString)) {
+                    isFound = true;
+                    ui->tableWidget->showRow(i);
+                    break;
+                }
+            }
+            if (!isFound) {
+                ui->tableWidget->hideRow(i);
             }
         }
-
-        model->setFilter(searchString);
-        //ui->tableWidget->setModel(model);
     } else {
         clearFilterForTable();
     }
@@ -1270,9 +1272,8 @@ void MainWindow::setQueryForTable(QString query)
 
 void MainWindow::clearFilterForTable()
 {
-    model->setFilter("");
-    model->select();
-    //ui->tableWidget->setModel(model);
+    for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i)
+        ui->tableWidget->showRow(i);
 }
 
 QGraphicsDropShadowEffect *MainWindow::paintDropShadowEffect()
