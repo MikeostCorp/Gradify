@@ -12,11 +12,13 @@ DatabaseHandler::DatabaseHandler(QObject *parent)
     , apiKey{QString()}
 {
     networkAccessManager = new QNetworkAccessManager(this);
+    isLogin = false;
 }
 
 DatabaseHandler::~DatabaseHandler()
 {
     networkAccessManager->deleteLater();
+    networkReply->deleteLater();
 }
 
 void DatabaseHandler::setAPIKey(const QString &apiKey)
@@ -61,8 +63,9 @@ void DatabaseHandler::getReply(const QString &tableName, const QStringList &head
 
     this->headers = headers;
 
-    QNetworkReply *reply = networkAccessManager->get(QNetworkRequest(QUrl(cleanedUrlStr + tableName + ".json?auth=" + idToken)));
-    connect(reply, &QNetworkReply::finished, this, &DatabaseHandler::handleReply);
+    networkReply = networkAccessManager->get(
+        QNetworkRequest(QUrl(cleanedUrlStr + tableName + ".json?auth=" + idToken)));
+    connect(networkReply, &QNetworkReply::finished, this, &DatabaseHandler::handleReply);
 }
 
 void DatabaseHandler::performPOST(const QString &url, const QJsonDocument &payload)
@@ -71,6 +74,36 @@ void DatabaseHandler::performPOST(const QString &url, const QJsonDocument &paylo
     newRequest.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
     networkReply = networkAccessManager->post(newRequest, payload.toJson());
     connect(networkReply, &QNetworkReply::readyRead, this, &DatabaseHandler::replyNetworkReadyRead);
+}
+
+void DatabaseHandler::newDataPost(const QString &url, const QJsonDocument &payload)
+{
+    QNetworkRequest newRequest((QUrl(url + ".json?auth=" + idToken)));
+    newRequest.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+    networkReply = networkAccessManager->put(newRequest, payload.toJson());
+    connect(networkReply, &QNetworkReply::finished, this, &DatabaseHandler::finished);
+}
+
+void DatabaseHandler::fetchData(const QString &tableName)
+{
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
+    QUrl urlLink(settingsConfig.value("url").toString());
+    QString cleanedUrlStr = urlLink.toString(QUrl::StripTrailingSlash);
+
+    QNetworkRequest request(QUrl(cleanedUrlStr + tableName + ".json?auth=" + idToken));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+    networkReply = networkAccessManager->get(request);
+
+    connect(networkReply, &QNetworkReply::finished, this, [=]() {
+        if (networkReply->error() == QNetworkReply::NoError) {
+            emit dataReady(networkReply->readAll());
+        } else {
+            qDebug() << "Error while retrieving data: " << networkReply->errorString();
+        }
+        networkReply->deleteLater();
+    });
 }
 
 void DatabaseHandler::handleReply()

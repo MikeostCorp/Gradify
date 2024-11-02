@@ -2,13 +2,16 @@
 #include "ui_groupwindow.h"
 
 #include <QFile>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
 
-GroupWindow::GroupWindow(QWidget *parent)
+GroupWindow::GroupWindow(QWidget *parent, DatabaseHandler *dbHandler)
     : QWidget(parent)
     , ui(new Ui::GroupWindow)
+    , dbHandler(dbHandler)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -21,6 +24,8 @@ GroupWindow::GroupWindow(QWidget *parent)
     ui->headManComboBox->insertSeparator(1);
     ui->okLabel->setVisible(false);
     isNewRow = false;
+
+    connect(this, &GroupWindow::requestDataFromDatabase, dbHandler, &DatabaseHandler::fetchData);
 }
 
 GroupWindow::~GroupWindow()
@@ -30,7 +35,7 @@ GroupWindow::~GroupWindow()
 
 void GroupWindow::setBlackUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/groupIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/groupsIco.png"));
     QFile file(":/styles/black/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -39,7 +44,7 @@ void GroupWindow::setBlackUI()
 
 void GroupWindow::setWhiteUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/groupIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/groupsIco.png"));
     QFile file(":/styles/white/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -98,26 +103,41 @@ void GroupWindow::setDataHeadManComboBox(QString group)
     group.remove(0, group.indexOf('.') + 2);
 
     QStringList studentList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel;
-    QTableView *virtualTable = new QTableView;
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                               "FROM `Студенти`"
-                               "WHERE `Студенти`.`Група` = '"
-                               + group + "'");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    if (virualQueryModel->rowCount() <= 0) {
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject studentData = value.toObject();
+
+                if (studentData.contains("Прізвище") && studentData.contains("Ім'я")
+                    && studentData.contains("По батькові")) {
+                    QString fullName = studentData["Прізвище"].toString() + " "
+                                       + studentData["Ім'я"].toString() + " "
+                                       + studentData["По батькові"].toString();
+                    studentList.append(fullName);
+                } else {
+                    qDebug() << "Missing one or more keys in studentData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Студенти");
+    loop.exec();
+
+    if (studentList.isEmpty()) {
         ui->headManComboBox->addItem("Студентів поки що нема");
         ui->headManComboBox->setCurrentIndex(2);
     } else {
-        virtualTable->setModel(virualQueryModel);
-
-        for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-            studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
-                               + virtualTable->model()->index(row, 1).data().toString() + " "
-                               + virtualTable->model()->index(row, 2).data().toString());
-        }
-
         ui->headManComboBox->addItems(studentList);
     }
 }

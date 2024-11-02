@@ -147,9 +147,9 @@ QStringList TeacherWindow::getCurrentData()
     dataList << ui->nameLineEdit->text();
     dataList << ui->surnameLineEdit->text();
     dataList << ui->numberLineEdit->text();
-    dataList << QString::number(ui->birthDayDataEdit->date().year()) + "."
+    dataList << QString::number(ui->birthDayDataEdit->date().day()) + "."
                     + QString::number(ui->birthDayDataEdit->date().month()) + "."
-                    + QString::number(ui->birthDayDataEdit->date().day()) + ".";
+                    + QString::number(ui->birthDayDataEdit->date().year());
     dataList << ui->addressLineEdit->text();
     dataList << ui->categoryComboBox->currentText();
     dataList << ui->specialComboBox->currentText();

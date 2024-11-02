@@ -78,9 +78,9 @@ void StudentWindow::setData(QString titleName, QStringList listData)
     ui->lastNameLineEdit->setText(listData[1]);
     ui->nameLineEdit->setText(listData[2]);
     ui->surnameLineEdit->setText(listData[3]);
-    ui->numberLineEdit->setText(listData[4]);
-    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
-    ui->addressLineEdit->setText(listData[6]);
+    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[4]), "dd/MM/yyyy"));
+    ui->addressLineEdit->setText(listData[5]);
+    ui->numberLineEdit->setText(listData[6]);
 
     ui->passLineEdit->setText(listData[7]);
     ui->groupComboBox->setCurrentText(listData[8]);
@@ -165,11 +165,11 @@ QStringList StudentWindow::getCurrentData()
     dataList << ui->lastNameLineEdit->text();
     dataList << ui->nameLineEdit->text();
     dataList << ui->surnameLineEdit->text();
-    dataList << ui->numberLineEdit->text();
-    dataList << QString::number(ui->birthDayDataEdit->date().year()) + "."
+    dataList << QString::number(ui->birthDayDataEdit->date().day()) + "."
                     + QString::number(ui->birthDayDataEdit->date().month()) + "."
-                    + QString::number(ui->birthDayDataEdit->date().day()) + ".";
+                    + QString::number(ui->birthDayDataEdit->date().year());
     dataList << ui->addressLineEdit->text();
+    dataList << ui->numberLineEdit->text();
     dataList << ui->passLineEdit->text();
     dataList << ui->groupComboBox->currentText();
     dataList << ui->nalogLineEdit->text();

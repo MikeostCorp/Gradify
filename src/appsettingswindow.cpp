@@ -11,7 +11,7 @@ AppSettingsWindow::AppSettingsWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("Налаштування");
-    //setWindowFlags(Qt::WindowStaysOnTopHint);
+    // setWindowFlags(Qt::WindowStaysOnTopHint);
 
     show();
     close();
@@ -143,7 +143,7 @@ void AppSettingsWindow::on_saveDBSettings_clicked()
 
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
-    settingsConfig.setValue("url", ui->dbURLLineEdit->text());
+    settingsConfig.setValue("url", ui->dbURLLineEdit->text() + "/");
     settingsConfig.setValue("apiKey", ui->dbAPILineEdit->text());
 
     ui->succSaveSettings->setVisible(true);

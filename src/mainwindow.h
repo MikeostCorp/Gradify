@@ -137,6 +137,8 @@ private slots:
     void openGradesTable();
     void openGroupsTable();
 
+    void refreshTable();
+
     void clearStyleButtonTable();
 
     void openSettingsWindow();
@@ -227,5 +229,7 @@ signals:
     void updateStatisticsSignal();
     void updateStatisticsComboBoxSignal();
     void clearInputFields();
+    void sendDataToDatabase(const QString &url, const QJsonDocument &payload);
+    void requestDataFromDatabase(const QString &tableName);
 };
 #endif // MAINWINDOW_H

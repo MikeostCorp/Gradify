@@ -2,13 +2,16 @@
 #include "ui_gradewindow.h"
 
 #include <QFile>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QTableView>
 
-GradeWindow::GradeWindow(QWidget *parent)
+GradeWindow::GradeWindow(QWidget *parent, DatabaseHandler *dbHandler)
     : QWidget(parent)
     , ui(new Ui::GradeWindow)
+    , dbHandler(dbHandler)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
@@ -21,6 +24,8 @@ GradeWindow::GradeWindow(QWidget *parent)
     ui->whoTakeComboBox->insertSeparator(1);
     ui->okLabel->setVisible(false);
     isNewRow = false;
+
+    connect(this, &GradeWindow::requestDataFromDatabase, dbHandler, &DatabaseHandler::fetchData);
 }
 
 GradeWindow::~GradeWindow()
@@ -30,7 +35,7 @@ GradeWindow::~GradeWindow()
 
 void GradeWindow::setBlackUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/raitingIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/gradesIco.png"));
     QFile file(":/styles/black/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -39,7 +44,7 @@ void GradeWindow::setBlackUI()
 
 void GradeWindow::setWhiteUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/raitingIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/gradesIco.png"));
     QFile file(":/styles/white/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -181,9 +186,9 @@ QStringList GradeWindow::getCurrentData()
     dataList << ui->whoTakeComboBox->currentText();
     dataList << QString::number(ui->gradeSpinBox->value());
     dataList << ui->typeGradeComboBox->currentText();
-    dataList << QString::number(ui->takeDateEdit->date().year()) + "."
+    dataList << QString::number(ui->takeDateEdit->date().day()) + "."
                     + QString::number(ui->takeDateEdit->date().month()) + "."
-                    + QString::number(ui->takeDateEdit->date().day()) + ".";
+                    + QString::number(ui->takeDateEdit->date().year());
 
     return dataList;
 }
@@ -226,20 +231,39 @@ void GradeWindow::on_groupComboBox_currentIndexChanged(int index)
         ui->whoTakeComboBox->setEnabled(true);
 
         QStringList studentList;
-        QSqlQueryModel *queryModel = new QSqlQueryModel();
-        QTableView *tableView = new QTableView();
+        QEventLoop loop;
 
-        queryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                             "FROM `Студенти`"
-                             "WHERE `Студенти`.`Група` = '"
-                             + ui->groupComboBox->currentText() + "'");
-        tableView->setModel(queryModel);
+        auto handler
+            = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+                  qDebug() << "Raw data received:" << data;
+                  QJsonDocument doc = QJsonDocument::fromJson(data);
+                  QJsonArray jsonArray = doc.array();
 
-        for (int row = 0; row < queryModel->rowCount(); ++row) {
-            studentList.append(tableView->model()->index(row, 0).data().toString() + " "
-                               + tableView->model()->index(row, 1).data().toString() + " "
-                               + tableView->model()->index(row, 2).data().toString());
-        }
+                  for (const QJsonValue &value : jsonArray) {
+                      if (value.isObject()) {
+                          QJsonObject studentData = value.toObject();
+
+                          if (studentData.contains("Прізвище") && studentData.contains("Ім'я")
+                              && studentData.contains("По батькові")
+                              && studentData.contains("Група")
+                              && studentData["Група"] == ui->groupComboBox->currentText()) {
+                              QString fullName = studentData["Прізвище"].toString() + " "
+                                                 + studentData["Ім'я"].toString() + " "
+                                                 + studentData["По батькові"].toString();
+                              studentList.append(fullName);
+                          } else {
+                              qDebug() << "Missing one or more keys in studentData";
+                          }
+                      } else {
+                          qDebug() << "Value is not an object";
+                      }
+                  }
+                  disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+                  loop.quit();
+              });
+
+        emit requestDataFromDatabase("Студенти");
+        loop.exec();
 
         setDataStudentComboBox(studentList);
     }
@@ -252,16 +276,33 @@ void GradeWindow::setGroupComboBox()
     ui->groupComboBox->insertSeparator(1);
 
     QStringList listGroup;
-    QSqlQueryModel *queryModel = new QSqlQueryModel();
-    QTableView *tableView = new QTableView();
+    QEventLoop loop;
 
-    queryModel->setQuery("SELECT `Назва`"
-                         "FROM `Групи`");
-    tableView->setModel(queryModel);
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    for (int row = 0; row < queryModel->rowCount(); ++row) {
-        listGroup.append(tableView->model()->index(row, 0).data().toString());
-    }
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject groupData = value.toObject();
+
+                if (groupData.contains("Назва")) {
+                    QString groupName = groupData["Назва"].toString();
+                    listGroup.append(groupName);
+                } else {
+                    qDebug() << "Missing one or more keys in groupData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Групи");
+    loop.exec();
 
     ui->groupComboBox->addItems(listGroup);
 }

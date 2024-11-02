@@ -2,6 +2,7 @@
 #define GRADEWINDOW_H
 
 #include <QWidget>
+#include "DatabaseHandler/databasehandler.h"
 
 namespace Ui {
 class GradeWindow;
@@ -12,7 +13,7 @@ class GradeWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit GradeWindow(QWidget *parent = nullptr);
+    explicit GradeWindow(QWidget *parent = nullptr, DatabaseHandler *dbHandler = nullptr);
     ~GradeWindow();
 
 private slots:
@@ -29,6 +30,7 @@ private slots:
 
 private:
     Ui::GradeWindow *ui;
+    DatabaseHandler *dbHandler;
 
     bool isNewRow;
 
@@ -43,6 +45,7 @@ public slots:
 
 signals:
     void sendData(QStringList, bool);
+    void requestDataFromDatabase(const QString &tableName);
 };
 
 #endif // GRADEWINDOW_H

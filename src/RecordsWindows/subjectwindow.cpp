@@ -37,7 +37,7 @@ SubjectWindow::~SubjectWindow()
 
 void SubjectWindow::setBlackUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/subjectIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/whiteMenuIcon/subjectsIco.png"));
     QFile file(":/styles/black/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));
@@ -46,7 +46,7 @@ void SubjectWindow::setBlackUI()
 
 void SubjectWindow::setWhiteUI()
 {
-    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/subjectIco.png"));
+    ui->mainImage->setPixmap(QPixmap(":/img/blackMenuIcon/subjectsIco.png"));
     QFile file(":/styles/white/RecordsWindows/RecordsWindows.qss");
     file.open(QFile::ReadOnly);
     setStyleSheet(QLatin1String(file.readAll()));

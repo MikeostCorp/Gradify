@@ -107,6 +107,9 @@ void MainWindow::initDatabaseHandler()
 {
     dbHandler = new DatabaseHandler(this);
     connect(dbHandler, &DatabaseHandler::replyReceived, this, &MainWindow::handleReply);
+    connect(this, &MainWindow::sendDataToDatabase, dbHandler, &DatabaseHandler::newDataPost);
+    connect(dbHandler, &DatabaseHandler::finished, this, &MainWindow::refreshTable);
+    connect(this, &MainWindow::requestDataFromDatabase, dbHandler, &DatabaseHandler::fetchData);
 }
 
 void MainWindow::initWindowsObjects()
@@ -117,8 +120,8 @@ void MainWindow::initWindowsObjects()
     queryWindow = new QueryWindow(this);
     aboutAppWindow = new AboutAppWindow();
 
-    gradeWindow = new GradeWindow();
-    groupWindow = new GroupWindow();
+    gradeWindow = new GradeWindow(this, dbHandler);
+    groupWindow = new GroupWindow(this, dbHandler);
     studentWindow = new StudentWindow();
     subjectWindow = new SubjectWindow();
     teacherWindow = new TeacherWindow();
@@ -368,8 +371,9 @@ void MainWindow::initConfigDefault()
     QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
                              QSettings::IniFormat);
 
-    settingsConfig
-        .setValue("url", "https://gradifydatabase-default-rtdb.europe-west1.firebasedatabase.app/");
+    settingsConfig.setValue("url",
+                            "https://"
+                            "gradifydatabase-default-rtdb.europe-west1.firebasedatabase.app/");
     settingsConfig.setValue("apiKey", "AIzaSyBH39ltGfdl_kbgLbBHfAMz8fyZaJk8q6g");
     settingsConfig.setValue("theme", "system");
 }
@@ -541,8 +545,8 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
 
     dbHandler->getReply(tableName, headers);
 
-    //emit setTableForFilter(getColumnsNamesAndDatatypes(tableName));
-    //emit changedGradeTable(tableType);
+    // emit setTableForFilter(getColumnsNamesAndDatatypes(tableName));
+    // emit changedGradeTable(tableType);
 }
 
 void MainWindow::handleReply(const QByteArray &data, const QStringList &headers)
@@ -577,6 +581,29 @@ void MainWindow::openGradesTable()
 void MainWindow::openGroupsTable()
 {
     openTable(TableType::Groups, "Групи");
+}
+
+void MainWindow::refreshTable()
+{
+    switch (currentSelectTable) {
+    case TableType::Teachers:
+        openTeachersTable();
+        break;
+    case TableType::Subjects:
+        openSubjectsTable();
+        break;
+    case TableType::Students:
+        openStudentsTable();
+        break;
+    case TableType::Grades:
+        openGradesTable();
+        break;
+    case TableType::Groups:
+        openGroupsTable();
+        break;
+    case TableType::None:
+        break;
+    }
 }
 
 void MainWindow::clearSelectTable()
@@ -705,7 +732,7 @@ void MainWindow::authorization(const QString &login)
 void MainWindow::setFilterForTable(const QString &filterQuery, const QString &currentColumnFilter)
 {
     model->setFilter(filterQuery);
-    //ui->tableWidget->setModel(model);
+    // ui->tableWidget->setModel(model);
 
     for (int i = 0; i < ui->tableWidget->model()->columnCount(); ++i) {
         if (ui->tableWidget->model()->headerData(i, Qt::Horizontal).toString()
@@ -716,7 +743,7 @@ void MainWindow::setFilterForTable(const QString &filterQuery, const QString &cu
     }
 
     // debug
-    //QMessageBox::information(this, "", filterQuery);
+    // QMessageBox::information(this, "", filterQuery);
 }
 
 void MainWindow::openSettingsWindow()
@@ -768,7 +795,7 @@ void MainWindow::handleLogin()
 void MainWindow::addRowToTable()
 {
     qDebug() << QString("addRowToTable()");
-    return;
+    // return;
 
     switch (currentSelectTable) {
     case TableType::Students:
@@ -1069,7 +1096,7 @@ void MainWindow::printDocumentToPDF(const QString path, const QString html)
     printer.setPageMargins(QMarginsF(5, 5, 5, 5), QPageLayout::Millimeter);
     printer.setOutputFileName(path);
 
-    //document->setPageSize(QSizeF(927, 1402.5));
+    // document->setPageSize(QSizeF(927, 1402.5));
     document->setPageSize(QSizeF(920, 1300));
     document->print(&printer);
 
@@ -1117,7 +1144,8 @@ QString MainWindow::getHeaderHTML()
                  "  text-align: left;\n}\n"
                  "td.la {\n background-color: #f2f2f2;\n}\n"
                  "td.info {\n   border: 0px;\n  background-color: #e1e1e1;\n}\n"
-                 "h1, h2, h3 ,h4{\n font-family: -apple-system, BlinkMacSystemFont, sans-serif\n}\n"
+                 "h1, h2, h3 ,h4{\n font-family: -apple-system, "
+                 "BlinkMacSystemFont, sans-serif\n}\n"
                  "#transpert {\ncolor: white;\n}\n"
                  "</style>\n"
                  "<title>Звіт</title>\n</head>\n";
@@ -1150,71 +1178,80 @@ void MainWindow::goSearch()
 
 void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 {
+    QSettings settingsConfig(QCoreApplication::applicationDirPath() + "/gradify.conf",
+                             QSettings::IniFormat);
+    QUrl urlLink(settingsConfig.value("url").toString());
+    QString cleanedUrlStr = urlLink.toString(QUrl::StripTrailingSlash);
+
     if (isNewRow) {
-        QString newRow = "INSERT INTO ";
-        QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-        QTableWidget *tableWidget = new QTableWidget(this);
+        QVariantMap newData;
 
         switch (currentSelectTable) {
         case TableType::Students:
-            newRow += "`Студенти`";
-            queryModel->setQuery("SELECT MAX(`Код`) "
-                                 "FROM Студенти");
+            newData["Прізвище"] = dataList[1];
+            newData["Ім'я"] = dataList[2];
+            newData["По батькові"] = dataList[3];
+            newData["Дата народження"] = dataList[4];
+            newData["Адреса проживання"] = dataList[5];
+            newData["Номер телефона"] = dataList[6];
+            newData["Номер паспорту"] = dataList[7];
+            newData["Група"] = dataList[8];
+            newData["ІНН"] = dataList[9];
+
+            cleanedUrlStr += "Студенти/" + QString::number(ui->tableWidget->model()->rowCount());
             break;
         case TableType::Teachers:
-            newRow += "`Викладачі` ";
-            queryModel->setQuery("SELECT MAX(`Код`) "
-                                 "FROM Викладачі");
+            newData["Прізвище"] = dataList[1];
+            newData["Ім'я"] = dataList[2];
+            newData["По батькові"] = dataList[3];
+            newData["Номер телефона"] = dataList[4];
+            newData["Дата народження"] = dataList[5];
+            newData["Адреса проживання"] = dataList[6];
+            newData["Категорія"] = dataList[7];
+            newData["Спеціалізація"] = dataList[8];
+
+            cleanedUrlStr += "Викладачі/" + QString::number(ui->tableWidget->model()->rowCount());
             break;
         case TableType::Grades:
-            newRow += "`Оцінки` ";
-            queryModel->setQuery("SELECT MAX(`Код`) "
-                                 "FROM Оцінки");
+            newData["Предмет"] = dataList[1];
+            newData["Отримувач"] = dataList[2];
+            newData["Оцінка"] = dataList[3];
+            newData["Тип оцінки"] = dataList[4];
+            newData["Дата отримання"] = dataList[5];
+
+            cleanedUrlStr += "Оцінки/" + QString::number(ui->tableWidget->model()->rowCount());
             break;
         case TableType::Groups:
-            newRow += "`Групи` ";
-            queryModel->setQuery("SELECT MAX(`Код`) "
-                                 "FROM Групи");
+            newData["Назва"] = dataList[1];
+            newData["Спеціальність"] = dataList[2];
+            newData["Рік початку навчання"] = dataList[3];
+            newData["Рік закінчення навчання"] = dataList[4];
+            newData["Куратор"] = dataList[5];
+            newData["Староста"] = dataList[6];
+
+            cleanedUrlStr += "Групи/" + QString::number(ui->tableWidget->model()->rowCount());
             break;
         case TableType::Subjects:
-            newRow += "`Предмети` ";
-            queryModel->setQuery("SELECT MAX(`Код`) "
-                                 "FROM Предмети");
+            newData["Назва"] = dataList[1];
+            newData["Тип"] = dataList[2];
+            newData["Викладач"] = dataList[3];
+            newData["Всього годин"] = dataList[4];
+            newData["Кількість лекційних годин"] = dataList[5];
+            newData["Кількість лабораторних годин"] = dataList[6];
+            newData["Кількість семінарних годин"] = dataList[7];
+            newData["Кількість годин на самостійні роботи"] = dataList[8];
+            newData["Семестр в якому вивчається"] = dataList[9];
+            newData["Семестровий контроль"] = dataList[10];
+
+            cleanedUrlStr += "Предмети/" + QString::number(ui->tableWidget->model()->rowCount());
             break;
         case TableType::None:
             break;
         }
 
-        //tableWidget->setModel(queryModel);
+        QJsonDocument jsonDoc = QJsonDocument::fromVariant(newData);
+        emit sendDataToDatabase(cleanedUrlStr, jsonDoc);
 
-        newRow += "(";
-
-        for (int i = 0; i < model->columnCount(); ++i) {
-            newRow += "`" + model->headerData(i, Qt::Horizontal).toString();
-
-            if (i not_eq model->columnCount() - 1) {
-                newRow += "`, ";
-            } else {
-                newRow += "`)";
-            }
-        }
-
-        newRow += "\nVALUES ('"
-                  + QString::number(tableWidget->model()->index(0, 0).data().toInt() + 1) + "',";
-
-        for (int i = 1; i < model->columnCount(); ++i) {
-            newRow += "'" + dataList[i];
-
-            if (i not_eq model->columnCount() - 1) {
-                newRow += "', ";
-            } else {
-                newRow += "')";
-            }
-        }
-
-        QSqlQueryModel *sqlModel = new QSqlQueryModel();
-        sqlModel->setQuery(newRow);
-        model->select();
     } else {
         QString queryEdit = "UPDATE ";
 
@@ -1261,12 +1298,12 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
 void MainWindow::setQueryForTable(QString query)
 {
     if (query == "NULL") {
-        //ui->tableWidget->setModel(model);
+        // ui->tableWidget->setModel(model);
         ui->tableWidget->resizeColumnsToContents();
         ui->tableWidget->sortByColumn(0, Qt::AscendingOrder);
     } else {
         queryModel->setQuery(query);
-        //ui->tableWidget->setModel(queryModel);
+        // ui->tableWidget->setModel(queryModel);
     }
 }
 
@@ -1301,7 +1338,7 @@ QMap<QString, QString> MainWindow::getColumnsNamesAndDatatypes(const QString &ta
                              + "'"
                                "AND NOT column_name = 'Код'");
 
-        //tableWidget->setModel(queryModel);
+        // tableWidget->setModel(queryModel);
 
         for (int row = 0; row < queryModel->rowCount(); ++row) {
             headerListMap.insert(tableWidget->model()->index(row, 0).data().toString(),
@@ -1383,37 +1420,70 @@ QStringList MainWindow::getStudentsNames()
 QStringList MainWindow::getTeachersNames()
 {
     QStringList teacherList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
 
-    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                               "FROM `Викладачі`");
+    QEventLoop loop;
 
-    virtualTable->setModel(virualQueryModel);
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        teacherList.append(virtualTable->model()->index(row, 0).data().toString() + " "
-                           + virtualTable->model()->index(row, 1).data().toString() + " "
-                           + virtualTable->model()->index(row, 2).data().toString());
-    }
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject teacherData = value.toObject();
 
+                if (teacherData.contains("Прізвище") && teacherData.contains("Ім'я")
+                    && teacherData.contains("По батькові")) {
+                    QString fullName = teacherData["Прізвище"].toString() + " "
+                                       + teacherData["Ім'я"].toString() + " "
+                                       + teacherData["По батькові"].toString();
+                    teacherList.append(fullName);
+                } else {
+                    qDebug() << "Missing one or more keys in teacherData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Викладачі");
+    loop.exec();
     return teacherList;
 }
 
 QStringList MainWindow::getSubjectsNames()
 {
     QStringList subjectList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Назва`"
-                               "FROM `Предмети`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject subjectData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        subjectList.append(virtualTable->model()->index(row, 0).data().toString());
-    }
+                if (subjectData.contains("Назва")) {
+                    QString subjectName = subjectData["Назва"].toString();
+                    subjectList.append(subjectName);
+                } else {
+                    qDebug() << "Missing one or more keys in subjectData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Предмети");
+    loop.exec();
 
     return subjectList;
 }
@@ -1421,18 +1491,33 @@ QStringList MainWindow::getSubjectsNames()
 QStringList MainWindow::getSubjectsTypes()
 {
     QStringList categoryList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Тип`"
-                               "FROM `Предмети`"
-                               "GROUP BY `Тип`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject subjectData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        categoryList.append(virtualTable->model()->index(row, 0).data().toString());
-    }
+                if (subjectData.contains("Тип")) {
+                    QString subjectName = subjectData["Тип"].toString();
+                    categoryList.append(subjectName);
+                } else {
+                    qDebug() << "Missing one or more keys in subjectData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Предмети");
+    loop.exec();
 
     return categoryList;
 }
@@ -1440,18 +1525,33 @@ QStringList MainWindow::getSubjectsTypes()
 QStringList MainWindow::getCategoryTeachers()
 {
     QStringList categoryList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Категорія`"
-                               "FROM `Викладачі`"
-                               "GROUP BY `Категорія`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject teacherData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        categoryList.append(virtualTable->model()->index(row, 0).data().toString());
-    }
+                if (teacherData.contains("Категорія")) {
+                    QString category = teacherData["Категорія"].toString();
+                    categoryList.append(category);
+                } else {
+                    qDebug() << "Missing one or more keys in teacherData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Викладачі");
+    loop.exec();
 
     return categoryList;
 }
@@ -1459,17 +1559,33 @@ QStringList MainWindow::getCategoryTeachers()
 QStringList MainWindow::getGroupsNames()
 {
     QStringList groupList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Назва`"
-                               "FROM `Групи`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject groupData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        groupList.append(virtualTable->model()->index(row, 0).data().toString());
-    }
+                if (groupData.contains("Назва")) {
+                    QString groupName = groupData["Назва"].toString();
+                    groupList.append(groupName);
+                } else {
+                    qDebug() << "Missing one or more keys in groupData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Групи");
+    loop.exec();
 
     return groupList;
 }
@@ -1477,18 +1593,33 @@ QStringList MainWindow::getGroupsNames()
 QStringList MainWindow::getGroupsSpecial()
 {
     QStringList groupSpecialList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Спеціальність`"
-                               "FROM `Групи`"
-                               "GROUP BY `Спеціальність`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject groupData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        groupSpecialList.append(virtualTable->model()->index(row, 0).data().toString());
-    }
+                if (groupData.contains("Спеціальність")) {
+                    QString groupSpecial = groupData["Спеціальність"].toString();
+                    groupSpecialList.append(groupSpecial);
+                } else {
+                    qDebug() << "Missing one or more keys in groupData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Групи");
+    loop.exec();
 
     return groupSpecialList;
 }
@@ -2195,31 +2326,31 @@ void MainWindow::exportDataToTXT()
 void MainWindow::on_actionEnglish_Translate_triggered()
 {
     /*
-    qDebug() << "Switching to English (United States)...";
-    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
-    qDebug() << "Current locale:" << QLocale::system().name();
+  qDebug() << "Switching to English (United States)...";
+  QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+  qDebug() << "Current locale:" << QLocale::system().name();
 
-    translator.load(":/translations/Gradify_en_US.qm");
-    if (qApp->installTranslator(&translator)) {
-        qDebug() << "Translation installed successfully.";
-    } else {
-        qDebug() << "Failed to install translation.";
-    }
-    */
+  translator.load(":/translations/Gradify_en_US.qm");
+  if (qApp->installTranslator(&translator)) {
+      qDebug() << "Translation installed successfully.";
+  } else {
+      qDebug() << "Failed to install translation.";
+  }
+  */
 }
 
 void MainWindow::on_actionUkrainian_Translate_triggered()
 {
     /*
-    qDebug() << "Switching to Ukrainian (Ukraine)...";
-    QLocale::setDefault(QLocale(QLocale::Ukrainian, QLocale::Ukraine));
-    qDebug() << "Current locale:" << QLocale::system().name();
+  qDebug() << "Switching to Ukrainian (Ukraine)...";
+  QLocale::setDefault(QLocale(QLocale::Ukrainian, QLocale::Ukraine));
+  qDebug() << "Current locale:" << QLocale::system().name();
 
-    translator.load(":/translations/Gradify_ua_UA.qm");
-    if (qApp->installTranslator(&translator)) {
-        qDebug() << "Translation installed successfully.";
-    } else {
-        qDebug() << "Failed to install translation.";
-    }
-    */
+  translator.load(":/translations/Gradify_ua_UA.qm");
+  if (qApp->installTranslator(&translator)) {
+      qDebug() << "Translation installed successfully.";
+  } else {
+      qDebug() << "Failed to install translation.";
+  }
+  */
 }

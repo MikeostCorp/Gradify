@@ -22,10 +22,14 @@ private:
     QString apiKey;
     QString idToken;
 
+    bool isLogin;
+
 public slots:
     void replyNetworkReadyRead();
     void handleReply();
     void getReply(const QString &url, const QStringList &headers);
+    void newDataPost(const QString &url, const QJsonDocument &payload);
+    void fetchData(const QString &tableName);
 
 private slots:
     void performPOST(const QString &url, const QJsonDocument &payload);
@@ -34,6 +38,8 @@ signals:
     void replyReceived(const QByteArray &data, const QStringList &headers);
     void loginFailed();
     void loginSuccessful();
+    void finished();
+    void dataReady(const QByteArray &data);
 };
 
 #endif // DATABASEHANDLER_H

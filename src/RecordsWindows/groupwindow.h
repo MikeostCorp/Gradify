@@ -2,6 +2,7 @@
 #define GROUPWINDOW_H
 
 #include <QWidget>
+#include "DatabaseHandler/databasehandler.h"
 
 namespace Ui {
 class GroupWindow;
@@ -12,7 +13,7 @@ class GroupWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit GroupWindow(QWidget *parent = nullptr);
+    explicit GroupWindow(QWidget *parent = nullptr, DatabaseHandler *dbHandler = nullptr);
     ~GroupWindow();
 
 private slots:
@@ -27,6 +28,7 @@ private slots:
 
 private:
     Ui::GroupWindow *ui;
+    DatabaseHandler *dbHandler;
 
     bool isNewRow;
 
@@ -41,6 +43,7 @@ public slots:
 
 signals:
     void sendData(QStringList, bool);
+    void requestDataFromDatabase(const QString &tableName);
 };
 
 #endif // GROUPWINDOW_H
