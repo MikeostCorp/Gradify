@@ -447,6 +447,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 void MainWindow::fillTable(const QStringList &columns, const QJsonArray &data)
 {
     qsizetype rowCount = data.size();
+    qDebug() << data.size();
     qsizetype columnCount = columns.size();
 
     ui->tableWidget->setRowCount(rowCount);
@@ -488,7 +489,8 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
     case TableType::Teachers:
         ui->teachersTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/teachersIco.png"));
         ui->teachersTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Прізвище",
+        headers = {"Код",
+                   "Прізвище",
                    "Ім'я",
                    "По батькові",
                    "Номер телефона",
@@ -500,7 +502,8 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
     case TableType::Subjects:
         ui->subjectsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/subjectsIco.png"));
         ui->subjectsTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Назва",
+        headers = {"Код",
+                   "Назва",
                    "Тип",
                    "Викладач",
                    "Всього годин",
@@ -514,7 +517,8 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
     case TableType::Students:
         ui->studentsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/studentsIco.png"));
         ui->studentsTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Прізвище",
+        headers = {"Код",
+                   "Прізвище",
                    "Ім'я",
                    "По батькові",
                    "Дата народження",
@@ -527,12 +531,13 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
     case TableType::Grades:
         ui->gradesTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/gradesIco.png"));
         ui->gradesTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Предмет", "Отримувач", "Оцінка", "Тип оцінки", "Дата отримання"};
+        headers = {"Код", "Предмет", "Отримувач", "Оцінка", "Тип оцінки", "Дата отримання"};
         break;
     case TableType::Groups:
         ui->groupsTableButton->setIcon(QIcon(":/img/" + theme + "MenuIcon/groupsIco.png"));
         ui->groupsTableButton->setStyleSheet(selectButtonTableStyle);
-        headers = {"Назва",
+        headers = {"Код",
+                   "Назва",
                    "Спеціальність",
                    "Рік початку навчання",
                    "Рік закінчення навчання",
@@ -552,9 +557,16 @@ void MainWindow::openTable(TableType tableType, const QString &tableName)
 void MainWindow::handleReply(const QByteArray &data, const QStringList &headers)
 {
     QJsonDocument doc = QJsonDocument::fromJson(data);
+    qDebug() << doc;
+    QJsonArray array = doc.array();
+    for (int i = array.size() - 1; i >= 0; --i) {
+        if (array[i].isNull()) {
+            array.removeAt(i);
+        }
+    }
 
-    if (!doc.isNull() && doc.isArray()) {
-        fillTable(headers, doc.array());
+    if (!doc.isNull()) {
+        fillTable(headers, array);
     }
 }
 
@@ -921,12 +933,12 @@ void MainWindow::deleteRowFromTable()
 void MainWindow::editRowInTable()
 {
     qDebug() << QString("editRowInTable()");
-    return;
 
     ui->searchLineEdit->clearFocus();
     closeAllPopUpWindow();
 
     if (ui->tableWidget->model()->rowCount() > 0) {
+        qDebug() << "check TEST!";
         bool ok;
         QString selectedItem = QInputDialog::getItem(this,
                                                      tr("Редагування запису"),
@@ -942,10 +954,11 @@ void MainWindow::editRowInTable()
                 connect(this, &MainWindow::setDataEditForm, studentWindow, &StudentWindow::setData);
 
                 emit sendGroupsList(getGroupsNames());
+                qDebug() << "sendGroupsList";
                 emit setDataEditForm(selectedItem,
                                      getRowData(
-                                         selectedItem.QString::left(selectedItem.indexOf('.'))
-                                             .toInt()));
+                                         selectedItem.left(selectedItem.indexOf('.')).toInt()));
+                qDebug() << "setDataEditForm";
 
                 disconnect(this,
                            &MainWindow::setDataEditForm,
@@ -1183,116 +1196,100 @@ void MainWindow::setDataToModel(QStringList dataList, bool isNewRow)
     QUrl urlLink(settingsConfig.value("url").toString());
     QString cleanedUrlStr = urlLink.toString(QUrl::StripTrailingSlash);
 
-    if (isNewRow) {
-        QVariantMap newData;
+    qint64 id = 0;
+    qDebug() << dataList[0];
 
-        switch (currentSelectTable) {
-        case TableType::Students:
-            newData["Прізвище"] = dataList[1];
-            newData["Ім'я"] = dataList[2];
-            newData["По батькові"] = dataList[3];
-            newData["Дата народження"] = dataList[4];
-            newData["Адреса проживання"] = dataList[5];
-            newData["Номер телефона"] = dataList[6];
-            newData["Номер паспорту"] = dataList[7];
-            newData["Група"] = dataList[8];
-            newData["ІНН"] = dataList[9];
+    if (isNewRow || dataList[0].toInt() == -1) {
+        int maxValue = std::numeric_limits<int>::min();
+        int rowCount = ui->tableWidget->rowCount();
 
-            cleanedUrlStr += "Студенти/" + QString::number(ui->tableWidget->model()->rowCount());
-            break;
-        case TableType::Teachers:
-            newData["Прізвище"] = dataList[1];
-            newData["Ім'я"] = dataList[2];
-            newData["По батькові"] = dataList[3];
-            newData["Номер телефона"] = dataList[4];
-            newData["Дата народження"] = dataList[5];
-            newData["Адреса проживання"] = dataList[6];
-            newData["Категорія"] = dataList[7];
-            newData["Спеціалізація"] = dataList[8];
-
-            cleanedUrlStr += "Викладачі/" + QString::number(ui->tableWidget->model()->rowCount());
-            break;
-        case TableType::Grades:
-            newData["Предмет"] = dataList[1];
-            newData["Отримувач"] = dataList[2];
-            newData["Оцінка"] = dataList[3];
-            newData["Тип оцінки"] = dataList[4];
-            newData["Дата отримання"] = dataList[5];
-
-            cleanedUrlStr += "Оцінки/" + QString::number(ui->tableWidget->model()->rowCount());
-            break;
-        case TableType::Groups:
-            newData["Назва"] = dataList[1];
-            newData["Спеціальність"] = dataList[2];
-            newData["Рік початку навчання"] = dataList[3];
-            newData["Рік закінчення навчання"] = dataList[4];
-            newData["Куратор"] = dataList[5];
-            newData["Староста"] = dataList[6];
-
-            cleanedUrlStr += "Групи/" + QString::number(ui->tableWidget->model()->rowCount());
-            break;
-        case TableType::Subjects:
-            newData["Назва"] = dataList[1];
-            newData["Тип"] = dataList[2];
-            newData["Викладач"] = dataList[3];
-            newData["Всього годин"] = dataList[4];
-            newData["Кількість лекційних годин"] = dataList[5];
-            newData["Кількість лабораторних годин"] = dataList[6];
-            newData["Кількість семінарних годин"] = dataList[7];
-            newData["Кількість годин на самостійні роботи"] = dataList[8];
-            newData["Семестр в якому вивчається"] = dataList[9];
-            newData["Семестровий контроль"] = dataList[10];
-
-            cleanedUrlStr += "Предмети/" + QString::number(ui->tableWidget->model()->rowCount());
-            break;
-        case TableType::None:
-            break;
-        }
-
-        QJsonDocument jsonDoc = QJsonDocument::fromVariant(newData);
-        emit sendDataToDatabase(cleanedUrlStr, jsonDoc);
-
-    } else {
-        QString queryEdit = "UPDATE ";
-
-        switch (currentSelectTable) {
-        case TableType::Students:
-            queryEdit += "`Студенти`";
-            break;
-        case TableType::Teachers:
-            queryEdit += "`Викладачі` ";
-            break;
-        case TableType::Grades:
-            queryEdit += "`Оцінки`";
-            break;
-        case TableType::Groups:
-            queryEdit += "`Групи`";
-            break;
-        case TableType::Subjects:
-            queryEdit += "`Предмети`";
-            break;
-        case None:
-            break;
-        }
-        queryEdit += " \nSET";
-
-        for (int i = 1; i < model->columnCount(); ++i) {
-            queryEdit += "`" + model->headerData(i, Qt::Horizontal).toString() + "` = '"
-                         + dataList[i];
-
-            if (i not_eq model->columnCount() - 1) {
-                queryEdit += "', \n";
-            } else {
-                queryEdit += "'";
+        for (int row = 0; row < rowCount; ++row) {
+            QTableWidgetItem *item = ui->tableWidget->item(row, 0);
+            if (item) {
+                int value = item->text().toInt();
+                if (value > maxValue) {
+                    maxValue = value;
+                }
             }
         }
-
-        queryEdit += "\nWHERE `Код` = '" + dataList[0] + "'";
-
-        QSqlQueryModel *sqlModel = new QSqlQueryModel();
-        sqlModel->setQuery(queryEdit);
-        model->select();
+        id = maxValue + 1;
+        dataList[0] = QString::number(id);
+    } else {
+        id = dataList[0].toInt();
     }
+
+    QVariantMap newData;
+
+    switch (currentSelectTable) {
+    case TableType::Students:
+        newData["Код"] = dataList[0];
+        newData["Прізвище"] = dataList[1];
+        newData["Ім'я"] = dataList[2];
+        newData["По батькові"] = dataList[3];
+        newData["Дата народження"] = dataList[4];
+        newData["Адреса проживання"] = dataList[5];
+        newData["Номер телефона"] = dataList[6];
+        newData["Номер паспорту"] = dataList[7];
+        newData["Група"] = dataList[8];
+        newData["ІНН"] = dataList[9];
+
+        cleanedUrlStr += "Студенти/" + QString::number(id);
+        break;
+    case TableType::Teachers:
+        newData["Код"] = dataList[0];
+        newData["Прізвище"] = dataList[1];
+        newData["Ім'я"] = dataList[2];
+        newData["По батькові"] = dataList[3];
+        newData["Номер телефона"] = dataList[4];
+        newData["Дата народження"] = dataList[5];
+        newData["Адреса проживання"] = dataList[6];
+        newData["Категорія"] = dataList[7];
+        newData["Спеціалізація"] = dataList[8];
+
+        cleanedUrlStr += "Викладачі/" + QString::number(id);
+        break;
+    case TableType::Grades:
+        newData["Код"] = dataList[0];
+        newData["Предмет"] = dataList[1];
+        newData["Отримувач"] = dataList[2];
+        newData["Оцінка"] = dataList[3];
+        newData["Тип оцінки"] = dataList[4];
+        newData["Дата отримання"] = dataList[5];
+
+        cleanedUrlStr += "Оцінки/" + QString::number(id);
+        break;
+    case TableType::Groups:
+        newData["Код"] = dataList[0];
+        newData["Назва"] = dataList[1];
+        newData["Спеціальність"] = dataList[2];
+        newData["Рік початку навчання"] = dataList[3];
+        newData["Рік закінчення навчання"] = dataList[4];
+        newData["Куратор"] = dataList[5];
+        newData["Староста"] = dataList[6];
+
+        cleanedUrlStr += "Групи/" + QString::number(id);
+        break;
+    case TableType::Subjects:
+        newData["Код"] = dataList[0];
+        newData["Назва"] = dataList[1];
+        newData["Тип"] = dataList[2];
+        newData["Викладач"] = dataList[3];
+        newData["Всього годин"] = dataList[4];
+        newData["Кількість лекційних годин"] = dataList[5];
+        newData["Кількість лабораторних годин"] = dataList[6];
+        newData["Кількість семінарних годин"] = dataList[7];
+        newData["Кількість годин на самостійні роботи"] = dataList[8];
+        newData["Семестр в якому вивчається"] = dataList[9];
+        newData["Семестровий контроль"] = dataList[10];
+
+        cleanedUrlStr += "Предмети/" + QString::number(id);
+        break;
+    case TableType::None:
+        break;
+    }
+
+    QJsonDocument jsonDoc = QJsonDocument::fromVariant(newData);
+    emit sendDataToDatabase(cleanedUrlStr, jsonDoc);
 }
 
 void MainWindow::setQueryForTable(QString query)
@@ -1358,25 +1355,47 @@ QStringList MainWindow::getCurrentItemTable()
     case TableType::Teachers:
         for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
             str << QString::number(i + 1) + ". "
-                       + ui->tableWidget->model()->data(model->index(i, 1)).toString() + " "
-                       + ui->tableWidget->model()->data(model->index(i, 2)).toString() + " "
-                       + ui->tableWidget->model()->data(model->index(i, 3)).toString();
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 1))
+                             .toString()
+                       + " "
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 2))
+                             .toString()
+                       + " "
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 3))
+                             .toString();
         }
         break;
     case TableType::Grades:
         for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
             str << QString::number(i + 1) + ". "
-                       + ui->tableWidget->model()->data(model->index(i, 2)).toString() + " - "
-                       + ui->tableWidget->model()->data(model->index(i, 1)).toString() + ", "
-                       + ui->tableWidget->model()->data(model->index(i, 4)).toString() + " ("
-                       + ui->tableWidget->model()->data(model->index(i, 3)).toString() + ")";
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 2))
+                             .toString()
+                       + " - "
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 1))
+                             .toString()
+                       + ", "
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 4))
+                             .toString()
+                       + " ("
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 3))
+                             .toString()
+                       + ")";
         }
         break;
     case TableType::Groups:
     case TableType::Subjects:
         for (int i = 0; i < ui->tableWidget->model()->rowCount(); ++i) {
             str << QString::number(i + 1) + ". "
-                       + ui->tableWidget->model()->data(model->index(i, 1)).toString();
+                       + ui->tableWidget->model()
+                             ->data(ui->tableWidget->model()->index(i, 1))
+                             .toString();
         }
         break;
     case None:
@@ -1386,12 +1405,14 @@ QStringList MainWindow::getCurrentItemTable()
     return str;
 }
 
-QStringList MainWindow::getRowData(const int &row)
+QStringList MainWindow::getRowData(const int row)
 {
     QStringList listData;
 
-    for (int j = 0; j < model->columnCount(); ++j) {
-        listData << model->data(model->index(row - 1, j)).toString();
+    for (int j = 0; j < ui->tableWidget->model()->columnCount(); ++j) {
+        listData << ui->tableWidget->model()
+                        ->data(ui->tableWidget->model()->index(row - 1, j))
+                        .toString();
     }
 
     return listData;
@@ -1400,27 +1421,42 @@ QStringList MainWindow::getRowData(const int &row)
 QStringList MainWindow::getStudentsNames()
 {
     QStringList studentList;
-    QSqlQueryModel *virualQueryModel = new QSqlQueryModel(this);
-    QTableView *virtualTable = new QTableView(this);
+    QEventLoop loop;
 
-    virualQueryModel->setQuery("SELECT `Прізвище`, `Ім'я`, `По батькові`"
-                               "FROM `Студенти`");
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    virtualTable->setModel(virualQueryModel);
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject studentData = value.toObject();
 
-    for (int row = 0; row < virualQueryModel->rowCount(); ++row) {
-        studentList.append(virtualTable->model()->index(row, 0).data().toString() + " "
-                           + virtualTable->model()->index(row, 1).data().toString() + " "
-                           + virtualTable->model()->index(row, 2).data().toString());
-    }
+                if (studentData.contains("Прізвище") && studentData.contains("Ім'я")
+                    && studentData.contains("По батькові")) {
+                    QString fullName = studentData["Прізвище"].toString() + " "
+                                       + studentData["Ім'я"].toString() + " "
+                                       + studentData["По батькові"].toString();
+                    studentList.append(fullName);
+                } else {
+                    qDebug() << "Missing one or more keys in studentData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
 
+    emit requestDataFromDatabase("Студенти");
+    loop.exec();
     return studentList;
 }
 
 QStringList MainWindow::getTeachersNames()
 {
     QStringList teacherList;
-
     QEventLoop loop;
 
     auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {

@@ -77,7 +77,7 @@ void TeacherWindow::setData(QString titleName, QStringList listData)
     ui->nameLineEdit->setText(listData[2]);
     ui->surnameLineEdit->setText(listData[3]);
     ui->numberLineEdit->setText(listData[4]);
-    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
+    ui->birthDayDataEdit->setDate(QDate::fromString(listData[5], "dd.MM.yyyy"));
     ui->addressLineEdit->setText(listData[6]);
 
     ui->categoryComboBox->setCurrentText(listData[7]);

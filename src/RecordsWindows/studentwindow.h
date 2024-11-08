@@ -36,8 +36,8 @@ private:
     int idRowEdit;
 
 public slots:
-    void setData(QString titleName, QStringList listData);
-    void setComboBox(const QStringList groupList);
+    void setData(QString titleName, const QStringList &listData);
+    void setComboBox(const QStringList &groupList);
     void setTheme(const QString style);
     void newRow();
 

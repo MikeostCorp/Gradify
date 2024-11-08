@@ -194,7 +194,7 @@ private slots:
     QMap<QString, QString> getColumnsNamesAndDatatypes(const QString &tableName);
 
     QStringList getCurrentItemTable();
-    QStringList getRowData(const int &row);
+    QStringList getRowData(const int row);
     QStringList getGroupsNames();
     QStringList getGroupsSpecial();
     QStringList getStudentsNames();
@@ -220,7 +220,7 @@ signals:
     void changedGradeTable(const int);
     void setTableForFilter(const QMap<QString, QString>);
     void setDataEditForm(QString, QStringList);
-    void sendGroupsList(QStringList);
+    void sendGroupsList(const QStringList &);
     void sendTeachersList(QStringList);
     void sendStudentsList(QStringList);
     void sendCurrentGroup(QString);

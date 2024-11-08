@@ -64,7 +64,7 @@ void StudentWindow::setSystemUI()
     }
 }
 
-void StudentWindow::setData(QString titleName, QStringList listData)
+void StudentWindow::setData(QString titleName, const QStringList &listData)
 {
     isNewRow = false;
 
@@ -78,7 +78,8 @@ void StudentWindow::setData(QString titleName, QStringList listData)
     ui->lastNameLineEdit->setText(listData[1]);
     ui->nameLineEdit->setText(listData[2]);
     ui->surnameLineEdit->setText(listData[3]);
-    ui->birthDayDataEdit->setDate(QDate::fromString(reverseDate(listData[4]), "dd/MM/yyyy"));
+    ui->birthDayDataEdit->setDate(QDate::fromString(listData[4], "dd.MM.yyyy"));
+    qDebug() << listData[4];
     ui->addressLineEdit->setText(listData[5]);
     ui->numberLineEdit->setText(listData[6]);
 
@@ -90,7 +91,7 @@ void StudentWindow::setData(QString titleName, QStringList listData)
     ui->lastNameLineEdit->setFocus();
 }
 
-void StudentWindow::setComboBox(const QStringList groupList)
+void StudentWindow::setComboBox(const QStringList &groupList)
 {
     ui->groupComboBox->clear();
     ui->groupComboBox->addItem("Оберіть групу");
@@ -160,14 +161,15 @@ QValidator *StudentWindow::getValidatorPass()
 QStringList StudentWindow::getCurrentData()
 {
     QStringList dataList;
-
+    qDebug() << idRowEdit;
     dataList << QString::number(idRowEdit);
     dataList << ui->lastNameLineEdit->text();
     dataList << ui->nameLineEdit->text();
     dataList << ui->surnameLineEdit->text();
-    dataList << QString::number(ui->birthDayDataEdit->date().day()) + "."
-                    + QString::number(ui->birthDayDataEdit->date().month()) + "."
-                    + QString::number(ui->birthDayDataEdit->date().year());
+    dataList << QString("%1.%2.%3")
+                    .arg(ui->birthDayDataEdit->date().day(), 2, 10, QChar('0'))
+                    .arg(ui->birthDayDataEdit->date().month(), 2, 10, QChar('0'))
+                    .arg(ui->birthDayDataEdit->date().year());
     dataList << ui->addressLineEdit->text();
     dataList << ui->numberLineEdit->text();
     dataList << ui->passLineEdit->text();
@@ -192,13 +194,13 @@ void StudentWindow::on_saveButton_clicked()
         and ui->nalogLineEdit->text().length() == 9
         and ui->groupComboBox->currentIndex() not_eq 0) {
         if (isNewRow) {
+            emit sendData(getCurrentData(), true);
             ui->okLabel->setText("Запис додано");
             ui->okLabel->setVisible(true);
-            emit sendData(getCurrentData(), true);
         } else {
+            emit sendData(getCurrentData(), false);
             ui->okLabel->setText("Запис збережено");
             ui->okLabel->setVisible(true);
-            emit sendData(getCurrentData(), false);
         }
     } else if (ui->lastNameLineEdit->text().isEmpty()) {
         ui->lastNameLineEdit->setFocus();

@@ -66,7 +66,7 @@ void GradeWindow::setSystemUI()
     }
 }
 
-void GradeWindow::setData(QString titleName, QStringList listData)
+void GradeWindow::setData(QString titleName, const QStringList &listData)
 {
     isNewRow = false;
     setGroupComboBox();
@@ -81,34 +81,50 @@ void GradeWindow::setData(QString titleName, QStringList listData)
     QString cutStr = listData[2];
     QStringList FIOStr;
 
-    QSqlQueryModel *queryModel = new QSqlQueryModel();
-    QTableView *tableView = new QTableView();
-
     FIOStr.append(cutStr.left(cutStr.indexOf(' ')));
     cutStr.remove(0, cutStr.indexOf(' ') + 1);
     FIOStr.append(cutStr.left(cutStr.lastIndexOf(' ')));
     cutStr.remove(0, cutStr.lastIndexOf(' ') + 1);
     FIOStr.append(cutStr);
 
-    QString queryMy = "SELECT `Група`"
-                      "\nFROM `Студенти`"
-                      "\nWHERE `Студенти`.`Прізвище` = '"
-                      + FIOStr[0] + "'" + " AND `Студенти`.`Ім\'я` = '" + FIOStr[1] + "'"
-                      + " AND `Студенти`.`По батькові` = '" + FIOStr[2] + "'";
+    QEventLoop loop;
+    QString groupName;
+    auto handler = connect(dbHandler, &DatabaseHandler::dataReady, this, [&](const QByteArray &data) {
+        qDebug() << "Raw data received:" << data;
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonArray jsonArray = doc.array();
 
-    queryModel->setQuery(queryMy);
-    tableView->setModel(queryModel);
-    ui->groupComboBox->setCurrentText(tableView->model()->index(0, 0).data().toString());
+        for (const QJsonValue &value : jsonArray) {
+            if (value.isObject()) {
+                QJsonObject studentData = value.toObject();
 
+                if (studentData["Прізвище"] == FIOStr[0] && studentData["Ім'я"] == FIOStr[1]
+                    && studentData["По батькові"] == FIOStr[2]) {
+                    groupName = studentData["Група"].toString();
+                } else {
+                    qDebug() << "Missing one or more keys in studentData";
+                }
+            } else {
+                qDebug() << "Value is not an object";
+            }
+        }
+        disconnect(dbHandler, &DatabaseHandler::dataReady, this, nullptr);
+        loop.quit();
+    });
+
+    emit requestDataFromDatabase("Студенти");
+    loop.exec();
+
+    ui->groupComboBox->setCurrentText(groupName);
     ui->whoTakeComboBox->setCurrentText(listData[2]);
     ui->gradeSpinBox->setValue(listData[3].toInt());
     ui->typeGradeComboBox->setCurrentText(listData[4]);
-    ui->takeDateEdit->setDate(QDate::fromString(reverseDate(listData[5]), "dd/MM/yyyy"));
+    ui->takeDateEdit->setDate(QDate::fromString(listData[5], "dd.MM.yyyy"));
 
     ui->okLabel->setVisible(false);
 }
 
-void GradeWindow::setDataStudentComboBox(const QStringList list)
+void GradeWindow::setDataStudentComboBox(const QStringList &list)
 {
     ui->whoTakeComboBox->clear();
     ui->whoTakeComboBox->addItem("Оберіть отримувача");
@@ -116,7 +132,7 @@ void GradeWindow::setDataStudentComboBox(const QStringList list)
     ui->whoTakeComboBox->addItems(list);
 }
 
-void GradeWindow::setDataSubjectComboBox(const QStringList list)
+void GradeWindow::setDataSubjectComboBox(const QStringList &list)
 {
     ui->subjectComboBox->clear();
     ui->subjectComboBox->addItem("Оберіть предмет");
@@ -149,9 +165,6 @@ void GradeWindow::newRow()
     ui->gradeSpinBox->setValue(2);
     ui->typeGradeComboBox->setCurrentIndex(0);
     ui->takeDateEdit->setDate(QDate::currentDate());
-    QString::number(ui->takeDateEdit->date().year()) + "."
-        + QString::number(ui->takeDateEdit->date().month()) + "."
-        + QString::number(ui->takeDateEdit->date().day()) + ".";
 }
 
 void GradeWindow::on_cancelButton_clicked()
@@ -186,9 +199,10 @@ QStringList GradeWindow::getCurrentData()
     dataList << ui->whoTakeComboBox->currentText();
     dataList << QString::number(ui->gradeSpinBox->value());
     dataList << ui->typeGradeComboBox->currentText();
-    dataList << QString::number(ui->takeDateEdit->date().day()) + "."
-                    + QString::number(ui->takeDateEdit->date().month()) + "."
-                    + QString::number(ui->takeDateEdit->date().year());
+    dataList << QString("%1.%2.%3")
+                    .arg(ui->takeDateEdit->date().day(), 2, 10, QChar('0'))
+                    .arg(ui->takeDateEdit->date().month(), 2, 10, QChar('0'))
+                    .arg(ui->takeDateEdit->date().year());
 
     return dataList;
 }
